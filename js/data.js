@@ -1006,108 +1006,288 @@ const IELTS_SPEAKING_TOPICS = [
   }
 ];
 
-// ── 4. GRAMMAR_TOPICS ──────────────────────────────────────
-const GRAMMAR_TOPICS = [
-  {
-    id: 1,
-    title: 'Subject-Verb Agreement',
-    explanation: 'The verb must agree in number with its subject. Singular subjects take singular verbs; plural subjects take plural verbs.',
-    examples: [
-      { wrong: 'The list of items are on the desk.', correct: 'The list of items is on the desk.' },
-      { wrong: 'Each of the students have a book.', correct: 'Each of the students has a book.' },
-      { wrong: 'The news are shocking.', correct: 'The news is shocking.' }
-    ]
-  },
-  {
-    id: 2,
-    title: 'Articles (a, an, the)',
-    explanation: 'Use "a/an" for general references and first mentions. Use "the" for specific references and shared knowledge between speaker and listener.',
-    examples: [
-      { wrong: 'She is a honest person.', correct: 'She is an honest person.' },
-      { wrong: 'I went to the university in 2020. (general)', correct: 'I went to a university in 2020.' },
-      { wrong: 'Sun rises in east.', correct: 'The sun rises in the east.' }
-    ]
-  },
-  {
-    id: 3,
-    title: 'Verb Tenses',
-    explanation: 'Choose the correct tense to match the time frame. Present perfect links past to present; past simple is for completed actions.',
-    examples: [
-      { wrong: 'I have visited Paris last year.', correct: 'I visited Paris last year.' },
-      { wrong: 'She is working here since 2019.', correct: 'She has been working here since 2019.' },
-      { wrong: 'By the time he arrived, I leave.', correct: 'By the time he arrived, I had left.' }
-    ]
-  },
-  {
-    id: 4,
-    title: 'Preposition Collocations',
-    explanation: 'Certain words always pair with specific prepositions. These must be memorised as fixed expressions.',
-    examples: [
-      { wrong: 'She is interested on science.', correct: 'She is interested in science.' },
-      { wrong: 'He depends of his parents.', correct: 'He depends on his parents.' },
-      { wrong: 'They are responsible of the project.', correct: 'They are responsible for the project.' }
-    ]
-  },
-  {
-    id: 5,
-    title: 'Complex Sentences (Relative Clauses)',
-    explanation: 'Use "who" for people, "which" for things, and "that" for both in defining clauses. Non-defining clauses use commas.',
-    examples: [
-      { wrong: 'The man which called you is here.', correct: 'The man who called you is here.' },
-      { wrong: 'My car who is red needs repairs.', correct: 'My car, which is red, needs repairs.' },
-      { wrong: 'The book, that I borrowed, is good.', correct: 'The book that I borrowed is good.' }
-    ]
-  },
-  {
-    id: 6,
-    title: 'Connectors and Transitions',
-    explanation: 'Use appropriate connectors to link ideas. "However" contrasts; "furthermore" adds; "therefore" shows result.',
-    examples: [
-      { wrong: 'He studied hard, moreover he failed.', correct: 'He studied hard; however, he failed.' },
-      { wrong: 'She is talented. But also hardworking.', correct: 'She is talented and, furthermore, hardworking.' },
-      { wrong: 'It rained, so that we stayed home.', correct: 'It rained; therefore, we stayed home.' }
-    ]
-  },
-  {
-    id: 7,
-    title: 'Common PTE Spelling',
-    explanation: 'PTE scores are affected by spelling errors. Pay attention to commonly misspelled academic words.',
-    examples: [
-      { wrong: 'The goverment announced new policies.', correct: 'The government announced new policies.' },
-      { wrong: 'This is a seperate issue.', correct: 'This is a separate issue.' },
-      { wrong: 'The enviroment needs protection.', correct: 'The environment needs protection.' }
-    ]
-  },
-  {
-    id: 8,
-    title: 'Plural and Singular Agreement',
-    explanation: 'Ensure nouns, demonstratives, and quantifiers agree in number. Uncountable nouns never take plural forms.',
-    examples: [
-      { wrong: 'He gave me many advices.', correct: 'He gave me a lot of advice.' },
-      { wrong: 'These informations are useful.', correct: 'This information is useful.' },
-      { wrong: 'She bought new furnitures.', correct: 'She bought new furniture.' }
-    ]
-  },
-  {
-    id: 9,
-    title: 'Passive Voice',
-    explanation: 'Use passive voice when the action is more important than the actor, or when the actor is unknown. Form: be + past participle.',
-    examples: [
-      { wrong: 'The cake was eat by the children.', correct: 'The cake was eaten by the children.' },
-      { wrong: 'The report has been wrote.', correct: 'The report has been written.' },
-      { wrong: 'The window was break during the storm.', correct: 'The window was broken during the storm.' }
-    ]
-  },
-  {
-    id: 10,
-    title: 'Conditional Sentences',
-    explanation: 'First conditional (real future): if + present, will + base. Second conditional (unreal present): if + past, would + base. Third conditional (unreal past): if + past perfect, would have + past participle.',
-    examples: [
-      { wrong: 'If I will see her, I will tell her.', correct: 'If I see her, I will tell her.' },
-      { wrong: 'If I was rich, I will buy a house.', correct: 'If I were rich, I would buy a house.' },
-      { wrong: 'If he had studied, he will have passed.', correct: 'If he had studied, he would have passed.' }
-    ]
-  }
+// ── 4. GRAMMAR_DRILLS ──────────────────────────────────────
+// Interactive grammar exercises extracted from 英语语法新思维 (Zhang Mansheng)
+// Types: 'correct' = pick correct sentence, 'fill' = fill blank, 'error' = spot mistake
+// Groups: art=articles, sent=sentence basics, tense=tenses, nclause=noun/relative clauses,
+//         aclause=adverbial clauses, cond=conditionals, modal=modals, nonf=non-finite
+// Phase mapping: foundation=[art,sent,tense], intensive=[nclause,aclause,cond,modal], simulation=[nonf,mixed]
+
+var GRAMMAR_DRILLS = [
+  // ── ARTICLES (art) ── Foundation phase ──
+  {id:'art-1',group:'art',type:'correct',q:'Which is correct for a general statement?',
+   a:['Education is important for success.','The education is important for success.'],ans:0,
+   exp:'Uncountable nouns in general statements take NO article. "Education" as a concept = no "the".'},
+  {id:'art-2',group:'art',type:'correct',q:'Which is correct for a general statement?',
+   a:['Computers have changed modern life.','The computers have changed modern life.'],ans:0,
+   exp:'Plural nouns in general statements take NO article. "Computers" as a category = no "the".'},
+  {id:'art-3',group:'art',type:'fill',q:'Fill the blank: ___ computer has revolutionized our world. (formal academic style)',
+   a:['A','The','(no article)'],ans:1,
+   exp:'"The + singular noun" can refer to a whole class in formal writing. "The computer" = computers in general.'},
+  {id:'art-4',group:'art',type:'correct',q:'Which is correct?',
+   a:['She is a teacher.','She is teacher.'],ans:0,
+   exp:'Always use "a/an" when stating professions. Never leave a singular countable noun bare after "be".'},
+  {id:'art-5',group:'art',type:'correct',q:'Which is correct for first mention?',
+   a:['I saw a dog on the street. The dog was barking.','I saw the dog on the street. The dog was barking.'],ans:0,
+   exp:'First mention = "a/an". Subsequent mention = "the". The reader now knows which dog you mean.'},
+  {id:'art-6',group:'art',type:'fill',q:'Fill the blank: ___ role of technology in education is significant.',
+   a:['A','The','(no article)'],ans:1,
+   exp:'When a noun has a limiting post-modifier ("of technology"), use "the" before it.'},
+  {id:'art-7',group:'art',type:'correct',q:'Which is correct?',
+   a:['He is in hospital. (He is a patient.)','He is in the hospital. (He is a patient.)'],ans:0,
+   exp:'No article = using institution for its purpose. "in hospital" = being treated. "in the hospital" = in the building.'},
+  {id:'art-8',group:'art',type:'correct',q:'Which is correct for a general statement?',
+   a:['Society turns people into criminals.','The society turns people into criminals.'],ans:0,
+   exp:'Special nouns: nature, society, history, man (humanity), space — NO "the" in generic use.'},
+  {id:'art-9',group:'art',type:'fill',q:'Fill the blank: She is ___ honest person.',
+   a:['a','an'],ans:1,
+   exp:'"An" before vowel SOUNDS, not vowel letters. "Honest" starts with /ɒ/ sound (silent h), so use "an".'},
+  {id:'art-10',group:'art',type:'correct',q:'Which is correct?',
+   a:['I had breakfast at 7am.','I had the breakfast at 7am.'],ans:0,
+   exp:'Routine meals take no article. "Have breakfast/lunch/dinner" = no "the".'},
+  {id:'art-11',group:'art',type:'fill',q:'Fill the blank: I love ___ music. (in general)',
+   a:['a','the','(no article)'],ans:2,
+   exp:'Uncountable nouns referring to something in general = no article. But: "I like the music of this film" (specific).'},
+  {id:'art-12',group:'art',type:'correct',q:'Which is correct?',
+   a:['Throughout history, humans have evolved.','Throughout the history, humans have evolved.'],ans:0,
+   exp:'"History" in general sense = no article. Only use "the" when specific: "the history of China".'},
+
+  // ── SENTENCE BASICS (sent) ── Foundation phase ──
+  {id:'sent-1',group:'sent',type:'correct',q:'Which is a complete, correct English sentence?',
+   a:['It is very important to study English.','Very important to study English.'],ans:0,
+   exp:'Every English sentence must have a subject. Use "It is..." as a formal subject with infinitives.'},
+  {id:'sent-2',group:'sent',type:'correct',q:'Which is correct?',
+   a:['He looks happy.','He looks happily.'],ans:0,
+   exp:'After linking verbs (look, sound, feel, seem, become), use adjectives, NOT adverbs.'},
+  {id:'sent-3',group:'sent',type:'correct',q:'Which is correct?',
+   a:['The music sounds nice.','The music sounds nicely.'],ans:0,
+   exp:'"Sound" is a linking verb here. Linking verb + adjective (nice), NOT adverb (nicely).'},
+  {id:'sent-4',group:'sent',type:'error',q:'Find the error: "The news are very shocking today."',
+   a:['"are" should be "is"','"very" should be removed','No error'],ans:0,
+   exp:'"News" is uncountable — always takes singular verb "is". Same for: information, advice, furniture.'},
+  {id:'sent-5',group:'sent',type:'error',q:'Find the error: "He gave me many advices."',
+   a:['"many" should be "much"','"advices" should be "advice"','Both A and B'],ans:2,
+   exp:'"Advice" is uncountable — no plural form. Use "much advice" or "a lot of advice", never "many advices".'},
+  {id:'sent-6',group:'sent',type:'correct',q:'Which has correct word order?',
+   a:['I like English very much.','English I like very much.'],ans:0,
+   exp:'English follows strict S-V-O order. The subject must come before the verb, and the object after it.'},
+  {id:'sent-7',group:'sent',type:'error',q:'Find the error: "The report has been wrote by the team."',
+   a:['"wrote" should be "written"','"has been" should be "was"','No error'],ans:0,
+   exp:'Passive voice: be + past PARTICIPLE. "Write" past participle is "written", not "wrote" (that is past simple).'},
+  {id:'sent-8',group:'sent',type:'correct',q:'Which is correct?',
+   a:['The list of items is on the desk.','The list of items are on the desk.'],ans:0,
+   exp:'Subject-verb agreement: the subject is "list" (singular), not "items". The verb must be "is".'},
+
+  // ── TENSES (tense) ── Foundation phase ──
+  {id:'tense-1',group:'tense',type:'correct',q:'Which is correct?',
+   a:['I visited Paris last year.','I have visited Paris last year.'],ans:0,
+   exp:'Specific past time markers (last year, yesterday, in 2020) require past simple, NOT present perfect.'},
+  {id:'tense-2',group:'tense',type:'correct',q:'Which is correct for ongoing relevance?',
+   a:['She has been working here since 2019.','She is working here since 2019.'],ans:0,
+   exp:'"Since" indicates a link from past to present — use present perfect (continuous). Not present simple.'},
+  {id:'tense-3',group:'tense',type:'fill',q:'"If I see her, I ___ tell her." Choose the correct form.',
+   a:['will','would','am going to'],ans:0,
+   exp:'First conditional (real future): if + present simple, will + verb. Never use "will" in the if-clause.'},
+  {id:'tense-4',group:'tense',type:'error',q:'Find the error: "If the government will increase taxes, people will protest."',
+   a:['"will increase" should be "increases"','No error','"will protest" should be "protest"'],ans:0,
+   exp:'In if/when/before/after clauses, use present simple for future reference — never "will".'},
+  {id:'tense-5',group:'tense',type:'correct',q:'Which expresses a prediction based on visible evidence?',
+   a:['Look at those clouds! It is going to rain.','Look at those clouds! It will rain.'],ans:0,
+   exp:'"Be going to" for predictions with current evidence. "Will" for general predictions without immediate evidence.'},
+  {id:'tense-6',group:'tense',type:'correct',q:'Which is correct for essay writing about a general truth?',
+   a:['Education plays a vital role in development.','Education played a vital role in development.'],ans:0,
+   exp:'Present simple for general truths and ongoing facts in essays. Past simple only for completed past events.'},
+  {id:'tense-7',group:'tense',type:'fill',q:'"She lived here for three years, but now she lives in Beijing." This means:',
+   a:['She no longer lives here.','She still lives here.','We do not know.'],ans:0,
+   exp:'Past simple + "for X years" = the situation is FINISHED. Present perfect + "for X years" = still continuing.'},
+  {id:'tense-8',group:'tense',type:'correct',q:'Which sounds more polite?',
+   a:['I was wondering if you could help me.','I wonder if you can help me.'],ans:0,
+   exp:'Past tense forms soften requests. "I was wondering" is more polite than "I wonder". Important for PTE Speaking.'},
+  {id:'tense-9',group:'tense',type:'fill',q:'"Please let me know when he ___." (future reference)',
+   a:['comes back','will come back','is coming back'],ans:0,
+   exp:'In time clauses (when/before/after/as soon as), use present simple for future — never "will".'},
+  {id:'tense-10',group:'tense',type:'correct',q:'For PTE essays, which tense pattern is correct?',
+   a:['Studies show that exercise reduces stress.','Studies showed that exercise reduces stress.'],ans:0,
+   exp:'Use present simple when citing research that remains relevant. "Studies show..." for current knowledge.'},
+
+  // ── NOUN & RELATIVE CLAUSES (nclause) ── Intensive phase ──
+  {id:'nc-1',group:'nclause',type:'correct',q:'Which is better for an academic essay?',
+   a:['It is widely acknowledged that technology has transformed education.','That technology has transformed education is widely acknowledged.'],ans:0,
+   exp:'Use "It is + past participle + that..." for impersonal authority. Avoids front-heavy subjects.'},
+  {id:'nc-2',group:'nclause',type:'fill',q:'"It is ___ that governments must address climate change."',
+   a:['clear','believed','Both work'],ans:2,
+   exp:'Both patterns work: "It is + adjective + that..." and "It is + past participle + that..." are useful in essays.'},
+  {id:'nc-3',group:'nclause',type:'correct',q:'Which is correct?',
+   a:['Whether this policy will succeed remains to be seen.','If this policy will succeed remains to be seen.'],ans:0,
+   exp:'"Whether" works in ALL noun clause positions. "If" only works in object clauses. Use "whether" in formal writing.'},
+  {id:'nc-4',group:'nclause',type:'correct',q:'Which uses "what" correctly?',
+   a:['What we need is a comprehensive reform.','That we need is a comprehensive reform.'],ans:0,
+   exp:'"What" = "the thing that". It serves as subject/object inside its clause. "That" is just a connector.'},
+  {id:'nc-5',group:'nclause',type:'error',q:'Find the error: "Students who they study abroad develop independence."',
+   a:['Remove "they"','Change "who" to "which"','No error'],ans:0,
+   exp:'The relative pronoun (who) REPLACES the pronoun. Never double up: "who they" is wrong. Just "who".'},
+  {id:'nc-6',group:'nclause',type:'correct',q:'Which is correct?',
+   a:['The man who called you is here.','The man which called you is here.'],ans:0,
+   exp:'"Who" for people, "which" for things. Never use "which" for people.'},
+  {id:'nc-7',group:'nclause',type:'correct',q:'Which punctuation is correct?',
+   a:['Beijing, which is the capital of China, has grown rapidly.','Beijing, that is the capital of China, has grown rapidly.'],ans:0,
+   exp:'Non-restrictive clauses (with commas) MUST use "which" or "who". "That" can ONLY be used in restrictive clauses.'},
+  {id:'nc-8',group:'nclause',type:'correct',q:'Which can the relative pronoun be omitted?',
+   a:['The book (that) I read was good.','The policy (that) was introduced last year works.'],ans:0,
+   exp:'Object relative pronouns CAN be omitted. Subject relative pronouns CANNOT. In A, "that" is object; in B, it is subject.'},
+  {id:'nc-9',group:'nclause',type:'correct',q:'Which is correct?',
+   a:['Countries whose economies depend on tourism are vulnerable.','Countries which their economies depend on tourism are vulnerable.'],ans:0,
+   exp:'"Whose" shows possession for both people and things. Replaces "their/its" + noun in relative clauses.'},
+  {id:'nc-10',group:'nclause',type:'correct',q:'Which is correct?',
+   a:['Funding was increased, which led to better outcomes.','Funding was increased, that led to better outcomes.'],ans:0,
+   exp:'Non-restrictive "which" can refer to an entire clause. "That" cannot do this. Use comma + "which" for evaluation.'},
+  {id:'nc-11',group:'nclause',type:'fill',q:'"Many experts argue ___ urbanization brings more benefits than drawbacks."',
+   a:['that','what','which'],ans:0,
+   exp:'After reporting verbs (argue, believe, suggest, claim), use "that + clause" as object. "That" is a connector here.'},
+
+  // ── ADVERBIAL CLAUSES & CONNECTORS (aclause) ── Intensive phase ──
+  {id:'ac-1',group:'aclause',type:'error',q:'Find the error: "Although he worked hard, but he failed."',
+   a:['Remove "but"','Remove "Although"','Both could fix it'],ans:2,
+   exp:'NEVER use "although" and "but" together. Chinese "虽然...但是..." pattern does not work in English. Use one or the other.'},
+  {id:'ac-2',group:'aclause',type:'correct',q:'Which is better for an essay introducing a known premise?',
+   a:['Since the population is aging, governments must reform pensions.','Because the population is aging, governments must reform pensions.'],ans:0,
+   exp:'"Since/As" = known fact as premise. "Because" = new, key information. "Since" sounds more academic for premises.'},
+  {id:'ac-3',group:'aclause',type:'correct',q:'Which expresses PURPOSE correctly?',
+   a:['The teacher simplified the lesson so that students could understand.','The lesson was so difficult that students could understand.'],ans:0,
+   exp:'"So that" + modal = purpose (intention). "So + adj + that" = result (consequence). Different patterns!'},
+  {id:'ac-4',group:'aclause',type:'error',q:'Find the error: "Despite the economy is declining, unemployment is low."',
+   a:['"Despite" needs a noun phrase, not a clause','No error','"is declining" should be "declines"'],ans:0,
+   exp:'"Despite/In spite of" + NOUN PHRASE only. For a full clause, use "although". Fix: "Despite the economic decline,..."'},
+  {id:'ac-5',group:'aclause',type:'fill',q:'"The problem has become ___ severe ___ immediate action is required."',
+   a:['so...that','such...that','too...to'],ans:0,
+   exp:'"So + adjective + that" for result clauses. "Such + noun phrase + that" for result with nouns.'},
+  {id:'ac-6',group:'aclause',type:'correct',q:'Which contrasts two ideas correctly?',
+   a:['While developed countries have aging populations, developing nations face youth unemployment.','While developed countries have aging populations, but developing nations face youth unemployment.'],ans:0,
+   exp:'"While/Whereas" already provides the contrast — no need for "but". Same rule as although: never double up.'},
+  {id:'ac-7',group:'aclause',type:'correct',q:'Which is more formal for stating a condition?',
+   a:['Technology can help, provided that teachers receive training.','Technology can help if teachers receive training.'],ans:0,
+   exp:'"Provided that / as long as / on condition that" are formal alternatives to "if". Shows wider grammar range.'},
+  {id:'ac-8',group:'aclause',type:'fill',q:'"It was ___ a significant discovery ___ it changed the field."',
+   a:['so...that','such...that'],ans:1,
+   exp:'"Such + (a/an) + noun phrase + that" — "such" modifies noun phrases. "So" modifies adjectives/adverbs only.'},
+  {id:'ac-9',group:'aclause',type:'correct',q:'Which is grammatically correct?',
+   a:['In spite of significant investment, outcomes have not improved.','In spite of they invested significantly, outcomes have not improved.'],ans:0,
+   exp:'"In spite of" takes a noun phrase, not a clause. Use "Although they invested significantly,..." for the clause version.'},
+  {id:'ac-10',group:'aclause',type:'correct',q:'Which expresses reason correctly?',
+   a:['The project failed because of poor planning.','The project failed because of the planning was poor.'],ans:0,
+   exp:'"Because of" + noun phrase. "Because" + clause. Never mix them: "because of + clause" is wrong.'},
+
+  // ── CONDITIONALS & SUBJUNCTIVE (cond) ── Intensive late ──
+  {id:'cond-1',group:'cond',type:'correct',q:'Which second conditional (unreal present) is correct?',
+   a:['If I were rich, I would buy a house.','If I was rich, I will buy a house.'],ans:0,
+   exp:'Second conditional: if + past simple (always "were" for all persons), would + base verb. Never "will" in main clause.'},
+  {id:'cond-2',group:'cond',type:'correct',q:'Which third conditional (unreal past) is correct?',
+   a:['If he had studied, he would have passed.','If he had studied, he will have passed.'],ans:0,
+   exp:'Third conditional: if + past perfect, would have + past participle. Expresses regret about unchangeable past.'},
+  {id:'cond-3',group:'cond',type:'fill',q:'"It is essential that every student ___ this course." (formal subjunctive)',
+   a:['takes','take','will take'],ans:1,
+   exp:'Formal subjunctive after suggest/recommend/essential/important: use BASE VERB (no -s, no "should"). "...that every student take..."'},
+  {id:'cond-4',group:'cond',type:'correct',q:'Which expresses a wish about the present?',
+   a:['I wish I were taller.','I wish I am taller.'],ans:0,
+   exp:'"I wish" + past simple for present unreal wishes. Use "were" for all persons (not "was").'},
+  {id:'cond-5',group:'cond',type:'correct',q:'Which expresses regret about the past?',
+   a:['I wish I had studied harder.','I wish I studied harder.'],ans:0,
+   exp:'"I wish" + past perfect for past regret. "I wish I had done X" = I did not do X, and I regret it.'},
+  {id:'cond-6',group:'cond',type:'fill',q:'Complete: It is high time that we ___ action on climate change.',
+   a:['take','took','will take'],ans:1,
+   exp:'"It is (high) time that + past tense." This carries urgency: "we should have done this already."'},
+  {id:'cond-7',group:'cond',type:'correct',q:'Which mixed conditional is correct?',
+   a:['If I had taken that job, I would be living in London now.','If I had taken that job, I would have been living in London now.'],ans:0,
+   exp:'Mixed conditional: if + past perfect (past cause), would + base verb (present result). Past decision → current situation.'},
+  {id:'cond-8',group:'cond',type:'error',q:'Find the error: "If I will see her tomorrow, I will tell her."',
+   a:['"will see" should be "see"','No error','"will tell" should be "tell"'],ans:0,
+   exp:'First conditional: if + PRESENT simple, will + verb. Never put "will" in the if-clause.'},
+  {id:'cond-9',group:'cond',type:'fill',q:'"The committee recommended that the policy ___ reviewed." (formal)',
+   a:['is','be','was'],ans:1,
+   exp:'After recommend/suggest/insist, formal subjunctive uses base verb. "...that the policy be reviewed."'},
+
+  // ── MODAL VERBS (modal) ── Intensive late / Simulation ──
+  {id:'mod-1',group:'modal',type:'fill',q:'"He ___ be at home — his car is in the driveway." (high certainty)',
+   a:['must','might','could'],ans:0,
+   exp:'Certainty scale: must (~90%) > may (~50%) > might/could (~25%). Evidence of car = high certainty = "must".'},
+  {id:'mod-2',group:'modal',type:'correct',q:'Which is correct?',
+   a:['You must not park here. (It is forbidden.)','You do not have to park here. (It is forbidden.)'],ans:0,
+   exp:'"Must not" = forbidden/prohibited. "Do not have to" = not necessary/optional. Very different meanings!'},
+  {id:'mod-3',group:'modal',type:'correct',q:'Which is better hedging language for an essay?',
+   a:['Technology may lead to job losses in certain sectors.','Technology will lead to job losses in certain sectors.'],ans:0,
+   exp:'Academic hedging: use may/might/could instead of will/must for claims that are not 100% certain. Shows nuance.'},
+  {id:'mod-4',group:'modal',type:'fill',q:'"She ___ speak three languages." (ability)',
+   a:['can','may','must'],ans:0,
+   exp:'"Can" for ability/potential. "May" for permission or possibility. "Must" for obligation or strong deduction.'},
+  {id:'mod-5',group:'modal',type:'correct',q:'Which expresses past speculation correctly?',
+   a:['He must have forgotten the meeting.','He must forgot the meeting.'],ans:0,
+   exp:'Modal + have + past participle for past speculation. "Must have forgotten" = I am quite sure he forgot.'},
+  {id:'mod-6',group:'modal',type:'correct',q:'Which is more polite?',
+   a:['Would you mind helping me with this?','Can you help me with this?'],ans:0,
+   exp:'Politeness scale: Can < Could < Would you mind. Use "would/could" for polite requests in PTE Speaking.'},
+  {id:'mod-7',group:'modal',type:'fill',q:'"Governments ___ invest more in renewable energy." (recommendation)',
+   a:['should','must','can'],ans:0,
+   exp:'"Should/ought to" for advice/recommendation. "Must" is too forceful for essay recommendations.'},
+  {id:'mod-8',group:'modal',type:'correct',q:'Which is correct for essay hedging?',
+   a:['This trend could potentially continue for decades.','This trend can potentially continue for decades.'],ans:0,
+   exp:'"Could" for specific speculation about actual events. "Can" for theoretical/general possibility only.'},
+
+  // ── NON-FINITE & ADVANCED PATTERNS (nonf) ── Simulation phase ──
+  {id:'nf-1',group:'nonf',type:'correct',q:'Which is more concise and academic?',
+   a:['People living in urban areas have better access to healthcare.','People who live in urban areas have better access to healthcare.'],ans:0,
+   exp:'Shorten relative clauses with participles: "who live" → "living". Saves words and sounds more formal.'},
+  {id:'nf-2',group:'nonf',type:'correct',q:'Which is more concise?',
+   a:['The policies implemented by the government reduced unemployment.','The policies which were implemented by the government reduced unemployment.'],ans:0,
+   exp:'Past participle replaces "which were + past participle". "Implemented" = "which were implemented". More concise.'},
+  {id:'nf-3',group:'nonf',type:'correct',q:'Which is the correct gerund construction?',
+   a:['Investing in education is essential for growth.','Invest in education is essential for growth.'],ans:0,
+   exp:'Gerund (V-ing) as subject: "Investing in..." = strong academic topic sentence. Bare infinitive cannot be subject.'},
+  {id:'nf-4',group:'nonf',type:'error',q:'Find the error: "She suggested to implement stricter laws."',
+   a:['"to implement" should be "implementing"','No error','"stricter" should be "more strict"'],ans:0,
+   exp:'"Suggest" takes a gerund: "suggest doing". NOT "suggest to do". Same for: consider, recommend, avoid, enjoy.'},
+  {id:'nf-5',group:'nonf',type:'correct',q:'Which is better academic style?',
+   a:['By investing in public transport, cities can reduce air pollution.','If cities invest in public transport, they can reduce air pollution.'],ans:0,
+   exp:'"By + gerund" efficiently expresses method/means. Creates sentence variety and sounds more academic.'},
+  {id:'nf-6',group:'nonf',type:'correct',q:'Which uses participle modifiers correctly?',
+   a:['The growing concern over climate change has prompted action.','The concern which is growing over climate change has prompted action.'],ans:0,
+   exp:'Present participle pre-modifiers: "growing concern" = concise. Common pairs: increasing numbers, rising costs, declining standards.'},
+  {id:'nf-7',group:'nonf',type:'correct',q:'Which is more concise?',
+   a:['When compared with traditional methods, online learning offers flexibility.','When it is compared with traditional methods, online learning offers flexibility.'],ans:0,
+   exp:'Shortened adverbial clause: remove subject + "be". "When compared" = "When it is compared". Common in academic writing.'},
+  {id:'nf-8',group:'nonf',type:'correct',q:'Which expresses result elegantly?',
+   a:['The government introduced incentives, encouraging businesses to invest.','The government introduced incentives and this encouraged businesses to invest.'],ans:0,
+   exp:'Present participle at end of sentence for result: "..., V-ing..." Replaces "and this V-ed" — more sophisticated.'},
+  {id:'nf-9',group:'nonf',type:'fill',q:'"In order ___ reduce emissions, governments must act now."',
+   a:['to','for','of'],ans:0,
+   exp:'"In order to + verb" for formal purpose. More precise than just "to". Place at start for sentence variety.'},
+  {id:'nf-10',group:'nonf',type:'correct',q:'Which correctly transforms to a non-finite structure?',
+   a:['Faced with an ageing population, governments are reforming pensions.','Facing with an ageing population, governments are reforming pensions.'],ans:0,
+   exp:'"Faced with" (past participle) = "Being faced with" = passive. The government IS faced with the problem, not facing with.'},
+  {id:'nf-11',group:'nonf',type:'correct',q:'Which uses "instead of + gerund" correctly?',
+   a:['Instead of relying on exams, schools should use continuous assessment.','Instead of to rely on exams, schools should use continuous assessment.'],ans:0,
+   exp:'After prepositions (instead of, in addition to, by, without), always use gerund (V-ing), never infinitive.'},
+  {id:'nf-12',group:'nonf',type:'correct',q:'Which is a correct sentence transformation?',
+   a:['Reducing carbon emissions requires global cooperation.','That we reduce carbon emissions requires global cooperation.'],ans:0,
+   exp:'Gerund phrases replace noun clauses for conciseness: "Reducing X" instead of "That we reduce X". Saves words.'}
+];
+
+// Phase-to-group mapping for daily grammar drill assignment
+var GRAMMAR_GROUP_MAP = {
+  foundation: ['art','sent','tense'],
+  intensive: ['nclause','aclause','cond','modal'],
+  simulation: ['nonf','nclause','aclause','cond','modal'],
+  taper: ['art','sent','tense','nclause','aclause','cond','modal','nonf']
+};
+
+// Legacy compatibility: old GRAMMAR_TOPICS format (referenced by grammarFocus)
+var GRAMMAR_TOPICS = [
+  { id:1, title:'Subject-Verb Agreement', explanation:'The verb must agree with its subject. Singular subjects take singular verbs.', examples:[{wrong:'The list of items are on the desk.',correct:'The list of items is on the desk.'},{wrong:'Each of the students have a book.',correct:'Each of the students has a book.'}] },
+  { id:2, title:'Articles', explanation:'No article for generic uncountable/plural nouns. "The" for specific references.', examples:[{wrong:'The education is important.',correct:'Education is important.'},{wrong:'She is teacher.',correct:'She is a teacher.'}] },
+  { id:3, title:'Tense Consistency', explanation:'Present simple for general claims; past simple for completed events. Never mix randomly.', examples:[{wrong:'I have visited Paris last year.',correct:'I visited Paris last year.'},{wrong:'If I will see her, I tell her.',correct:'If I see her, I will tell her.'}] },
+  { id:4, title:'Complex Sentences', explanation:'Use who/which/that for relative clauses. Non-restrictive (commas) must use which/who, never that.', examples:[{wrong:'Beijing, that is the capital, has grown.',correct:'Beijing, which is the capital, has grown.'},{wrong:'Students who they study abroad...',correct:'Students who study abroad...'}] },
+  { id:5, title:'Connectors', explanation:'Although/but never together. Despite + noun phrase, not clause. Since/as for known premises.', examples:[{wrong:'Although it rained, but we went.',correct:'Although it rained, we went.'},{wrong:'Despite it rained, we went.',correct:'Despite the rain, we went.'}] },
+  { id:6, title:'Conditionals', explanation:'1st: if+present, will+verb. 2nd: if+past, would+verb. 3rd: if+past perfect, would have+pp.', examples:[{wrong:'If I was rich, I will buy it.',correct:'If I were rich, I would buy it.'},{wrong:'If he had studied, he will passed.',correct:'If he had studied, he would have passed.'}] },
+  { id:7, title:'Non-finite Patterns', explanation:'Shorten clauses with participles. Gerund after prepositions. "Suggest doing" not "suggest to do".', examples:[{wrong:'She suggested to implement laws.',correct:'She suggested implementing laws.'},{wrong:'Instead of to rely on exams...',correct:'Instead of relying on exams...'}] }
 ];
 
 // ── 5. SCAFFOLD_INSTRUCTIONS ──────────────────────────────
@@ -1975,7 +2155,7 @@ function generateDayPlan(dayNum) {
     });
   }
 
-  // ── Grammar Focus ──
+  // ── Grammar Focus (legacy) ──
   var grammarFocus = null;
   var grammarIdx = GRAMMAR_DAYS.indexOf(dayNum);
   if (grammarIdx !== -1) {
@@ -1985,6 +2165,27 @@ function generateDayPlan(dayNum) {
       detail: grammarFocus.explanation + ' Review the examples and find 3 similar errors in your own recent writing.',
       time: 10
     });
+  }
+
+  // ── Daily Grammar Drills (interactive, from grammar book) ──
+  var todayGrammarDrills = [];
+  if (phase !== 'exam') {
+    var groups = GRAMMAR_GROUP_MAP[phase] || GRAMMAR_GROUP_MAP.taper;
+    var drillsPerDay = (phase === 'foundation') ? 3 : (phase === 'simulation' ? 5 : 4);
+    // Filter drills by phase-appropriate groups
+    var poolDrills = [];
+    for (var gi = 0; gi < GRAMMAR_DRILLS.length; gi++) {
+      if (groups.indexOf(GRAMMAR_DRILLS[gi].group) !== -1) {
+        poolDrills.push(GRAMMAR_DRILLS[gi]);
+      }
+    }
+    // Rotate through the pool based on day number
+    if (poolDrills.length > 0) {
+      var gdStart = ((dayNum - 1) * drillsPerDay) % poolDrills.length;
+      for (var gdi = 0; gdi < drillsPerDay; gdi++) {
+        todayGrammarDrills.push(poolDrills[(gdStart + gdi) % poolDrills.length]);
+      }
+    }
   }
 
   return {
@@ -2010,7 +2211,7 @@ function generateDayPlan(dayNum) {
     essayTopic: essayTopic,
     swtCount: swtCount,
     grammarFocus: grammarFocus,
-    // New enrichment fields
+    grammarDrills: todayGrammarDrills,
     rsSentences: todayRS,
     wfdSentences: todayWFD,
     pteTemplates: PTE_TEMPLATES
