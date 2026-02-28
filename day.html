@@ -126,7 +126,7 @@ function renderTaskList(tasks) {
       +   '<strong>' + t.label + '</strong>'
       +   '<span class="badge badge--' + catClass + '">' + t.cat + '</span>'
       +   (t.time ? '<span class="task__meta">' + t.time + ' min</span>' : '')
-      +   '<div style="color:var(--muted);font-size:0.8125rem;margin-top:0.25rem;">' + t.detail + '</div>'
+      +   '<div style="color:var(--muted);font-size:0.8125rem;margin-top:0.25rem;white-space:pre-line;">' + (t.detail || '').replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</div>'
       + '</div>'
       + '</li>';
   });
@@ -162,6 +162,29 @@ function renderWritingScaffolding() {
       + '<p style="font-weight:600;margin-bottom:0.75rem;font-size:1.0625rem;">' + plan.essayTopic.topic + '</p>'
       + '<span class="badge badge--writing">' + plan.essayTopic.category + '</span>';
 
+    // Show argument hints from prediction bank
+    if (plan.essayTopic.hints) {
+      html += '<div class="writing-callout" style="margin-top:0.75rem;">'
+        + '<div class="writing-callout__title">Argument Ideas (from prediction bank)</div>';
+      var hKeys = Object.keys(plan.essayTopic.hints);
+      hKeys.forEach(function(hk) {
+        html += '<p style="font-size:0.875rem;margin:0.25rem 0;"><strong>' + hk.charAt(0).toUpperCase() + hk.slice(1) + ':</strong> '
+          + plan.essayTopic.hints[hk].join(' | ') + '</p>';
+      });
+      html += '</div>';
+    }
+
+    // Show 151-word template in full scaffold
+    if (plan.scaffold === 'full' && PTE_TEMPLATES && PTE_TEMPLATES.essay151) {
+      html += '<div class="writing-callout" style="margin-top:0.75rem;">'
+        + '<div class="writing-callout__title">151-Word Fill-In Template</div>'
+        + '<div style="font-size:0.8125rem;white-space:pre-line;font-family:monospace;background:var(--surface);padding:0.75rem;border-radius:0.5rem;">'
+        + PTE_TEMPLATES.essay151.para1 + '\n\n' + PTE_TEMPLATES.essay151.para2 + '\n\n' + PTE_TEMPLATES.essay151.para3 + '\n\n' + PTE_TEMPLATES.essay151.para4
+        + '</div>'
+        + '<p style="font-size:0.75rem;color:var(--muted);margin-top:0.5rem;">' + PTE_TEMPLATES.essay151.tips + '</p>'
+        + '</div>';
+    }
+
     // Show IBBE template
     var sections = ['intro','body1','body2','conclusion'];
     var sectionLabels = ['Introduction','Body Paragraph 1','Body Paragraph 2','Conclusion'];
@@ -191,13 +214,24 @@ function renderWritingScaffolding() {
       + '<textarea rows="10" placeholder="Write your essay here... (200-300 words)" data-essay="' + dayNum + '"></textarea>';
 
     html += '</div>';
-  } else if (plan.essayTopic && plan.scaffold === 'minimal') {
-    // Minimal scaffold: just topic + self-assessment
+  } else if (plan.essayTopic && (plan.scaffold === 'minimal' || plan.scaffold === 'none')) {
+    // Minimal/None scaffold: topic + hints + self-assessment
     html += '<div class="writing-area">'
-      + '<h4 class="writing-area__heading">Essay Topic</h4>'
+      + '<h4 class="writing-area__heading">Essay Topic' + (plan.essayTopic.ref ? ' <span style="font-size:0.75rem;color:var(--muted);">' + plan.essayTopic.ref + '</span>' : '') + '</h4>'
       + '<p style="font-weight:600;margin-bottom:0.75rem;">' + plan.essayTopic.topic + '</p>'
-      + '<span class="badge badge--writing">' + plan.essayTopic.category + '</span>'
-      + '<div class="writing-callout" style="margin-top:0.75rem;">'
+      + '<span class="badge badge--writing">' + plan.essayTopic.category + '</span>';
+    // Show argument hints
+    if (plan.essayTopic.hints) {
+      html += '<div class="writing-callout" style="margin-top:0.75rem;border-left-color:var(--writing);">'
+        + '<div class="writing-callout__title">Argument Ideas</div>';
+      var mhKeys = Object.keys(plan.essayTopic.hints);
+      mhKeys.forEach(function(mhk) {
+        html += '<p style="font-size:0.875rem;margin:0.25rem 0;"><strong>' + mhk.charAt(0).toUpperCase() + mhk.slice(1) + ':</strong> '
+          + plan.essayTopic.hints[mhk].join(' | ') + '</p>';
+      });
+      html += '</div>';
+    }
+    html += '<div class="writing-callout" style="margin-top:0.75rem;">'
       + '<div class="writing-callout__title">Self-Assessment Checklist</div>'
       + '<ul style="list-style:none;padding:0;font-size:0.875rem;">'
       + '<li>Content: Does my essay address the topic directly?</li>'

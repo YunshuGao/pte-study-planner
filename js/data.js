@@ -17,26 +17,67 @@ const PHASES = {
 
 // ── 2. ESSAY_TOPICS ────────────────────────────────────────
 const ESSAY_TOPICS = [
-  { id: 1,  topic: 'Education is the most important factor in the development of a country. Do you agree?', category: 'Education' },
-  { id: 2,  topic: 'Technology has made our lives too complex. Do you agree or disagree?', category: 'Technology' },
-  { id: 3,  topic: 'Climate change is the greatest threat facing humanity today. Discuss both sides.', category: 'Environment' },
-  { id: 4,  topic: 'What are the advantages and disadvantages of working from home?', category: 'Society' },
-  { id: 5,  topic: 'Governments should spend more on public health than on space exploration. Discuss.', category: 'Health' },
-  { id: 6,  topic: 'Television has a greater influence on people than the Internet. Do you agree?', category: 'Technology' },
-  { id: 7,  topic: 'University education should be free for all students. Discuss both views.', category: 'Education' },
-  { id: 8,  topic: 'Animals should not be used for medical research. Do you agree?', category: 'Science' },
-  { id: 9,  topic: 'Computers will soon replace teachers in the classroom. Do you agree?', category: 'Education' },
-  { id: 10, topic: 'International tourism has the potential to be harmful. Discuss.', category: 'Society' },
-  { id: 11, topic: 'In a cashless society, convenience outweighs the drawbacks. Discuss.', category: 'Technology' },
-  { id: 12, topic: 'Parents should be legally responsible for their children\'s actions. Discuss.', category: 'Society' },
-  { id: 13, topic: 'Social media does more harm than good. Discuss both views.', category: 'Technology' },
-  { id: 14, topic: 'Globalisation has made the world a better place. Do you agree?', category: 'Society' },
-  { id: 15, topic: 'Governments should impose a tax on junk food. Discuss.', category: 'Health' },
-  { id: 16, topic: 'Learning a foreign language should be compulsory in schools. Discuss.', category: 'Education' },
-  { id: 17, topic: 'The arts receive too little government funding. Do you agree?', category: 'Society' },
-  { id: 18, topic: 'Space exploration is a waste of money when there are problems on Earth. Discuss.', category: 'Science' },
-  { id: 19, topic: 'Traditional customs are being replaced by modern ones. Is this positive or negative?', category: 'Society' },
-  { id: 20, topic: 'The rise of remote work will fundamentally change city planning. Discuss.', category: 'Technology' }
+  // Real PTE prediction topics from 萤火虫 v8.06 Essay Bank
+  { id: 1, ref: '#101001', topic: 'It is argued that getting married before finishing school or getting a job is foolish. To what extent do you agree or disagree?', category: 'Society',
+    hints: { agree: ['negative impact on academic performance', 'financial burden', 'higher divorce rate'], disagree: ['stronger sense of responsibility', 'better coping with stress', 'mental health benefits'] } },
+  { id: 2, ref: '#101002', topic: 'Some people think their success and accomplishments were influenced by the places where they grew up. Do you think the environment does or does not affect people\'s accomplishments?', category: 'Society',
+    hints: { yes: ['adequate capital resources', 'sufficient educational resources', 'social networks and connections'], no: ['individual efforts overcome barriers', 'personality traits are innate', 'globalisation overcomes geographical barriers'] } },
+  { id: 3, ref: '#101003', topic: 'Some people think human behaviors can be limited by laws, others think laws have little effect. What is your opinion?', category: 'Law',
+    hints: { canLimit: ['severe punishments deter crime', 'laws shape values and ethics', 'people assume social responsibilities'], cannotLimit: ['people exploit loopholes', 'laws lack enforcement', 'crime rates remain high'] } },
+  { id: 4, ref: '#101004', topic: 'In some companies, employers involve employees in the decision-making process of products and services. What are the advantages and disadvantages?', category: 'Business',
+    hints: { advantages: ['increased employee loyalty', 'better business performance', 'meeting client demands'], disadvantages: ['conflicts between staff and management', 'decreased working efficiency', 'complex negotiation procedures'] } },
+  { id: 5, ref: '#101005', topic: 'The formal written examination can be a valid method to assess students\' learning. To what extent do you agree or disagree?', category: 'Education',
+    hints: { agree: ['clear measurement of knowledge mastery', 'removal of subjectivity in grading', 'comprehensive understanding of learning outcomes'], disagree: ['cannot assess practical ability', 'distorted results under pressure', 'neglects the learning process'] } },
+  { id: 6, ref: '#101006', topic: 'The value of travel has been overrated. Do you think travel is a necessary component of a quality education?', category: 'Education',
+    hints: { necessary: ['new approaches to academic research', 'effective language acquisition', 'deeper understanding of knowledge'], notNecessary: ['heavy financial burdens', 'reduced learning efficiency', 'online learning can substitute'] } },
+  { id: 7, ref: '#101007', topic: 'For a less developed country, the disadvantages of tourism are as great as the advantages. Please discuss.', category: 'Tourism',
+    hints: { advantages: ['generates employment', 'boosts consumption and GDP', 'promotes cultural exchange', 'develops infrastructure'], disadvantages: ['environmental pollution', 'erodes traditional customs', 'increases crime rate', 'financial burden on government'] } },
+  { id: 8, ref: '#101008', topic: 'What are the advantages and disadvantages of extreme or adventure sports?', category: 'Sports',
+    hints: { advantages: ['psychological satisfaction and thrill', 'broadens horizons', 'promotes physical fitness', 'relieves stress'], disadvantages: ['high risk of injury/death', 'not affordable for everyone', 'time-consuming', 'can dent confidence'] } },
+  { id: 9, ref: '#101009', topic: 'The information revolution by modern mass communication has both positive and negative consequences for individuals and for society. To what extent do you agree?', category: 'Technology',
+    hints: { positive: ['fast information transmission', 'fosters closer relationships', 'convenient communication'], negative: ['increase in cybercrime', 'decline in work performance', 'distractions from study'] } },
+  { id: 10, ref: '#101010', topic: 'The mass media, including TV, radio and newspapers, influences our society and shapes our opinions and characters. What is your opinion?', category: 'Media',
+    hints: { influencesSociety: ['strengthens social cohesion', 'stimulates consumption', 'can increase crime rates'], influencesIndividuals: ['makes people more objective', 'develops critical thinking', 'can cause wrong decisions'] } },
+  { id: 11, ref: '#101011', topic: 'Mass media have a great influence on humans, particularly on the younger generation. It has a pivotal role in shaping people\'s opinions. Discuss.', category: 'Media',
+    hints: { agree: ['fosters critical perspectives', 'broadens perspectives', 'diverse content shapes views'], disagree: ['can cause biased opinions', 'misleading political opinions', 'one-sided information'] } },
+  { id: 12, ref: '#101012', topic: 'Climate change is a concerning global issue. Who should take the responsibilities: governments, big companies or individuals?', category: 'Environment',
+    hints: { governments: ['effective climate governance', 'policy enforcement', 'financial resources allocation'], companies: ['emission control', 'green technology R&D', 'enhances public environmental awareness'], individuals: ['active participation enforces regulations', 'lifestyle choices reduce carbon', 'personal engagement matters'] } },
+  { id: 13, ref: '#101087', topic: 'The Internet has made young people less willing to communicate with others face-to-face. To what extent do you agree?', category: 'Technology',
+    hints: { agree: ['online socialising replaces face-to-face', 'social media addiction', 'reduced interpersonal skills'], disagree: ['internet facilitates long-distance communication', 'online communities build connections', 'digital tools enhance collaboration'] } },
+  { id: 14, ref: '#101091', topic: 'Schools are focusing too much on examinations rather than education itself. To what extent do you agree?', category: 'Education',
+    hints: { agree: ['exam-oriented learning ignores creativity', 'students memorise rather than understand', 'pressure harms mental health'], disagree: ['exams motivate study', 'standardised assessment is fair', 'exams prepare for competitive job market'] } },
+  { id: 15, ref: '#101095', topic: 'After finishing high school, should young people find a job or go to university? Discuss both views.', category: 'Education',
+    hints: { university: ['higher qualifications lead to better jobs', 'broader knowledge and skills', 'networking opportunities'], work: ['practical experience is valuable', 'financial independence earlier', 'avoid student debt'] } },
+  { id: 16, ref: '#101096', topic: 'Technology has made our lives more interesting. Do you agree or disagree?', category: 'Technology',
+    hints: { agree: ['entertainment and leisure options expanded', 'easier access to information', 'global connections possible'], disagree: ['screen addiction reduces real experiences', 'technology creates stress', 'loss of traditional activities'] } },
+  { id: 17, ref: '#101099', topic: 'Human activities have caused the rising temperature. What can governments and individuals do to combat climate change?', category: 'Environment',
+    hints: { governments: ['invest in renewable energy', 'enforce emission regulations', 'fund green infrastructure'], individuals: ['reduce carbon footprint', 'use public transport', 'adopt sustainable lifestyle'] } },
+  { id: 18, ref: '#101100', topic: 'Nature versus nurture: which factor more influences people\'s personality and behaviour?', category: 'Psychology',
+    hints: { nature: ['genetic traits determine temperament', 'innate talents and abilities', 'biological predispositions'], nurture: ['environment shapes behaviour', 'education develops character', 'cultural influences are powerful'] } },
+  { id: 19, ref: '#101104', topic: 'Schools should use computers to replace books. To what extent do you agree?', category: 'Education',
+    hints: { agree: ['interactive learning more engaging', 'access to vast digital resources', 'reduces paper waste'], disagree: ['screen time harms eyesight', 'digital distractions', 'not all students have equal access'] } },
+  { id: 20, ref: '#101105', topic: 'Should everyone be required to learn a foreign language? Discuss.', category: 'Education',
+    hints: { yes: ['broadens cultural understanding', 'improves career prospects', 'enhances cognitive abilities'], no: ['not everyone needs it professionally', 'time better spent on other skills', 'translation technology is improving'] } },
+  { id: 21, ref: '#101106', topic: 'Who benefits most from globalisation: developed or developing countries? Discuss.', category: 'Economy',
+    hints: { developed: ['access to cheaper labour', 'expanded markets', 'intellectual property advantages'], developing: ['foreign investment creates jobs', 'technology transfer', 'infrastructure development'] } },
+  { id: 22, ref: '#101108', topic: 'Should countries host large international events such as the Olympics? Discuss advantages and disadvantages.', category: 'Society',
+    hints: { advantages: ['boosts tourism and economy', 'improves infrastructure', 'national pride and unity'], disadvantages: ['enormous costs', 'displacement of local residents', 'facilities may be underused after'] } },
+  { id: 23, ref: '#101116', topic: 'University education is a necessary condition for career success. Do you agree or disagree?', category: 'Education',
+    hints: { agree: ['specialised knowledge is essential', 'degree opens doors', 'develops critical thinking'], disagree: ['many successful people lack degrees', 'practical skills matter more', 'entrepreneurship values experience'] } },
+  { id: 24, ref: '#101117', topic: 'Should children attend after-school tutoring or spend time playing? Discuss.', category: 'Education',
+    hints: { tutoring: ['academic improvement', 'competitive advantage', 'structured learning reinforcement'], playing: ['physical and mental development', 'creativity and social skills', 'prevents burnout'] } },
+  { id: 25, ref: '#101119', topic: 'Professional athletes deserve higher salaries than other workers. Do you agree?', category: 'Sports',
+    hints: { agree: ['short career span', 'exceptional talent and dedication', 'generate massive revenue'], disagree: ['essential workers underpaid by comparison', 'creates wrong values in society', 'salary should reflect social contribution'] } },
+  { id: 26, ref: '#101125', topic: 'Teachers and nurses should be paid higher salaries. Do you agree?', category: 'Society',
+    hints: { agree: ['essential roles in society', 'heavy workload and responsibility', 'attract better talent'], disagree: ['limited government budgets', 'job satisfaction not solely about money', 'market determines salary'] } },
+  { id: 27, ref: '#101133', topic: 'Should schools require students to wear uniforms? Discuss both views.', category: 'Education',
+    hints: { yes: ['reduces social inequality', 'promotes sense of belonging', 'fewer distractions'], no: ['limits self-expression', 'additional cost for families', 'does not improve academic performance'] } },
+  { id: 28, ref: '#101142', topic: 'Is excessive competition beneficial or harmful for individuals and society? Discuss.', category: 'Society',
+    hints: { beneficial: ['drives innovation and progress', 'motivates self-improvement', 'leads to better products/services'], harmful: ['mental health issues', 'unethical behaviour', 'widens inequality'] } },
+  { id: 29, ref: '#101143', topic: 'Since AI can translate languages, is it still necessary to learn a foreign language? Discuss.', category: 'Technology',
+    hints: { stillNecessary: ['cultural understanding requires language', 'AI cannot capture nuance and emotion', 'cognitive benefits of language learning'], notNecessary: ['AI translation is increasingly accurate', 'time better spent on other skills', 'real-time translation removes barriers'] } },
+  { id: 30, ref: '#101144', topic: 'What impact has space travel had on modern life? Discuss.', category: 'Science',
+    hints: { positive: ['technological spin-offs (GPS, materials)', 'scientific understanding expanded', 'inspires innovation'], negative: ['enormous costs diverted from Earth problems', 'environmental impact of launches', 'benefits limited to wealthy nations'] } }
 ];
 
 // ── 3. IELTS_SPEAKING_TOPICS ───────────────────────────────
@@ -1226,7 +1267,330 @@ const ESSAY_TEMPLATE = {
   }
 };
 
-// ── 9. Helper Functions ────────────────────────────────────
+// ── 9. RS_BANK – Repeat Sentence prediction sentences (from 萤火虫 v8.06) ──
+const RS_BANK = [
+  // Campus
+  { text: 'A group meeting will be held tomorrow in the library conference room.', topic: 'Campus' },
+  { text: 'A number of students have volunteer jobs.', topic: 'Campus' },
+  { text: 'We can all meet at my office after the lecture.', topic: 'Campus' },
+  { text: 'You can make an appointment to meet the librarian.', topic: 'Campus' },
+  { text: 'Agenda items should be submitted by the end of the day.', topic: 'Campus' },
+  { text: 'All students are expected to attend ten lab sessions per semester.', topic: 'Campus' },
+  { text: 'The assignments should be submitted to the department office before the deadlines.', topic: 'Campus' },
+  { text: 'Before attending classes, you must register online or by post.', topic: 'Campus' },
+  { text: 'Assessment tasks are given to students in the first week of each semester.', topic: 'Campus' },
+  { text: 'The library has an extensive collection of academic journals.', topic: 'Campus' },
+  { text: 'The student who borrowed the bookerta must return it before the holidays.', topic: 'Campus' },
+  { text: 'You should always submit your assignment before the due date.', topic: 'Campus' },
+  { text: 'Students are expected to attend classes regularly and participate actively.', topic: 'Campus' },
+  { text: 'The professor will be available during office hours on Wednesday.', topic: 'Campus' },
+  { text: 'The course includes both theoretical lectures and practical work.', topic: 'Campus' },
+  { text: 'Students should try to attend all seminars in order to get credits.', topic: 'Campus' },
+  { text: 'The scholarship is available for both domestic and international students.', topic: 'Campus' },
+  { text: 'The new campus building will open at the beginning of next semester.', topic: 'Campus' },
+  { text: 'All essays and papers submitted must be the original work of the student.', topic: 'Campus' },
+  { text: 'The results were published in a leading scientific journal.', topic: 'Campus' },
+  { text: 'Students who have difficulties should seek help from their tutors.', topic: 'Campus' },
+  { text: 'You need to hand in your assignment by the end of this week.', topic: 'Campus' },
+  { text: 'The lab is only open to postgraduate students during the summer.', topic: 'Campus' },
+  { text: 'The exam will cover all the material from this semester.', topic: 'Campus' },
+  { text: 'Please refer to the reading list that has been uploaded online.', topic: 'Campus' },
+  { text: 'You are required to complete the project as a group assignment.', topic: 'Campus' },
+  { text: 'The lecture will focus on the key issues in contemporary society.', topic: 'Campus' },
+  { text: 'Academic integrity is taken very seriously at this university.', topic: 'Campus' },
+  { text: 'The tutorial will review the topics covered in the previous lecture.', topic: 'Campus' },
+  { text: 'The department requires students to attend a minimum of eighty percent of classes.', topic: 'Campus' },
+  // Academic
+  { text: 'Climate change is having an enormous impact on the environment.', topic: 'Academic' },
+  { text: 'A number of issues were raised during the committee meeting.', topic: 'Academic' },
+  { text: 'Statistical analysis is a fundamental part of scientific research.', topic: 'Academic' },
+  { text: 'Philosophy is the study of fundamental problems connected with existence.', topic: 'Academic' },
+  { text: 'The findings of the research were published in a peer-reviewed journal.', topic: 'Academic' },
+  { text: 'The experiment was designed to test the hypothesis under controlled conditions.', topic: 'Academic' },
+  { text: 'Science has made enormous progress in the last few decades.', topic: 'Academic' },
+  { text: 'The professor gave a detailed presentation of her research findings.', topic: 'Academic' },
+  { text: 'A thorough literature review is an essential component of any research project.', topic: 'Academic' },
+  { text: 'The study shows a significant correlation between diet and health outcomes.', topic: 'Academic' },
+  { text: 'Economic growth in developing countries has increased significantly.', topic: 'Academic' },
+  { text: 'The data suggests that the trend will continue for the foreseeable future.', topic: 'Academic' },
+  { text: 'Researchers have found a link between exercise and improved mental health.', topic: 'Academic' },
+  { text: 'The theory was developed based on a series of experiments.', topic: 'Academic' },
+  { text: 'The survey was conducted with a representative sample of the population.', topic: 'Academic' },
+  { text: 'Education plays a crucial role in the development of a nation.', topic: 'Academic' },
+  { text: 'The methodology used in this study is widely accepted in the field.', topic: 'Academic' },
+  { text: 'Critical thinking is an essential skill for academic success.', topic: 'Academic' },
+  { text: 'The textbook covers a wide range of topics in modern economics.', topic: 'Academic' },
+  { text: 'Qualitative and quantitative methods are both used in social science research.', topic: 'Academic' },
+  // Daily Life
+  { text: 'Everyone must evacuate the premises during the fire drill.', topic: 'Daily Life' },
+  { text: 'The post office will be closed on Monday and Friday afternoons.', topic: 'Daily Life' },
+  { text: 'The bus for London will leave ten minutes later than planned.', topic: 'Daily Life' },
+  { text: 'Making mistakes is fine as long as you learn from them.', topic: 'Daily Life' },
+  { text: 'Radio is a popular form of entertainment throughout the world.', topic: 'Daily Life' },
+  { text: 'Politics is not usually a safe topic of conversation.', topic: 'Daily Life' },
+  { text: 'Fashion trends help to make peoples life interesting.', topic: 'Daily Life' },
+  { text: 'People have been dependent on using phones in their everyday life.', topic: 'Daily Life' },
+  { text: 'Heavy snow means no flight could take off or land.', topic: 'Daily Life' },
+  { text: 'Social media has grown enormously in recent years.', topic: 'Daily Life' },
+  { text: 'Building trust is not something that can be achieved overnight.', topic: 'Daily Life' },
+  { text: 'The media plays a significant role in shaping public opinion.', topic: 'Daily Life' },
+  { text: 'You must call your doctor to make an appointment.', topic: 'Daily Life' },
+  { text: 'Rail transport is becoming more and more popular.', topic: 'Daily Life' },
+  { text: 'Parents are financially responsible for their children right up until they reach adulthood.', topic: 'Daily Life' },
+  // Health
+  { text: 'Fresh drinking water is a basic necessity for human survival.', topic: 'Health' },
+  { text: 'Regular exercise helps to keep the body in good physical condition.', topic: 'Health' },
+  { text: 'A balanced diet is important for maintaining good health.', topic: 'Health' },
+  { text: 'Mental health issues affect a growing number of young people.', topic: 'Health' },
+  { text: 'The hospital provides a range of specialist medical services.', topic: 'Health' },
+  // Environment
+  { text: 'Greenhouse gases are considered a major cause of global warming.', topic: 'Environment' },
+  { text: 'Renewable energy sources are essential for sustainable development.', topic: 'Environment' },
+  { text: 'Deforestation is a significant threat to biodiversity.', topic: 'Environment' },
+  { text: 'Water pollution is a major issue in many developing countries.', topic: 'Environment' },
+  { text: 'The recycling program has significantly reduced waste in the city.', topic: 'Environment' },
+  // Economy
+  { text: 'The economy has shown signs of recovery in the last quarter.', topic: 'Economy' },
+  { text: 'International trade plays a vital role in the global economy.', topic: 'Economy' },
+  { text: 'Small businesses contribute significantly to employment creation.', topic: 'Economy' },
+  { text: 'They were struggling last year to make their service pay.', topic: 'Economy' },
+  { text: 'We cannot consider any increase in our price at this stage.', topic: 'Economy' },
+  // Technology
+  { text: 'The digital revolution has changed the way we read.', topic: 'Technology' },
+  { text: 'Artificial intelligence has made significant progress in the last few years.', topic: 'Technology' },
+  { text: 'Information technology has changed the way people study today.', topic: 'Technology' },
+  { text: 'Technology is no longer a simple tool that we can control.', topic: 'Technology' },
+  { text: 'New media has a significant impact on human communications.', topic: 'Technology' },
+  { text: 'Technological developments have changed the way we live.', topic: 'Technology' },
+  { text: 'The instant availability of information has radically changed peoples lives.', topic: 'Technology' },
+  { text: 'New credit cards will soon use fingerprint technology.', topic: 'Technology' },
+  // Biology
+  { text: 'Animals raised in captivity behave differently than their wild counterparts.', topic: 'Biology' },
+  { text: 'Rivers provide habitats for fish and other aquatic species.', topic: 'Biology' },
+  { text: 'Cells are the basic building blocks of all animals and plants.', topic: 'Biology' },
+  { text: 'Every living thing begins as a single cell.', topic: 'Biology' },
+  { text: 'Blue whales are the largest animals that have ever lived.', topic: 'Biology' },
+  // Humanities
+  { text: 'All writers consciously or unconsciously represent their own culture.', topic: 'Humanities' },
+  { text: 'The Industrial Revolution in Europe was driven by steam technology.', topic: 'Humanities' },
+  { text: 'There are opportunities to receive grants in most artistic fields.', topic: 'Humanities' },
+  { text: 'Art is an expression of creative skills and imagination.', topic: 'Humanities' },
+  { text: 'It is generally accepted that language is a part of culture.', topic: 'Humanities' },
+  { text: 'Historical cities are financially dependent on tourism as income.', topic: 'Humanities' },
+  { text: 'We should never underestimate the power of creative design.', topic: 'Humanities' },
+  { text: 'Journalism faces the crisis in the light of the digital revolution.', topic: 'Humanities' },
+  { text: 'Our cultural values are dependent on the choices we made.', topic: 'Humanities' },
+  { text: 'Many inventors in the engineering sector are inspired by nature.', topic: 'Humanities' }
+];
+
+// ── 10. WFD_BANK – Write From Dictation prediction sentences (from 萤火虫 v8.06) ──
+const WFD_BANK = [
+  // Education
+  { text: 'Students are required to attend all scheduled tutorial sessions.', topic: 'Education' },
+  { text: 'The course curriculum has been updated to include new research.', topic: 'Education' },
+  { text: 'Our view is that educational reforms have been inadequately implemented.', topic: 'Education' },
+  { text: 'A minimum attendance of eighty percent is required for all courses.', topic: 'Education' },
+  { text: 'University courses should be relevant to students future careers.', topic: 'Education' },
+  { text: 'Teaching assistants provide additional support during tutorial hours.', topic: 'Education' },
+  // Campus
+  { text: 'A group meeting will be held tomorrow in the library conference room.', topic: 'Campus' },
+  { text: 'A number of students have volunteer jobs.', topic: 'Campus' },
+  { text: 'We can all meet at my office after the lecture.', topic: 'Campus' },
+  { text: 'You can make an appointment to meet the librarian.', topic: 'Campus' },
+  { text: 'Agenda items should be submitted by the end of the day.', topic: 'Campus' },
+  { text: 'All students are expected to attend ten lab sessions per semester.', topic: 'Campus' },
+  { text: 'Leaving valuable possessions unattended in public place is risky.', topic: 'Campus' },
+  { text: 'The assignments should be submitted to the department office before the deadlines.', topic: 'Campus' },
+  { text: 'Before attending classes, you must register online or by post.', topic: 'Campus' },
+  // Health
+  { text: 'Dietary changes are an essential part of a healthy lifestyle.', topic: 'Health' },
+  { text: 'Regular physical activity is important for maintaining good health.', topic: 'Health' },
+  { text: 'The hospital provides a wide range of specialist services.', topic: 'Health' },
+  { text: 'Mental health is as important as physical health.', topic: 'Health' },
+  { text: 'Medical research has made remarkable progress in the last century.', topic: 'Health' },
+  // Environment
+  { text: 'Climate change is having an enormous impact on the environment.', topic: 'Environment' },
+  { text: 'Greenhouse gas emissions must be reduced to prevent global warming.', topic: 'Environment' },
+  { text: 'Many food crops require large amounts of water and fertilizer.', topic: 'Environment' },
+  { text: 'Farmers need to adapt to the changes in climate.', topic: 'Environment' },
+  { text: 'Crops that are nutritious are planted around the world every year.', topic: 'Environment' },
+  { text: 'Renewable energy is becoming more affordable and accessible.', topic: 'Environment' },
+  { text: 'Coastal communities are particularly vulnerable to rising sea levels.', topic: 'Environment' },
+  // Economy
+  { text: 'Members should make mandatory contributions to associated operating funds.', topic: 'Economy' },
+  { text: 'They were struggling last year to make their service pay.', topic: 'Economy' },
+  { text: 'We cannot consider any increase in our price at this stage.', topic: 'Economy' },
+  { text: 'Attracting skilled workers to the city with expensive housing is hard.', topic: 'Economy' },
+  { text: 'Population has a sharp rise in the recent twenty years.', topic: 'Economy' },
+  // Technology
+  { text: 'The supposed benefits of space exploration are frequently questioned.', topic: 'Technology' },
+  { text: 'The digital revolution has changed the way we read.', topic: 'Technology' },
+  { text: 'The software companies design and create new products.', topic: 'Technology' },
+  { text: 'New credit cards will soon use fingerprint technology.', topic: 'Technology' },
+  { text: 'Information technology has changed the way people study today.', topic: 'Technology' },
+  { text: 'Technological developments have changed the way we live.', topic: 'Technology' },
+  { text: 'Artificial intelligence has made significant progress in the last few years.', topic: 'Technology' },
+  { text: 'Technology is no longer a simple tool that we can control.', topic: 'Technology' },
+  { text: 'The instant availability of information has radically changed peoples lives.', topic: 'Technology' },
+  { text: 'New media has transcended traditional national boundaries.', topic: 'Technology' },
+  { text: 'Computers used to be larger than they are now.', topic: 'Technology' },
+  { text: 'The capacity of programming computers is expanding enormously every year.', topic: 'Technology' },
+  { text: 'The site is designed to be highly interactive.', topic: 'Technology' },
+  { text: 'Technology is changing the way that media is used and studied.', topic: 'Technology' },
+  // Humanities
+  { text: 'All writers consciously or unconsciously represent their own culture.', topic: 'Humanities' },
+  { text: 'An ancient text may hold secrets which were lost centuries ago.', topic: 'Humanities' },
+  { text: 'Books for children often contain many bits of illustration.', topic: 'Humanities' },
+  { text: 'The Industrial Revolution in Europe was driven by steam technology.', topic: 'Humanities' },
+  { text: 'There are opportunities to receive grants in most artistic fields.', topic: 'Humanities' },
+  { text: 'Mechanical engineering first became prominent during the Industrial Revolution.', topic: 'Humanities' },
+  { text: 'Castles were designed to intimidate both local people and enemies.', topic: 'Humanities' },
+  { text: 'Journalism faces the crisis in the light of the digital revolution.', topic: 'Humanities' },
+  { text: 'We should never underestimate the power of creative design.', topic: 'Humanities' },
+  { text: 'Art and design is a competitive field to work in.', topic: 'Humanities' },
+  { text: 'Art is an expression of creative skills and imagination.', topic: 'Humanities' },
+  { text: 'It is generally accepted that language is a part of culture.', topic: 'Humanities' },
+  { text: 'Our cultural values are dependent on the choices we made.', topic: 'Humanities' },
+  { text: 'Historical cities are financially dependent on the tourism as income.', topic: 'Humanities' },
+  { text: 'Many inventors in the engineering sector are inspired by nature.', topic: 'Humanities' },
+  { text: 'Novelists write about the best things that they know about.', topic: 'Humanities' },
+  { text: 'The director of the gallery was grateful for the anonymous donation.', topic: 'Humanities' },
+  // Daily Life
+  { text: 'Everyone must evacuate the premises during the fire drill.', topic: 'Daily Life' },
+  { text: 'The post office will be closed on Monday and Friday afternoons.', topic: 'Daily Life' },
+  { text: 'The bus for London will leave ten minutes later than planned.', topic: 'Daily Life' },
+  { text: 'Making mistakes is fine as long as you learn from them.', topic: 'Daily Life' },
+  { text: 'Radio is a popular form of entertainment throughout the world.', topic: 'Daily Life' },
+  { text: 'Politics is not usually a safe topic of conversation.', topic: 'Daily Life' },
+  { text: 'People have been dependent on using phones in their everyday life.', topic: 'Daily Life' },
+  { text: 'Leave the building immediately if the fire alarm goes off.', topic: 'Daily Life' },
+  { text: 'Heavy snow means no flight could take off or land.', topic: 'Daily Life' },
+  { text: 'The cafeteria will only serve cold meals on Friday this week.', topic: 'Daily Life' },
+  { text: 'Rail transport is becoming more and more popular.', topic: 'Daily Life' },
+  { text: 'Parents are financially responsible for their children right up until they reach adulthood.', topic: 'Daily Life' },
+  { text: 'Social media has grown enormously in recent years.', topic: 'Daily Life' },
+  { text: 'Building trust is not something that can be achieved overnight.', topic: 'Daily Life' },
+  { text: 'The media plays a significant role in shaping public opinion.', topic: 'Daily Life' },
+  { text: 'You must call your doctor to make an appointment.', topic: 'Daily Life' },
+  { text: 'You must change your password every month.', topic: 'Daily Life' },
+  { text: 'There is a lot of traffic in the morning.', topic: 'Daily Life' },
+  { text: 'The orchestra will be led by a visiting conductor.', topic: 'Daily Life' },
+  { text: 'Consumers are better informed today because of the internet.', topic: 'Daily Life' },
+  { text: 'Social media has a significant impact on journalism.', topic: 'Daily Life' },
+  // Biology
+  { text: 'Animals raised in captivity behave differently than their wild counterparts.', topic: 'Biology' },
+  { text: 'Despite their differences all forms of life share certain characteristics.', topic: 'Biology' },
+  { text: 'Human beings compete with other living things for resources and space.', topic: 'Biology' },
+  { text: 'Rivers provide habitats for fish and other aquatic species.', topic: 'Biology' },
+  { text: 'The African elephant is the largest living land mammal in the world.', topic: 'Biology' },
+  { text: 'Blue whales are the largest animals that have ever lived.', topic: 'Biology' },
+  { text: 'Cells are the basic building blocks of all animals and plants.', topic: 'Biology' },
+  { text: 'Every living thing begins as a single cell.', topic: 'Biology' },
+  { text: 'Plants are able to continue growing throughout their lives.', topic: 'Biology' },
+  { text: 'Animal and plant cells have a number of structures in common.', topic: 'Biology' },
+  { text: 'The plight of local wildlife has been ignored by developers.', topic: 'Biology' },
+  // Society
+  { text: 'Increasing population results in an increasing demand in energy.', topic: 'Society' },
+  { text: 'Identity theft happens to thousands of people every day.', topic: 'Society' },
+  { text: 'Parenting is difficult for parents who have shift work.', topic: 'Society' },
+  { text: 'Joining the societies is a great way to meet new people.', topic: 'Society' }
+];
+
+// ── 11. PTE_TEMPLATES – Speaking & Writing templates (from 萤火虫 v8.06) ──
+var PTE_TEMPLATES = {
+  // ── Describe Image templates ──
+  di: {
+    extremeSingle: 'This [bar/line/pie/table] chart shows information about [title].\nFirstly, the highest number can be found in [largest item], which is around [largest value].\nSecondly, the second-highest number is located in [2nd item], which is about [2nd value].\nThirdly, the lowest figure is for [smallest item], and the number is around [smallest value].\nFurthermore, [other item 1] and [other item 2] also carry important weight in this graph.\nIn summary, this chart uses real data to describe [title].',
+    extremeMulti: 'This [bar/line/pie/table] chart shows information about [title].\nIf you look at [category 1], the highest number can be found in [cat1 largest], which is around [cat1 value]. The lowest figure is located in [cat1 smallest], which is about [cat1 value].\nIf you look at [category 2], the highest number is for [cat2 largest], and the number is around [cat2 value].\nFurthermore, [other item 1] and [other item 2] also carry important weight in this graph.\nIn summary, this chart uses real data to describe [title].',
+    flow: 'This flow chart shows information about [title].\nAccording to the picture, we can see that:\nFirstly, the process starts from the first stage, which is called [step 1].\nSecondly, it goes to the second stage, which is about [step 2].\nThirdly, it comes to the third stage, which is called [step 3].\nFurthermore, the process comes to the ending point, which is about [last step].\nIn summary, the process shows details about [title].',
+    picture: 'This picture shows information about [title].\nIf you look at [area 1], the most obvious information given here is [info].\nNext to it, we can see [info] and [info], and these elements are also quite important.\nIf you look at [area 2], [info] and [info] are also shown in this part, giving a better understanding about this picture.\nFurthermore, we can also see [info] and [info] in this picture as well.\nIn summary, this picture uses different elements to describe [title].'
+  },
+  // ── Retell Lecture template ──
+  rl: 'This lecture is mainly talking about [topic].\nFirstly, the lecture begins by giving an introduction about [point] and [point].\nSecondly, [point] and [point] are mentioned by the speaker, which is tied to the topic.\nThirdly, the speaker provides a lot of details about [point] and [point].\nFurthermore, the lecture argues the point of [point] and [point] to support the main idea.\nIn summary, the lecture covers the topic of [topic].',
+  // ── Summarize Group Discussion templates ──
+  sgd: {
+    byOrder: 'The conversation is about three speakers discussing [topic].\nSpeaker X talked about [point] and [point], and also mentioned [point] and [point].\nThen, Speaker X said [point] and [point], and then discussed [point] and [point].\nAnd then, Speaker X argued [point] and [point], and also referred to [point] and [point].',
+    bySpeaker: 'The conversation is about three speakers discussing [topic].\nSpeaker 1 talked about [point] and [point], and also mentioned [point] and [point]. And she/he said [point] and [point], and also referred to [point] and [point].\nThen, Speaker 2 said [point] and [point], and then discussed [point] and [point]. And she/he said [point] and [point], and also talked about [point] and [point].\nAnd then, Speaker 3 argued [point] and [point], and also mentioned [point] and [point]. And she/he said [point] and [point], and also referred to [point] and [point].'
+  },
+  // ── Respond to a Situation template ──
+  rts: {
+    greeting: { known: 'Hi / Excuse me, [name].', unknown: 'Hi, excuse me! / Hi, how are you?', voicemail: 'Hi, this is [your name].', formal: 'Hope I am not interrupting you! / May I take a moment of your time?' },
+    endings: {
+      suggest: { informal: 'I think it will be a good idea if you/we can...', formal: 'I suggest you/we consider...' },
+      askAdvice: { informal: 'What do you think about...?', formal: 'Could you provide some advice on...? I would really appreciate your suggestions.' },
+      askHelp: { informal: 'Would you help me out with...? Thanks so much!', formal: 'Would it be possible for you/me to...? I would really appreciate your help.' },
+      apologize: { informal: 'Sorry about that!', formal: 'I sincerely apologize for...!' },
+      thank: { informal: 'Thank you for...!', formal: 'I am deeply grateful for your...!' }
+    }
+  },
+  // ── Summarize Spoken Text (SST) – sentence template ──
+  sstSentence: 'The lecture elaborates on the topic of [topic].\nFirstly, the speaker mentioned (that) [key sentence].\nSecondly, the lecturer showed (that) [key sentence].\nIn addition / However, the speaker emphasized (that) [key sentence].\nMoreover, the talk highlighted (that) [key sentence].\n(Template base: 28 words; target: 50-70 words total)',
+  // ── Summarize Spoken Text (SST) – word template ──
+  sstWord: 'This lecture elaborates on the topic of [topic], which would involve [keyword].\nFirstly, they have mentioned [keyword] and [keyword], related to [keyword] and [keyword] due to [keyword] and [keyword].\nSecondly, they have mentioned [keyword] and [keyword] while elaborating on [keyword] and [keyword].\nTherefore, the underlying issues of [keyword] can be proved by [keyword] and [keyword].\n(Template base: 40 words; target: 50-70 words total)',
+  // ── Summarize Written Text (SWT) ──
+  swt: 'Formula: [Summary sentence 1], [connector] [summary sentence 2], [connector] [summary sentence 3], [connector] [summary sentence 4].\nConnectors by logic: and (parallel), but (contrast), although (concession), whereas (comparison), because (cause), so (result), while (accompaniment), which means (explanation).\nRules: One sentence only, 5-75 words, ends with one period at the very end. Paraphrase key sentences from each paragraph.',
+  // ── Essay 151-word template ──
+  essay151: {
+    para1: 'There is no doubt that the debate over [keyword] has drawn attention from the general public in the modern world.\nPersonally speaking, I firmly believe that [opinion sentence], which will be supported by the following discussion.',
+    para2: 'First and foremost, when it comes to [keyword], the most important [reason/advantage/feature] is that [keyword] can potentially bring about [keyword].\nTo be more specific, [keyword] will generate [keyword], which will consequently result in [keyword].\nFor instance, according to the annual report of [source 1], at least 80% of [related group] have experienced [keyword] because of [keyword].',
+    para3: 'On the other hand, in terms of [keyword], another significant [reason/disadvantage/solution] is that [keyword] can possibly cause [keyword].\nTo illustrate, [keyword] can give rise to [keyword], thereby leading to [keyword].\nTo take a recent study from [source 2] as an example, more than 60% of [related group] have faced [keyword] as a result of [keyword].',
+    para4: 'With all the points above, it can be concluded that [restate opinion], because [keyword] and [keyword] both play a vital role in this case.\nTherefore, it is of utmost importance that [related group] should devote [resources/time/effort/money] to this.',
+    wordCount: 151,
+    tips: 'Fill-in keywords must be noun phrases. Opinion sentences must be complete sentences. Source can be: the Australian government, Microsoft, a recent study, or "my own experience" if the prompt asks for personal experience. Target: 200-300 words total.'
+  },
+  // ── Essay sentence template ──
+  essaySentence: {
+    para1: 'There is no doubt that [paraphrase the topic/phenomenon from the prompt].\nPersonally speaking, I firmly believe that [opinion sentence], which will be supported by the following discussion.',
+    para2: 'First and foremost, the most important [reason/advantage/feature] is that [argument 1].\nTo be more specific, [elaborate argument 1].\nFor instance, according to [source 1], [example supporting argument 1].',
+    para3: 'On the other hand, another significant [reason/disadvantage/solution] is that [argument 2].\nTo illustrate, [elaborate argument 2].\nTo take [source 2] as an example, [example supporting argument 2].',
+    para4: 'With all the points above, it can be concluded that [restate opinion], because [restate argument 1] and [restate argument 2].\nTherefore, it is of utmost importance that [recommendation].',
+    wordCount: 69,
+    tips: 'Fill in complete sentences for arguments and examples. Use simple sentence structures. Target: 200-300 words total.'
+  }
+};
+
+// ── 12. RA_STRATEGY – Read Aloud "One Sentence" method (from 萤火虫) ──
+var RA_STRATEGY = {
+  method: 'Select 10-15 continuous words from the passage and read ONLY those words clearly. This scores the same as reading the full passage (tested: Speaking 31 both ways).',
+  rules: [
+    'Words must be continuous (no skipping)',
+    'Select 10-15 words (not more, not less)',
+    'Do not end on a function word (the, a, of, in, etc.)',
+    'If you misread a word, do NOT go back - continue forward',
+    'You may skip at most 1 unknown word',
+    'Focus on fluency, pronunciation, and natural intonation'
+  ],
+  qualityMethod: 'Chunk the passage into phrases -> drill hard words -> read chunks smoothly -> read full sentences -> read the passage',
+  speedMethod: 'Simulate exam conditions -> review your recording -> identify issues -> improve and retry'
+};
+
+// ── 13. FIB_COLLOCATIONS – High-frequency Reading FIB collocations ──
+var FIB_COLLOCATIONS = [
+  'a boon to', 'a broad stream of', 'abide by', 'accompanied by', 'according to',
+  'account for', 'accrue to', 'accustomed to', 'adapt to', 'adhered to',
+  'adjacent to', 'agree with', 'aim at', 'allergic to', 'allow for',
+  'amount to', 'an array of', 'an abundance of', 'appeal to', 'applicable to',
+  'apply to', 'approve of', 'arise from', 'associated with', 'attribute to',
+  'based on', 'be committed to', 'be composed of', 'be concerned with', 'be conducive to',
+  'be derived from', 'be devoted to', 'be essential to', 'be exposed to', 'be inclined to',
+  'be prone to', 'be relevant to', 'be subject to', 'be susceptible to', 'benefit from',
+  'bring about', 'capable of', 'characteristic of', 'come up with', 'compared with',
+  'compatible with', 'comply with', 'concentrate on', 'concerned about', 'conducive to',
+  'consist of', 'contribute to', 'cope with', 'correspond to', 'deal with',
+  'depend on', 'derive from', 'devote to', 'differ from', 'dispose of',
+  'distinguish between', 'draw on', 'due to', 'dwell on', 'engage in',
+  'equivalent to', 'evolve from', 'focus on', 'give rise to', 'in accordance with',
+  'in addition to', 'in conjunction with', 'in favour of', 'in light of', 'in spite of',
+  'in terms of', 'in the wake of', 'independent of', 'indicative of', 'insist on',
+  'interact with', 'interfere with', 'lead to', 'make up for', 'on behalf of',
+  'originate from', 'owing to', 'participate in', 'pertain to', 'pose a threat to',
+  'prior to', 'prone to', 'provide for', 'put forward', 'regardless of',
+  'relate to', 'rely on', 'result from', 'result in', 'set out',
+  'stem from', 'strive for', 'subject to', 'subscribe to', 'take into account',
+  'turn out', 'with regard to', 'with respect to'
+];
+
+// ── 14. Helper Functions ────────────────────────────────────
 
 /**
  * Returns the phase key for a given day number (1-42).
@@ -1384,17 +1748,47 @@ function generateDayPlan(dayNum) {
     };
   }
 
+  // ── Assign specific RS & WFD sentences for today ──
+  var rsStart = ((dayNum - 1) * 5) % RS_BANK.length;
+  var todayRS = [];
+  for (var ri = 0; ri < vol.rs; ri++) {
+    todayRS.push(RS_BANK[(rsStart + ri) % RS_BANK.length]);
+  }
+  var wfdStart = ((dayNum - 1) * 5) % WFD_BANK.length;
+  var todayWFD = [];
+  for (var wi = 0; wi < vol.wfd; wi++) {
+    todayWFD.push(WFD_BANK[(wfdStart + wi) % WFD_BANK.length]);
+  }
+
+  // Build RS sentence list for detail display
+  var rsDetail = 'Practice these prediction sentences:\n';
+  for (var rsi = 0; rsi < todayRS.length; rsi++) {
+    rsDetail += (rsi + 1) + '. ' + todayRS[rsi].text + '\n';
+  }
+
+  // Build WFD sentence list for detail display
+  var wfdDetail = SCAFFOLD_INSTRUCTIONS[scaffold].wfd + '\n\nToday\'s prediction sentences:\n';
+  for (var wdi = 0; wdi < todayWFD.length; wdi++) {
+    wfdDetail += (wdi + 1) + '. ' + todayWFD[wdi].text + '\n';
+  }
+
+  // RA strategy detail with one-sentence method
+  var raDetail = RA_STRATEGY.method + '\nRules: ' + RA_STRATEGY.rules.join('; ') + '.';
+
   // ── Core Drills section ──
   var coreDrills = [
-    { id: 'ra-' + dayNum, cat: 'Read Aloud', label: 'Read Aloud x' + vol.ra, detail: 'Read each passage in one breath group per clause. Focus on stress on content words and smooth linking.', time: vol.ra * 1.5 },
-    { id: 'rs-' + dayNum, cat: 'Repeat Sentence', label: 'Repeat Sentence x' + vol.rs, detail: 'Listen once, repeat immediately. Focus on capturing the beginning and end of each sentence.', time: vol.rs * 1 },
-    { id: 'wfd-' + dayNum, cat: 'Write From Dictation', label: 'Write From Dictation x' + vol.wfd, detail: SCAFFOLD_INSTRUCTIONS[scaffold].wfd, time: vol.wfd * 1 }
+    { id: 'ra-' + dayNum, cat: 'Read Aloud', label: 'Read Aloud x' + vol.ra, detail: raDetail, time: vol.ra * 1.5 },
+    { id: 'rs-' + dayNum, cat: 'Repeat Sentence', label: 'Repeat Sentence x' + vol.rs, detail: rsDetail, time: vol.rs * 1, sentences: todayRS },
+    { id: 'wfd-' + dayNum, cat: 'Write From Dictation', label: 'Write From Dictation x' + vol.wfd, detail: wfdDetail, time: vol.wfd * 1, sentences: todayWFD }
   ];
 
   if (weekend && phase !== 'taper') {
+    // Pick DI template based on day rotation
+    var diTemplates = [PTE_TEMPLATES.di.extremeSingle, PTE_TEMPLATES.di.extremeMulti, PTE_TEMPLATES.di.flow, PTE_TEMPLATES.di.picture];
+    var diTemplate = diTemplates[(dayNum - 1) % diTemplates.length];
     coreDrills.push({
       id: 'di-' + dayNum, cat: 'Describe Image', label: 'Describe Image x3 (weekend bonus)',
-      detail: 'Practise describing bar charts, line graphs, or pie charts. Use the template: intro sentence + key features + comparison + summary.',
+      detail: 'Use this template:\n' + diTemplate,
       time: 10
     });
   }
@@ -1407,23 +1801,36 @@ function generateDayPlan(dayNum) {
   var essayIdx = ESSAY_DAYS.indexOf(dayNum);
   if (essayIdx !== -1) {
     var topicObj = ESSAY_TOPICS[essayIdx % ESSAY_TOPICS.length];
+    // Build hint text from argument hints
+    var hintText = '';
+    if (topicObj.hints) {
+      var hintKeys = Object.keys(topicObj.hints);
+      for (var hi = 0; hi < hintKeys.length; hi++) {
+        hintText += '\n' + hintKeys[hi].charAt(0).toUpperCase() + hintKeys[hi].slice(1) + ': ' + topicObj.hints[hintKeys[hi]].join('; ');
+      }
+    }
     essayTopic = {
       topic: topicObj.topic,
       category: topicObj.category,
+      ref: topicObj.ref || '',
+      hints: topicObj.hints || null,
       scaffoldInstructions: SCAFFOLD_INSTRUCTIONS[scaffold].essay
     };
+    // Show 151-word template in Foundation, sentence template in Intensive+
+    var templateRef = (scaffold === 'full') ? '\n\nUse the 151-word fill-in template (see Writing section below).' : '';
     writingWorkshop.push({
-      id: 'essay-' + dayNum, cat: 'Essay', label: 'PTE Essay: ' + topicObj.category,
-      detail: SCAFFOLD_INSTRUCTIONS[scaffold].essay,
+      id: 'essay-' + dayNum, cat: 'Essay', label: 'PTE Essay: ' + topicObj.category + ' ' + (topicObj.ref || ''),
+      detail: SCAFFOLD_INSTRUCTIONS[scaffold].essay + templateRef + '\n\nArgument ideas:' + hintText,
       time: 20
     });
   }
 
   if (SWT_DAYS.indexOf(dayNum) !== -1) {
     swtCount = phase === 'simulation' ? 3 : (phase === 'intensive' ? 2 : 1);
+    var swtTemplateHint = (scaffold === 'full' || scaffold === 'partial') ? '\n\nSWT Template: ' + PTE_TEMPLATES.swt : '';
     writingWorkshop.push({
       id: 'swt-' + dayNum, cat: 'Summarize Written Text', label: 'SWT x' + swtCount,
-      detail: SCAFFOLD_INSTRUCTIONS[scaffold].swt,
+      detail: SCAFFOLD_INSTRUCTIONS[scaffold].swt + swtTemplateHint,
       time: swtCount * 10
     });
   }
@@ -1452,14 +1859,34 @@ function generateDayPlan(dayNum) {
 
   // ── PTE Speaking section ──
   var pteSpeaking = [
-    { id: 'pte-ra-drill-' + dayNum, cat: 'PTE Speaking', label: 'Pronunciation drill', detail: 'Record yourself reading 3 sentences. Listen back and identify mispronounced words. Repeat until smooth.', time: 10 }
+    { id: 'pte-ra-drill-' + dayNum, cat: 'PTE Speaking', label: 'Pronunciation drill', detail: 'Record yourself reading 3 sentences. Listen back and identify mispronounced words. Repeat until smooth.\n\nRA Strategy: ' + RA_STRATEGY.method, time: 10 }
   ];
 
   if (phase === 'intensive' || phase === 'simulation') {
+    var rlDetail = 'Listen to a 60-90 second lecture. Take notes on keywords. Retell in 40 seconds.\n\nRL Template:\n' + PTE_TEMPLATES.rl;
     pteSpeaking.push({
       id: 'pte-rl-' + dayNum, cat: 'PTE Speaking', label: 'Retell Lecture x2',
-      detail: 'Listen to a 60-90 second lecture. Take notes on keywords. Retell in 40 seconds covering main idea, supporting points, and conclusion.',
+      detail: rlDetail,
       time: 10
+    });
+  }
+
+  // Add SGD practice in intensive/simulation
+  if ((phase === 'intensive' || phase === 'simulation') && weekend) {
+    pteSpeaking.push({
+      id: 'pte-sgd-' + dayNum, cat: 'PTE Speaking', label: 'Summarize Group Discussion x1',
+      detail: 'Listen to a group discussion and summarize.\n\nSGD Template (by speaker order):\n' + PTE_TEMPLATES.sgd.byOrder,
+      time: 10
+    });
+  }
+
+  // Add RTS practice
+  if (phase === 'intensive' || phase === 'simulation') {
+    var rtsDetail = 'Respond to a situation prompt. Paraphrase in first person, add details.\n\nRTS Template:\nGreeting: ' + PTE_TEMPLATES.rts.greeting.known + '\nSuggest: ' + PTE_TEMPLATES.rts.endings.suggest.informal + '\nAsk help: ' + PTE_TEMPLATES.rts.endings.askHelp.formal;
+    pteSpeaking.push({
+      id: 'pte-rts-' + dayNum, cat: 'PTE Speaking', label: 'Respond to a Situation x1',
+      detail: rtsDetail,
+      time: 5
     });
   }
 
@@ -1505,10 +1932,25 @@ function generateDayPlan(dayNum) {
   }
 
   if (weekend && (phase === 'foundation' || phase === 'intensive')) {
+    var sstTemplate = (scaffold === 'full') ? PTE_TEMPLATES.sstWord : PTE_TEMPLATES.sstSentence;
     readingListening.push({
       id: 'rl-extra-' + dayNum, cat: 'Listening', label: 'Summarize Spoken Text x2 (weekend)',
-      detail: 'Listen to a 60-90 second audio. Write a 50-70 word summary capturing the main points. Check grammar and spelling.',
+      detail: 'Listen to a 60-90 second audio. Write a 50-70 word summary.\n\nSST Template:\n' + sstTemplate,
       time: 15
+    });
+  }
+
+  // Add FIB collocation drill (every 3rd day)
+  if (dayNum % 3 === 0 && phase !== 'exam') {
+    var colStart = ((dayNum / 3 - 1) * 10) % FIB_COLLOCATIONS.length;
+    var todayCollocations = [];
+    for (var ci = 0; ci < 10; ci++) {
+      todayCollocations.push(FIB_COLLOCATIONS[(colStart + ci) % FIB_COLLOCATIONS.length]);
+    }
+    readingListening.push({
+      id: 'fib-col-' + dayNum, cat: 'Reading', label: 'FIB Collocation drill (10 phrases)',
+      detail: 'Review and memorise these high-frequency collocations:\n' + todayCollocations.join(', '),
+      time: 5
     });
   }
 
@@ -1567,7 +2009,11 @@ function generateDayPlan(dayNum) {
     writingTip: WRITING_TIPS[dayNum - 1] || '',
     essayTopic: essayTopic,
     swtCount: swtCount,
-    grammarFocus: grammarFocus
+    grammarFocus: grammarFocus,
+    // New enrichment fields
+    rsSentences: todayRS,
+    wfdSentences: todayWFD,
+    pteTemplates: PTE_TEMPLATES
   };
 }
 
