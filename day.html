@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day — PTE Study Planner</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- NAV BAR -->
+<nav class="day-nav">
+  <a href="index.html" class="day-nav__back">&larr; Calendar</a>
+  <div class="day-nav__controls">
+    <button class="btn btn--sm" id="prevDay">&laquo; Prev Day</button>
+    <span class="day-nav__current" id="navTitle">Day --</span>
+    <button class="btn btn--sm" id="nextDay">Next Day &raquo;</button>
+  </div>
+</nav>
+
+<!-- DAY HEADER -->
+<header class="day-header" id="dayHeader"></header>
+
+<!-- MAIN CONTENT -->
+<main class="day-main" id="dayMain"></main>
+
+<!-- FLOATING PROGRESS -->
+<div class="day-float" id="dayFloat">
+  <svg class="day-float__ring" viewBox="0 0 36 36">
+    <path class="day-float__ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+    <path class="day-float__ring-fill" id="ringFill" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+  </svg>
+  <span class="day-float__text" id="floatText">0%</span>
+</div>
+
+<script src="js/data.js"></script>
+<script>
+// ========== STATE ==========
+let state = JSON.parse(localStorage.getItem('pte_planner_v2') || '{}');
+if (!state.completed) state.completed = {};
+function saveState() { localStorage.setItem('pte_planner_v2', JSON.stringify(state)); }
+
+// ========== GET DAY NUMBER ==========
+const params = new URLSearchParams(window.location.search);
+let currentDay = parseInt(params.get('day')) || 1;
+if (currentDay < 1) currentDay = 1;
+if (currentDay > 42) currentDay = 42;
+
+// ========== NAV ==========
+document.getElementById('prevDay').onclick = () => { if (currentDay > 1) window.location.href = `day.html?day=${currentDay - 1}`; };
+document.getElementById('nextDay').onclick = () => { if (currentDay < 42) window.location.href = `day.html?day=${currentDay + 1}`; };
+
+// ========== TIMER ==========
+let timerInterval = null;
+let timerSeconds = 0;
+function startTimer(btn, targetSeconds) {
+  if (timerInterval) { clearInterval(timerInterval); timerInterval = null; btn.textContent = 'Start Timer'; btn.classList.remove('btn--active'); return; }
+  timerSeconds = 0;
+  btn.classList.add('btn--active');
+  const display = btn.nextElementSibling;
+  timerInterval = setInterval(() => {
+    timerSeconds++;
+    const m = Math.floor(timerSeconds / 60);
+    const s = timerSeconds % 60;
+    display.textContent = `${m}:${s.toString().padStart(2, '0')}`;
+    if (targetSeconds && timerSeconds >= targetSeconds) {
+      display.textContent += ' - TIME!';
+      display.classList.add('timer--done');
+      clearInterval(timerInterval);
+      timerInterval = null;
+      btn.textContent = 'Start Timer';
+      btn.classList.remove('btn--active');
+    }
+  }, 1000);
+  btn.textContent = 'Stop';
+}
+
+// ========== RENDER ==========
+function render() {
+  const plan = generateDayPlan(currentDay);
+  document.title = `Day ${currentDay} — PTE Study Planner`;
+  document.getElementById('navTitle').textContent = `Day ${currentDay} / 42`;
+
+  // Header
+  const scaffoldDots = [0,1,2,3].map(i => `<span class="scaffold-dot${i < {full:4,partial:3,minimal:1,none:0}[plan.scaffold] ? ' scaffold-dot--active' : ''}"></span>`).join('');
+
+  document.getElementById('dayHeader').innerHTML = `
+    <div class="day-header__top">
+      <h1 class="day-header__title">Day ${plan.dayNum} — ${plan.dateStr}</h1>
+      <div class="day-header__meta">
+        <span class="phase-badge" style="background:${plan.phaseColor}">${plan.phaseLabel}</span>
+        <span class="scaffold-indicator"><span class="scaffold-dots">${scaffoldDots}</span> ${plan.scaffold.charAt(0).toUpperCase() + plan.scaffold.slice(1)} Scaffold</span>
+        <span class="day-type-badge">${plan.isWeekend ? 'Weekend (3-4 hrs)' : 'Weekday (1.5 hrs)'}</span>
+      </div>
+      <div class="day-header__focus">Today: ${plan.focusLabel}</div>
+    </div>`;
+
+  // Exam day special
+  if (plan.phase === 'exam') {
+    document.getElementById('dayMain').innerHTML = `
+      <div class="exam-banner">
+        <h2>EXAM DAY — April 10, 2026</h2>
+        <p>Trust your 41 days of preparation. You've earned this.</p>
+        <div class="exam-checklist">
+          <label><input type="checkbox"> Passport/ID ready</label>
+          <label><input type="checkbox"> Test centre location confirmed</label>
+          <label><input type="checkbox"> Arrive 30 minutes early</label>
+          <label><input type="checkbox"> Ask for ear plugs if noisy</label>
+          <label><input type="checkbox"> Speaking: steady rhythm, ignore background noise</label>
+          <label><input type="checkbox"> Writing: save 2 min proofreading for EVERY WE and SWT</label>
+          <label><input type="checkbox"> Reading: don't get stuck — flag and move on</label>
+          <label><input type="checkbox"> Listening: first-letter shorthand for WFD immediately</label>
+          <label><input type="checkbox"> WFD: write first letters DURING audio, fill in after</label>
+        </div>
+        <div class="exam-scores">
+          <div>Speaking <strong>88</strong></div>
+          <div>Writing <strong>85</strong></div>
+          <div>Reading <strong>70</strong></div>
+          <div>Listening <strong>69</strong></div>
+        </div>
+      </div>`;
+    return;
+  }
+
+  let html = '';
+
+  // ====== WRITING TIP CALLOUT ======
+  if (plan.writingTip) {
+    html += `<div class="callout callout--writing">
+      <strong class="callout__title">Writing Scaffold Tip — Day ${plan.dayNum}</strong>
+      <p>${plan.writingTip}</p>
+    </div>`;
+  }
+
+  // ====== SECTION 1: PTE CORE DRILLS ======
+  if (plan.sections.coreDrills && plan.sections.coreDrills.length > 0) {
+    html += `<details class="section section--core" open>
+      <summary class="section__header">
+        <span class="section__icon">&#x1F3AF;</span> PTE Core Drills (Non-Negotiable)
+        <span class="section__count" id="coreCount"></span>
+      </summary>
+      <div class="section__body">
+        <p class="section__desc">These three activities cross-score across multiple skills. Do them EVERY day.</p>
+        ${renderTasks(plan.sections.coreDrills)}
+      </div>
+    </details>`;
+  }
+
+  // ====== SECTION 2: WRITING WORKSHOP ======
+  if (plan.sections.writingWorkshop && plan.sections.writingWorkshop.length > 0) {
+    html += `<details class="section section--writing" open>
+      <summary class="section__header">
+        <span class="section__icon">&#x270D;</span> Writing Workshop
+        <span class="section__count" id="writingCount"></span>
+      </summary>
+      <div class="section__body">`;
+
+    // Essay section
+    if (plan.essayTopic) {
+      html += `<div class="essay-block">
+        <h3 class="essay-block__title">Essay Practice</h3>
+        <div class="essay-block__topic">
+          <strong>Topic:</strong> ${plan.essayTopic.topic}
+          <span class="essay-block__cat">${plan.essayTopic.cat}</span>
+        </div>
+        <div class="essay-block__scaffold">
+          <strong>Scaffold Level:</strong> ${plan.essayTopic.scaffoldInstructions}
+        </div>`;
+
+      // Show template for full/partial scaffold
+      if (plan.scaffold === 'full' || plan.scaffold === 'partial') {
+        html += `<div class="essay-template">
+          <h4>IBBE Essay Template</h4>
+          <div class="template-section">
+            <span class="template-label">INTRO</span>
+            <p><em>Paraphrase the topic</em> + <em>State your position</em> + <em>Preview 2 arguments</em></p>
+            <div class="template-starters">Starters: "It is widely debated whether..." / "This essay will argue that..." / "There are compelling arguments on both sides of..."</div>
+          </div>
+          <div class="template-section">
+            <span class="template-label">BODY 1</span>
+            <p><em>Topic sentence (main argument)</em> + <em>Explanation</em> + <em>Specific example</em> + <em>Link back</em></p>
+            <div class="template-starters">Starters: "On the one hand..." / "Firstly, proponents argue that..." / "One significant advantage is..."</div>
+          </div>
+          <div class="template-section">
+            <span class="template-label">BODY 2</span>
+            <p><em>Counter-argument topic sentence</em> + <em>Explanation</em> + <em>Example</em> + <em>Link</em></p>
+            <div class="template-starters">Starters: "On the other hand..." / "However, critics contend that..." / "Conversely, there are drawbacks..."</div>
+          </div>
+          <div class="template-section">
+            <span class="template-label">CONCLUSION</span>
+            <p><em>Restate position</em> + <em>Summarize key points</em> + <em>Final thought</em></p>
+            <div class="template-starters">Starters: "In conclusion..." / "To sum up..." / "Weighing both perspectives..."</div>
+          </div>
+        </div>`;
+      }
+
+      // Self-assessment rubric (partial and above)
+      if (plan.scaffold !== 'full') {
+        html += `<div class="rubric">
+          <h4>Self-Assessment Rubric (after writing)</h4>
+          <table class="rubric__table">
+            <tr><th>Criterion</th><th>Max</th><th>Your Score</th></tr>
+            <tr><td>Content (addresses topic, both sides)</td><td>3</td><td><input type="number" min="0" max="3" class="rubric__input"></td></tr>
+            <tr><td>Form (200-300 words, proper structure)</td><td>2</td><td><input type="number" min="0" max="2" class="rubric__input"></td></tr>
+            <tr><td>Grammar (agreement, tenses, articles)</td><td>2</td><td><input type="number" min="0" max="2" class="rubric__input"></td></tr>
+            <tr><td>Vocabulary (range, accuracy, academic)</td><td>2</td><td><input type="number" min="0" max="2" class="rubric__input"></td></tr>
+            <tr><td>Spelling (no errors)</td><td>2</td><td><input type="number" min="0" max="2" class="rubric__input"></td></tr>
+            <tr><td>Development (logic, examples, coherence)</td><td>2</td><td><input type="number" min="0" max="2" class="rubric__input"></td></tr>
+          </table>
+          <div class="rubric__checklist">
+            <strong>Error Checklist:</strong>
+            <label><input type="checkbox"> Subject-verb agreement checked</label>
+            <label><input type="checkbox"> Article usage checked (a/an/the)</label>
+            <label><input type="checkbox"> Verb tense consistency checked</label>
+            <label><input type="checkbox"> Spelling of key words checked</label>
+            <label><input type="checkbox"> Word count: 200-300 words</label>
+            <label><input type="checkbox"> Proofread for 2 minutes</label>
+          </div>
+        </div>`;
+      }
+      html += `</div>`; // close essay-block
+    }
+
+    // Grammar focus
+    if (plan.grammarFocus) {
+      html += `<div class="grammar-block">
+        <h3 class="grammar-block__title">Grammar Focus: ${plan.grammarFocus.title}</h3>
+        <p class="grammar-block__desc">${plan.grammarFocus.explanation}</p>
+        <div class="grammar-block__examples">
+          ${plan.grammarFocus.examples.map(e => `<div class="grammar-example">
+            <span class="grammar-wrong">${e.wrong}</span>
+            <span class="grammar-arrow">&rarr;</span>
+            <span class="grammar-correct">${e.correct}</span>
+          </div>`).join('')}
+        </div>
+      </div>`;
+    }
+
+    // Tasks
+    html += renderTasks(plan.sections.writingWorkshop);
+    html += `</div></details>`;
+  }
+
+  // ====== SECTION 3: IELTS SPEAKING ======
+  const ielts = plan.sections.ieltsSpeaking;
+  if (ielts && ielts.part2) {
+    html += `<details class="section section--ielts" open>
+      <summary class="section__header">
+        <span class="section__icon">&#x1F399;</span> IELTS Speaking Practice
+        <span class="section__count" id="ieltsCount"></span>
+      </summary>
+      <div class="section__body">`;
+
+    // PEEL framework (show in foundation phase)
+    if (plan.scaffold === 'full') {
+      html += `<div class="peel-framework">
+        <h4>PEEL Framework for Structured Responses</h4>
+        <div class="peel-item"><span class="peel-letter">P</span><strong>Point</strong> — State your main idea clearly. <em>"I believe..."</em></div>
+        <div class="peel-item"><span class="peel-letter">E</span><strong>Explanation</strong> — Explain why, give reasons. <em>"This is because..."</em></div>
+        <div class="peel-item"><span class="peel-letter">E</span><strong>Example</strong> — Give a specific example. <em>"For instance, I remember..."</em></div>
+        <div class="peel-item"><span class="peel-letter">L</span><strong>Link</strong> — Connect back to the question. <em>"So overall..."</em></div>
+      </div>`;
+    }
+
+    // Part 1
+    if (ielts.part1 && ielts.part1.length > 0) {
+      html += `<div class="ielts-part">
+        <h3 class="ielts-part__title">Part 1 — Warm Up (2-3 min)</h3>
+        <p class="ielts-part__note">Answer each in 3-4 sentences. Use: Answer &rarr; Explain &rarr; Example.</p>
+        <ol class="ielts-questions">${ielts.part1.map(q => `<li>${q}</li>`).join('')}</ol>
+      </div>`;
+    }
+
+    // Part 2 Cue Card
+    html += `<div class="ielts-part">
+      <h3 class="ielts-part__title">Part 2 — Cue Card (1-2 min speaking)</h3>
+      <div class="cue-card">
+        <div class="cue-card__header">Describe...</div>
+        <div class="cue-card__topic">${ielts.part2.topic}</div>
+        <div class="cue-card__prompt">You should say:</div>
+        <ul class="cue-card__bullets">${ielts.part2.prompts.map(p => `<li>${p}</li>`).join('')}</ul>
+      </div>
+      <div class="timer-row">
+        <button class="btn btn--timer" onclick="startTimer(this, 120)">Start Timer (2 min)</button>
+        <span class="timer-display">0:00</span>
+      </div>`;
+
+    // Scaffolding hints for speaking
+    if (plan.scaffold === 'full') {
+      html += `<div class="speaking-scaffold">
+        <h4>Speaking Structure Guide</h4>
+        <div class="scaffold-step"><strong>Opening (5 sec):</strong> "I'd like to talk about..." / "The [thing] I want to describe is..."</div>
+        <div class="scaffold-step"><strong>Bullet 1 (20 sec):</strong> Address the first prompt. Add detail with adjectives.</div>
+        <div class="scaffold-step"><strong>Bullet 2 (20 sec):</strong> Address the second prompt. Use past tense for experiences.</div>
+        <div class="scaffold-step"><strong>Bullet 3 (20 sec):</strong> Address the third prompt. Give reasons.</div>
+        <div class="scaffold-step"><strong>Bullet 4 (30 sec):</strong> "And explain..." Use the PEEL framework here.</div>
+        <div class="scaffold-step"><strong>Closing (5 sec):</strong> "So that's why..." / "Overall, I would say..."</div>
+      </div>`;
+    } else if (plan.scaffold === 'partial') {
+      html += `<div class="speaking-scaffold speaking-scaffold--light">
+        <h4>Quick Reminders</h4>
+        <p>Structure: Opening &rarr; 4 bullets &rarr; Closing. Use PEEL for the "explain why" bullet. Aim for 1.5-2 minutes. Don't stop early!</p>
+      </div>`;
+    }
+    html += `</div>`; // close Part 2
+
+    // Part 3
+    if (ielts.part3 && ielts.part3.length > 0) {
+      html += `<div class="ielts-part">
+        <h3 class="ielts-part__title">Part 3 — Discussion (4-5 min)</h3>
+        <p class="ielts-part__note">Give extended answers (4-6 sentences). Use PEEL. Show both sides of the argument.</p>
+        <ol class="ielts-questions">${ielts.part3.map(q => `<li>${q}</li>`).join('')}</ol>
+      </div>`;
+    }
+
+    // IELTS task checkbox
+    html += `<div class="task-item">
+      <input type="checkbox" id="d${currentDay}_ielts" ${state.completed[`d${currentDay}_ielts`] ? 'checked' : ''}
+        onchange="toggleTask('d${currentDay}_ielts', this.checked)">
+      <label for="d${currentDay}_ielts" class="task-label">
+        <span class="task-text">Complete IELTS Speaking Practice (all 3 parts)</span>
+        <span class="task-cat cat--speaking">speaking</span>
+      </label>
+    </div>`;
+
+    html += `</div></details>`;
+  }
+
+  // ====== SECTION 4: PTE SPEAKING ======
+  if (plan.sections.pteSpeaking && plan.sections.pteSpeaking.length > 0) {
+    html += `<details class="section section--speaking">
+      <summary class="section__header">
+        <span class="section__icon">&#x1F5E3;</span> PTE Speaking (DI / RL / ASQ)
+        <span class="section__count" id="pteSpeakCount"></span>
+      </summary>
+      <div class="section__body">
+        ${renderTasks(plan.sections.pteSpeaking)}
+      </div>
+    </details>`;
+  }
+
+  // ====== SECTION 5: READING & LISTENING ======
+  if (plan.sections.readingListening && plan.sections.readingListening.length > 0) {
+    html += `<details class="section section--reading">
+      <summary class="section__header">
+        <span class="section__icon">&#x1F4DA;</span> Reading & Listening
+        <span class="section__count" id="readCount"></span>
+      </summary>
+      <div class="section__body">
+        ${renderTasks(plan.sections.readingListening)}
+      </div>
+    </details>`;
+  }
+
+  // ====== SECTION 6: REVIEW ======
+  if (plan.sections.review && plan.sections.review.length > 0) {
+    html += `<details class="section section--review">
+      <summary class="section__header">
+        <span class="section__icon">&#x1F50D;</span> Review & Reflection
+        <span class="section__count" id="reviewCount"></span>
+      </summary>
+      <div class="section__body">
+        ${renderTasks(plan.sections.review)}
+      </div>
+    </details>`;
+  }
+
+  document.getElementById('dayMain').innerHTML = html;
+  updateCounts();
+  updateFloat();
+}
+
+// ========== RENDER TASKS ==========
+function renderTasks(tasks) {
+  return tasks.map(t => `<div class="task-item${state.completed[t.id] ? ' task-item--done' : ''}">
+    <input type="checkbox" id="${t.id}" ${state.completed[t.id] ? 'checked' : ''}
+      onchange="toggleTask('${t.id}', this.checked)">
+    <label for="${t.id}" class="task-label">
+      <span class="task-text">${t.label}</span>
+      ${t.detail ? `<span class="task-detail">${t.detail}</span>` : ''}
+      <span class="task-meta">
+        <span class="task-cat cat--${t.cat}">${t.cat}</span>
+        ${t.time ? `<span class="task-time">${t.time}</span>` : ''}
+      </span>
+    </label>
+  </div>`).join('');
+}
+
+// ========== TOGGLE TASK ==========
+function toggleTask(id, checked) {
+  if (checked) state.completed[id] = true;
+  else delete state.completed[id];
+  saveState();
+
+  const item = document.getElementById(id);
+  if (item) {
+    const wrap = item.closest('.task-item');
+    if (wrap) wrap.classList.toggle('task-item--done', checked);
+  }
+  updateCounts();
+  updateFloat();
+}
+
+// ========== UPDATE SECTION COUNTS ==========
+function updateCounts() {
+  const plan = generateDayPlan(currentDay);
+  const sections = [
+    {id: 'coreCount', tasks: plan.sections.coreDrills || []},
+    {id: 'writingCount', tasks: plan.sections.writingWorkshop || []},
+    {id: 'pteSpeakCount', tasks: plan.sections.pteSpeaking || []},
+    {id: 'readCount', tasks: plan.sections.readingListening || []},
+    {id: 'reviewCount', tasks: plan.sections.review || []}
+  ];
+  sections.forEach(({id, tasks}) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const done = tasks.filter(t => state.completed[t.id]).length;
+    el.textContent = `${done}/${tasks.length}`;
+    el.className = 'section__count' + (done === tasks.length && tasks.length > 0 ? ' section__count--done' : '');
+  });
+
+  // IELTS count
+  const ieltsEl = document.getElementById('ieltsCount');
+  if (ieltsEl) {
+    const done = state.completed[`d${currentDay}_ielts`] ? 1 : 0;
+    ieltsEl.textContent = `${done}/1`;
+    ieltsEl.className = 'section__count' + (done === 1 ? ' section__count--done' : '');
+  }
+}
+
+// ========== FLOATING PROGRESS RING ==========
+function updateFloat() {
+  const plan = generateDayPlan(currentDay);
+  const all = [
+    ...(plan.sections.coreDrills || []),
+    ...(plan.sections.writingWorkshop || []),
+    ...(plan.sections.pteSpeaking || []),
+    ...(plan.sections.readingListening || []),
+    ...(plan.sections.review || [])
+  ];
+  if (plan.sections.ieltsSpeaking && plan.sections.ieltsSpeaking.part2) {
+    all.push({id: `d${currentDay}_ielts`});
+  }
+  const done = all.filter(t => state.completed[t.id]).length;
+  const total = all.length;
+  const pct = total ? Math.round(done / total * 100) : 0;
+
+  document.getElementById('ringFill').setAttribute('stroke-dasharray', `${pct}, 100`);
+  document.getElementById('floatText').textContent = `${pct}%`;
+  document.getElementById('dayFloat').classList.toggle('day-float--done', pct === 100);
+}
+
+// ========== INIT ==========
+render();
+</script>
+</body>
+</html>
