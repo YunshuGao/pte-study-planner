@@ -1,0 +1,3198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PTE Writing &amp; Grammar Mastery</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+/* ============================================================
+   Writing Page Specific Styles
+   ============================================================ */
+
+.writing-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+/* --- Header --- */
+.writing-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+.writing-header__back {
+  display: inline-block;
+  color: #a855f7;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.writing-header__back:hover {
+  color: #9333ea;
+}
+.writing-header__title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #1e293b;
+  margin: 0 0 4px 0;
+  letter-spacing: -0.02em;
+}
+.writing-header__title span {
+  color: #a855f7;
+}
+.writing-header__subtitle {
+  font-size: 0.9375rem;
+  color: #64748b;
+  margin: 0 0 8px 0;
+}
+.writing-header__streak {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, #fef3c7, #fde68a);
+  color: #92400e;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  padding: 4px 14px;
+  border-radius: 20px;
+}
+
+/* --- Tabs --- */
+.tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 2px solid #e2e8f0;
+  margin-bottom: 24px;
+  overflow-x: auto;
+}
+.tabs__btn {
+  padding: 12px 24px;
+  border: none;
+  background: none;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  color: #64748b;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+  white-space: nowrap;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+}
+.tabs__btn:hover {
+  color: #a855f7;
+}
+.tabs__btn--active {
+  color: #a855f7;
+  border-bottom-color: #a855f7;
+}
+
+.tab-panel {
+  display: none;
+  animation: fadeIn 0.3s ease;
+}
+.tab-panel--active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Grammar Layout --- */
+.grammar-layout {
+  display: flex;
+  gap: 24px;
+}
+.grammar-sidebar {
+  width: 280px;
+  flex-shrink: 0;
+}
+.grammar-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.grammar-group-card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.grammar-group-card:hover {
+  box-shadow: 0 4px 6px rgba(0,0,0,0.07);
+}
+.grammar-group-card--active {
+  border-color: #a855f7;
+  box-shadow: 0 4px 6px rgba(168,85,247,0.15);
+}
+.grammar-group-card__header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.grammar-group-card__icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #a855f7, #7c3aed);
+  color: #fff;
+  font-weight: 800;
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.grammar-group-card__info {
+  flex: 1;
+  min-width: 0;
+}
+.grammar-group-card__title {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+}
+.grammar-group-card__meta {
+  font-size: 0.75rem;
+  color: #64748b;
+  margin-top: 2px;
+}
+.grammar-group-card__bar {
+  height: 4px;
+  background: #e2e8f0;
+  border-radius: 2px;
+  margin-top: 8px;
+  overflow: hidden;
+}
+.grammar-group-card__fill {
+  height: 100%;
+  background: #a855f7;
+  border-radius: 2px;
+  transition: width 0.3s;
+}
+
+/* --- Rule Cards --- */
+.rule-card {
+  background: #fff;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+}
+.rule-card[open] {
+  box-shadow: 0 4px 6px rgba(0,0,0,0.07);
+}
+.rule-card summary {
+  padding: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  list-style: none;
+  font-size: 0.9375rem;
+  color: #1e293b;
+  transition: background 0.2s;
+}
+.rule-card summary::-webkit-details-marker { display: none; }
+.rule-card summary::before {
+  content: '\25B6';
+  font-size: 0.625rem;
+  color: #94a3b8;
+  transition: transform 0.2s;
+}
+.rule-card[open] summary::before {
+  transform: rotate(90deg);
+}
+.rule-card summary:hover {
+  background: #f8fafc;
+}
+.rule-card__body {
+  padding: 0 16px 16px 16px;
+}
+.mastery-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+.mastery-dot--done {
+  background: #22c55e;
+}
+.mastery-dot--pending {
+  background: #d1d5db;
+}
+
+.rule-explanation {
+  font-size: 0.875rem;
+  color: #475569;
+  line-height: 1.7;
+  margin-bottom: 12px;
+}
+
+/* --- Example Boxes --- */
+.example--correct {
+  border-left: 4px solid #22c55e;
+  padding: 8px 12px;
+  background: rgba(34,197,94,0.05);
+  margin: 8px 0;
+  border-radius: 0 6px 6px 0;
+  font-size: 0.875rem;
+}
+.example--correct::before {
+  content: '\2713 ';
+  color: #22c55e;
+  font-weight: 700;
+}
+.example--incorrect {
+  border-left: 4px solid #ef4444;
+  padding: 8px 12px;
+  background: rgba(239,68,68,0.05);
+  margin: 8px 0;
+  border-radius: 0 6px 6px 0;
+  font-size: 0.875rem;
+  text-decoration: line-through;
+  color: #94a3b8;
+}
+.example--incorrect::before {
+  content: '\2717 ';
+  color: #ef4444;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.pte-tip {
+  background: rgba(168,85,247,0.08);
+  border-left: 4px solid #a855f7;
+  border-radius: 0 6px 6px 0;
+  padding: 10px 14px;
+  margin: 12px 0;
+  font-size: 0.8125rem;
+  color: #6b21a8;
+  line-height: 1.6;
+}
+.pte-tip::before {
+  content: 'PTE Tip: ';
+  font-weight: 700;
+}
+
+/* --- Exercise --- */
+.exercise-area {
+  margin-top: 12px;
+  padding: 12px;
+  background: #f8fafc;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+.exercise-area__q {
+  font-weight: 600;
+  font-size: 0.875rem;
+  margin-bottom: 8px;
+  color: #1e293b;
+}
+.exercise-btn {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 10px 14px;
+  margin-bottom: 6px;
+  border-radius: 6px;
+  border: 2px solid #e2e8f0;
+  background: #fff;
+  color: #1e293b;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  transition: all 0.2s;
+}
+.exercise-btn:hover:not(:disabled) {
+  border-color: #a855f7;
+  background: rgba(168,85,247,0.04);
+}
+.exercise-btn--correct {
+  border-color: #22c55e !important;
+  background: rgba(34,197,94,0.1) !important;
+  color: #15803d !important;
+}
+.exercise-btn--wrong {
+  border-color: #ef4444 !important;
+  background: rgba(239,68,68,0.1) !important;
+  color: #dc2626 !important;
+  opacity: 0.6;
+}
+.exercise-btn--dimmed {
+  opacity: 0.4;
+}
+.exercise-explain {
+  display: none;
+  margin-top: 8px;
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  background: rgba(59,130,246,0.08);
+  border-left: 3px solid #3b82f6;
+}
+
+.practice-toggle-btn {
+  display: inline-block;
+  padding: 6px 14px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #a855f7;
+  background: rgba(168,85,247,0.08);
+  border: 1px solid rgba(168,85,247,0.2);
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 8px;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  transition: all 0.2s;
+}
+.practice-toggle-btn:hover {
+  background: rgba(168,85,247,0.15);
+}
+
+/* --- Test All / Quiz --- */
+.test-all-btn {
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  margin: 24px auto;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #a855f7, #7c3aed);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.test-all-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(168,85,247,0.3);
+}
+
+.quiz-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 1000;
+  overflow-y: auto;
+  padding: 24px;
+}
+.quiz-overlay--active {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+.quiz-modal {
+  background: #fff;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 640px;
+  padding: 24px;
+  margin-top: 40px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+  position: relative;
+}
+.quiz-modal__close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: #f1f5f9;
+  border-radius: 50%;
+  font-size: 1.25rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #64748b;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+}
+.quiz-progress {
+  font-size: 0.875rem;
+  color: #64748b;
+  margin-bottom: 16px;
+}
+.quiz-score-display {
+  text-align: center;
+  padding: 24px;
+}
+.quiz-score-display__number {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #a855f7;
+}
+.quiz-score-display__label {
+  font-size: 1rem;
+  color: #64748b;
+  margin-top: 4px;
+}
+
+/* --- Writing Workshop --- */
+.mode-toggle {
+  display: flex;
+  gap: 0;
+  margin-bottom: 24px;
+  background: #f1f5f9;
+  border-radius: 8px;
+  padding: 4px;
+  width: fit-content;
+}
+.mode-toggle__btn {
+  padding: 8px 20px;
+  border: none;
+  background: none;
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: #64748b;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+}
+.mode-toggle__btn--active {
+  background: #fff;
+  color: #a855f7;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.passage-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+}
+.passage-card__title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 12px 0;
+}
+.passage-card__text {
+  font-size: 0.9375rem;
+  color: #475569;
+  line-height: 1.8;
+}
+
+.random-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: linear-gradient(135deg, #a855f7, #7c3aed);
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  margin-bottom: 16px;
+  transition: transform 0.2s;
+}
+.random-btn:hover {
+  transform: translateY(-1px);
+}
+
+/* --- Timer --- */
+.timer-circle {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 16px auto;
+  position: relative;
+}
+.timer-circle svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: rotate(-90deg);
+}
+.timer-circle__text {
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-family: 'Consolas', 'Courier New', monospace;
+  z-index: 1;
+}
+.timer-circle--green .timer-circle__text { color: #22c55e; }
+.timer-circle--yellow .timer-circle__text { color: #f59e0b; }
+.timer-circle--red .timer-circle__text { color: #ef4444; }
+
+.timer-controls {
+  text-align: center;
+  margin: 8px 0 16px 0;
+}
+.timer-controls__btn {
+  padding: 6px 16px;
+  border: 1px solid #e2e8f0;
+  background: #fff;
+  border-radius: 6px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin: 0 4px;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  transition: all 0.2s;
+}
+.timer-controls__btn:hover {
+  border-color: #a855f7;
+  color: #a855f7;
+}
+.timer-controls__btn--primary {
+  background: #a855f7;
+  color: #fff;
+  border-color: #a855f7;
+}
+.timer-controls__btn--primary:hover {
+  background: #9333ea;
+}
+
+/* --- Writing Textarea --- */
+.writing-textarea {
+  width: 100%;
+  min-height: 200px;
+  padding: 16px;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-size: 1rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  resize: vertical;
+  line-height: 1.8;
+  color: #1e293b;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.writing-textarea:focus {
+  border-color: #a855f7;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(168,85,247,0.1);
+}
+.writing-textarea--large {
+  min-height: 300px;
+}
+
+/* --- Stats Bar --- */
+.stats-bar {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 12px;
+  background: #f8fafc;
+  border-radius: 8px;
+  margin-top: 8px;
+}
+.stat {
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+.stat__label {
+  color: #64748b;
+  font-weight: 400;
+}
+.stat--ok { color: #22c55e; }
+.stat--warn { color: #ef4444; }
+
+.warning-banner {
+  display: none;
+  padding: 10px 14px;
+  background: rgba(239,68,68,0.08);
+  border: 1px solid rgba(239,68,68,0.2);
+  border-radius: 6px;
+  color: #dc2626;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  margin-top: 8px;
+}
+.warning-banner--visible {
+  display: block;
+}
+
+/* --- Submit --- */
+.submit-btn {
+  display: block;
+  width: 100%;
+  max-width: 200px;
+  margin: 16px auto;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #a855f7, #7c3aed);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  transition: transform 0.2s, opacity 0.2s;
+}
+.submit-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+.submit-btn:not(:disabled):hover {
+  transform: translateY(-1px);
+}
+
+/* --- Rubric --- */
+.rubric-section {
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  margin-top: 20px;
+}
+.rubric-section__title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin: 0 0 16px 0;
+  color: #1e293b;
+}
+.rubric-criterion {
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #f1f5f9;
+}
+.rubric-criterion:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+.rubric-criterion__name {
+  font-weight: 700;
+  font-size: 0.9375rem;
+  margin-bottom: 6px;
+  color: #1e293b;
+}
+.rubric-criterion__desc {
+  font-size: 0.75rem;
+  color: #64748b;
+  margin-bottom: 8px;
+  min-height: 18px;
+}
+.rubric-scores {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.rubric-score-btn {
+  padding: 8px 16px;
+  border: 2px solid #e2e8f0;
+  border-radius: 6px;
+  background: #fff;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.875rem;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  transition: all 0.2s;
+  color: #64748b;
+}
+.rubric-score-btn:hover {
+  border-color: #a855f7;
+  color: #a855f7;
+}
+.rubric-score-btn--selected {
+  border-color: #a855f7;
+  background: rgba(168,85,247,0.1);
+  color: #a855f7;
+}
+
+.rubric-total {
+  text-align: center;
+  padding: 16px;
+  margin-top: 16px;
+  background: #f8fafc;
+  border-radius: 8px;
+}
+.rubric-total__number {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #a855f7;
+}
+.rubric-total__label {
+  font-size: 0.875rem;
+  color: #64748b;
+}
+
+/* --- Model Answer --- */
+.model-answer {
+  display: none;
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  margin-top: 16px;
+}
+.model-answer--visible {
+  display: block;
+}
+.model-answer__title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 12px 0;
+}
+.model-answer__text {
+  font-size: 0.9375rem;
+  color: #475569;
+  line-height: 1.8;
+  white-space: pre-wrap;
+}
+.model-answer .highlight-linking {
+  background: rgba(168,85,247,0.12);
+  border-radius: 3px;
+  padding: 1px 3px;
+  font-weight: 600;
+  color: #7c3aed;
+}
+
+.show-model-btn {
+  display: inline-block;
+  padding: 8px 16px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: #64748b;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  margin-top: 12px;
+  transition: all 0.2s;
+}
+.show-model-btn:hover {
+  border-color: #a855f7;
+  color: #a855f7;
+}
+
+/* --- Error Checklist --- */
+.error-checklist {
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  margin-top: 20px;
+}
+.error-checklist__title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin: 0 0 16px 0;
+  color: #1e293b;
+}
+.error-item {
+  padding: 8px 0;
+  border-bottom: 1px solid #f1f5f9;
+}
+.error-item:last-child { border-bottom: none; }
+.error-item__header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+.error-item__checkbox {
+  width: 18px;
+  height: 18px;
+  accent-color: #a855f7;
+}
+.error-item__label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #1e293b;
+}
+.error-item__tip {
+  display: none;
+  margin: 6px 0 0 26px;
+  font-size: 0.8125rem;
+  color: #64748b;
+  line-height: 1.6;
+}
+.error-item__tip--visible {
+  display: block;
+}
+
+/* --- Essay hints --- */
+.hints-card {
+  background: rgba(168,85,247,0.06);
+  border: 1px solid rgba(168,85,247,0.15);
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+}
+.hints-card__toggle {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #7c3aed;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: none;
+  background: none;
+  padding: 0;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+}
+.hints-card__body {
+  display: none;
+  margin-top: 10px;
+  font-size: 0.8125rem;
+  color: #475569;
+  line-height: 1.6;
+}
+.hints-card__body--visible {
+  display: block;
+}
+.category-badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: rgba(168,85,247,0.1);
+  color: #7c3aed;
+  margin-bottom: 8px;
+}
+
+/* --- Planning Area --- */
+.planning-area {
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+}
+.planning-area__toggle {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #92400e;
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+}
+.planning-area__body {
+  display: none;
+  margin-top: 10px;
+}
+.planning-area__body--visible {
+  display: block;
+}
+.planning-textarea {
+  width: 100%;
+  min-height: 80px;
+  padding: 10px;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-size: 0.875rem;
+  border: 1px solid #fde68a;
+  border-radius: 6px;
+  resize: vertical;
+  background: #fff;
+}
+
+/* --- Linking Words Highlight --- */
+.linking-detected {
+  margin-top: 12px;
+  padding: 12px;
+  background: rgba(168,85,247,0.06);
+  border-radius: 8px;
+}
+.linking-detected__title {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: #7c3aed;
+  margin-bottom: 6px;
+}
+.linking-detected__words {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.linking-word-tag {
+  display: inline-block;
+  padding: 2px 8px;
+  background: rgba(168,85,247,0.12);
+  color: #7c3aed;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* --- Progress Tab --- */
+.progress-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+.progress-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.progress-card__title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 16px 0;
+}
+.progress-card__big-number {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #a855f7;
+  line-height: 1;
+}
+.progress-card__label {
+  font-size: 0.875rem;
+  color: #64748b;
+  margin-top: 4px;
+}
+
+.mastery-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.mastery-row__label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #475569;
+  width: 120px;
+  flex-shrink: 0;
+}
+.mastery-bar {
+  flex: 1;
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.mastery-bar__fill {
+  height: 100%;
+  background: #a855f7;
+  border-radius: 4px;
+  transition: width 0.3s;
+}
+.mastery-row__pct {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #64748b;
+  width: 36px;
+  text-align: right;
+}
+
+.score-trend {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.score-trend__value {
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+.score-trend__arrow--up {
+  color: #22c55e;
+  font-size: 1.25rem;
+}
+.score-trend__arrow--down {
+  color: #ef4444;
+  font-size: 1.25rem;
+}
+.score-trend__arrow--flat {
+  color: #64748b;
+  font-size: 1.25rem;
+}
+
+.score-history-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 0.8125rem;
+}
+.score-history-item:last-child { border-bottom: none; }
+.score-history-item__date { color: #64748b; }
+.score-history-item__score { font-weight: 700; color: #a855f7; }
+.score-history-item__type { color: #94a3b8; font-size: 0.75rem; }
+
+.common-error-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  font-size: 0.8125rem;
+}
+.common-error-item__label { color: #475569; flex: 1; }
+.common-error-item__count {
+  font-weight: 700;
+  color: #ef4444;
+  background: rgba(239,68,68,0.08);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+}
+
+.suggestion-box {
+  margin-top: 16px;
+  padding: 12px;
+  background: rgba(168,85,247,0.06);
+  border-radius: 8px;
+  font-size: 0.8125rem;
+  color: #6b21a8;
+  line-height: 1.6;
+}
+
+/* --- Responsive --- */
+@media (max-width: 1023px) {
+  .grammar-layout {
+    flex-direction: column;
+  }
+  .grammar-sidebar {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+  }
+  .grammar-group-card {
+    min-width: 200px;
+    margin-bottom: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .writing-page {
+    padding: 16px 12px;
+  }
+  .writing-header__title {
+    font-size: 1.375rem;
+  }
+  .tabs__btn {
+    padding: 10px 16px;
+    font-size: 0.8125rem;
+  }
+  .grammar-sidebar {
+    flex-direction: column;
+  }
+  .grammar-group-card {
+    min-width: auto;
+  }
+  .stats-bar {
+    gap: 10px;
+  }
+  .progress-grid {
+    grid-template-columns: 1fr;
+  }
+  .rubric-scores {
+    gap: 4px;
+  }
+  .rubric-score-btn {
+    padding: 6px 12px;
+    font-size: 0.8125rem;
+  }
+}
+
+/* ============================================================
+   SENTENCE BUILDER LAB
+   ============================================================ */
+.sentence-lab {
+  display: flex;
+  gap: 24px;
+}
+.sentence-lab__sidebar {
+  width: 240px;
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.sentence-lab__main {
+  flex: 1;
+  min-width: 0;
+}
+.sl-mode-toggle {
+  display: flex;
+  gap: 0;
+  border-bottom: 2px solid #e2e8f0;
+  margin-bottom: 20px;
+}
+.sl-mode-btn {
+  padding: 10px 20px;
+  border: none;
+  background: none;
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: #64748b;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+}
+.sl-mode-btn:hover { color: #a855f7; }
+.sl-mode-btn--active { color: #a855f7; border-bottom-color: #a855f7; }
+
+/* Category cards in sidebar */
+.sl-cat-card {
+  padding: 12px 14px;
+  background: #fff;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.sl-cat-card:hover { border-color: #c4b5fd; }
+.sl-cat-card--active { border-color: #a855f7; box-shadow: 0 0 0 3px rgba(168,85,247,0.1); }
+.sl-cat-card__title {
+  font-weight: 700;
+  font-size: 0.875rem;
+  color: #1e293b;
+  margin-bottom: 2px;
+}
+.sl-cat-card__count {
+  font-size: 0.75rem;
+  color: #94a3b8;
+}
+
+/* Pattern cards */
+.pattern-card {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 16px;
+  transition: box-shadow 0.2s;
+}
+.pattern-card:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+.pattern-card__template {
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: #1e293b;
+  line-height: 1.6;
+  margin-bottom: 14px;
+  padding: 14px 16px;
+  background: #f8fafc;
+  border-radius: 8px;
+  border-left: 4px solid #a855f7;
+}
+.pattern-card__template em {
+  color: #a855f7;
+  font-style: normal;
+  font-weight: 700;
+  background: #faf5ff;
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+.pattern-card__blanks {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.blank-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.blank-input-group__label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.blank-input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 0.9375rem;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+.blank-input:focus {
+  outline: none;
+  border-color: #a855f7;
+}
+.blank-input::placeholder {
+  color: #cbd5e1;
+  font-style: italic;
+}
+.pattern-card__built {
+  display: none;
+  padding: 14px 16px;
+  background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+  border-radius: 8px;
+  border-left: 4px solid #22c55e;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: #1e293b;
+  margin-bottom: 12px;
+}
+.pattern-card__built--visible { display: block; }
+.pattern-card__built em {
+  font-style: normal;
+  font-weight: 700;
+  color: #16a34a;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.pattern-card__actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.sl-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.8125rem;
+  cursor: pointer;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  transition: background 0.2s;
+}
+.sl-btn--primary { background: #a855f7; color: #fff; }
+.sl-btn--primary:hover { background: #9333ea; }
+.sl-btn--ghost { background: #f1f5f9; color: #64748b; }
+.sl-btn--ghost:hover { background: #e2e8f0; }
+.pattern-card__example {
+  display: none;
+  margin-top: 12px;
+  padding: 12px 16px;
+  background: #f8fafc;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  color: #475569;
+  border-left: 3px solid #64748b;
+}
+.pattern-card__example--visible { display: block; }
+.pattern-card__example strong {
+  display: block;
+  font-size: 0.75rem;
+  color: #94a3b8;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.pattern-card__tip {
+  margin-top: 8px;
+  font-size: 0.8125rem;
+  color: #7c3aed;
+  background: #faf5ff;
+  padding: 8px 12px;
+  border-radius: 6px;
+  display: none;
+}
+.pattern-card__tip--visible { display: block; }
+
+/* Transform cards */
+.transform-card {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+.transform-card__simple {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #ef4444;
+  padding: 12px 16px;
+  background: #fef2f2;
+  border-radius: 8px;
+  border-left: 4px solid #ef4444;
+  margin-bottom: 14px;
+}
+.transform-card__simple span {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: #94a3b8;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 4px;
+}
+.transform-card__input-area {
+  margin-bottom: 14px;
+}
+.transform-card__input-area label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.transform-input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 0.9375rem;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  min-height: 60px;
+  resize: vertical;
+  box-sizing: border-box;
+}
+.transform-input:focus {
+  outline: none;
+  border-color: #a855f7;
+}
+.transform-levels {
+  display: none;
+}
+.transform-levels--visible { display: block; }
+.transform-level {
+  margin-bottom: 10px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  border-left: 4px solid #a855f7;
+}
+.transform-level--1 { background: #f0fdf4; border-left-color: #86efac; }
+.transform-level--2 { background: #eff6ff; border-left-color: #93c5fd; }
+.transform-level--3 { background: #faf5ff; border-left-color: #a855f7; }
+.transform-level__method {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 4px;
+}
+.transform-level--1 .transform-level__method { color: #16a34a; }
+.transform-level--2 .transform-level__method { color: #2563eb; }
+.transform-level--3 .transform-level__method { color: #7c3aed; }
+.transform-level__result {
+  font-size: 0.9375rem;
+  color: #1e293b;
+  line-height: 1.5;
+}
+
+/* Sentence Lab progress */
+.sl-progress-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  padding: 10px 16px;
+  background: #f8fafc;
+  border-radius: 8px;
+}
+.sl-progress-bar__label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #64748b;
+  white-space: nowrap;
+}
+.sl-progress-bar__track {
+  flex: 1;
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.sl-progress-bar__fill {
+  height: 100%;
+  background: linear-gradient(90deg, #a855f7, #7c3aed);
+  border-radius: 4px;
+  transition: width 0.3s;
+}
+.sl-progress-bar__pct {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: #a855f7;
+  min-width: 36px;
+  text-align: right;
+}
+
+@media (max-width: 1023px) {
+  .sentence-lab {
+    flex-direction: column;
+  }
+  .sentence-lab__sidebar {
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .sl-cat-card {
+    flex: 1;
+    min-width: 140px;
+  }
+}
+@media (max-width: 767px) {
+  .sl-mode-btn {
+    padding: 8px 14px;
+    font-size: 0.8125rem;
+  }
+  .pattern-card { padding: 14px; }
+  .transform-card { padding: 14px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     HEADER
+     ============================================================ -->
+<div class="writing-page">
+  <div class="writing-header">
+    <a href="index.html" class="writing-header__back">&larr; Back to Calendar</a>
+    <h1 class="writing-header__title">PTE <span>Writing &amp; Grammar</span> Mastery</h1>
+    <p class="writing-header__subtitle">Target: Writing 85+ | 1 Hour Daily Practice</p>
+    <div class="writing-header__streak" id="streakDisplay">Streak: 0 days</div>
+  </div>
+
+  <!-- ============================================================
+       TAB NAVIGATION
+       ============================================================ -->
+  <div class="tabs" id="mainTabs">
+    <button class="tabs__btn tabs__btn--active" data-tab="grammar" onclick="switchTab('grammar')">Grammar Academy</button>
+    <button class="tabs__btn" data-tab="writing" onclick="switchTab('writing')">Writing Workshop</button>
+    <button class="tabs__btn" data-tab="sentence" onclick="switchTab('sentence')">Sentence Lab</button>
+    <button class="tabs__btn" data-tab="progress" onclick="switchTab('progress')">Progress</button>
+  </div>
+
+  <!-- ============================================================
+       TAB 1: GRAMMAR ACADEMY
+       ============================================================ -->
+  <div class="tab-panel tab-panel--active" id="tab-grammar">
+    <div class="grammar-layout">
+      <div class="grammar-sidebar" id="grammarSidebar"></div>
+      <div class="grammar-main" id="grammarMain">
+        <div style="text-align:center;padding:40px 20px;color:#94a3b8;">
+          <p style="font-size:1.25rem;margin-bottom:8px;">Select a grammar topic</p>
+          <p style="font-size:0.875rem;">Choose a topic from the sidebar to view its rules and practice exercises.</p>
+        </div>
+      </div>
+    </div>
+    <button class="test-all-btn" onclick="startQuiz()">Test All (10 Random Questions)</button>
+  </div>
+
+  <!-- ============================================================
+       TAB 2: WRITING WORKSHOP
+       ============================================================ -->
+  <div class="tab-panel" id="tab-writing">
+    <div class="mode-toggle">
+      <button class="mode-toggle__btn mode-toggle__btn--active" data-mode="swt" onclick="switchWritingMode('swt')">SWT Practice</button>
+      <button class="mode-toggle__btn" data-mode="essay" onclick="switchWritingMode('essay')">Essay Practice</button>
+    </div>
+
+    <!-- SWT Mode -->
+    <div id="swtMode"></div>
+
+    <!-- Essay Mode -->
+    <div id="essayMode" style="display:none;"></div>
+  </div>
+
+  <!-- ============================================================
+       TAB 3: SENTENCE BUILDER LAB
+       ============================================================ -->
+  <div class="tab-panel" id="tab-sentence">
+    <div class="sl-mode-toggle">
+      <button class="sl-mode-btn sl-mode-btn--active" data-slmode="patterns" onclick="switchSlMode('patterns')">Sentence Patterns</button>
+      <button class="sl-mode-btn" data-slmode="transforms" onclick="switchSlMode('transforms')">Sentence Transforms</button>
+    </div>
+    <div id="slPatternsMode">
+      <div class="sl-progress-bar" id="slPatternProgress"></div>
+      <div class="sentence-lab">
+        <div class="sentence-lab__sidebar" id="slCategorySidebar"></div>
+        <div class="sentence-lab__main" id="slPatternMain">
+          <div style="text-align:center;padding:40px 20px;color:#94a3b8;">
+            <p style="font-size:1.25rem;margin-bottom:8px;">Select a sentence function</p>
+            <p style="font-size:0.875rem;">Choose a category from the sidebar to practice building sentences.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="slTransformsMode" style="display:none;">
+      <div class="sl-progress-bar" id="slTransformProgress"></div>
+      <div id="slTransformMain"></div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       TAB 4: PROGRESS
+       ============================================================ -->
+  <div class="tab-panel" id="tab-progress">
+    <div id="progressContent"></div>
+  </div>
+</div>
+
+<!-- ============================================================
+     QUIZ OVERLAY
+     ============================================================ -->
+<div class="quiz-overlay" id="quizOverlay">
+  <div class="quiz-modal" id="quizModal">
+    <button class="quiz-modal__close" onclick="closeQuiz()">&times;</button>
+    <div id="quizContent"></div>
+  </div>
+</div>
+
+<!-- ============================================================
+     SCRIPTS
+     ============================================================ -->
+<script src="js/data.js"></script>
+<script src="js/writing-data.js"></script>
+<script>
+/* ============================================================
+   PTE Writing & Grammar Mastery - Application Logic
+   ES5 compatible (var, function, no arrow functions)
+   ============================================================ */
+
+// ========== UTILITY ==========
+function escHtml(s) {
+  return (s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+function getTodayStr() {
+  var d = new Date();
+  var yyyy = d.getFullYear();
+  var mm = ('0' + (d.getMonth() + 1)).slice(-2);
+  var dd = ('0' + d.getDate()).slice(-2);
+  return yyyy + '-' + mm + '-' + dd;
+}
+
+function shuffleArray(arr) {
+  var a = arr.slice();
+  for (var i = a.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var t = a[i]; a[i] = a[j]; a[j] = t;
+  }
+  return a;
+}
+
+// ========== STREAK ==========
+function loadStreak() {
+  var raw = localStorage.getItem('pte_writing_streak');
+  if (!raw) return { lastDate: '', count: 0 };
+  try { return JSON.parse(raw); } catch(e) { return { lastDate: '', count: 0 }; }
+}
+
+function updateStreak() {
+  var streak = loadStreak();
+  var today = getTodayStr();
+  if (streak.lastDate === today) return streak;
+
+  var yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  var yStr = yesterday.getFullYear() + '-' + ('0' + (yesterday.getMonth() + 1)).slice(-2) + '-' + ('0' + yesterday.getDate()).slice(-2);
+
+  if (streak.lastDate === yStr) {
+    streak.count += 1;
+  } else if (streak.lastDate !== today) {
+    streak.count = 1;
+  }
+  streak.lastDate = today;
+  localStorage.setItem('pte_writing_streak', JSON.stringify(streak));
+  return streak;
+}
+
+function renderStreak() {
+  var streak = loadStreak();
+  var el = document.getElementById('streakDisplay');
+  el.textContent = 'Streak: ' + streak.count + ' day' + (streak.count !== 1 ? 's' : '');
+}
+
+// ========== GRAMMAR MASTERY ==========
+function loadGrammarMastery() {
+  var raw = localStorage.getItem('pte_grammar_mastery');
+  if (!raw) return {};
+  try { return JSON.parse(raw); } catch(e) { return {}; }
+}
+
+function saveGrammarMastery(ruleId, correct) {
+  var mastery = loadGrammarMastery();
+  mastery[ruleId] = { correct: correct, timestamp: Date.now() };
+  localStorage.setItem('pte_grammar_mastery', JSON.stringify(mastery));
+}
+
+function getGroupMastery(groupKey) {
+  var mastery = loadGrammarMastery();
+  var group = GRAMMAR_ACADEMY[groupKey];
+  if (!group) return { done: 0, total: 0, pct: 0 };
+  var total = group.rules.length;
+  var done = 0;
+  for (var i = 0; i < group.rules.length; i++) {
+    if (mastery[group.rules[i].id] && mastery[group.rules[i].id].correct) {
+      done++;
+    }
+  }
+  return { done: done, total: total, pct: total ? Math.round(done / total * 100) : 0 };
+}
+
+// ========== TAB SWITCHING ==========
+var activeTab = 'grammar';
+
+function switchTab(tab) {
+  activeTab = tab;
+  var btns = document.querySelectorAll('.tabs__btn');
+  for (var i = 0; i < btns.length; i++) {
+    if (btns[i].getAttribute('data-tab') === tab) {
+      btns[i].className = 'tabs__btn tabs__btn--active';
+    } else {
+      btns[i].className = 'tabs__btn';
+    }
+  }
+  var panels = document.querySelectorAll('.tab-panel');
+  for (var j = 0; j < panels.length; j++) {
+    if (panels[j].id === 'tab-' + tab) {
+      panels[j].className = 'tab-panel tab-panel--active';
+    } else {
+      panels[j].className = 'tab-panel';
+    }
+  }
+  if (tab === 'progress') {
+    renderProgress();
+  }
+  if (tab === 'sentence') {
+    initSentenceLab();
+    if (window.innerWidth >= 1024 && slPatternCategoryKeys.length > 0 && !activeSlCategory) {
+      selectSlCategory(slPatternCategoryKeys[0]);
+    }
+  }
+}
+
+// ========== GRAMMAR SIDEBAR ==========
+var activeGrammarGroup = '';
+var grammarGroupKeys = ['articles', 'sentencePatterns', 'tenses', 'clauses', 'conditionals', 'modals', 'nonFinite'];
+
+function renderGrammarSidebar() {
+  var html = '';
+  for (var i = 0; i < grammarGroupKeys.length; i++) {
+    var key = grammarGroupKeys[i];
+    var group = GRAMMAR_ACADEMY[key];
+    var m = getGroupMastery(key);
+    var isActive = (key === activeGrammarGroup);
+    html += '<div class="grammar-group-card' + (isActive ? ' grammar-group-card--active' : '') + '" onclick="selectGrammarGroup(\'' + key + '\')">'
+      + '<div class="grammar-group-card__header">'
+      + '<div class="grammar-group-card__icon">' + ({articles:'Aa',sentencePatterns:'S+V',tenses:'T',clauses:'{}',conditionals:'if',modals:'M',nonFinite:'-ing'}[key] || '') + '</div>'
+      + '<div class="grammar-group-card__info">'
+      + '<div class="grammar-group-card__title">' + escHtml(group.title) + '</div>'
+      + '<div class="grammar-group-card__meta">' + group.rules.length + ' rules &middot; ' + m.pct + '% mastered</div>'
+      + '</div></div>'
+      + '<div class="grammar-group-card__bar"><div class="grammar-group-card__fill" style="width:' + m.pct + '%"></div></div>'
+      + '</div>';
+  }
+  document.getElementById('grammarSidebar').innerHTML = html;
+}
+
+function selectGrammarGroup(key) {
+  activeGrammarGroup = key;
+  renderGrammarSidebar();
+  renderGrammarRules(key);
+}
+
+// ========== GRAMMAR RULES ==========
+function renderGrammarRules(key) {
+  var group = GRAMMAR_ACADEMY[key];
+  if (!group) return;
+  var mastery = loadGrammarMastery();
+  var html = '<h2 style="font-size:1.25rem;font-weight:700;margin-bottom:16px;color:#1e293b;">' + escHtml(group.title) + ' Rules</h2>';
+
+  for (var i = 0; i < group.rules.length; i++) {
+    var rule = group.rules[i];
+    var isDone = mastery[rule.id] && mastery[rule.id].correct;
+    var exerciseId = 'ex-' + rule.id;
+
+    html += '<details class="rule-card">'
+      + '<summary>' + escHtml(rule.t)
+      + '<span class="mastery-dot ' + (isDone ? 'mastery-dot--done' : 'mastery-dot--pending') + '"></span>'
+      + '</summary>'
+      + '<div class="rule-card__body">';
+
+    // Explanation
+    html += '<p class="rule-explanation">' + escHtml(rule.exp) + '</p>';
+
+    // Examples
+    html += '<div class="example--correct">' + escHtml(rule.ok) + '</div>';
+    html += '<div class="example--incorrect">' + escHtml(rule.no) + '</div>';
+
+    // PTE Tip
+    html += '<div class="pte-tip">' + escHtml(rule.tip) + '</div>';
+
+    // Practice button & exercise area
+    html += '<button class="practice-toggle-btn" onclick="toggleExercise(\'' + exerciseId + '\')">Practice Exercise</button>';
+    html += '<div id="' + exerciseId + '" style="display:none;">';
+    html += renderExercise(rule.ex, rule.id);
+    html += '</div>';
+
+    html += '</div></details>';
+  }
+
+  document.getElementById('grammarMain').innerHTML = html;
+}
+
+function toggleExercise(id) {
+  var el = document.getElementById(id);
+  if (el) {
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  }
+}
+
+function renderExercise(ex, ruleId) {
+  if (!ex) return '';
+  var exId = 'drill-' + ruleId;
+  var html = '<div class="exercise-area">';
+  html += '<div class="exercise-area__q">' + escHtml(ex.q) + '</div>';
+
+  for (var i = 0; i < ex.a.length; i++) {
+    html += '<button class="exercise-btn" data-drill="' + exId + '" data-idx="' + i + '" data-correct="' + ex.ans + '" data-rule="' + ruleId + '" onclick="handleExerciseClick(this)">';
+    html += '<span style="font-weight:700;margin-right:6px;">' + String.fromCharCode(65 + i) + '.</span>' + escHtml(ex.a[i]);
+    html += '</button>';
+  }
+
+  html += '<div id="' + exId + '-explain" class="exercise-explain">' + escHtml(ex.exp) + '</div>';
+  html += '</div>';
+  return html;
+}
+
+function handleExerciseClick(btn) {
+  var drillId = btn.getAttribute('data-drill');
+  var clickedIdx = parseInt(btn.getAttribute('data-idx'), 10);
+  var correctIdx = parseInt(btn.getAttribute('data-correct'), 10);
+  var ruleId = btn.getAttribute('data-rule');
+  var isCorrect = (clickedIdx === correctIdx);
+
+  // Disable all buttons for this exercise
+  var allBtns = document.querySelectorAll('[data-drill="' + drillId + '"]');
+  for (var i = 0; i < allBtns.length; i++) {
+    allBtns[i].disabled = true;
+    allBtns[i].style.cursor = 'default';
+    var bIdx = parseInt(allBtns[i].getAttribute('data-idx'), 10);
+    if (bIdx === correctIdx) {
+      allBtns[i].className = 'exercise-btn exercise-btn--correct';
+    } else if (bIdx === clickedIdx && !isCorrect) {
+      allBtns[i].className = 'exercise-btn exercise-btn--wrong';
+    } else {
+      allBtns[i].className = 'exercise-btn exercise-btn--dimmed';
+    }
+  }
+
+  // Show explanation
+  var explainEl = document.getElementById(drillId + '-explain');
+  if (explainEl) {
+    explainEl.style.display = 'block';
+    if (isCorrect) {
+      explainEl.style.borderLeftColor = '#22c55e';
+      explainEl.innerHTML = '<strong style="color:#22c55e;">Correct!</strong> ' + explainEl.textContent;
+    } else {
+      explainEl.style.borderLeftColor = '#ef4444';
+      explainEl.innerHTML = '<strong style="color:#ef4444;">Incorrect.</strong> ' + explainEl.textContent;
+    }
+  }
+
+  // Save to localStorage
+  if (ruleId) {
+    saveGrammarMastery(ruleId, isCorrect);
+    updateStreak();
+    renderStreak();
+    // Refresh sidebar mastery
+    renderGrammarSidebar();
+    // Update mastery dot
+    if (isCorrect) {
+      var card = btn.closest('.rule-card');
+      if (card) {
+        var dot = card.querySelector('.mastery-dot');
+        if (dot) {
+          dot.className = 'mastery-dot mastery-dot--done';
+        }
+      }
+    }
+  }
+}
+
+// ========== QUIZ MODE ==========
+var quizQuestions = [];
+var quizIndex = 0;
+var quizScore = 0;
+
+function startQuiz() {
+  // Gather all exercises from all groups
+  var allExercises = [];
+  for (var i = 0; i < grammarGroupKeys.length; i++) {
+    var group = GRAMMAR_ACADEMY[grammarGroupKeys[i]];
+    for (var j = 0; j < group.rules.length; j++) {
+      if (group.rules[j].ex) {
+        allExercises.push({
+          exercise: group.rules[j].ex,
+          ruleId: group.rules[j].id,
+          groupTitle: group.title
+        });
+      }
+    }
+  }
+  quizQuestions = shuffleArray(allExercises).slice(0, 10);
+  quizIndex = 0;
+  quizScore = 0;
+
+  document.getElementById('quizOverlay').className = 'quiz-overlay quiz-overlay--active';
+  renderQuizQuestion();
+}
+
+function closeQuiz() {
+  document.getElementById('quizOverlay').className = 'quiz-overlay';
+}
+
+function renderQuizQuestion() {
+  var container = document.getElementById('quizContent');
+  if (quizIndex >= quizQuestions.length) {
+    // Show final score
+    var pct = Math.round(quizScore / quizQuestions.length * 100);
+    container.innerHTML = '<div class="quiz-score-display">'
+      + '<div class="quiz-score-display__number">' + quizScore + '/' + quizQuestions.length + '</div>'
+      + '<div class="quiz-score-display__label">' + pct + '% Correct</div>'
+      + '<p style="margin-top:16px;color:#64748b;font-size:0.9375rem;">'
+      + (pct >= 80 ? 'Excellent! Your grammar foundation is strong.' : pct >= 60 ? 'Good effort! Review the topics you missed.' : 'Keep practicing! Focus on your weaker areas.')
+      + '</p>'
+      + '<button class="test-all-btn" style="margin-top:20px;" onclick="closeQuiz()">Close</button>'
+      + '</div>';
+    return;
+  }
+
+  var item = quizQuestions[quizIndex];
+  var ex = item.exercise;
+  var qId = 'quiz-q-' + quizIndex;
+
+  var html = '<div class="quiz-progress">Question ' + (quizIndex + 1) + ' of ' + quizQuestions.length
+    + ' &middot; <span style="color:#a855f7;font-weight:700;">' + escHtml(item.groupTitle) + '</span></div>';
+  html += '<div style="font-weight:700;font-size:1rem;margin-bottom:12px;">' + escHtml(ex.q) + '</div>';
+
+  for (var i = 0; i < ex.a.length; i++) {
+    html += '<button class="exercise-btn" data-drill="' + qId + '" data-idx="' + i + '" data-correct="' + ex.ans + '" data-rule="' + item.ruleId + '" onclick="handleQuizClick(this)">';
+    html += '<span style="font-weight:700;margin-right:6px;">' + String.fromCharCode(65 + i) + '.</span>' + escHtml(ex.a[i]);
+    html += '</button>';
+  }
+  html += '<div id="' + qId + '-explain" class="exercise-explain">' + escHtml(ex.exp) + '</div>';
+
+  container.innerHTML = html;
+}
+
+function handleQuizClick(btn) {
+  var drillId = btn.getAttribute('data-drill');
+  var clickedIdx = parseInt(btn.getAttribute('data-idx'), 10);
+  var correctIdx = parseInt(btn.getAttribute('data-correct'), 10);
+  var ruleId = btn.getAttribute('data-rule');
+  var isCorrect = (clickedIdx === correctIdx);
+
+  if (isCorrect) quizScore++;
+
+  // Save mastery
+  if (ruleId) {
+    saveGrammarMastery(ruleId, isCorrect);
+  }
+
+  // Disable buttons
+  var allBtns = document.querySelectorAll('[data-drill="' + drillId + '"]');
+  for (var i = 0; i < allBtns.length; i++) {
+    allBtns[i].disabled = true;
+    allBtns[i].style.cursor = 'default';
+    var bIdx = parseInt(allBtns[i].getAttribute('data-idx'), 10);
+    if (bIdx === correctIdx) {
+      allBtns[i].className = 'exercise-btn exercise-btn--correct';
+    } else if (bIdx === clickedIdx && !isCorrect) {
+      allBtns[i].className = 'exercise-btn exercise-btn--wrong';
+    } else {
+      allBtns[i].className = 'exercise-btn exercise-btn--dimmed';
+    }
+  }
+
+  // Show explanation
+  var explainEl = document.getElementById(drillId + '-explain');
+  if (explainEl) {
+    explainEl.style.display = 'block';
+    if (isCorrect) {
+      explainEl.style.borderLeftColor = '#22c55e';
+      explainEl.innerHTML = '<strong style="color:#22c55e;">Correct!</strong> ' + explainEl.textContent;
+    } else {
+      explainEl.style.borderLeftColor = '#ef4444';
+      explainEl.innerHTML = '<strong style="color:#ef4444;">Incorrect.</strong> ' + explainEl.textContent;
+    }
+  }
+
+  // Auto-advance after 1.5s
+  quizIndex++;
+  setTimeout(function() {
+    renderQuizQuestion();
+  }, 1500);
+}
+
+// ========== WRITING WORKSHOP ==========
+var activeWritingMode = 'swt';
+var currentSwtPassage = null;
+var currentEssayTopic = null;
+var activeTimer = null;
+
+function switchWritingMode(mode) {
+  activeWritingMode = mode;
+  var btns = document.querySelectorAll('.mode-toggle__btn');
+  for (var i = 0; i < btns.length; i++) {
+    if (btns[i].getAttribute('data-mode') === mode) {
+      btns[i].className = 'mode-toggle__btn mode-toggle__btn--active';
+    } else {
+      btns[i].className = 'mode-toggle__btn';
+    }
+  }
+  if (mode === 'swt') {
+    document.getElementById('swtMode').style.display = 'block';
+    document.getElementById('essayMode').style.display = 'none';
+  } else {
+    document.getElementById('swtMode').style.display = 'none';
+    document.getElementById('essayMode').style.display = 'block';
+  }
+}
+
+// ========== TIMER ==========
+function startTimer(totalSeconds, displayEl, onComplete) {
+  var remaining = totalSeconds;
+  var total = totalSeconds;
+
+  function updateDisplay() {
+    var mins = Math.floor(remaining / 60);
+    var secs = remaining % 60;
+    var timeStr = ('0' + mins).slice(-2) + ':' + ('0' + secs).slice(-2);
+
+    var pct = remaining / total;
+    var colorClass = 'timer-circle--green';
+    var strokeColor = '#22c55e';
+    if (pct <= 0.25) { colorClass = 'timer-circle--red'; strokeColor = '#ef4444'; }
+    else if (pct <= 0.5) { colorClass = 'timer-circle--yellow'; strokeColor = '#f59e0b'; }
+
+    var r = 42;
+    var circumference = 2 * Math.PI * r;
+    var offset = circumference - (pct * circumference);
+
+    displayEl.className = 'timer-circle ' + colorClass;
+    displayEl.innerHTML = '<svg width="100" height="100" viewBox="0 0 100 100">'
+      + '<circle cx="50" cy="50" r="' + r + '" fill="none" stroke="#e2e8f0" stroke-width="6"/>'
+      + '<circle cx="50" cy="50" r="' + r + '" fill="none" stroke="' + strokeColor + '" stroke-width="6" '
+      + 'stroke-dasharray="' + circumference + '" stroke-dashoffset="' + offset + '" stroke-linecap="round"/>'
+      + '</svg>'
+      + '<span class="timer-circle__text">' + timeStr + '</span>';
+  }
+
+  updateDisplay();
+
+  var interval = setInterval(function() {
+    remaining--;
+    if (remaining <= 0) {
+      remaining = 0;
+      updateDisplay();
+      clearInterval(interval);
+      if (onComplete) onComplete();
+    } else {
+      updateDisplay();
+    }
+  }, 1000);
+
+  return {
+    stop: function() {
+      clearInterval(interval);
+    },
+    getRemaining: function() {
+      return remaining;
+    }
+  };
+}
+
+// ========== TEXT ANALYSIS ==========
+function analyzeText(text) {
+  text = text || '';
+  var trimmed = text.trim();
+  if (!trimmed) {
+    return { wordCount: 0, sentenceCount: 0, paragraphCount: 0, avgWordsPerSentence: 0, linkingWordsUsed: [], periodCount: 0 };
+  }
+
+  // Word count
+  var words = trimmed.split(/\s+/).filter(function(w) { return w.length > 0; });
+  var wordCount = words.length;
+
+  // Period count
+  var periodCount = (trimmed.match(/\./g) || []).length;
+
+  // Sentence count
+  var sentences = trimmed.split(/[.!?]+/).filter(function(s) { return s.trim().length > 0; });
+  var sentenceCount = sentences.length;
+
+  // Paragraph count
+  var paragraphs = trimmed.split(/\n\s*\n/).filter(function(p) { return p.trim().length > 0; });
+  var paragraphCount = paragraphs.length;
+  if (paragraphCount === 0 && trimmed.length > 0) paragraphCount = 1;
+
+  // Average words per sentence
+  var avgWordsPerSentence = sentenceCount > 0 ? Math.round(wordCount / sentenceCount * 10) / 10 : 0;
+
+  // Linking words detection
+  var linkingWordsUsed = [];
+  var lowerText = trimmed.toLowerCase();
+  var allLinkingWords = [];
+  var categories = Object.keys(LINKING_WORDS_BANK);
+  for (var c = 0; c < categories.length; c++) {
+    var catWords = LINKING_WORDS_BANK[categories[c]];
+    for (var w = 0; w < catWords.length; w++) {
+      allLinkingWords.push(catWords[w]);
+    }
+  }
+  // Sort by length desc so longer phrases match first
+  allLinkingWords.sort(function(a, b) { return b.length - a.length; });
+  for (var k = 0; k < allLinkingWords.length; k++) {
+    var lw = allLinkingWords[k].toLowerCase();
+    if (lowerText.indexOf(lw) !== -1 && linkingWordsUsed.indexOf(allLinkingWords[k]) === -1) {
+      linkingWordsUsed.push(allLinkingWords[k]);
+    }
+  }
+
+  return {
+    wordCount: wordCount,
+    sentenceCount: sentenceCount,
+    paragraphCount: paragraphCount,
+    avgWordsPerSentence: avgWordsPerSentence,
+    linkingWordsUsed: linkingWordsUsed,
+    periodCount: periodCount
+  };
+}
+
+// ========== SWT MODE ==========
+function renderSwtMode() {
+  var container = document.getElementById('swtMode');
+  var html = '';
+
+  html += '<button class="random-btn" onclick="randomSwtPassage()">&#9861; Random Passage</button>';
+  html += '<div id="swtPassageDisplay">';
+  if (currentSwtPassage) {
+    html += renderSwtPassageContent();
+  } else {
+    html += '<div style="text-align:center;padding:40px;color:#94a3b8;">Click "Random Passage" to begin.</div>';
+  }
+  html += '</div>';
+
+  container.innerHTML = html;
+}
+
+function randomSwtPassage() {
+  var idx = Math.floor(Math.random() * SWT_PASSAGES.length);
+  currentSwtPassage = SWT_PASSAGES[idx];
+  if (activeTimer) { activeTimer.stop(); activeTimer = null; }
+  document.getElementById('swtPassageDisplay').innerHTML = renderSwtPassageContent();
+}
+
+function renderSwtPassageContent() {
+  if (!currentSwtPassage) return '';
+  var html = '';
+
+  // Passage
+  html += '<div class="passage-card">'
+    + '<div class="passage-card__title">' + escHtml(currentSwtPassage.title) + '</div>'
+    + '<div class="passage-card__text">' + escHtml(currentSwtPassage.text) + '</div>'
+    + '</div>';
+
+  // Timer
+  html += '<div class="timer-circle" id="swtTimerDisplay"></div>';
+  html += '<div class="timer-controls">'
+    + '<button class="timer-controls__btn timer-controls__btn--primary" onclick="startSwtTimer()">Start Timer (10 min)</button>'
+    + '<button class="timer-controls__btn" onclick="stopSwtTimer()">Stop</button>'
+    + '</div>';
+
+  // Writing area
+  html += '<textarea class="writing-textarea" id="swtTextarea" placeholder="Write your one-sentence summary here..." oninput="updateSwtStats()"></textarea>';
+
+  // Stats
+  html += '<div class="stats-bar" id="swtStats">'
+    + '<span class="stat"><span class="stat__label">Words: </span><span id="swtWordCount">0</span></span>'
+    + '<span class="stat"><span class="stat__label">Sentences: </span><span id="swtSentenceCount">0</span></span>'
+    + '<span class="stat"><span class="stat__label">Periods: </span><span id="swtPeriodCount">0</span></span>'
+    + '</div>';
+  html += '<div class="warning-banner" id="swtWarning"></div>';
+
+  // Submit
+  html += '<button class="submit-btn" id="swtSubmitBtn" disabled onclick="submitSwt()">Submit</button>';
+
+  // Rubric (hidden until submit)
+  html += '<div id="swtRubricArea"></div>';
+
+  // Model answer
+  html += '<div id="swtModelArea"></div>';
+
+  return html;
+}
+
+function startSwtTimer() {
+  if (activeTimer) activeTimer.stop();
+  var display = document.getElementById('swtTimerDisplay');
+  if (!display) return;
+  activeTimer = startTimer(600, display, function() {
+    // Timer complete
+  });
+}
+
+function stopSwtTimer() {
+  if (activeTimer) { activeTimer.stop(); activeTimer = null; }
+}
+
+function updateSwtStats() {
+  var textarea = document.getElementById('swtTextarea');
+  if (!textarea) return;
+  var analysis = analyzeText(textarea.value);
+
+  var wcEl = document.getElementById('swtWordCount');
+  var scEl = document.getElementById('swtSentenceCount');
+  var pcEl = document.getElementById('swtPeriodCount');
+  var warning = document.getElementById('swtWarning');
+  var submitBtn = document.getElementById('swtSubmitBtn');
+
+  if (wcEl) {
+    var wcOk = (analysis.wordCount >= 5 && analysis.wordCount <= 75);
+    wcEl.textContent = analysis.wordCount;
+    wcEl.className = wcOk ? 'stat--ok' : 'stat--warn';
+  }
+  if (scEl) {
+    var scOk = (analysis.sentenceCount === 1);
+    scEl.textContent = analysis.sentenceCount;
+    scEl.className = scOk ? 'stat--ok' : 'stat--warn';
+  }
+  if (pcEl) {
+    pcEl.textContent = analysis.periodCount;
+    pcEl.className = (analysis.periodCount <= 1) ? 'stat--ok' : 'stat--warn';
+  }
+
+  // Warning
+  var warnings = [];
+  if (analysis.periodCount > 1) warnings.push('More than 1 period detected - SWT must be ONE sentence!');
+  if (analysis.wordCount > 75) warnings.push('Word count exceeds 75 words.');
+  if (analysis.wordCount > 0 && analysis.wordCount < 5) warnings.push('Word count below 5 words.');
+
+  if (warning) {
+    if (warnings.length > 0) {
+      warning.textContent = warnings.join(' | ');
+      warning.className = 'warning-banner warning-banner--visible';
+    } else {
+      warning.className = 'warning-banner';
+    }
+  }
+
+  // Enable submit
+  if (submitBtn) {
+    submitBtn.disabled = (analysis.wordCount === 0);
+  }
+}
+
+function submitSwt() {
+  if (activeTimer) { activeTimer.stop(); activeTimer = null; }
+  var submitBtn = document.getElementById('swtSubmitBtn');
+  if (submitBtn) submitBtn.disabled = true;
+
+  var rubricArea = document.getElementById('swtRubricArea');
+  rubricArea.innerHTML = renderRubric('swt');
+
+  var modelArea = document.getElementById('swtModelArea');
+  if (currentSwtPassage && currentSwtPassage.model) {
+    modelArea.innerHTML = '<button class="show-model-btn" onclick="showSwtModel()">Show Model Answer</button>'
+      + '<div class="model-answer" id="swtModelAnswer">'
+      + '<div class="model-answer__title">Model Answer</div>'
+      + '<div class="model-answer__text">' + escHtml(currentSwtPassage.model) + '</div>'
+      + '</div>';
+  }
+
+  updateStreak();
+  renderStreak();
+}
+
+function showSwtModel() {
+  var el = document.getElementById('swtModelAnswer');
+  if (el) el.className = 'model-answer model-answer--visible';
+}
+
+// ========== ESSAY MODE ==========
+function renderEssayMode() {
+  var container = document.getElementById('essayMode');
+  var html = '';
+
+  html += '<button class="random-btn" onclick="randomEssayTopic()">&#9861; Random Topic</button>';
+  html += '<div id="essayTopicDisplay">';
+  if (currentEssayTopic) {
+    html += renderEssayContent();
+  } else {
+    html += '<div style="text-align:center;padding:40px;color:#94a3b8;">Click "Random Topic" to begin.</div>';
+  }
+  html += '</div>';
+
+  container.innerHTML = html;
+}
+
+function randomEssayTopic() {
+  if (typeof ESSAY_TOPICS !== 'undefined' && ESSAY_TOPICS.length > 0) {
+    var idx = Math.floor(Math.random() * ESSAY_TOPICS.length);
+    currentEssayTopic = ESSAY_TOPICS[idx];
+  }
+  if (activeTimer) { activeTimer.stop(); activeTimer = null; }
+  document.getElementById('essayTopicDisplay').innerHTML = renderEssayContent();
+}
+
+function renderEssayContent() {
+  if (!currentEssayTopic) return '';
+  var html = '';
+
+  // Topic
+  html += '<div class="passage-card">';
+  html += '<span class="category-badge">' + escHtml(currentEssayTopic.category) + '</span>';
+  if (currentEssayTopic.ref) {
+    html += '<span style="font-size:0.75rem;color:#94a3b8;margin-left:8px;">' + escHtml(currentEssayTopic.ref) + '</span>';
+  }
+  html += '<div class="passage-card__title" style="margin-top:8px;">' + escHtml(currentEssayTopic.topic) + '</div>';
+  html += '</div>';
+
+  // Hints
+  if (currentEssayTopic.hints) {
+    html += '<div class="hints-card">';
+    html += '<button class="hints-card__toggle" onclick="toggleHints()">&#9654; Show Argument Hints</button>';
+    html += '<div class="hints-card__body" id="essayHintsBody">';
+    var hKeys = Object.keys(currentEssayTopic.hints);
+    for (var h = 0; h < hKeys.length; h++) {
+      var hk = hKeys[h];
+      html += '<p><strong>' + hk.charAt(0).toUpperCase() + hk.slice(1) + ':</strong> ' + currentEssayTopic.hints[hk].join(' | ') + '</p>';
+    }
+    html += '</div></div>';
+  }
+
+  // Timer
+  html += '<div class="timer-circle" id="essayTimerDisplay"></div>';
+  html += '<div class="timer-controls">'
+    + '<button class="timer-controls__btn timer-controls__btn--primary" onclick="startEssayTimer()">Start Timer (20 min)</button>'
+    + '<button class="timer-controls__btn" onclick="stopEssayTimer()">Stop</button>'
+    + '</div>';
+
+  // Planning area
+  html += '<div class="planning-area">';
+  html += '<button class="planning-area__toggle" onclick="togglePlanning()">&#9654; Planning Area (3 min)</button>';
+  html += '<div class="planning-area__body" id="planningBody">';
+  html += '<div class="timer-circle" id="planTimerDisplay" style="width:60px;height:60px;"></div>';
+  html += '<div style="text-align:center;margin:6px 0;">';
+  html += '<button class="timer-controls__btn" onclick="startPlanTimer()" style="font-size:0.75rem;padding:4px 10px;">Start 3-min</button>';
+  html += '</div>';
+  html += '<textarea class="planning-textarea" placeholder="Plan your essay: Introduction thesis, Body 1 argument, Body 2 argument, Conclusion..."></textarea>';
+  html += '</div></div>';
+
+  // Writing area
+  html += '<textarea class="writing-textarea writing-textarea--large" id="essayTextarea" placeholder="Write your essay here... (200-300 words)" oninput="updateEssayStats()"></textarea>';
+
+  // Stats
+  html += '<div class="stats-bar" id="essayStats">'
+    + '<span class="stat"><span class="stat__label">Words: </span><span id="essayWordCount">0</span></span>'
+    + '<span class="stat"><span class="stat__label">Paragraphs: </span><span id="essayParagraphCount">0</span></span>'
+    + '<span class="stat"><span class="stat__label">Avg words/sentence: </span><span id="essayAvgWps">0</span></span>'
+    + '<span class="stat"><span class="stat__label">Linking words: </span><span id="essayLinkingCount">0</span></span>'
+    + '</div>';
+
+  // Linking words detected
+  html += '<div class="linking-detected" id="essayLinkingDetected" style="display:none;">'
+    + '<div class="linking-detected__title">Linking Words Detected</div>'
+    + '<div class="linking-detected__words" id="essayLinkingWords"></div>'
+    + '</div>';
+
+  html += '<div class="warning-banner" id="essayWarning"></div>';
+
+  // Submit
+  html += '<button class="submit-btn" id="essaySubmitBtn" disabled onclick="submitEssay()">Submit</button>';
+
+  // Areas for post-submit
+  html += '<div id="essayErrorChecklistArea"></div>';
+  html += '<div id="essayRubricArea"></div>';
+  html += '<div id="essayModelArea"></div>';
+
+  return html;
+}
+
+function toggleHints() {
+  var body = document.getElementById('essayHintsBody');
+  if (body) {
+    var isVisible = body.className.indexOf('--visible') !== -1;
+    body.className = isVisible ? 'hints-card__body' : 'hints-card__body hints-card__body--visible';
+  }
+}
+
+function togglePlanning() {
+  var body = document.getElementById('planningBody');
+  if (body) {
+    var isVisible = body.className.indexOf('--visible') !== -1;
+    body.className = isVisible ? 'planning-area__body' : 'planning-area__body planning-area__body--visible';
+  }
+}
+
+var planTimer = null;
+function startPlanTimer() {
+  if (planTimer) planTimer.stop();
+  var display = document.getElementById('planTimerDisplay');
+  if (!display) return;
+  planTimer = startTimer(180, display, function() {});
+}
+
+function startEssayTimer() {
+  if (activeTimer) activeTimer.stop();
+  var display = document.getElementById('essayTimerDisplay');
+  if (!display) return;
+  activeTimer = startTimer(1200, display, function() {});
+}
+
+function stopEssayTimer() {
+  if (activeTimer) { activeTimer.stop(); activeTimer = null; }
+}
+
+function updateEssayStats() {
+  var textarea = document.getElementById('essayTextarea');
+  if (!textarea) return;
+  var analysis = analyzeText(textarea.value);
+
+  var wcEl = document.getElementById('essayWordCount');
+  var pcEl = document.getElementById('essayParagraphCount');
+  var awEl = document.getElementById('essayAvgWps');
+  var lcEl = document.getElementById('essayLinkingCount');
+  var warning = document.getElementById('essayWarning');
+  var submitBtn = document.getElementById('essaySubmitBtn');
+
+  if (wcEl) {
+    var wcOk = (analysis.wordCount >= 200 && analysis.wordCount <= 300);
+    wcEl.textContent = analysis.wordCount;
+    wcEl.className = wcOk ? 'stat--ok' : (analysis.wordCount > 0 ? 'stat--warn' : '');
+  }
+  if (pcEl) pcEl.textContent = analysis.paragraphCount;
+  if (awEl) awEl.textContent = analysis.avgWordsPerSentence;
+  if (lcEl) lcEl.textContent = analysis.linkingWordsUsed.length;
+
+  // Linking words display
+  var lwDetected = document.getElementById('essayLinkingDetected');
+  var lwWords = document.getElementById('essayLinkingWords');
+  if (lwDetected && lwWords) {
+    if (analysis.linkingWordsUsed.length > 0) {
+      lwDetected.style.display = 'block';
+      var tagsHtml = '';
+      for (var i = 0; i < analysis.linkingWordsUsed.length; i++) {
+        tagsHtml += '<span class="linking-word-tag">' + escHtml(analysis.linkingWordsUsed[i]) + '</span>';
+      }
+      lwWords.innerHTML = tagsHtml;
+    } else {
+      lwDetected.style.display = 'none';
+    }
+  }
+
+  // Warning
+  var warnings = [];
+  if (analysis.wordCount > 300) warnings.push('Word count exceeds 300 words.');
+  if (analysis.wordCount > 0 && analysis.wordCount < 200) warnings.push('Word count below 200 words.');
+  if (warning) {
+    if (warnings.length > 0) {
+      warning.textContent = warnings.join(' | ');
+      warning.className = 'warning-banner warning-banner--visible';
+    } else {
+      warning.className = 'warning-banner';
+    }
+  }
+
+  if (submitBtn) submitBtn.disabled = (analysis.wordCount === 0);
+}
+
+function submitEssay() {
+  if (activeTimer) { activeTimer.stop(); activeTimer = null; }
+  var submitBtn = document.getElementById('essaySubmitBtn');
+  if (submitBtn) submitBtn.disabled = true;
+
+  // Error checklist
+  var checklistArea = document.getElementById('essayErrorChecklistArea');
+  checklistArea.innerHTML = renderErrorChecklist();
+
+  // Rubric
+  var rubricArea = document.getElementById('essayRubricArea');
+  rubricArea.innerHTML = renderRubric('essay');
+
+  // Model essay
+  var modelArea = document.getElementById('essayModelArea');
+  if (currentEssayTopic && MODEL_ESSAYS[currentEssayTopic.id]) {
+    var model = MODEL_ESSAYS[currentEssayTopic.id];
+    var linkWords = (model.highlights && model.highlights.linkingWords) ? model.highlights.linkingWords : [];
+    modelArea.innerHTML = '<button class="show-model-btn" onclick="showEssayModel()">Show Model Essay (' + model.wordCount + ' words, Score: ' + model.score + ')</button>'
+      + '<div class="model-answer" id="essayModelAnswer">'
+      + '<div class="model-answer__title">Model Essay (Score: ' + model.score + ')</div>'
+      + '<div class="model-answer__text">' + highlightLinkingWords(model.text, linkWords) + '</div>'
+      + '</div>';
+  } else {
+    modelArea.innerHTML = '<div style="text-align:center;padding:16px;color:#94a3b8;font-size:0.875rem;">No model essay available for this topic.</div>';
+  }
+
+  updateStreak();
+  renderStreak();
+}
+
+function showEssayModel() {
+  var el = document.getElementById('essayModelAnswer');
+  if (el) el.className = 'model-answer model-answer--visible';
+}
+
+function highlightLinkingWords(text, highlights) {
+  var escaped = escHtml(text);
+  for (var i = 0; i < highlights.length; i++) {
+    var word = escHtml(highlights[i]);
+    var regex = new RegExp('(' + word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
+    escaped = escaped.replace(regex, '<span class="highlight-linking">$1</span>');
+  }
+  return escaped;
+}
+
+// ========== ERROR CHECKLIST ==========
+function renderErrorChecklist() {
+  if (!ERROR_CHECKLIST || ERROR_CHECKLIST.length === 0) return '';
+  var html = '<div class="error-checklist">';
+  html += '<div class="error-checklist__title">Chinese-Speaker Error Self-Check</div>';
+  html += '<p style="font-size:0.8125rem;color:#64748b;margin-bottom:12px;">Check each error type you found in your essay. Click an item to see tips.</p>';
+
+  for (var i = 0; i < ERROR_CHECKLIST.length; i++) {
+    var item = ERROR_CHECKLIST[i];
+    html += '<div class="error-item">'
+      + '<div class="error-item__header" onclick="toggleErrorTip(\'' + item.id + '\')">'
+      + '<input type="checkbox" class="error-item__checkbox" data-error-id="' + item.id + '" onclick="event.stopPropagation()">'
+      + '<span class="error-item__label">' + escHtml(item.label) + '</span>'
+      + '</div>'
+      + '<div class="error-item__tip" id="tip-' + item.id + '">'
+      + '<div style="margin-bottom:4px;">' + escHtml(item.desc) + '</div>'
+      + (item.examples ? '<div style="color:#ef4444;font-size:0.75rem;">' + escHtml(item.examples.wrong) + '</div><div style="color:#22c55e;font-size:0.75rem;">' + escHtml(item.examples.right) + '</div>' : '')
+      + (item.tips ? '<ul style="margin:4px 0 0 16px;font-size:0.75rem;">' + item.tips.map(function(t){return '<li>'+escHtml(t)+'</li>';}).join('') + '</ul>' : '')
+      + '</div>'
+      + '</div>';
+  }
+
+  html += '</div>';
+  return html;
+}
+
+function toggleErrorTip(id) {
+  var el = document.getElementById('tip-' + id);
+  if (el) {
+    var isVisible = el.className.indexOf('--visible') !== -1;
+    el.className = isVisible ? 'error-item__tip' : 'error-item__tip error-item__tip--visible';
+  }
+}
+
+// ========== RUBRIC ==========
+var rubricScores = {};
+
+function renderRubric(type) {
+  var rubricData = WRITING_RUBRIC[type];
+  if (!rubricData) return '';
+  rubricScores = {};
+
+  // Convert object format to array for iteration
+  var criteriaKeys = Object.keys(rubricData);
+  var criteriaNames = {content:'Content',form:'Form',grammar:'Grammar',vocabulary:'Vocabulary',development:'Development & Structure',linguisticRange:'Linguistic Range',spelling:'Spelling'};
+  var maxTotal = 0;
+  for (var m = 0; m < criteriaKeys.length; m++) { maxTotal += rubricData[criteriaKeys[m]].max; }
+
+  var html = '<div class="rubric-section">';
+  html += '<div class="rubric-section__title">Self-Assessment Rubric (' + (type === 'swt' ? 'SWT' : 'Essay') + ')</div>';
+
+  for (var i = 0; i < criteriaKeys.length; i++) {
+    var ck = criteriaKeys[i];
+    var c = rubricData[ck];
+    var cKey = type + '-' + ck;
+    html += '<div class="rubric-criterion">';
+    html += '<div class="rubric-criterion__name">' + (criteriaNames[ck] || ck) + ' (0-' + c.max + ')</div>';
+    html += '<div class="rubric-criterion__desc" id="rubric-desc-' + cKey + '">Select a score</div>';
+    html += '<div class="rubric-scores">';
+    for (var s = 0; s <= c.max; s++) {
+      html += '<button class="rubric-score-btn" data-criterion="' + cKey + '" data-score="' + s + '" data-type="' + type + '" data-ckey="' + ck + '" onclick="selectRubricScore(this)">' + s + '</button>';
+    }
+    html += '</div></div>';
+  }
+
+  html += '<div class="rubric-total" id="rubric-total-' + type + '">'
+    + '<div class="rubric-total__number" id="rubric-total-num-' + type + '">-</div>'
+    + '<div class="rubric-total__label">/ ' + maxTotal + '</div>'
+    + '</div>';
+
+  html += '<button class="submit-btn" style="margin-top:16px;" onclick="saveRubricScore(\'' + type + '\')">Save Score</button>';
+  html += '</div>';
+  return html;
+}
+
+function selectRubricScore(btn) {
+  var criterion = btn.getAttribute('data-criterion');
+  var score = parseInt(btn.getAttribute('data-score'), 10);
+  var type = btn.getAttribute('data-type');
+  var ckey = btn.getAttribute('data-ckey');
+
+  rubricScores[criterion] = score;
+
+  // Highlight selected
+  var allBtns = document.querySelectorAll('[data-criterion="' + criterion + '"]');
+  for (var i = 0; i < allBtns.length; i++) {
+    if (parseInt(allBtns[i].getAttribute('data-score'), 10) === score) {
+      allBtns[i].className = 'rubric-score-btn rubric-score-btn--selected';
+    } else {
+      allBtns[i].className = 'rubric-score-btn';
+    }
+  }
+
+  // Update description from levels array
+  var rubricData = WRITING_RUBRIC[type];
+  var descEl = document.getElementById('rubric-desc-' + criterion);
+  if (descEl && rubricData && rubricData[ckey] && rubricData[ckey].levels) {
+    var desc = '';
+    for (var lv = 0; lv < rubricData[ckey].levels.length; lv++) {
+      if (rubricData[ckey].levels[lv].score === score) {
+        desc = rubricData[ckey].levels[lv].desc;
+        break;
+      }
+    }
+    descEl.textContent = desc || 'Score: ' + score;
+  }
+
+  // Update total
+  var total = 0;
+  var keys = Object.keys(rubricScores);
+  for (var k = 0; k < keys.length; k++) {
+    if (keys[k].indexOf(type + '-') === 0) {
+      total += rubricScores[keys[k]];
+    }
+  }
+  var totalNumEl = document.getElementById('rubric-total-num-' + type);
+  if (totalNumEl) totalNumEl.textContent = total;
+}
+
+function saveRubricScore(type) {
+  var total = 0;
+  var scoreObj = {};
+  var keys = Object.keys(rubricScores);
+
+  for (var k = 0; k < keys.length; k++) {
+    if (keys[k].indexOf(type + '-') === 0) {
+      var cName = keys[k].substring(type.length + 1);
+      scoreObj[cName] = rubricScores[keys[k]];
+      total += rubricScores[keys[k]];
+    }
+  }
+  scoreObj.total = total;
+
+  if (type === 'swt') {
+    var scores = loadSwtScores();
+    scores.push({
+      date: getTodayStr(),
+      passage: currentSwtPassage ? currentSwtPassage.title : 'Unknown',
+      score: scoreObj,
+      timestamp: Date.now()
+    });
+    localStorage.setItem('pte_swt_scores', JSON.stringify(scores));
+  } else {
+    // Gather error checklist state
+    var errors = [];
+    var checkboxes = document.querySelectorAll('.error-item__checkbox');
+    for (var i = 0; i < checkboxes.length; i++) {
+      if (checkboxes[i].checked) {
+        errors.push(checkboxes[i].getAttribute('data-error-id'));
+      }
+    }
+
+    var essayScores = loadEssayScores();
+    essayScores.push({
+      date: getTodayStr(),
+      topicId: currentEssayTopic ? currentEssayTopic.id : 0,
+      score: scoreObj,
+      errors: errors,
+      timestamp: Date.now()
+    });
+    localStorage.setItem('pte_essay_scores', JSON.stringify(essayScores));
+  }
+
+  alert('Score saved! Check the Progress tab to see your history.');
+}
+
+// ========== SCORE STORAGE ==========
+function loadSwtScores() {
+  var raw = localStorage.getItem('pte_swt_scores');
+  if (!raw) return [];
+  try { return JSON.parse(raw); } catch(e) { return []; }
+}
+
+function loadEssayScores() {
+  var raw = localStorage.getItem('pte_essay_scores');
+  if (!raw) return [];
+  try { return JSON.parse(raw); } catch(e) { return []; }
+}
+
+// ========== PROGRESS TAB ==========
+function renderProgress() {
+  var container = document.getElementById('progressContent');
+  var streak = loadStreak();
+  var mastery = loadGrammarMastery();
+  var swtScores = loadSwtScores();
+  var essayScores = loadEssayScores();
+
+  var html = '<div class="progress-grid">';
+
+  // Streak card
+  html += '<div class="progress-card">'
+    + '<div class="progress-card__title">Daily Streak</div>'
+    + '<div class="progress-card__big-number">' + streak.count + '</div>'
+    + '<div class="progress-card__label">consecutive day' + (streak.count !== 1 ? 's' : '') + '</div>'
+    + '<div style="margin-top:8px;font-size:0.8125rem;color:#64748b;">Last practiced: ' + (streak.lastDate || 'Never') + '</div>'
+    + '</div>';
+
+  // Grammar Mastery card
+  var totalRules = 0;
+  var totalMastered = 0;
+  html += '<div class="progress-card">'
+    + '<div class="progress-card__title">Grammar Mastery</div>';
+
+  for (var i = 0; i < grammarGroupKeys.length; i++) {
+    var key = grammarGroupKeys[i];
+    var group = GRAMMAR_ACADEMY[key];
+    var m = getGroupMastery(key);
+    totalRules += m.total;
+    totalMastered += m.done;
+    html += '<div class="mastery-row">'
+      + '<div class="mastery-row__label">' + escHtml(group.title) + '</div>'
+      + '<div class="mastery-bar"><div class="mastery-bar__fill" style="width:' + m.pct + '%"></div></div>'
+      + '<div class="mastery-row__pct">' + m.pct + '%</div>'
+      + '</div>';
+  }
+
+  html += '<div style="text-align:center;margin-top:12px;font-size:0.9375rem;font-weight:700;color:#a855f7;">' + totalMastered + ' / ' + totalRules + ' rules mastered</div>';
+  html += '</div>';
+
+  // SWT Scores
+  html += '<div class="progress-card">'
+    + '<div class="progress-card__title">SWT Scores</div>';
+
+  if (swtScores.length > 0) {
+    var lastFiveSwt = swtScores.slice(-5);
+    var swtAvg = 0;
+    for (var s = 0; s < lastFiveSwt.length; s++) {
+      swtAvg += (lastFiveSwt[s].score && lastFiveSwt[s].score.total) || 0;
+    }
+    swtAvg = Math.round(swtAvg / lastFiveSwt.length * 10) / 10;
+
+    var swtTrend = getTrend(lastFiveSwt);
+    html += '<div class="score-trend">'
+      + '<div class="score-trend__value" style="color:#a855f7;">' + swtAvg + '</div>'
+      + '<span style="font-size:0.8125rem;color:#64748b;">/ 7 avg</span>'
+      + '<span class="score-trend__arrow--' + swtTrend + '">' + (swtTrend === 'up' ? '&#9650;' : swtTrend === 'down' ? '&#9660;' : '&#9644;') + '</span>'
+      + '</div>';
+  } else {
+    html += '<div style="color:#94a3b8;font-size:0.875rem;">No SWT scores yet. Complete a practice to see scores here.</div>';
+  }
+  html += '</div>';
+
+  // Essay Scores
+  html += '<div class="progress-card">'
+    + '<div class="progress-card__title">Essay Scores</div>';
+
+  if (essayScores.length > 0) {
+    var lastFiveEssay = essayScores.slice(-5);
+    var essayAvg = 0;
+    for (var e = 0; e < lastFiveEssay.length; e++) {
+      essayAvg += (lastFiveEssay[e].score && lastFiveEssay[e].score.total) || 0;
+    }
+    essayAvg = Math.round(essayAvg / lastFiveEssay.length * 10) / 10;
+
+    var essayTrend = getTrend(lastFiveEssay);
+    html += '<div class="score-trend">'
+      + '<div class="score-trend__value" style="color:#a855f7;">' + essayAvg + '</div>'
+      + '<span style="font-size:0.8125rem;color:#64748b;">/ 15 avg</span>'
+      + '<span class="score-trend__arrow--' + essayTrend + '">' + (essayTrend === 'up' ? '&#9650;' : essayTrend === 'down' ? '&#9660;' : '&#9644;') + '</span>'
+      + '</div>';
+  } else {
+    html += '<div style="color:#94a3b8;font-size:0.875rem;">No essay scores yet. Complete a practice to see scores here.</div>';
+  }
+  html += '</div>';
+
+  // Score History
+  html += '<div class="progress-card" style="grid-column: 1 / -1;">'
+    + '<div class="progress-card__title">Score History (Last 10)</div>';
+
+  var allScores = [];
+  for (var si = 0; si < swtScores.length; si++) {
+    allScores.push({ type: 'SWT', date: swtScores[si].date, total: (swtScores[si].score && swtScores[si].score.total) || 0, max: 7, label: swtScores[si].passage || '', timestamp: swtScores[si].timestamp });
+  }
+  for (var ei = 0; ei < essayScores.length; ei++) {
+    allScores.push({ type: 'Essay', date: essayScores[ei].date, total: (essayScores[ei].score && essayScores[ei].score.total) || 0, max: 15, label: 'Topic #' + (essayScores[ei].topicId || '?'), timestamp: essayScores[ei].timestamp });
+  }
+  allScores.sort(function(a, b) { return b.timestamp - a.timestamp; });
+  var last10 = allScores.slice(0, 10);
+
+  if (last10.length > 0) {
+    for (var h = 0; h < last10.length; h++) {
+      html += '<div class="score-history-item">'
+        + '<span class="score-history-item__date">' + last10[h].date + '</span>'
+        + '<span class="score-history-item__type">' + last10[h].type + '</span>'
+        + '<span style="font-size:0.75rem;color:#94a3b8;flex:1;margin-left:8px;">' + escHtml(last10[h].label) + '</span>'
+        + '<span class="score-history-item__score">' + last10[h].total + '/' + last10[h].max + '</span>'
+        + '</div>';
+    }
+  } else {
+    html += '<div style="color:#94a3b8;font-size:0.875rem;padding:12px 0;">No scores recorded yet.</div>';
+  }
+  html += '</div>';
+
+  // Common Errors
+  html += '<div class="progress-card" style="grid-column: 1 / -1;">'
+    + '<div class="progress-card__title">Common Errors</div>';
+
+  var errorCounts = {};
+  for (var ec = 0; ec < essayScores.length; ec++) {
+    var errs = essayScores[ec].errors || [];
+    for (var er = 0; er < errs.length; er++) {
+      if (!errorCounts[errs[er]]) errorCounts[errs[er]] = 0;
+      errorCounts[errs[er]]++;
+    }
+  }
+
+  var errorEntries = [];
+  var ecKeys = Object.keys(errorCounts);
+  for (var ek = 0; ek < ecKeys.length; ek++) {
+    // Find label
+    var errLabel = ecKeys[ek];
+    for (var el = 0; el < ERROR_CHECKLIST.length; el++) {
+      if (ERROR_CHECKLIST[el].id === ecKeys[ek]) {
+        errLabel = ERROR_CHECKLIST[el].label;
+        break;
+      }
+    }
+    errorEntries.push({ id: ecKeys[ek], label: errLabel, count: errorCounts[ecKeys[ek]] });
+  }
+  errorEntries.sort(function(a, b) { return b.count - a.count; });
+
+  if (errorEntries.length > 0) {
+    var topErrors = errorEntries.slice(0, 5);
+    for (var te = 0; te < topErrors.length; te++) {
+      html += '<div class="common-error-item">'
+        + '<span class="common-error-item__label">' + escHtml(topErrors[te].label) + '</span>'
+        + '<span class="common-error-item__count">' + topErrors[te].count + 'x</span>'
+        + '</div>';
+    }
+
+    // Suggestion
+    html += '<div class="suggestion-box">';
+    html += '<strong>Practice Suggestion:</strong> Focus on ';
+    if (topErrors.length > 0) {
+      html += '"' + escHtml(topErrors[0].label) + '"';
+      if (topErrors.length > 1) {
+        html += ' and "' + escHtml(topErrors[1].label) + '"';
+      }
+      html += ' in your next practice session. These are your most frequent self-identified errors.';
+    }
+    html += '</div>';
+  } else {
+    html += '<div style="color:#94a3b8;font-size:0.875rem;padding:12px 0;">Complete essay practices and use the error checklist to track your common mistakes.</div>';
+
+    // Grammar suggestion
+    var weakGroups = [];
+    for (var wg = 0; wg < grammarGroupKeys.length; wg++) {
+      var wm = getGroupMastery(grammarGroupKeys[wg]);
+      if (wm.pct < 50) {
+        weakGroups.push(GRAMMAR_ACADEMY[grammarGroupKeys[wg]].title);
+      }
+    }
+    if (weakGroups.length > 0) {
+      html += '<div class="suggestion-box">'
+        + '<strong>Grammar Suggestion:</strong> You have low mastery in: ' + weakGroups.join(', ') + '. Practice these topics in the Grammar Academy tab.'
+        + '</div>';
+    }
+  }
+
+  html += '</div>';
+
+  html += '</div>'; // close progress-grid
+  container.innerHTML = html;
+}
+
+function getTrend(scores) {
+  if (scores.length < 2) return 'flat';
+  var last = (scores[scores.length - 1].score && scores[scores.length - 1].score.total) || 0;
+  var prev = (scores[scores.length - 2].score && scores[scores.length - 2].score.total) || 0;
+  if (last > prev) return 'up';
+  if (last < prev) return 'down';
+  return 'flat';
+}
+
+// ========== SENTENCE BUILDER LAB ==========
+var activeSlMode = 'patterns';
+var activeSlCategory = '';
+var slPatternCategoryKeys = [];
+var slPatternsDone = {};  // { patternId: true }
+var slTransformsDone = {}; // { transformId: true }
+
+// Load/save sentence lab progress
+function loadSlProgress() {
+  var raw = localStorage.getItem('pte_sl_progress');
+  if (!raw) return { patterns: {}, transforms: {} };
+  try { return JSON.parse(raw); } catch(e) { return { patterns: {}, transforms: {} }; }
+}
+
+function saveSlProgress() {
+  localStorage.setItem('pte_sl_progress', JSON.stringify({ patterns: slPatternsDone, transforms: slTransformsDone }));
+}
+
+function switchSlMode(mode) {
+  activeSlMode = mode;
+  var btns = document.querySelectorAll('.sl-mode-btn');
+  for (var i = 0; i < btns.length; i++) {
+    if (btns[i].getAttribute('data-slmode') === mode) {
+      btns[i].className = 'sl-mode-btn sl-mode-btn--active';
+    } else {
+      btns[i].className = 'sl-mode-btn';
+    }
+  }
+  if (mode === 'patterns') {
+    document.getElementById('slPatternsMode').style.display = 'block';
+    document.getElementById('slTransformsMode').style.display = 'none';
+  } else {
+    document.getElementById('slPatternsMode').style.display = 'none';
+    document.getElementById('slTransformsMode').style.display = 'block';
+    renderTransforms();
+  }
+}
+
+// --- Sentence Patterns ---
+function initSentenceLab() {
+  if (typeof SENTENCE_PATTERNS === 'undefined') return;
+  slPatternCategoryKeys = Object.keys(SENTENCE_PATTERNS);
+  var saved = loadSlProgress();
+  slPatternsDone = saved.patterns || {};
+  slTransformsDone = saved.transforms || {};
+  renderSlCategorySidebar();
+  renderSlPatternProgress();
+  renderSlTransformProgress();
+}
+
+function renderSlCategorySidebar() {
+  var html = '';
+  for (var i = 0; i < slPatternCategoryKeys.length; i++) {
+    var key = slPatternCategoryKeys[i];
+    var cat = SENTENCE_PATTERNS[key];
+    var isActive = (key === activeSlCategory);
+    var count = cat.patterns.length;
+    var done = 0;
+    for (var p = 0; p < cat.patterns.length; p++) {
+      if (slPatternsDone[cat.patterns[p].id]) done++;
+    }
+    html += '<div class="sl-cat-card' + (isActive ? ' sl-cat-card--active' : '') + '" onclick="selectSlCategory(\'' + key + '\')">'
+      + '<div class="sl-cat-card__title">' + escHtml(cat.title) + '</div>'
+      + '<div class="sl-cat-card__count">' + done + '/' + count + ' practiced</div>'
+      + '</div>';
+  }
+  document.getElementById('slCategorySidebar').innerHTML = html;
+}
+
+function selectSlCategory(key) {
+  activeSlCategory = key;
+  renderSlCategorySidebar();
+  renderSlPatterns(key);
+}
+
+function renderSlPatterns(key) {
+  var cat = SENTENCE_PATTERNS[key];
+  if (!cat) return;
+  var main = document.getElementById('slPatternMain');
+  var html = '<h2 style="font-size:1.25rem;font-weight:700;margin-bottom:4px;color:#1e293b;">' + escHtml(cat.title) + '</h2>';
+  html += '<p style="font-size:0.875rem;color:#64748b;margin-bottom:20px;">' + escHtml(cat.desc) + '</p>';
+
+  for (var i = 0; i < cat.patterns.length; i++) {
+    var pat = cat.patterns[i];
+    var isDone = slPatternsDone[pat.id];
+
+    // Parse template to highlight blanks
+    var displayTemplate = escHtml(pat.template).replace(/\[([^\]]+)\]/g, '<em>[$1]</em>');
+
+    html += '<div class="pattern-card" id="pc-' + pat.id + '">';
+    html += '<div class="pattern-card__template">' + displayTemplate;
+    if (isDone) html += ' <span style="color:#22c55e;font-size:0.75rem;">&#10003; Done</span>';
+    html += '</div>';
+
+    // Blank inputs
+    html += '<div class="pattern-card__blanks">';
+    for (var b = 0; b < pat.blanks.length; b++) {
+      html += '<div class="blank-input-group">'
+        + '<label class="blank-input-group__label">' + escHtml(pat.blanks[b].label) + '</label>'
+        + '<input class="blank-input" type="text" placeholder="e.g. ' + escHtml(pat.blanks[b].hint) + '" data-pat="' + pat.id + '" data-blank="' + b + '" oninput="onBlankInput(\'' + pat.id + '\')">'
+        + '</div>';
+    }
+    html += '</div>';
+
+    // Built sentence (hidden initially)
+    html += '<div class="pattern-card__built" id="built-' + pat.id + '"></div>';
+
+    // Actions
+    html += '<div class="pattern-card__actions">'
+      + '<button class="sl-btn sl-btn--primary" onclick="buildSentence(\'' + pat.id + '\',\'' + key + '\')">Build My Sentence</button>'
+      + '<button class="sl-btn sl-btn--ghost" onclick="togglePatternExample(\'' + pat.id + '\')">Show Example</button>'
+      + '<button class="sl-btn sl-btn--ghost" onclick="togglePatternTip(\'' + pat.id + '\')">PTE Tip</button>'
+      + '</div>';
+
+    // Example (hidden)
+    html += '<div class="pattern-card__example" id="example-' + pat.id + '">'
+      + '<strong>Example</strong>'
+      + escHtml(pat.example)
+      + '</div>';
+
+    // Tip (hidden)
+    html += '<div class="pattern-card__tip" id="tip-pat-' + pat.id + '">'
+      + escHtml(pat.tip)
+      + '</div>';
+
+    html += '</div>';
+  }
+
+  main.innerHTML = html;
+}
+
+function onBlankInput(patId) {
+  // Live preview as user types
+  var inputs = document.querySelectorAll('[data-pat="' + patId + '"]');
+  var allFilled = true;
+  for (var i = 0; i < inputs.length; i++) {
+    if (!inputs[i].value.trim()) { allFilled = false; break; }
+  }
+  if (allFilled && inputs.length > 0) {
+    buildSentencePreview(patId);
+  }
+}
+
+function buildSentencePreview(patId) {
+  // Find the pattern
+  var pat = findPattern(patId);
+  if (!pat) return;
+
+  var inputs = document.querySelectorAll('[data-pat="' + patId + '"]');
+  var values = [];
+  for (var i = 0; i < inputs.length; i++) {
+    values.push(inputs[i].value.trim() || pat.blanks[i].hint);
+  }
+
+  // Replace [blank] placeholders with user values
+  var result = pat.template;
+  var blankIdx = 0;
+  result = result.replace(/\[([^\]]+)\]/g, function() {
+    var val = values[blankIdx] || '';
+    blankIdx++;
+    return '<em>' + escHtml(val) + '</em>';
+  });
+
+  var builtEl = document.getElementById('built-' + patId);
+  if (builtEl) {
+    builtEl.innerHTML = result;
+    builtEl.className = 'pattern-card__built pattern-card__built--visible';
+  }
+}
+
+function buildSentence(patId, catKey) {
+  var pat = findPattern(patId);
+  if (!pat) return;
+
+  var inputs = document.querySelectorAll('[data-pat="' + patId + '"]');
+  var allFilled = true;
+  for (var i = 0; i < inputs.length; i++) {
+    if (!inputs[i].value.trim()) { allFilled = false; break; }
+  }
+
+  if (!allFilled) {
+    // Fill with hints as placeholders
+    for (var j = 0; j < inputs.length; j++) {
+      if (!inputs[j].value.trim()) {
+        inputs[j].value = pat.blanks[j].hint;
+      }
+    }
+  }
+
+  buildSentencePreview(patId);
+
+  // Mark as done
+  slPatternsDone[patId] = true;
+  saveSlProgress();
+  renderSlPatternProgress();
+  renderSlCategorySidebar();
+
+  // Update the done marker
+  var card = document.getElementById('pc-' + patId);
+  if (card) {
+    var tmpl = card.querySelector('.pattern-card__template');
+    if (tmpl && tmpl.innerHTML.indexOf('Done') === -1) {
+      tmpl.innerHTML += ' <span style="color:#22c55e;font-size:0.75rem;">&#10003; Done</span>';
+    }
+  }
+
+  updateStreak();
+  renderStreak();
+}
+
+function findPattern(patId) {
+  for (var i = 0; i < slPatternCategoryKeys.length; i++) {
+    var cat = SENTENCE_PATTERNS[slPatternCategoryKeys[i]];
+    for (var j = 0; j < cat.patterns.length; j++) {
+      if (cat.patterns[j].id === patId) return cat.patterns[j];
+    }
+  }
+  return null;
+}
+
+function togglePatternExample(patId) {
+  var el = document.getElementById('example-' + patId);
+  if (el) {
+    var vis = el.className.indexOf('--visible') !== -1;
+    el.className = vis ? 'pattern-card__example' : 'pattern-card__example pattern-card__example--visible';
+  }
+}
+
+function togglePatternTip(patId) {
+  var el = document.getElementById('tip-pat-' + patId);
+  if (el) {
+    var vis = el.className.indexOf('--visible') !== -1;
+    el.className = vis ? 'pattern-card__tip' : 'pattern-card__tip pattern-card__tip--visible';
+  }
+}
+
+function renderSlPatternProgress() {
+  var total = 0;
+  var done = 0;
+  for (var i = 0; i < slPatternCategoryKeys.length; i++) {
+    var cat = SENTENCE_PATTERNS[slPatternCategoryKeys[i]];
+    total += cat.patterns.length;
+    for (var j = 0; j < cat.patterns.length; j++) {
+      if (slPatternsDone[cat.patterns[j].id]) done++;
+    }
+  }
+  var pct = total > 0 ? Math.round(done / total * 100) : 0;
+  var el = document.getElementById('slPatternProgress');
+  if (el) {
+    el.innerHTML = '<span class="sl-progress-bar__label">Patterns Practiced:</span>'
+      + '<div class="sl-progress-bar__track"><div class="sl-progress-bar__fill" style="width:' + pct + '%"></div></div>'
+      + '<span class="sl-progress-bar__pct">' + done + '/' + total + '</span>';
+  }
+}
+
+// --- Sentence Transforms ---
+function renderTransforms() {
+  if (typeof SENTENCE_TRANSFORMS === 'undefined') return;
+  renderSlTransformProgress();
+  var main = document.getElementById('slTransformMain');
+  var html = '<h2 style="font-size:1.25rem;font-weight:700;margin-bottom:4px;color:#1e293b;">Simple &#8594; Academic Sentence Upgrades</h2>';
+  html += '<p style="font-size:0.875rem;color:#64748b;margin-bottom:20px;">Take a basic sentence and transform it into an academic-level statement. Try writing your own version, then reveal the 3 transformation levels.</p>';
+
+  for (var i = 0; i < SENTENCE_TRANSFORMS.length; i++) {
+    var tr = SENTENCE_TRANSFORMS[i];
+    var isDone = slTransformsDone[tr.id];
+
+    html += '<div class="transform-card" id="tc-' + tr.id + '">';
+
+    // Simple sentence
+    html += '<div class="transform-card__simple">'
+      + '<span>Basic Sentence' + (isDone ? ' <span style="color:#22c55e;text-transform:none;">&#10003; Done</span>' : '') + '</span>'
+      + escHtml(tr.simple)
+      + '</div>';
+
+    // User attempt area
+    html += '<div class="transform-card__input-area">'
+      + '<label>Your improved version:</label>'
+      + '<textarea class="transform-input" id="trinput-' + tr.id + '" placeholder="Rewrite this sentence in a more academic, detailed way..."></textarea>'
+      + '</div>';
+
+    // Action buttons
+    html += '<div class="pattern-card__actions">'
+      + '<button class="sl-btn sl-btn--primary" onclick="revealTransforms(\'' + tr.id + '\')">Reveal 3 Levels</button>'
+      + '</div>';
+
+    // Transform levels (hidden)
+    html += '<div class="transform-levels" id="trlevels-' + tr.id + '">';
+    for (var lv = 0; lv < tr.transforms.length; lv++) {
+      html += '<div class="transform-level transform-level--' + (lv + 1) + '">'
+        + '<div class="transform-level__method">Level ' + (lv + 1) + ': ' + escHtml(tr.transforms[lv].method) + '</div>'
+        + '<div class="transform-level__result">' + escHtml(tr.transforms[lv].result) + '</div>'
+        + '</div>';
+    }
+    html += '</div>';
+
+    html += '</div>';
+  }
+
+  main.innerHTML = html;
+}
+
+function revealTransforms(trId) {
+  var el = document.getElementById('trlevels-' + trId);
+  if (el) {
+    el.className = 'transform-levels transform-levels--visible';
+  }
+
+  // Mark as done
+  slTransformsDone[trId] = true;
+  saveSlProgress();
+  renderSlTransformProgress();
+
+  // Update the done marker
+  var card = document.getElementById('tc-' + trId);
+  if (card) {
+    var simple = card.querySelector('.transform-card__simple span');
+    if (simple && simple.innerHTML.indexOf('Done') === -1) {
+      simple.innerHTML += ' <span style="color:#22c55e;text-transform:none;">&#10003; Done</span>';
+    }
+  }
+
+  updateStreak();
+  renderStreak();
+}
+
+function renderSlTransformProgress() {
+  if (typeof SENTENCE_TRANSFORMS === 'undefined') return;
+  var total = SENTENCE_TRANSFORMS.length;
+  var done = 0;
+  for (var i = 0; i < total; i++) {
+    if (slTransformsDone[SENTENCE_TRANSFORMS[i].id]) done++;
+  }
+  var pct = total > 0 ? Math.round(done / total * 100) : 0;
+  var el = document.getElementById('slTransformProgress');
+  if (el) {
+    el.innerHTML = '<span class="sl-progress-bar__label">Transforms Completed:</span>'
+      + '<div class="sl-progress-bar__track"><div class="sl-progress-bar__fill" style="width:' + pct + '%"></div></div>'
+      + '<span class="sl-progress-bar__pct">' + done + '/' + total + '</span>';
+  }
+}
+
+// ========== INITIALIZATION ==========
+function init() {
+  renderStreak();
+  renderGrammarSidebar();
+  renderSwtMode();
+  renderEssayMode();
+  initSentenceLab();
+
+  // Auto-select first grammar group if on desktop
+  if (window.innerWidth >= 1024 && grammarGroupKeys.length > 0) {
+    selectGrammarGroup(grammarGroupKeys[0]);
+  }
+}
+
+init();
+</script>
+</body>
+</html>
