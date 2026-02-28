@@ -8,150 +8,196 @@
 </head>
 <body>
 
-<header class="header">
-  <div class="header__top">
+<header class="site-header">
+  <div class="container site-header__inner">
     <div>
-      <h1 class="header__title">PTE Superior English — 41-Day Planner</h1>
-      <p class="header__sub">Feb 28 - Apr 10, 2026 | 189 Visa | Writing-Heavy Scaffolded Plan + IELTS Speaking</p>
+      <h1 class="site-header__title">PTE Superior English <span>41-Day Planner</span></h1>
+      <p style="color:var(--muted);font-size:0.875rem;">Feb 28 – Apr 10, 2026 | 189 Visa | Writing-Heavy Scaffolded Plan + IELTS Speaking</p>
     </div>
-    <div class="header__countdown" id="countdown">--<small>days to exam</small></div>
+    <div class="countdown" id="countdown">
+      <span class="countdown__number" id="countdownNum">--</span>
+      <span class="countdown__label">days to exam</span>
+    </div>
   </div>
-  <div class="header__targets">
-    <div class="target target--speaking"><span class="target__score">88</span><span class="target__label">Speaking</span></div>
-    <div class="target target--writing"><span class="target__score">85</span><span class="target__label">Writing</span></div>
-    <div class="target target--reading"><span class="target__score">70</span><span class="target__label">Reading</span></div>
-    <div class="target target--listening"><span class="target__score">69</span><span class="target__label">Listening</span></div>
+  <div class="container score-targets" id="scoreTargets">
+    <div class="score-target">
+      <span class="score-target__dot score-target__dot--speaking"></span>
+      <span class="score-target__skill">Speaking</span>
+      <span class="score-target__value">88</span>
+    </div>
+    <div class="score-target">
+      <span class="score-target__dot score-target__dot--writing"></span>
+      <span class="score-target__skill">Writing</span>
+      <span class="score-target__value">85</span>
+    </div>
+    <div class="score-target">
+      <span class="score-target__dot score-target__dot--reading"></span>
+      <span class="score-target__skill">Reading</span>
+      <span class="score-target__value">70</span>
+    </div>
+    <div class="score-target">
+      <span class="score-target__dot score-target__dot--listening"></span>
+      <span class="score-target__skill">Listening</span>
+      <span class="score-target__value">69</span>
+    </div>
   </div>
 </header>
 
-<section class="progress-section" id="progressSection"></section>
+<div class="container">
 
-<nav class="legend">
-  <div class="legend__item"><span class="legend__dot" style="background:var(--foundation)"></span>Foundation (Full Scaffold)</div>
-  <div class="legend__item"><span class="legend__dot" style="background:var(--intensive)"></span>Intensive (Partial)</div>
-  <div class="legend__item"><span class="legend__dot" style="background:var(--simulation)"></span>Simulation (Minimal)</div>
-  <div class="legend__item"><span class="legend__dot" style="background:var(--taper)"></span>Taper (Rest)</div>
-  <div class="legend__item"><span class="legend__dot" style="background:var(--exam)"></span>Exam Day</div>
-</nav>
+  <section class="progress-section" id="progressSection"></section>
 
-<main class="calendar-container">
-  <div class="cal-header" id="calHeader"></div>
-  <div class="cal-grid" id="calGrid"></div>
-</main>
+  <nav class="phase-legend">
+    <div class="phase-legend__item"><span class="phase-legend__swatch phase-legend__swatch--foundation"></span>Foundation (Full Scaffold)</div>
+    <div class="phase-legend__item"><span class="phase-legend__swatch phase-legend__swatch--intensive"></span>Intensive (Partial)</div>
+    <div class="phase-legend__item"><span class="phase-legend__swatch phase-legend__swatch--simulation"></span>Simulation (Minimal)</div>
+    <div class="phase-legend__item"><span class="phase-legend__swatch phase-legend__swatch--taper"></span>Taper (Rest)</div>
+    <div class="phase-legend__item"><span class="phase-legend__swatch phase-legend__swatch--exam"></span>Exam Day</div>
+  </nav>
 
-<footer class="footer">
-  <button class="btn btn--danger" onclick="if(confirm('Reset ALL progress? This cannot be undone.')){localStorage.removeItem('pte_planner_v2');location.reload();}">Reset All Progress</button>
-  <span class="footer__note">Progress saves automatically in your browser</span>
+  <section class="calendar">
+    <div class="calendar__weekdays" id="calWeekdays"></div>
+    <div class="calendar__grid stagger" id="calGrid"></div>
+  </section>
+
+</div>
+
+<footer class="site-footer container">
+  <button class="btn btn--secondary" onclick="if(confirm('Reset ALL progress? This cannot be undone.')){localStorage.removeItem('pte_planner_v2');location.reload();}">Reset All Progress</button>
+  <p style="margin-top:0.5rem;">Progress saves automatically in your browser</p>
 </footer>
 
 <script src="js/data.js"></script>
 <script>
+// ========== CATEGORY MAPPER ==========
+function getCatClass(cat) {
+  var map = {
+    'Read Aloud': 'speaking', 'Repeat Sentence': 'speaking',
+    'Describe Image': 'speaking', 'PTE Speaking': 'speaking', 'Warm-up': 'speaking',
+    'Write From Dictation': 'writing', 'Essay': 'writing', 'Summarize Written Text': 'writing',
+    'Reading': 'reading', 'Listening': 'listening',
+    'Review': 'review', 'Grammar': 'review', 'Reflection': 'review', 'Prep': 'review'
+  };
+  return map[cat] || 'review';
+}
+
 // ========== STATE ==========
-let state = JSON.parse(localStorage.getItem('pte_planner_v2') || '{}');
+var state = JSON.parse(localStorage.getItem('pte_planner_v2') || '{}');
 if (!state.completed) state.completed = {};
 function saveState() { localStorage.setItem('pte_planner_v2', JSON.stringify(state)); }
 
 // ========== COUNTDOWN ==========
 function renderCountdown() {
-  const today = new Date(); today.setHours(0,0,0,0);
-  const exam = new Date(2026, 3, 10);
-  const diff = Math.ceil((exam - today) / (1000*60*60*24));
-  const el = document.getElementById('countdown');
-  el.innerHTML = diff <= 0 ? 'TODAY!<small>exam day</small>' : `${diff}<small>days to exam</small>`;
+  var today = new Date(); today.setHours(0,0,0,0);
+  var exam = new Date(2026, 3, 10);
+  var diff = Math.ceil((exam - today) / (1000*60*60*24));
+  document.getElementById('countdownNum').textContent = diff <= 0 ? 'TODAY!' : diff;
+  document.querySelector('.countdown__label').textContent = diff <= 0 ? 'exam day' : 'days to exam';
 }
 
 // ========== PROGRESS ==========
 function renderProgress() {
-  const container = document.getElementById('progressSection');
-  let total = 0, done = 0;
-  const cats = {writing:{t:0,d:0}, speaking:{t:0,d:0}, reading:{t:0,d:0}, listening:{t:0,d:0}};
+  var container = document.getElementById('progressSection');
+  var total = 0, done = 0;
+  var cats = {writing:{t:0,d:0}, speaking:{t:0,d:0}, reading:{t:0,d:0}, listening:{t:0,d:0}};
 
-  for (let dn = 1; dn <= 42; dn++) {
-    const plan = generateDayPlan(dn);
-    const allTasks = [
-      ...(plan.sections.coreDrills || []),
-      ...(plan.sections.writingWorkshop || []),
-      ...(plan.sections.pteSpeaking || []),
-      ...(plan.sections.readingListening || []),
-      ...(plan.sections.review || [])
-    ];
-    // Count IELTS speaking as 1 task
+  for (var dn = 1; dn <= 42; dn++) {
+    var plan = generateDayPlan(dn);
+    var allTasks = [].concat(
+      plan.sections.coreDrills || [],
+      plan.sections.writingWorkshop || [],
+      plan.sections.pteSpeaking || [],
+      plan.sections.readingListening || [],
+      plan.sections.review || []
+    );
     if (plan.sections.ieltsSpeaking && plan.sections.ieltsSpeaking.part2) {
-      allTasks.push({id: `d${dn}_ielts`, cat: 'speaking'});
+      allTasks.push({id: 'd' + dn + '_ielts', cat: 'speaking'});
     }
-    allTasks.forEach(t => {
+    allTasks.forEach(function(t) {
       total++;
       if (state.completed[t.id]) done++;
-      if (cats[t.cat]) {
-        cats[t.cat].t++;
-        if (state.completed[t.id]) cats[t.cat].d++;
+      var catKey = getCatClass(t.cat);
+      if (cats[catKey]) {
+        cats[catKey].t++;
+        if (state.completed[t.id]) cats[catKey].d++;
       }
     });
   }
 
-  const pct = total ? Math.round(done / total * 100) : 0;
-  let html = `<div class="progress-bar"><div class="progress-bar__label"><span>Overall Progress</span><span>${pct}% (${done}/${total} tasks)</span></div><div class="progress-bar__track"><div class="progress-bar__fill" style="width:${pct}%;background:var(--text)"></div></div></div>`;
+  var pct = total ? Math.round(done / total * 100) : 0;
+  var html = '<div class="progress-group">';
+  html += '<div class="progress-item"><span class="progress-item__label">Overall</span><div class="progress-bar"><div class="progress-bar__fill progress-bar__fill--overall" style="width:' + pct + '%"></div></div><span class="progress-item__pct">' + pct + '%</span></div>';
 
-  [{k:'writing',l:'Writing',c:'var(--writing)'},{k:'speaking',l:'Speaking',c:'var(--speaking)'},
-   {k:'reading',l:'Reading',c:'var(--reading)'},{k:'listening',l:'Listening',c:'var(--listening)'}].forEach(({k,l,c}) => {
-    const p = cats[k].t ? Math.round(cats[k].d / cats[k].t * 100) : 0;
-    html += `<div class="progress-bar"><div class="progress-bar__label"><span>${l}</span><span>${p}%</span></div><div class="progress-bar__track"><div class="progress-bar__fill" style="width:${p}%;background:${c}"></div></div></div>`;
+  var catList = [
+    {k:'writing',l:'Writing'},{k:'speaking',l:'Speaking'},
+    {k:'reading',l:'Reading'},{k:'listening',l:'Listening'}
+  ];
+  catList.forEach(function(c) {
+    var p = cats[c.k].t ? Math.round(cats[c.k].d / cats[c.k].t * 100) : 0;
+    html += '<div class="progress-item"><span class="progress-item__label">' + c.l + '</span><div class="progress-bar"><div class="progress-bar__fill progress-bar__fill--' + c.k + '" style="width:' + p + '%"></div></div><span class="progress-item__pct">' + p + '%</span></div>';
   });
-
+  html += '</div>';
   container.innerHTML = html;
 }
 
 // ========== CALENDAR ==========
 function renderCalendar() {
-  // Header
-  const headerEl = document.getElementById('calHeader');
-  headerEl.innerHTML = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].map(d => `<span>${d}</span>`).join('');
+  var weekdaysEl = document.getElementById('calWeekdays');
+  weekdaysEl.innerHTML = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].map(function(d) {
+    return '<span class="calendar__weekday">' + d + '</span>';
+  }).join('');
 
-  const grid = document.getElementById('calGrid');
-  const start = new Date(2026, 1, 28); // Feb 28 Sat
-  const exam = new Date(2026, 3, 10);  // Apr 10 Fri
-  const today = new Date(); today.setHours(0,0,0,0);
+  var grid = document.getElementById('calGrid');
+  var start = new Date(2026, 1, 28);
+  var today = new Date(); today.setHours(0,0,0,0);
+  var calStart = new Date(2026, 1, 23); // Mon Feb 23
+  var calEnd   = new Date(2026, 3, 12); // Sun Apr 12
+  var months = ['Jan','Feb','Mar','Apr'];
 
-  // Monday of the week containing Feb 28
-  const calStart = new Date(2026, 1, 23); // Mon Feb 23
-  // Sunday of the week containing Apr 10
-  const calEnd = new Date(2026, 3, 12);   // Sun Apr 12
-
-  let html = '';
-  const cur = new Date(calStart);
-  const months = ['Jan','Feb','Mar','Apr'];
+  var html = '';
+  var cur = new Date(calStart);
 
   while (cur <= calEnd) {
-    const dayNum = Math.round((cur - start) / (1000*60*60*24)) + 1;
-    const isActive = dayNum >= 1 && dayNum <= 42;
+    var dayNum = Math.round((cur - start) / (1000*60*60*24)) + 1;
+    var isActive = dayNum >= 1 && dayNum <= 42;
 
     if (isActive) {
-      const plan = generateDayPlan(dayNum);
-      const isToday = cur.toDateString() === today.toDateString();
+      var plan = generateDayPlan(dayNum);
+      var isToday = cur.toDateString() === today.toDateString();
 
-      // Count tasks for this day
-      const allTasks = [
-        ...(plan.sections.coreDrills || []),
-        ...(plan.sections.writingWorkshop || []),
-        ...(plan.sections.pteSpeaking || []),
-        ...(plan.sections.readingListening || []),
-        ...(plan.sections.review || [])
-      ];
+      var allTasks = [].concat(
+        plan.sections.coreDrills || [],
+        plan.sections.writingWorkshop || [],
+        plan.sections.pteSpeaking || [],
+        plan.sections.readingListening || [],
+        plan.sections.review || []
+      );
       if (plan.sections.ieltsSpeaking && plan.sections.ieltsSpeaking.part2) {
-        allTasks.push({id: `d${dayNum}_ielts`});
+        allTasks.push({id: 'd' + dayNum + '_ielts'});
       }
-      const doneCount = allTasks.filter(t => state.completed[t.id]).length;
-      const totalCount = allTasks.length;
-      const allDone = totalCount > 0 && doneCount === totalCount;
+      var doneCount = allTasks.filter(function(t) { return state.completed[t.id]; }).length;
+      var totalCount = allTasks.length;
+      var allDone = totalCount > 0 && doneCount === totalCount;
+      var pct = totalCount ? Math.round(doneCount / totalCount * 100) : 0;
 
-      html += `<a href="day.html?day=${dayNum}" class="day-cell day-cell--${plan.phase}${isToday ? ' day-cell--today' : ''}${allDone ? ' day-cell--done' : ''}">
-        <div class="day-cell__num">Day ${dayNum}</div>
-        <div class="day-cell__date">${cur.getDate()} ${months[cur.getMonth()]} ${plan.dayOfWeek}</div>
-        <div class="day-cell__scaffold">${plan.scaffold.toUpperCase()}</div>
-        ${plan.phase !== 'exam' ? `<div class="day-cell__progress">${allDone ? '<span class="done-mark">Done</span>' : `${doneCount}/${totalCount}`}</div>` : '<div class="day-cell__progress">EXAM</div>'}
-        ${plan.essayTopic ? '<div class="day-cell__tag day-cell__tag--essay">Essay</div>' : ''}
-        ${plan.sections.ieltsSpeaking && plan.sections.ieltsSpeaking.part2 ? '<div class="day-cell__tag day-cell__tag--ielts">IELTS</div>' : ''}
-      </a>`;
+      // Scaffold dots
+      var scaffoldLevels = ['full','partial','minimal','none'];
+      var activeIdx = scaffoldLevels.indexOf(plan.scaffold);
+      var dots = '';
+      for (var si = 0; si < 4; si++) {
+        dots += '<span class="scaffold-badge__dot' + (si <= activeIdx ? ' scaffold-badge__dot--active' : '') + '"></span>';
+      }
+
+      html += '<a href="day.html?day=' + dayNum + '" class="day-cell day-cell--' + plan.phase + (isToday ? ' day-cell--today' : '') + '">'
+        + '<div class="day-cell__number">Day ' + dayNum + '</div>'
+        + '<div class="day-cell__date">' + cur.getDate() + ' ' + months[cur.getMonth()] + ' ' + plan.dayOfWeek + '</div>'
+        + '<div class="day-cell__footer">'
+        +   '<div class="scaffold-badge">' + dots + '</div>'
+        +   (plan.phase !== 'exam'
+            ? '<div class="day-cell__progress"><div class="day-cell__progress-fill" style="width:' + pct + '%;background:var(--' + plan.phase + ')"></div></div><span class="day-cell__pct">' + (allDone ? 'Done' : doneCount + '/' + totalCount) + '</span>'
+            : '<span class="day-cell__pct">EXAM</span>')
+        + '</div>'
+        + '</a>';
     } else {
       html += '<div class="day-cell day-cell--empty"></div>';
     }
@@ -165,10 +211,9 @@ renderCountdown();
 renderCalendar();
 renderProgress();
 
-// Auto-scroll to today
-setTimeout(() => {
-  const todayCell = document.querySelector('.day-cell--today');
-  if (todayCell) todayCell.scrollIntoView({behavior: 'smooth', block: 'center'});
+setTimeout(function() {
+  var todayCell = document.querySelector('.day-cell--today');
+  if (todayCell) todayCell.scrollIntoView({behavior:'smooth', block:'center'});
 }, 300);
 </script>
 </body>
