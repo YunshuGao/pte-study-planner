@@ -1,0 +1,1703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PTE Write It Right</title>
+<style>
+:root {
+  --blue: #2c5f8a; --blue-light: #e8f0f8;
+  --teal: #1a8a7d; --teal-light: #e0f5f2;
+  --orange: #e67e22; --orange-light: #fdf0e0;
+  --green: #27ae60; --green-light: #e8f8ef;
+  --purple: #8e44ad; --purple-light: #f3e8f9;
+  --red: #c0392b; --red-light: #fce4e4;
+  --grey: #7f8c8d; --grey-light: #f4f6f7;
+  --grey-dark: #2c3e50; --white: #ffffff;
+  --shadow: 0 2px 8px rgba(0,0,0,0.10);
+  --radius: 10px;
+  --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font);background:var(--grey-light);color:var(--grey-dark);line-height:1.6}
+
+/* ── Topbar ─────────────────────────────────────── */
+.topbar{background:var(--white);border-bottom:3px solid var(--purple);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;box-shadow:var(--shadow);position:sticky;top:0;z-index:100}
+.topbar__title{font-size:1.5rem;font-weight:700;color:var(--purple)}
+.topbar__title span{color:var(--grey-dark)}
+.topbar__right{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.topbar__streak{background:var(--orange-light);color:var(--orange);padding:4px 14px;border-radius:20px;font-weight:600;font-size:.9rem}
+.topbar__btn{background:var(--purple);color:var(--white);border:none;padding:7px 16px;border-radius:6px;cursor:pointer;font-size:.85rem;font-weight:600;transition:background .2s}
+.topbar__btn:hover{background:#732d91}
+.topbar__btn--outline{background:transparent;border:2px solid var(--purple);color:var(--purple)}
+.topbar__btn--outline:hover{background:var(--purple-light)}
+
+/* ── Progress Bar ───────────────────────────────── */
+.progress-bar-wrap{background:var(--grey-light);padding:10px 24px}
+.progress-bar{background:#e0e0e0;border-radius:10px;height:10px;overflow:hidden}
+.progress-bar__fill{height:100%;border-radius:10px;background:linear-gradient(90deg,var(--teal),var(--green));transition:width .4s}
+.progress-bar__label{font-size:.8rem;color:var(--grey);margin-top:4px;text-align:center}
+
+/* ── Tab Navigation ─────────────────────────────── */
+.tab-nav{display:flex;gap:4px;padding:8px 24px 0;background:var(--white);border-bottom:1px solid #e0e0e0;flex-wrap:wrap}
+.tab-btn{padding:10px 18px;border:none;background:transparent;cursor:pointer;font-size:.85rem;font-weight:600;color:var(--grey);border-bottom:3px solid transparent;transition:all .2s;border-radius:6px 6px 0 0;white-space:nowrap}
+.tab-btn:hover{background:var(--grey-light);color:var(--grey-dark)}
+.tab-btn--active{color:var(--purple);border-bottom-color:var(--purple);background:var(--purple-light)}
+.tab-btn .checkmark{color:var(--green);margin-left:4px;font-size:.85em}
+
+/* ── Container & Cards ──────────────────────────── */
+.container{max-width:1200px;margin:0 auto;padding:20px 24px 60px}
+.tab-panel{display:none}
+.tab-panel--active{display:block}
+.section-card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px;margin-bottom:20px}
+.section-card__title{font-size:1.15rem;font-weight:700;margin-bottom:12px;color:var(--grey-dark)}
+.section-card__subtitle{font-size:.95rem;color:var(--grey);margin-bottom:16px}
+
+/* ── Buttons ────────────────────────────────────── */
+.btn{display:inline-block;padding:8px 20px;border:none;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:all .2s}
+.btn--blue{background:var(--blue);color:var(--white)}.btn--blue:hover{background:#1e4a6e}
+.btn--green{background:var(--green);color:var(--white)}.btn--green:hover{background:#1e8e50}
+.btn--orange{background:var(--orange);color:var(--white)}.btn--orange:hover{background:#cf6e17}
+.btn--purple{background:var(--purple);color:var(--white)}.btn--purple:hover{background:#732d91}
+.btn--red{background:var(--red);color:var(--white)}.btn--red:hover{background:#a5301f}
+.btn--teal{background:var(--teal);color:var(--white)}.btn--teal:hover{background:#14706a}
+.btn--outline{background:transparent;border:2px solid var(--grey);color:var(--grey-dark)}.btn--outline:hover{background:var(--grey-light)}
+.btn--small{padding:5px 12px;font-size:.8rem}
+
+/* ── Badges ─────────────────────────────────────── */
+.badge{display:inline-block;padding:3px 10px;border-radius:12px;font-size:.75rem;font-weight:600}
+.badge--blue{background:var(--blue-light);color:var(--blue)}
+.badge--green{background:var(--green-light);color:var(--green)}
+.badge--orange{background:var(--orange-light);color:var(--orange)}
+.badge--purple{background:var(--purple-light);color:var(--purple)}
+.badge--red{background:var(--red-light);color:var(--red)}
+.badge--teal{background:var(--teal-light);color:var(--teal)}
+.badge--grey{background:var(--grey-light);color:var(--grey)}
+
+/* ── Structure Cards ────────────────────────────── */
+.structure-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
+.structure-card{border-radius:var(--radius);padding:20px;border-left:5px solid}
+.structure-card--intro{background:var(--blue-light);border-color:var(--blue)}
+.structure-card--body1{background:var(--green-light);border-color:var(--green)}
+.structure-card--body2{background:var(--orange-light);border-color:var(--orange)}
+.structure-card--conc{background:var(--purple-light);border-color:var(--purple)}
+.structure-card__label{font-weight:700;font-size:1rem;margin-bottom:6px}
+.structure-card__role{font-size:.88rem;color:var(--grey-dark);margin-bottom:8px}
+.structure-card__target{font-size:.8rem;font-weight:600;margin-bottom:8px}
+.structure-card__starters{font-size:.82rem;color:var(--grey-dark);margin-bottom:8px;padding-left:16px}
+.structure-card__starters li{margin-bottom:4px;list-style:disc}
+.structure-card__tips{font-size:.8rem;color:var(--grey);list-style:none}
+.structure-card__tips li{margin-bottom:2px}
+.structure-card__tips li::before{content:"\2713 ";color:var(--teal);font-weight:700}
+
+/* ── Jigsaw ─────────────────────────────────────── */
+.jigsaw-area{display:flex;flex-direction:column;gap:10px;margin:16px 0}
+.jigsaw-para{padding:14px 18px;border-radius:8px;border:2px dashed var(--grey);background:var(--white);cursor:pointer;font-size:.9rem;transition:all .25s;user-select:none}
+.jigsaw-para:hover{border-color:var(--purple);background:var(--purple-light)}
+.jigsaw-para--selected{opacity:.4;pointer-events:none}
+.jigsaw-para--correct{border-color:var(--green);border-style:solid;background:var(--green-light)}
+.jigsaw-para--wrong{border-color:var(--red);border-style:solid;background:var(--red-light);animation:shake .4s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.jigsaw-slots{display:flex;flex-direction:column;gap:8px;margin:16px 0}
+.jigsaw-slot{min-height:50px;border:2px dashed #ccc;border-radius:8px;padding:10px 14px;font-size:.85rem;display:flex;align-items:flex-start;gap:8px}
+.jigsaw-slot__label{font-weight:700;font-size:.8rem;white-space:nowrap;padding-top:2px}
+
+/* ── Grade Exercise ─────────────────────────────── */
+.grade-exercise{margin:16px 0}
+.grade-para{padding:14px;border-radius:8px;background:var(--grey-light);margin-bottom:12px}
+.grade-para__text{font-size:.9rem;margin-bottom:8px;font-style:italic}
+.grade-btns{display:flex;gap:6px;flex-wrap:wrap}
+.grade-btn{padding:4px 14px;border-radius:16px;border:2px solid var(--grey);background:var(--white);cursor:pointer;font-weight:600;font-size:.8rem;transition:all .2s}
+.grade-btn:hover{background:var(--purple-light);border-color:var(--purple)}
+.grade-btn--correct{background:var(--green-light);border-color:var(--green);color:var(--green)}
+.grade-btn--wrong{background:var(--red-light);border-color:var(--red);color:var(--red)}
+.grade-feedback{font-size:.82rem;margin-top:6px;padding:8px;border-radius:6px;display:none}
+
+/* ── Pill Walls ─────────────────────────────────── */
+.pill-wall{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.pill{display:inline-block;padding:5px 14px;border-radius:20px;font-size:.82rem;font-weight:600;cursor:pointer;transition:all .2s;border:2px solid transparent}
+.pill:hover{transform:translateY(-1px);box-shadow:0 2px 6px rgba(0,0,0,.12)}
+.pill--selected{box-shadow:0 0 0 2px var(--purple)}
+.conn-group{margin-bottom:16px}
+.conn-group__label{font-weight:700;font-size:.9rem;margin-bottom:6px}
+.conn-pill{background:var(--white);border:2px dashed;padding:5px 14px;border-radius:20px;font-size:.82rem;cursor:pointer;transition:all .2s;display:inline-block;margin:3px}
+.conn-pill:hover{transform:translateY(-1px)}
+
+/* ── Transform Cards ────────────────────────────── */
+.transform-card{margin-bottom:16px;padding:16px;border-radius:8px;background:var(--grey-light)}
+.transform-card__simple{font-size:1rem;font-weight:700;margin-bottom:8px;color:var(--red)}
+.transform-card__input{width:100%;padding:8px 12px;border:2px solid #ddd;border-radius:6px;font-size:.9rem;margin-bottom:8px;font-family:var(--font)}
+.transform-card__input:focus{outline:none;border-color:var(--teal)}
+.transform-levels{display:none}
+.transform-level{padding:8px 12px;border-left:3px solid var(--teal);margin-bottom:6px;background:var(--teal-light);border-radius:0 6px 6px 0;font-size:.85rem}
+.transform-level__method{font-weight:700;color:var(--teal);font-size:.8rem}
+
+/* ── Essay Builder ──────────────────────────────── */
+.essay-builder{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.builder-left,.builder-right{display:flex;flex-direction:column;gap:12px}
+.builder-textarea-wrap{position:relative}
+.builder-textarea-wrap__label{font-size:.8rem;font-weight:700;margin-bottom:4px}
+.builder-textarea{width:100%;min-height:120px;padding:12px 14px;border:2px solid #ddd;border-radius:8px;font-family:var(--font);font-size:.9rem;line-height:1.6;resize:vertical;transition:border-color .2s}
+.builder-textarea:focus{outline:none}
+.builder-textarea--intro{border-left:5px solid var(--blue)}.builder-textarea--intro:focus{border-color:var(--blue)}
+.builder-textarea--body1{border-left:5px solid var(--green)}.builder-textarea--body1:focus{border-color:var(--green)}
+.builder-textarea--body2{border-left:5px solid var(--orange)}.builder-textarea--body2:focus{border-color:var(--orange)}
+.builder-textarea--conc{border-left:5px solid var(--purple)}.builder-textarea--conc:focus{border-color:var(--purple)}
+.builder-wc{font-size:.75rem;color:var(--grey);text-align:right;margin-top:2px}
+.builder-tip-toggle{position:absolute;top:4px;right:4px;background:none;border:none;cursor:pointer;font-size:.85rem;color:var(--grey)}
+.builder-tip-toggle:hover{color:var(--purple)}
+.builder-tip{display:none;font-size:.8rem;background:var(--purple-light);padding:8px 12px;border-radius:6px;margin-top:4px}
+
+/* ── Preview Panel ──────────────────────────────── */
+.preview-panel{background:var(--white);border-radius:var(--radius);border:1px solid #e0e0e0;padding:20px;min-height:400px}
+.preview-panel__title{font-weight:700;font-size:1rem;margin-bottom:12px;color:var(--grey-dark)}
+.preview-para{padding:8px 12px;margin-bottom:8px;border-radius:4px;font-size:.9rem;line-height:1.7;min-height:24px}
+.preview-para--intro{border-left:3px solid var(--blue);background:rgba(44,95,138,.04)}
+.preview-para--body1{border-left:3px solid var(--green);background:rgba(39,174,96,.04)}
+.preview-para--body2{border-left:3px solid var(--orange);background:rgba(230,126,34,.04)}
+.preview-para--conc{border-left:3px solid var(--purple);background:rgba(142,68,173,.04)}
+.preview-para .hl-term{background:var(--teal-light);color:var(--teal);padding:1px 4px;border-radius:3px;font-weight:600}
+
+/* ── Stats Dashboard ────────────────────────────── */
+.stats-dashboard{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:16px}
+.stat-box{background:var(--grey-light);border-radius:8px;padding:12px;text-align:center}
+.stat-box__value{font-size:1.4rem;font-weight:700}
+.stat-box__label{font-size:.75rem;color:var(--grey)}
+.stat-box--good .stat-box__value{color:var(--green)}
+.stat-box--warn .stat-box__value{color:var(--orange)}
+.stat-box--bad .stat-box__value{color:var(--red)}
+.stat-list{font-size:.8rem;color:var(--grey-dark);margin-top:8px}
+
+/* ── Plan ───────────────────────────────────────── */
+.plan-timer{font-size:1.8rem;font-weight:700;color:var(--blue);text-align:center;margin:10px 0;font-variant-numeric:tabular-nums}
+.plan-textareas{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.plan-ta{width:100%;min-height:80px;padding:10px;border:2px solid #ddd;border-radius:6px;font-family:var(--font);font-size:.85rem;resize:vertical}
+.plan-ta--intro{border-left:4px solid var(--blue)}.plan-ta--body1{border-left:4px solid var(--green)}
+.plan-ta--body2{border-left:4px solid var(--orange)}.plan-ta--conc{border-left:4px solid var(--purple)}
+
+/* ── Checklist ──────────────────────────────────── */
+.checklist-item{padding:10px 0;border-bottom:1px solid #eee}
+.checklist-item__header{display:flex;align-items:center;gap:8px;cursor:pointer}
+.checklist-item__header input[type="checkbox"]{width:18px;height:18px;accent-color:var(--green)}
+.checklist-item__label{font-weight:600;font-size:.9rem}
+.checklist-item__detail{display:none;margin-top:8px;padding:8px 12px 8px 30px;font-size:.82rem;background:var(--grey-light);border-radius:6px}
+
+/* ── Rubric ─────────────────────────────────────── */
+.rubric-table{width:100%;border-collapse:collapse;margin:12px 0}
+.rubric-table th,.rubric-table td{padding:8px 10px;text-align:left;border-bottom:1px solid #eee;font-size:.85rem}
+.rubric-table th{background:var(--grey-light);font-weight:700}
+.rubric-score-btn{padding:3px 10px;border:2px solid #ddd;border-radius:16px;background:var(--white);cursor:pointer;font-weight:600;font-size:.8rem;margin:0 2px;transition:all .2s}
+.rubric-score-btn:hover{border-color:var(--purple)}
+.rubric-score-btn--selected{background:var(--purple);color:var(--white);border-color:var(--purple)}
+.rubric-total{font-size:1.3rem;font-weight:700;color:var(--purple);text-align:center;margin:12px 0}
+
+/* ── Topic Display ──────────────────────────────── */
+.topic-display{padding:16px;background:var(--blue-light);border-radius:8px;border-left:5px solid var(--blue);font-size:1rem;margin:12px 0}
+.topic-types-grid{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.topic-type-btn{padding:8px 16px;border:2px solid #ddd;border-radius:8px;background:var(--white);cursor:pointer;font-size:.85rem;font-weight:600;transition:all .2s}
+.topic-type-btn:hover{border-color:var(--purple);background:var(--purple-light)}
+.topic-type-btn--correct{border-color:var(--green);background:var(--green-light);color:var(--green)}
+.topic-type-btn--wrong{border-color:var(--red);background:var(--red-light);color:var(--red)}
+
+/* ── Error Exercise ─────────────────────────────── */
+.error-exercise{margin-bottom:16px;padding:16px;border-radius:8px;background:var(--white);border:1px solid #e0e0e0}
+.error-exercise__sentence{font-size:1rem;padding:12px;background:var(--grey-light);border-radius:6px;margin:8px 0;font-style:italic}
+.error-exercise__input{width:100%;padding:8px 12px;border:2px solid #ddd;border-radius:6px;font-family:var(--font);font-size:.9rem;margin:8px 0}
+.error-exercise__input:focus{outline:none;border-color:var(--teal)}
+.error-exercise__reveal{display:none;margin-top:8px;padding:12px;border-radius:6px}
+.error-exercise__wrong{color:var(--red);text-decoration:line-through;font-weight:600}
+.error-exercise__right{color:var(--green);font-weight:600}
+
+/* ── Full Practice ──────────────────────────────── */
+.full-practice-textarea{width:100%;min-height:350px;padding:16px;border:2px solid #ddd;border-radius:8px;font-family:var(--font);font-size:.95rem;line-height:1.7;resize:vertical}
+.full-practice-textarea:focus{outline:none;border-color:var(--purple)}
+.timer-circle{display:flex;justify-content:center;align-items:center;margin:12px 0}
+.timer-circle svg{width:120px;height:120px}
+.timer-circle__text{font-size:1.5rem;font-weight:700}
+
+/* ── SWT ────────────────────────────────────────── */
+.swt-passage{padding:16px;background:var(--blue-light);border-radius:8px;border-left:5px solid var(--blue);font-size:.92rem;line-height:1.7;margin:12px 0}
+.swt-stats{display:flex;gap:12px;flex-wrap:wrap;margin:10px 0}
+.swt-stat{padding:6px 14px;border-radius:20px;font-size:.82rem;font-weight:600}
+.swt-stat--ok{background:var(--green-light);color:var(--green)}
+.swt-stat--warn{background:var(--orange-light);color:var(--orange)}
+.swt-stat--bad{background:var(--red-light);color:var(--red)}
+.swt-template{padding:12px;background:var(--teal-light);border-radius:8px;margin-bottom:10px;border-left:4px solid var(--teal)}
+.swt-template__label{font-weight:700;font-size:.85rem;color:var(--teal)}
+.swt-template__pattern{font-size:.85rem;margin:4px 0;font-style:italic}
+
+/* ── Modal ──────────────────────────────────────── */
+.modal-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.45);z-index:200;justify-content:center;align-items:center}
+.modal-overlay--active{display:flex}
+.modal{background:var(--white);border-radius:var(--radius);padding:24px;max-width:500px;width:90%;max-height:80vh;overflow-y:auto;box-shadow:0 8px 32px rgba(0,0,0,.2)}
+.modal__title{font-size:1.1rem;font-weight:700;margin-bottom:16px}
+.modal__tabs{display:flex;gap:4px;margin-bottom:16px}
+.modal__tab{padding:6px 16px;border:none;background:var(--grey-light);cursor:pointer;border-radius:6px;font-weight:600;font-size:.85rem}
+.modal__tab--active{background:var(--purple);color:var(--white)}
+.modal__panel{display:none}
+.modal__panel--active{display:block}
+.modal__code{width:100%;min-height:100px;padding:10px;font-family:monospace;font-size:.8rem;border:1px solid #ddd;border-radius:6px;resize:vertical;word-break:break-all}
+
+/* ── Model Essay ────────────────────────────────── */
+.model-essay{padding:16px;background:var(--purple-light);border-radius:8px;margin:12px 0;font-size:.9rem;line-height:1.7;white-space:pre-wrap}
+.model-essay .link-hl{background:var(--orange-light);color:var(--orange);padding:1px 4px;border-radius:3px;font-weight:600}
+
+/* ── Collapsible ────────────────────────────────── */
+.collapsible__header{cursor:pointer;display:flex;align-items:center;justify-content:space-between;padding:10px 0;font-weight:600}
+.collapsible__header::after{content:"\25BC";font-size:.7rem;color:var(--grey);transition:transform .2s}
+.collapsible--open .collapsible__header::after{transform:rotate(180deg)}
+.collapsible__body{display:none}
+.collapsible--open .collapsible__body{display:block}
+
+/* ── Steps ──────────────────────────────────────── */
+.step-nav{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
+.step-btn{padding:6px 16px;border:2px solid #ddd;border-radius:20px;background:var(--white);cursor:pointer;font-size:.82rem;font-weight:600;transition:all .2s}
+.step-btn:hover{border-color:var(--purple)}
+.step-btn--active{background:var(--purple);color:var(--white);border-color:var(--purple)}
+.step-panel{display:none}
+.step-panel--active{display:block}
+
+/* ── Utilities ──────────────────────────────────── */
+.flex-between{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.mt-8{margin-top:8px}.mt-16{margin-top:16px}.mb-8{margin-bottom:8px}.mb-16{margin-bottom:16px}
+.text-center{text-align:center}.text-muted{color:var(--grey);font-size:.85rem}
+.hidden{display:none!important}
+.warning-banner{padding:10px 14px;border-radius:6px;font-size:.85rem;font-weight:600;margin:8px 0}
+.warning-banner--red{background:var(--red-light);color:var(--red);border-left:4px solid var(--red)}
+.warning-banner--orange{background:var(--orange-light);color:var(--orange);border-left:4px solid var(--orange)}
+.warning-banner--green{background:var(--green-light);color:var(--green);border-left:4px solid var(--green)}
+
+/* ── Print & Responsive ─────────────────────────── */
+@media print{.topbar,.tab-nav,.progress-bar-wrap,.btn,.step-nav,.modal-overlay{display:none!important}.tab-panel{display:block!important}.container{max-width:100%}}
+@media(max-width:1024px){.essay-builder{grid-template-columns:1fr}.structure-grid{grid-template-columns:1fr}}
+@media(max-width:700px){.topbar{padding:10px 12px}.container{padding:12px}.plan-textareas{grid-template-columns:1fr}.tab-btn{padding:8px 10px;font-size:.78rem}.stats-dashboard{grid-template-columns:1fr 1fr}}
+@media(max-width:500px){.topbar__title{font-size:1.15rem}.stats-dashboard{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ TOPBAR ═══════════════ -->
+<div class="topbar">
+  <div class="topbar__title"><span>PTE</span> Write It Right</div>
+  <div class="topbar__right">
+    <span class="topbar__streak" id="streakDisplay">0-day streak</span>
+    <button class="topbar__btn topbar__btn--outline" onclick="openSaveLoadModal()">Save / Load</button>
+    <a href="index.html" class="topbar__btn" style="text-decoration:none">Back to Planner</a>
+  </div>
+</div>
+
+<!-- ═══════════════ PROGRESS BAR ═══════════════ -->
+<div class="progress-bar-wrap">
+  <div class="progress-bar"><div class="progress-bar__fill" id="progressFill" style="width:0%"></div></div>
+  <div class="progress-bar__label" id="progressLabel">0 / 6 modules completed</div>
+</div>
+
+<!-- ═══════════════ TAB NAVIGATION ═══════════════ -->
+<div class="tab-nav" id="tabNav">
+  <button class="tab-btn tab-btn--active" onclick="switchTab(0)">1. Structure<span class="checkmark hidden" id="check0"></span></button>
+  <button class="tab-btn" onclick="switchTab(1)">2. Vocabulary<span class="checkmark hidden" id="check1"></span></button>
+  <button class="tab-btn" onclick="switchTab(2)">3. Essay Builder<span class="checkmark hidden" id="check2"></span></button>
+  <button class="tab-btn" onclick="switchTab(3)">4. SWT Builder<span class="checkmark hidden" id="check3"></span></button>
+  <button class="tab-btn" onclick="switchTab(4)">5. Error Clinic<span class="checkmark hidden" id="check4"></span></button>
+  <button class="tab-btn" onclick="switchTab(5)">6. Full Practice<span class="checkmark hidden" id="check5"></span></button>
+</div>
+
+<div class="container">
+
+<!-- ════════════════════════════════════════════════
+     MODULE 1: UNDERSTAND THE STRUCTURE
+     ════════════════════════════════════════════════ -->
+<div class="tab-panel tab-panel--active" id="panel0">
+  <div class="section-card">
+    <div class="section-card__title">PTE Essay Structure: 4-Paragraph Model</div>
+    <div class="section-card__subtitle">Every PTE essay follows the same proven structure. Learn each part.</div>
+    <div class="structure-grid" id="structureGrid"></div>
+  </div>
+
+  <div class="section-card">
+    <div class="section-card__title">Essay Jigsaw: Put It In Order</div>
+    <div class="section-card__subtitle">Click the paragraphs in the correct order: Introduction, Body 1, Body 2, Conclusion.</div>
+    <div id="jigsawTopic" class="topic-display" style="display:none"></div>
+    <button class="btn btn--purple mb-8" onclick="startJigsaw()">New Jigsaw Puzzle</button>
+    <div id="jigsawSlots" class="jigsaw-slots"></div>
+    <div id="jigsawArea" class="jigsaw-area"></div>
+    <div id="jigsawScore" class="text-center mt-8" style="display:none"></div>
+  </div>
+
+  <div class="section-card">
+    <div class="section-card__title">Paragraph Quality Grading</div>
+    <div class="section-card__subtitle">Read each paragraph and decide what grade it deserves: A, C, or E.</div>
+    <div id="gradeExercise" class="grade-exercise"></div>
+    <button class="btn btn--green mt-8 hidden" id="gradeRevealBtn" onclick="revealGrades()">Reveal Answers</button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════
+     MODULE 2: BUILD YOUR VOCABULARY
+     ════════════════════════════════════════════════ -->
+<div class="tab-panel" id="panel1">
+  <div class="section-card">
+    <div class="section-card__title">Academic Vocabulary Wall</div>
+    <div class="section-card__subtitle">Click a word to highlight it. These are key PTE academic terms to use in your essays.</div>
+    <div id="vocabWall" class="pill-wall"></div>
+  </div>
+
+  <div class="section-card">
+    <div class="section-card__title">Connectives Wall</div>
+    <div class="section-card__subtitle">Click a connective to copy it to clipboard. Organised by function.</div>
+    <div id="connectivesWall"></div>
+  </div>
+
+  <div class="section-card">
+    <div class="section-card__title">Sentence Upgrading</div>
+    <div class="section-card__subtitle">Upgrade these simple sentences to academic level. Write your version, then reveal the model transforms.</div>
+    <div id="transformCards"></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════
+     MODULE 3: ESSAY BUILDER
+     ════════════════════════════════════════════════ -->
+<div class="tab-panel" id="panel2">
+  <div class="section-card">
+    <div class="section-card__title">PTE Essay Builder</div>
+    <div class="step-nav" id="essayStepNav">
+      <button class="step-btn step-btn--active" onclick="switchEssayStep(0)">Step 1: Topic</button>
+      <button class="step-btn" onclick="switchEssayStep(1)">Step 2: Plan</button>
+      <button class="step-btn" onclick="switchEssayStep(2)">Step 3: Write</button>
+      <button class="step-btn" onclick="switchEssayStep(3)">Step 4: Self-Check</button>
+      <button class="step-btn" onclick="switchEssayStep(4)">Step 5: Self-Assess</button>
+      <button class="step-btn" onclick="switchEssayStep(5)">Step 6: Model</button>
+    </div>
+
+    <!-- Step 1: Topic -->
+    <div class="step-panel step-panel--active" id="essayStep0">
+      <button class="btn btn--blue" onclick="getRandomTopic()">Get Random Topic</button>
+      <div id="essayTopicDisplay" class="topic-display mt-8" style="display:none"></div>
+      <div id="topicCategoryBadge" class="mt-8" style="display:none"></div>
+      <div id="topicTypeSection" class="mt-16" style="display:none">
+        <div style="font-weight:700;margin-bottom:8px">What type of essay is this?</div>
+        <div id="topicTypeBtns" class="topic-types-grid"></div>
+        <div id="topicTypeFeedback" class="mt-8"></div>
+      </div>
+    </div>
+
+    <!-- Step 2: Plan -->
+    <div class="step-panel" id="essayStep1">
+      <div class="flex-between mb-8">
+        <div style="font-weight:700">Planning Time</div>
+        <div>
+          <button class="btn btn--blue btn--small" onclick="startPlanTimer()">Start 3-min Timer</button>
+          <button class="btn btn--outline btn--small" onclick="resetPlanTimer()">Reset</button>
+        </div>
+      </div>
+      <div class="plan-timer" id="planTimer">3:00</div>
+      <div class="plan-textareas">
+        <div><div class="builder-textarea-wrap__label" style="color:var(--blue)">Introduction Notes</div><textarea class="plan-ta plan-ta--intro" id="planIntro" placeholder="Main position, thesis statement..."></textarea></div>
+        <div><div class="builder-textarea-wrap__label" style="color:var(--green)">Body 1 Notes</div><textarea class="plan-ta plan-ta--body1" id="planBody1" placeholder="Strongest argument, evidence..."></textarea></div>
+        <div><div class="builder-textarea-wrap__label" style="color:var(--orange)">Body 2 Notes</div><textarea class="plan-ta plan-ta--body2" id="planBody2" placeholder="Second argument or counter..."></textarea></div>
+        <div><div class="builder-textarea-wrap__label" style="color:var(--purple)">Conclusion Notes</div><textarea class="plan-ta plan-ta--conc" id="planConc" placeholder="Restate, summarise, outlook..."></textarea></div>
+      </div>
+    </div>
+
+    <!-- Step 3: Write -->
+    <div class="step-panel" id="essayStep2">
+      <div class="essay-builder">
+        <div class="builder-left">
+          <div class="builder-textarea-wrap">
+            <div class="builder-textarea-wrap__label" style="color:var(--blue)">Introduction</div>
+            <button class="builder-tip-toggle" onclick="toggleTip('tipIntro')">? Tip</button>
+            <textarea class="builder-textarea builder-textarea--intro" id="essayIntro" oninput="updateEssayPreview()" placeholder="In recent years, there has been considerable debate about whether..."></textarea>
+            <div class="builder-wc" id="wcIntro">0 words</div>
+            <div class="builder-tip" id="tipIntro"></div>
+          </div>
+          <div class="builder-textarea-wrap">
+            <div class="builder-textarea-wrap__label" style="color:var(--green)">Body Paragraph 1</div>
+            <button class="builder-tip-toggle" onclick="toggleTip('tipBody1')">? Tip</button>
+            <textarea class="builder-textarea builder-textarea--body1" id="essayBody1" oninput="updateEssayPreview()" placeholder="One of the primary reasons for this view is that..."></textarea>
+            <div class="builder-wc" id="wcBody1">0 words</div>
+            <div class="builder-tip" id="tipBody1"></div>
+          </div>
+          <div class="builder-textarea-wrap">
+            <div class="builder-textarea-wrap__label" style="color:var(--orange)">Body Paragraph 2</div>
+            <button class="builder-tip-toggle" onclick="toggleTip('tipBody2')">? Tip</button>
+            <textarea class="builder-textarea builder-textarea--body2" id="essayBody2" oninput="updateEssayPreview()" placeholder="Furthermore, ... / Admittedly, some may argue that..."></textarea>
+            <div class="builder-wc" id="wcBody2">0 words</div>
+            <div class="builder-tip" id="tipBody2"></div>
+          </div>
+          <div class="builder-textarea-wrap">
+            <div class="builder-textarea-wrap__label" style="color:var(--purple)">Conclusion</div>
+            <button class="builder-tip-toggle" onclick="toggleTip('tipConc')">? Tip</button>
+            <textarea class="builder-textarea builder-textarea--conc" id="essayConc" oninput="updateEssayPreview()" placeholder="In conclusion, ... As discussed, ..."></textarea>
+            <div class="builder-wc" id="wcConc">0 words</div>
+            <div class="builder-tip" id="tipConc"></div>
+          </div>
+        </div>
+        <div class="builder-right">
+          <div class="preview-panel">
+            <div class="preview-panel__title">Live Preview</div>
+            <div id="previewIntro" class="preview-para preview-para--intro"><span class="text-muted">Introduction will appear here...</span></div>
+            <div id="previewBody1" class="preview-para preview-para--body1"><span class="text-muted">Body 1 will appear here...</span></div>
+            <div id="previewBody2" class="preview-para preview-para--body2"><span class="text-muted">Body 2 will appear here...</span></div>
+            <div id="previewConc" class="preview-para preview-para--conc"><span class="text-muted">Conclusion will appear here...</span></div>
+          </div>
+          <div class="stats-dashboard" id="essayStats">
+            <div class="stat-box" id="statWords"><div class="stat-box__value">0</div><div class="stat-box__label">Total Words (200-300)</div></div>
+            <div class="stat-box" id="statParas"><div class="stat-box__value">0</div><div class="stat-box__label">Paragraphs (4)</div></div>
+            <div class="stat-box" id="statTerms"><div class="stat-box__value">0</div><div class="stat-box__label">Academic Terms</div></div>
+            <div class="stat-box" id="statLinks"><div class="stat-box__value">0</div><div class="stat-box__label">Linking Words</div></div>
+            <div class="stat-box" id="statAvgSent"><div class="stat-box__value">0</div><div class="stat-box__label">Avg Words/Sentence</div></div>
+          </div>
+          <div id="detectedTermsList" class="stat-list mt-8"></div>
+          <div id="detectedLinksList" class="stat-list"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 4: Self-Check -->
+    <div class="step-panel" id="essayStep3">
+      <div class="section-card__subtitle">Check your essay against these common error categories.</div>
+      <div id="errorChecklist"></div>
+      <div class="collapsible mt-16" id="connRefCollapsible">
+        <div class="collapsible__header" onclick="toggleCollapsible('connRefCollapsible')">Connectives Quick Reference</div>
+        <div class="collapsible__body" id="connRefBody"></div>
+      </div>
+    </div>
+
+    <!-- Step 5: Self-Assess -->
+    <div class="step-panel" id="essayStep4">
+      <div class="section-card__subtitle">Rate your essay against the PTE writing rubric.</div>
+      <table class="rubric-table" id="essayRubricTable"></table>
+      <div class="rubric-total" id="essayRubricTotal">Total: 0 / 24</div>
+      <button class="btn btn--green mt-8" onclick="saveEssayScore()">Save Score</button>
+    </div>
+
+    <!-- Step 6: Model -->
+    <div class="step-panel" id="essayStep5">
+      <div id="modelEssayArea">
+        <p class="text-muted">Select a topic first (Step 1), then come here to see the model answer if available.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════
+     MODULE 4: SWT BUILDER
+     ════════════════════════════════════════════════ -->
+<div class="tab-panel" id="panel3">
+  <div class="section-card">
+    <div class="section-card__title">Summarize Written Text Builder</div>
+    <div class="step-nav" id="swtStepNav">
+      <button class="step-btn step-btn--active" onclick="switchSwtStep(0)">Step 1: Read</button>
+      <button class="step-btn" onclick="switchSwtStep(1)">Step 2: Key Points</button>
+      <button class="step-btn" onclick="switchSwtStep(2)">Step 3: Build</button>
+      <button class="step-btn" onclick="switchSwtStep(3)">Step 4: Check</button>
+    </div>
+
+    <!-- Step 1: Read -->
+    <div class="step-panel step-panel--active" id="swtStep0">
+      <button class="btn btn--blue" onclick="getRandomSWT()">Get Random Passage</button>
+      <div id="swtPassageTitle" class="mt-8" style="display:none;font-weight:700;font-size:1.05rem"></div>
+      <div id="swtPassageText" class="swt-passage mt-8" style="display:none"></div>
+    </div>
+
+    <!-- Step 2: Key Points -->
+    <div class="step-panel" id="swtStep1">
+      <div class="section-card__subtitle">Identify the key points before writing your summary.</div>
+      <div id="swtKeyPoints"></div>
+    </div>
+
+    <!-- Step 3: Build -->
+    <div class="step-panel" id="swtStep2">
+      <div class="section-card__subtitle">Write ONE sentence that summarises the passage. Use the templates below for guidance.</div>
+      <div id="swtTemplates" class="mb-16"></div>
+      <textarea class="full-practice-textarea" id="swtTextarea" oninput="updateSwtStats()" placeholder="Write your single summary sentence here..." style="min-height:120px"></textarea>
+      <div id="swtStatsArea" class="swt-stats mt-8"></div>
+      <div id="swtWarnings"></div>
+    </div>
+
+    <!-- Step 4: Check -->
+    <div class="step-panel" id="swtStep3">
+      <div class="section-card__subtitle">Self-assess your summary against the PTE SWT rubric.</div>
+      <table class="rubric-table" id="swtRubricTable"></table>
+      <div class="rubric-total" id="swtRubricTotal">Total: 0 / 7</div>
+      <div class="collapsible mt-16" id="swtChecklistCollapsible">
+        <div class="collapsible__header" onclick="toggleCollapsible('swtChecklistCollapsible')">SWT Checklist</div>
+        <div class="collapsible__body" id="swtChecklistBody"></div>
+      </div>
+      <button class="btn btn--purple mt-16" id="swtRevealBtn" onclick="revealSwtModel()">Reveal Model Answer</button>
+      <div id="swtModelArea" class="model-essay mt-8" style="display:none"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════
+     MODULE 5: ERROR CLINIC
+     ════════════════════════════════════════════════ -->
+<div class="tab-panel" id="panel4">
+  <div class="section-card">
+    <div class="section-card__title">Error Clinic: Spot the Mistake</div>
+    <div class="section-card__subtitle">Find and fix common errors made by Chinese speakers. Progress: <span id="errorProgress">0 / 12</span></div>
+    <div id="errorExercises"></div>
+    <p class="text-muted mt-16">Want deeper grammar study? Visit the <a href="writing.html" style="color:var(--purple);font-weight:600">Grammar Academy</a> page.</p>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════
+     MODULE 6: FULL PRACTICE
+     ════════════════════════════════════════════════ -->
+<div class="tab-panel" id="panel5">
+  <div class="section-card">
+    <div class="section-card__title">Full Timed Essay Practice</div>
+    <div class="flex-between mb-16">
+      <button class="btn btn--blue" onclick="getFullPracticeTopic()">Random Topic</button>
+      <div>
+        <button class="btn btn--green btn--small" onclick="startFullTimer()">Start 20-min Timer</button>
+        <button class="btn btn--outline btn--small" onclick="resetFullTimer()">Reset Timer</button>
+      </div>
+    </div>
+    <div id="fullTopicDisplay" class="topic-display" style="display:none"></div>
+    <div class="timer-circle mt-8">
+      <svg viewBox="0 0 120 120">
+        <circle cx="60" cy="60" r="54" fill="none" stroke="#e0e0e0" stroke-width="6"/>
+        <circle id="fullTimerCircle" cx="60" cy="60" r="54" fill="none" stroke="var(--purple)" stroke-width="6" stroke-dasharray="339.29" stroke-dashoffset="0" stroke-linecap="round" transform="rotate(-90 60 60)"/>
+        <text x="60" y="60" text-anchor="middle" dominant-baseline="central" class="timer-circle__text" id="fullTimerText" fill="var(--grey-dark)">20:00</text>
+      </svg>
+    </div>
+    <textarea class="full-practice-textarea mt-8" id="fullPracticeTextarea" oninput="updateFullStats()" placeholder="Write your complete essay here..."></textarea>
+    <div class="stats-dashboard mt-8" id="fullStats">
+      <div class="stat-box" id="fullStatWords"><div class="stat-box__value">0</div><div class="stat-box__label">Words (200-300)</div></div>
+      <div class="stat-box" id="fullStatParas"><div class="stat-box__value">0</div><div class="stat-box__label">Paragraphs</div></div>
+      <div class="stat-box" id="fullStatTerms"><div class="stat-box__value">0</div><div class="stat-box__label">Academic Terms</div></div>
+      <div class="stat-box" id="fullStatLinks"><div class="stat-box__value">0</div><div class="stat-box__label">Linking Words</div></div>
+    </div>
+    <div class="collapsible mt-16" id="fullChecklistCollapsible">
+      <div class="collapsible__header" onclick="toggleCollapsible('fullChecklistCollapsible')">Error Checklist</div>
+      <div class="collapsible__body" id="fullChecklistBody"></div>
+    </div>
+    <div class="collapsible mt-8" id="fullRubricCollapsible">
+      <div class="collapsible__header" onclick="toggleCollapsible('fullRubricCollapsible')">Self-Assessment Rubric</div>
+      <div class="collapsible__body">
+        <table class="rubric-table" id="fullRubricTable"></table>
+        <div class="rubric-total" id="fullRubricTotal">Total: 0 / 24</div>
+        <button class="btn btn--green mt-8" onclick="saveFullScore()">Save Score</button>
+      </div>
+    </div>
+    <div class="collapsible mt-8" id="fullModelCollapsible">
+      <div class="collapsible__header" onclick="toggleCollapsible('fullModelCollapsible')">Model Essay</div>
+      <div class="collapsible__body" id="fullModelBody">
+        <p class="text-muted">Select a topic first to see the model answer if available.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<!-- ═══════════════ SAVE/LOAD MODAL ═══════════════ -->
+<div class="modal-overlay" id="saveLoadModal">
+  <div class="modal">
+    <div class="flex-between mb-8">
+      <div class="modal__title">Save / Load Progress</div>
+      <button class="btn btn--outline btn--small" onclick="closeSaveLoadModal()">&times; Close</button>
+    </div>
+    <div class="modal__tabs">
+      <button class="modal__tab modal__tab--active" onclick="switchModalTab(0)">Save</button>
+      <button class="modal__tab" onclick="switchModalTab(1)">Load</button>
+    </div>
+    <div class="modal__panel modal__panel--active" id="modalPanel0">
+      <p class="text-muted mb-8">Copy the code below to save your progress. Keep it safe.</p>
+      <textarea class="modal__code" id="saveCodeArea" readonly></textarea>
+      <button class="btn btn--purple mt-8" onclick="copySaveCode()">Copy Code</button>
+    </div>
+    <div class="modal__panel" id="modalPanel1">
+      <p class="text-muted mb-8">Paste your saved code below to restore your progress.</p>
+      <textarea class="modal__code" id="loadCodeArea" placeholder="Paste your save code here..."></textarea>
+      <button class="btn btn--green mt-8" onclick="loadFromCode()">Load Progress</button>
+      <div id="loadFeedback" class="mt-8"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ EXTERNAL DATA FILES ═══════════════ -->
+<script src="js/data.js"></script>
+<script src="js/writing-data.js"></script>
+<script src="js/guided-writing-data.js"></script>
+
+<script>
+/* ================================================================
+   PTE Write It Right - Main Application Script (ES5)
+   ================================================================ */
+
+/* ── Utility Functions ──────────────────────────── */
+function escHtml(s) { return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+function countWords(text) {
+  var t = (text || '').trim();
+  if (!t) return 0;
+  return t.split(/\s+/).length;
+}
+
+function countSentences(text) {
+  var t = (text || '').trim();
+  if (!t) return 0;
+  var m = t.match(/[.!?]+/g);
+  return m ? m.length : 0;
+}
+
+function shuffleArray(arr) {
+  var a = arr.slice();
+  for (var i = a.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+  }
+  return a;
+}
+
+function detectTerms(text) {
+  var lower = (text || '').toLowerCase();
+  var found = [];
+  for (var i = 0; i < PTE_KEY_TERMS.length; i++) {
+    var term = PTE_KEY_TERMS[i];
+    var re = new RegExp('\\b' + term.replace(/[.*+?^${}()|[\]\\]/g,'\\$&') + '\\b', 'i');
+    if (re.test(lower)) found.push(term);
+  }
+  return found;
+}
+
+function detectLinkingWords(text) {
+  var found = [];
+  var keys = Object.keys(LINKING_WORDS_BANK);
+  for (var k = 0; k < keys.length; k++) {
+    var words = LINKING_WORDS_BANK[keys[k]];
+    for (var i = 0; i < words.length; i++) {
+      var w = words[i];
+      if (w.indexOf('...') !== -1) continue;
+      var re = new RegExp('\\b' + w.replace(/[.*+?^${}()|[\]\\]/g,'\\$&') + '\\b', 'i');
+      if (re.test(text) && found.indexOf(w) === -1) found.push(w);
+    }
+  }
+  return found;
+}
+
+function highlightTerms(text) {
+  var html = escHtml(text);
+  for (var i = 0; i < PTE_KEY_TERMS.length; i++) {
+    var term = PTE_KEY_TERMS[i];
+    var re = new RegExp('\\b(' + term.replace(/[.*+?^${}()|[\]\\]/g,'\\$&') + ')\\b', 'gi');
+    html = html.replace(re, '<span class="hl-term">$1</span>');
+  }
+  return html;
+}
+
+function highlightLinkingWords(text) {
+  var html = escHtml(text);
+  var keys = Object.keys(LINKING_WORDS_BANK);
+  var allWords = [];
+  for (var k = 0; k < keys.length; k++) {
+    var words = LINKING_WORDS_BANK[keys[k]];
+    for (var i = 0; i < words.length; i++) {
+      if (words[i].indexOf('...') === -1) allWords.push(words[i]);
+    }
+  }
+  allWords.sort(function(a,b){ return b.length - a.length; });
+  for (var j = 0; j < allWords.length; j++) {
+    var w = allWords[j];
+    var re = new RegExp('\\b(' + w.replace(/[.*+?^${}()|[\]\\]/g,'\\$&') + ')\\b', 'gi');
+    html = html.replace(re, '<span class="link-hl">$1</span>');
+  }
+  return html;
+}
+
+/* ── Debounce ───────────────────────────────────── */
+var _saveTimer = null;
+function debounceSave() {
+  if (_saveTimer) clearTimeout(_saveTimer);
+  _saveTimer = setTimeout(function(){ saveResponses(); }, 800);
+}
+
+/* ── State ──────────────────────────────────────── */
+var appState = {
+  currentTab: 0,
+  completedModules: {},
+  currentTopicId: null,
+  currentSwtId: null,
+  fullTopicId: null,
+  jigsawScore: 0,
+  errorScore: 0,
+  essayRubricScores: {},
+  swtRubricScores: {},
+  fullRubricScores: {}
+};
+
+/* ── Streak ─────────────────────────────────────── */
+function loadStreak() {
+  try {
+    var raw = localStorage.getItem('pte_wir_streak');
+    if (!raw) return { count: 0, lastDate: '' };
+    return JSON.parse(raw);
+  } catch(e) { return { count: 0, lastDate: '' }; }
+}
+function updateStreak() {
+  var s = loadStreak();
+  var today = new Date().toISOString().slice(0,10);
+  if (s.lastDate === today) {
+    // already visited today
+  } else {
+    var yesterday = new Date(Date.now() - 86400000).toISOString().slice(0,10);
+    if (s.lastDate === yesterday) {
+      s.count += 1;
+    } else {
+      s.count = 1;
+    }
+    s.lastDate = today;
+    localStorage.setItem('pte_wir_streak', JSON.stringify(s));
+  }
+  document.getElementById('streakDisplay').textContent = s.count + '-day streak';
+}
+
+/* ── Progress ───────────────────────────────────── */
+function markModuleComplete(idx) {
+  appState.completedModules[idx] = true;
+  saveProgress();
+  updateProgressUI();
+}
+function updateProgressUI() {
+  var count = 0;
+  for (var i = 0; i < 6; i++) {
+    var el = document.getElementById('check' + i);
+    if (appState.completedModules[i]) {
+      el.textContent = ' \u2713';
+      el.classList.remove('hidden');
+      count++;
+    } else {
+      el.classList.add('hidden');
+    }
+  }
+  var pct = Math.round(count / 6 * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressLabel').textContent = count + ' / 6 modules completed';
+}
+function saveProgress() {
+  localStorage.setItem('pte_wir_progress', JSON.stringify(appState.completedModules));
+}
+function loadProgress() {
+  try {
+    var raw = localStorage.getItem('pte_wir_progress');
+    if (raw) appState.completedModules = JSON.parse(raw);
+  } catch(e) {}
+}
+
+/* ── Tab Switching ──────────────────────────────── */
+function switchTab(idx) {
+  appState.currentTab = idx;
+  var btns = document.getElementById('tabNav').children;
+  for (var i = 0; i < btns.length; i++) {
+    btns[i].classList.toggle('tab-btn--active', i === idx);
+    document.getElementById('panel' + i).classList.toggle('tab-panel--active', i === idx);
+  }
+}
+
+/* ── Collapsible ────────────────────────────────── */
+function toggleCollapsible(id) {
+  var el = document.getElementById(id);
+  el.classList.toggle('collapsible--open');
+}
+
+/* ── Toggle Tip ─────────────────────────────────── */
+function toggleTip(id) {
+  var el = document.getElementById(id);
+  el.style.display = el.style.display === 'block' ? 'none' : 'block';
+}
+
+/* ════════════════════════════════════════════════════
+   MODULE 1: UNDERSTAND THE STRUCTURE
+   ════════════════════════════════════════════════════ */
+function renderStructureCards() {
+  var grid = document.getElementById('structureGrid');
+  var parts = [
+    { key: 'intro', cls: 'structure-card--intro', data: ESSAY_STRUCTURE.intro },
+    { key: 'body1', cls: 'structure-card--body1', data: ESSAY_STRUCTURE.body1 },
+    { key: 'body2', cls: 'structure-card--body2', data: ESSAY_STRUCTURE.body2 },
+    { key: 'conclusion', cls: 'structure-card--conc', data: ESSAY_STRUCTURE.conclusion }
+  ];
+  var html = '';
+  for (var i = 0; i < parts.length; i++) {
+    var p = parts[i], d = p.data;
+    html += '<div class="structure-card ' + p.cls + '">';
+    html += '<div class="structure-card__label">' + escHtml(d.label) + '</div>';
+    html += '<div class="structure-card__role">' + escHtml(d.role) + '</div>';
+    html += '<div class="structure-card__target">Target: ' + escHtml(d.target) + '</div>';
+    html += '<ul class="structure-card__starters">';
+    var max = Math.min(d.starters.length, 2);
+    for (var j = 0; j < max; j++) {
+      html += '<li>' + escHtml(d.starters[j]) + '</li>';
+    }
+    html += '</ul>';
+    html += '<ul class="structure-card__tips">';
+    for (var t = 0; t < d.tips.length; t++) {
+      html += '<li>' + escHtml(d.tips[t]) + '</li>';
+    }
+    html += '</ul></div>';
+  }
+  grid.innerHTML = html;
+}
+
+/* ── Jigsaw ─────────────────────────────────────── */
+var jigsawState = { set: null, order: [], step: 0, correct: 0 };
+function startJigsaw() {
+  var idx = Math.floor(Math.random() * ESSAY_JIGSAW.length);
+  var set = ESSAY_JIGSAW[idx];
+  jigsawState = { set: set, order: [], step: 0, correct: 0 };
+  document.getElementById('jigsawTopic').style.display = 'block';
+  document.getElementById('jigsawTopic').textContent = 'Topic: ' + set.topic;
+  document.getElementById('jigsawScore').style.display = 'none';
+  var roles = ['I','B1','B2','C'];
+  var labels = ['Introduction','Body 1','Body 2','Conclusion'];
+  var colors = ['var(--blue)','var(--green)','var(--orange)','var(--purple)'];
+  var slotsHtml = '';
+  for (var i = 0; i < 4; i++) {
+    slotsHtml += '<div class="jigsaw-slot" id="jslot' + i + '"><span class="jigsaw-slot__label" style="color:' + colors[i] + '">' + labels[i] + ':</span><span id="jslotText' + i + '" class="text-muted">Click a paragraph below...</span></div>';
+  }
+  document.getElementById('jigsawSlots').innerHTML = slotsHtml;
+  var shuffled = shuffleArray(set.paragraphs.slice());
+  var areaHtml = '';
+  for (var j = 0; j < shuffled.length; j++) {
+    areaHtml += '<div class="jigsaw-para" id="jpara' + j + '" data-role="' + shuffled[j].role + '" onclick="pickJigsawPara(' + j + ')">' + escHtml(shuffled[j].text) + '</div>';
+  }
+  document.getElementById('jigsawArea').innerHTML = areaHtml;
+}
+function pickJigsawPara(idx) {
+  if (jigsawState.step >= 4) return;
+  var el = document.getElementById('jpara' + idx);
+  var role = el.getAttribute('data-role');
+  var expectedRoles = ['I','B1','B2','C'];
+  var expected = expectedRoles[jigsawState.step];
+  var colors = ['var(--blue)','var(--green)','var(--orange)','var(--purple)'];
+  var slotText = document.getElementById('jslotText' + jigsawState.step);
+  var slot = document.getElementById('jslot' + jigsawState.step);
+  if (role === expected) {
+    el.classList.add('jigsaw-para--selected','jigsaw-para--correct');
+    slot.style.borderColor = colors[jigsawState.step];
+    slot.style.borderStyle = 'solid';
+    slot.style.background = 'var(--green-light)';
+    slotText.textContent = el.textContent.substring(0, 80) + '...';
+    slotText.classList.remove('text-muted');
+    jigsawState.correct++;
+  } else {
+    el.classList.add('jigsaw-para--wrong');
+    slot.style.background = 'var(--red-light)';
+    slotText.textContent = 'Wrong! That was ' + role + ', expected ' + expected + '.';
+    slotText.style.color = 'var(--red)';
+    setTimeout(function(){
+      el.classList.remove('jigsaw-para--wrong');
+    }, 600);
+    el.classList.add('jigsaw-para--selected');
+  }
+  jigsawState.step++;
+  if (jigsawState.step >= 4) {
+    var scoreEl = document.getElementById('jigsawScore');
+    scoreEl.style.display = 'block';
+    scoreEl.innerHTML = '<strong>Score: ' + jigsawState.correct + ' / 4</strong>' + (jigsawState.correct === 4 ? ' &mdash; Perfect!' : ' &mdash; Try again to improve!');
+    if (jigsawState.correct >= 3) markModuleComplete(0);
+  }
+}
+
+/* ── Paragraph Grading ──────────────────────────── */
+var gradeState = { answers: {}, revealed: false };
+function renderGradeExercise() {
+  var shuffled = shuffleArray(PARAGRAPH_SAMPLES.slice());
+  var html = '';
+  for (var i = 0; i < shuffled.length; i++) {
+    var p = shuffled[i];
+    html += '<div class="grade-para" id="gradePara' + i + '" data-grade="' + p.grade + '">';
+    html += '<div class="grade-para__text">"' + escHtml(p.text) + '"</div>';
+    html += '<div class="grade-btns">';
+    var grades = ['A','C','E'];
+    for (var g = 0; g < grades.length; g++) {
+      html += '<button class="grade-btn" id="gradeBtn' + i + '_' + grades[g] + '" onclick="selectGrade(' + i + ',\'' + grades[g] + '\')">' + grades[g] + '</button>';
+    }
+    html += '</div>';
+    html += '<div class="grade-feedback" id="gradeFb' + i + '"></div>';
+    html += '</div>';
+  }
+  document.getElementById('gradeExercise').innerHTML = html;
+  document.getElementById('gradeRevealBtn').classList.remove('hidden');
+  gradeState = { answers: {}, revealed: false };
+}
+function selectGrade(idx, grade) {
+  if (gradeState.revealed) return;
+  gradeState.answers[idx] = grade;
+  var grades = ['A','C','E'];
+  for (var g = 0; g < grades.length; g++) {
+    var btn = document.getElementById('gradeBtn' + idx + '_' + grades[g]);
+    btn.style.background = grades[g] === grade ? 'var(--purple-light)' : '';
+    btn.style.borderColor = grades[g] === grade ? 'var(--purple)' : '';
+    btn.style.color = grades[g] === grade ? 'var(--purple)' : '';
+  }
+}
+function revealGrades() {
+  gradeState.revealed = true;
+  var shuffled = PARAGRAPH_SAMPLES.slice();
+  for (var i = 0; i < 3; i++) {
+    var para = document.getElementById('gradePara' + i);
+    var correct = para.getAttribute('data-grade');
+    var chosen = gradeState.answers[i] || '';
+    var grades = ['A','C','E'];
+    for (var g = 0; g < grades.length; g++) {
+      var btn = document.getElementById('gradeBtn' + i + '_' + grades[g]);
+      if (grades[g] === correct) btn.classList.add('grade-btn--correct');
+      else if (grades[g] === chosen && chosen !== correct) btn.classList.add('grade-btn--wrong');
+    }
+    var fb = document.getElementById('gradeFb' + i);
+    var sample = null;
+    for (var s = 0; s < PARAGRAPH_SAMPLES.length; s++) {
+      if (PARAGRAPH_SAMPLES[s].grade === correct) { sample = PARAGRAPH_SAMPLES[s]; break; }
+    }
+    fb.style.display = 'block';
+    fb.style.background = chosen === correct ? 'var(--green-light)' : 'var(--red-light)';
+    fb.innerHTML = (chosen === correct ? '<strong>Correct!</strong> ' : '<strong>Incorrect.</strong> The answer is ' + correct + '. ') + escHtml(sample ? sample.feedback : '');
+  }
+}
+
+/* ════════════════════════════════════════════════════
+   MODULE 2: BUILD YOUR VOCABULARY
+   ════════════════════════════════════════════════════ */
+function renderVocabWall() {
+  var html = '';
+  for (var i = 0; i < PTE_KEY_TERMS.length; i++) {
+    html += '<span class="pill" style="background:var(--purple-light);color:var(--purple)" onclick="togglePill(this)" id="vocabPill' + i + '">' + escHtml(PTE_KEY_TERMS[i]) + '</span>';
+  }
+  document.getElementById('vocabWall').innerHTML = html;
+}
+function togglePill(el) {
+  el.classList.toggle('pill--selected');
+}
+
+function renderConnectivesWall() {
+  var keys = Object.keys(PTE_CONNECTIVES);
+  var html = '';
+  for (var k = 0; k < keys.length; k++) {
+    var group = PTE_CONNECTIVES[keys[k]];
+    html += '<div class="conn-group">';
+    html += '<div class="conn-group__label" style="color:' + group.color + '">' + escHtml(group.label) + '</div>';
+    html += '<div class="pill-wall">';
+    for (var i = 0; i < group.words.length; i++) {
+      html += '<span class="conn-pill" style="border-color:' + group.color + ';color:' + group.color + '" onclick="copyConnective(this)">' + escHtml(group.words[i]) + '</span>';
+    }
+    html += '</div></div>';
+  }
+  document.getElementById('connectivesWall').innerHTML = html;
+}
+function copyConnective(el) {
+  var text = el.textContent;
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text);
+  }
+  el.style.background = 'var(--green-light)';
+  el.textContent = 'Copied!';
+  var orig = text;
+  setTimeout(function(){ el.textContent = orig; el.style.background = ''; }, 1200);
+}
+
+function renderTransformCards() {
+  var shuffled = shuffleArray(SENTENCE_TRANSFORMS.slice());
+  var cards = shuffled.slice(0, 5);
+  var html = '';
+  for (var i = 0; i < cards.length; i++) {
+    var c = cards[i];
+    html += '<div class="transform-card">';
+    html += '<div class="transform-card__simple">Simple: "' + escHtml(c.simple) + '"</div>';
+    html += '<input class="transform-card__input" placeholder="Write your upgraded version here..." />';
+    html += '<button class="btn btn--teal btn--small" onclick="revealTransform(' + i + ')">Reveal Transforms</button>';
+    html += '<div class="transform-levels" id="transformLevels' + i + '">';
+    for (var t = 0; t < c.transforms.length; t++) {
+      html += '<div class="transform-level"><div class="transform-level__method">' + escHtml(c.transforms[t].method) + '</div>' + escHtml(c.transforms[t].result) + '</div>';
+    }
+    html += '</div></div>';
+  }
+  document.getElementById('transformCards').innerHTML = html;
+}
+function revealTransform(idx) {
+  var el = document.getElementById('transformLevels' + idx);
+  el.style.display = el.style.display === 'block' ? 'none' : 'block';
+  markModuleComplete(1);
+}
+
+/* ════════════════════════════════════════════════════
+   MODULE 3: ESSAY BUILDER
+   ════════════════════════════════════════════════════ */
+function switchEssayStep(idx) {
+  var btns = document.getElementById('essayStepNav').children;
+  for (var i = 0; i < btns.length; i++) {
+    btns[i].classList.toggle('step-btn--active', i === idx);
+    document.getElementById('essayStep' + i).classList.toggle('step-panel--active', i === idx);
+  }
+}
+
+/* ── Step 1: Topic ──────────────────────────────── */
+function getRandomTopic() {
+  var idx = Math.floor(Math.random() * ESSAY_TOPICS.length);
+  var t = ESSAY_TOPICS[idx];
+  appState.currentTopicId = t.id;
+  document.getElementById('essayTopicDisplay').style.display = 'block';
+  document.getElementById('essayTopicDisplay').textContent = t.topic;
+  document.getElementById('topicCategoryBadge').style.display = 'block';
+  document.getElementById('topicCategoryBadge').innerHTML = '<span class="badge badge--blue">' + escHtml(t.category) + '</span>';
+  renderTopicTypes(t);
+  renderModelEssayArea(t.id);
+}
+function renderTopicTypes(topic) {
+  document.getElementById('topicTypeSection').style.display = 'block';
+  var html = '';
+  for (var i = 0; i < TOPIC_TYPES.length; i++) {
+    html += '<button class="topic-type-btn" onclick="checkTopicType(' + i + ')" id="ttBtn' + i + '">' + escHtml(TOPIC_TYPES[i].type) + '</button>';
+  }
+  document.getElementById('topicTypeBtns').innerHTML = html;
+  document.getElementById('topicTypeFeedback').innerHTML = '';
+}
+function checkTopicType(idx) {
+  var topic = null;
+  for (var i = 0; i < ESSAY_TOPICS.length; i++) {
+    if (ESSAY_TOPICS[i].id === appState.currentTopicId) { topic = ESSAY_TOPICS[i]; break; }
+  }
+  if (!topic) return;
+  var text = topic.topic.toLowerCase();
+  var correctIdx = -1;
+  if (text.indexOf('agree or disagree') !== -1 || text.indexOf('do you agree') !== -1 || text.indexOf('to what extent') !== -1) correctIdx = 0;
+  else if (text.indexOf('discuss both') !== -1 || text.indexOf('discuss.') !== -1 && text.indexOf('both') !== -1) correctIdx = 1;
+  else if (text.indexOf('cause') !== -1 || text.indexOf('problem') !== -1 || text.indexOf('solution') !== -1) correctIdx = 2;
+  else if (text.indexOf('advantage') !== -1 || text.indexOf('disadvantage') !== -1) correctIdx = 3;
+  else correctIdx = 0;
+  for (var i = 0; i < TOPIC_TYPES.length; i++) {
+    var btn = document.getElementById('ttBtn' + i);
+    if (i === idx && i === correctIdx) btn.className = 'topic-type-btn topic-type-btn--correct';
+    else if (i === idx) btn.className = 'topic-type-btn topic-type-btn--wrong';
+    else if (i === correctIdx) btn.className = 'topic-type-btn topic-type-btn--correct';
+  }
+  var fb = document.getElementById('topicTypeFeedback');
+  var tt = TOPIC_TYPES[correctIdx];
+  fb.innerHTML = '<div class="warning-banner warning-banner--green"><strong>' + escHtml(tt.type) + '</strong>: ' + escHtml(tt.strategy) + '</div>';
+}
+
+/* ── Step 2: Plan Timer ─────────────────────────── */
+var planTimerInterval = null;
+var planTimeLeft = 180;
+function startPlanTimer() {
+  if (planTimerInterval) clearInterval(planTimerInterval);
+  planTimeLeft = 180;
+  updatePlanTimerDisplay();
+  planTimerInterval = setInterval(function(){
+    planTimeLeft--;
+    if (planTimeLeft <= 0) { clearInterval(planTimerInterval); planTimeLeft = 0; }
+    updatePlanTimerDisplay();
+  }, 1000);
+}
+function resetPlanTimer() {
+  if (planTimerInterval) clearInterval(planTimerInterval);
+  planTimeLeft = 180;
+  updatePlanTimerDisplay();
+}
+function updatePlanTimerDisplay() {
+  var m = Math.floor(planTimeLeft / 60);
+  var s = planTimeLeft % 60;
+  document.getElementById('planTimer').textContent = m + ':' + (s < 10 ? '0' : '') + s;
+  document.getElementById('planTimer').style.color = planTimeLeft <= 30 ? 'var(--red)' : 'var(--blue)';
+}
+
+/* ── Step 3: Live Preview (THE KEY FEATURE) ────── */
+function updateEssayPreview() {
+  var ids = ['essayIntro','essayBody1','essayBody2','essayConc'];
+  var previewIds = ['previewIntro','previewBody1','previewBody2','previewConc'];
+  var wcIds = ['wcIntro','wcBody1','wcBody2','wcConc'];
+  var fullText = '';
+  var parasWritten = 0;
+
+  for (var i = 0; i < 4; i++) {
+    var text = document.getElementById(ids[i]).value;
+    var wc = countWords(text);
+    document.getElementById(wcIds[i]).textContent = wc + ' words';
+    var prevEl = document.getElementById(previewIds[i]);
+    if (text.trim()) {
+      prevEl.innerHTML = highlightTerms(text);
+      parasWritten++;
+      fullText += text.trim() + ' ';
+    } else {
+      var labels = ['Introduction','Body 1','Body 2','Conclusion'];
+      prevEl.innerHTML = '<span class="text-muted">' + labels[i] + ' will appear here...</span>';
+    }
+  }
+
+  var totalWc = countWords(fullText);
+  var terms = detectTerms(fullText);
+  var links = detectLinkingWords(fullText);
+  var sents = countSentences(fullText);
+  var avgSent = sents > 0 ? Math.round(totalWc / sents) : 0;
+
+  /* Word count stat */
+  var wcBox = document.getElementById('statWords');
+  wcBox.querySelector('.stat-box__value').textContent = totalWc;
+  wcBox.className = 'stat-box' + (totalWc >= 200 && totalWc <= 300 ? ' stat-box--good' : totalWc >= 150 && totalWc <= 350 ? ' stat-box--warn' : ' stat-box--bad');
+
+  /* Paragraphs stat */
+  var pBox = document.getElementById('statParas');
+  pBox.querySelector('.stat-box__value').textContent = parasWritten;
+  pBox.className = 'stat-box' + (parasWritten === 4 ? ' stat-box--good' : ' stat-box--warn');
+
+  /* Academic terms */
+  var tBox = document.getElementById('statTerms');
+  tBox.querySelector('.stat-box__value').textContent = terms.length;
+  tBox.className = 'stat-box' + (terms.length >= 5 ? ' stat-box--good' : terms.length >= 2 ? ' stat-box--warn' : ' stat-box--bad');
+
+  /* Linking words */
+  var lBox = document.getElementById('statLinks');
+  lBox.querySelector('.stat-box__value').textContent = links.length;
+  lBox.className = 'stat-box' + (links.length >= 4 ? ' stat-box--good' : links.length >= 2 ? ' stat-box--warn' : ' stat-box--bad');
+
+  /* Avg words per sentence */
+  var aBox = document.getElementById('statAvgSent');
+  aBox.querySelector('.stat-box__value').textContent = avgSent;
+  aBox.className = 'stat-box' + (avgSent >= 12 && avgSent <= 25 ? ' stat-box--good' : ' stat-box--warn');
+
+  /* Lists */
+  document.getElementById('detectedTermsList').innerHTML = terms.length ? '<strong>Academic terms found:</strong> ' + terms.join(', ') : '';
+  document.getElementById('detectedLinksList').innerHTML = links.length ? '<strong>Linking words found:</strong> ' + links.join(', ') : '';
+
+  if (totalWc >= 200) markModuleComplete(2);
+  debounceSave();
+}
+
+/* ── Tips for textareas ─────────────────────────── */
+function populateTips() {
+  var parts = [
+    { id: 'tipIntro', data: ESSAY_STRUCTURE.intro },
+    { id: 'tipBody1', data: ESSAY_STRUCTURE.body1 },
+    { id: 'tipBody2', data: ESSAY_STRUCTURE.body2 },
+    { id: 'tipConc', data: ESSAY_STRUCTURE.conclusion }
+  ];
+  for (var i = 0; i < parts.length; i++) {
+    var html = '<strong>' + escHtml(parts[i].data.label) + ' (' + escHtml(parts[i].data.target) + ')</strong><ul>';
+    for (var t = 0; t < parts[i].data.tips.length; t++) {
+      html += '<li>' + escHtml(parts[i].data.tips[t]) + '</li>';
+    }
+    html += '</ul>';
+    document.getElementById(parts[i].id).innerHTML = html;
+  }
+}
+
+/* ── Step 4: Error Checklist ────────────────────── */
+function renderErrorChecklist() {
+  var html = '';
+  for (var i = 0; i < ERROR_CHECKLIST.length; i++) {
+    var c = ERROR_CHECKLIST[i];
+    html += '<div class="checklist-item">';
+    html += '<div class="checklist-item__header" onclick="toggleCheckDetail(\'checkDetail' + i + '\')">';
+    html += '<input type="checkbox" />';
+    html += '<span class="checklist-item__label">' + escHtml(c.label) + '</span>';
+    html += '</div>';
+    html += '<div class="checklist-item__detail" id="checkDetail' + i + '">';
+    html += '<p>' + escHtml(c.desc) + '</p>';
+    html += '<p style="margin-top:6px"><span class="error-exercise__wrong">' + escHtml(c.examples.wrong) + '</span></p>';
+    html += '<p><span class="error-exercise__right">' + escHtml(c.examples.right) + '</span></p>';
+    html += '<ul style="margin-top:6px">';
+    for (var t = 0; t < c.tips.length; t++) {
+      html += '<li>' + escHtml(c.tips[t]) + '</li>';
+    }
+    html += '</ul></div></div>';
+  }
+  document.getElementById('errorChecklist').innerHTML = html;
+}
+function toggleCheckDetail(id) {
+  var el = document.getElementById(id);
+  el.style.display = el.style.display === 'block' ? 'none' : 'block';
+}
+
+/* ── Connectives reference for Step 4 ───────────── */
+function renderConnRef() {
+  var keys = Object.keys(PTE_CONNECTIVES);
+  var html = '';
+  for (var k = 0; k < keys.length; k++) {
+    var group = PTE_CONNECTIVES[keys[k]];
+    html += '<div class="conn-group"><div class="conn-group__label" style="color:' + group.color + '">' + escHtml(group.label) + '</div>';
+    html += '<div class="pill-wall">';
+    for (var i = 0; i < group.words.length; i++) {
+      html += '<span class="conn-pill" style="border-color:' + group.color + ';color:' + group.color + '">' + escHtml(group.words[i]) + '</span>';
+    }
+    html += '</div></div>';
+  }
+  document.getElementById('connRefBody').innerHTML = html;
+}
+
+/* ── Step 5: Rubric ─────────────────────────────── */
+function renderEssayRubric() {
+  var rubric = WRITING_RUBRIC.essay;
+  var keys = Object.keys(rubric);
+  var labels = { content:'Content', development:'Development & Structure', linguisticRange:'Linguistic Range', grammar:'Grammar', form:'Form', spelling:'Spelling' };
+  var html = '<tr><th>Criterion</th><th>Score</th><th>Description</th></tr>';
+  for (var k = 0; k < keys.length; k++) {
+    var key = keys[k];
+    var crit = rubric[key];
+    html += '<tr><td><strong>' + (labels[key] || key) + '</strong> (max ' + crit.max + ')</td><td>';
+    for (var s = 0; s <= crit.max; s++) {
+      html += '<button class="rubric-score-btn" onclick="setEssayRubric(\'' + key + '\',' + s + ',' + crit.max + ')" id="erBtn_' + key + '_' + s + '">' + s + '</button>';
+    }
+    html += '</td><td style="font-size:.8rem">';
+    for (var l = 0; l < crit.levels.length; l++) {
+      html += crit.levels[l].score + ': ' + escHtml(crit.levels[l].desc) + '<br>';
+    }
+    html += '</td></tr>';
+  }
+  document.getElementById('essayRubricTable').innerHTML = html;
+}
+function setEssayRubric(key, score, max) {
+  appState.essayRubricScores[key] = score;
+  for (var s = 0; s <= max; s++) {
+    var btn = document.getElementById('erBtn_' + key + '_' + s);
+    btn.classList.toggle('rubric-score-btn--selected', s === score);
+  }
+  var total = 0;
+  var keys2 = Object.keys(appState.essayRubricScores);
+  for (var i = 0; i < keys2.length; i++) total += appState.essayRubricScores[keys2[i]];
+  document.getElementById('essayRubricTotal').textContent = 'Total: ' + total + ' / 24';
+}
+function saveEssayScore() {
+  markModuleComplete(2);
+  alert('Essay score saved!');
+}
+
+/* ── Step 6: Model Essay ────────────────────────── */
+function renderModelEssayArea(topicId) {
+  var area = document.getElementById('modelEssayArea');
+  if (MODEL_ESSAYS[topicId]) {
+    var m = MODEL_ESSAYS[topicId];
+    var html = '<button class="btn btn--purple" onclick="document.getElementById(\'modelEssayContent\').style.display=\'block\'">Reveal Model Essay</button>';
+    html += '<div id="modelEssayContent" style="display:none">';
+    html += '<div class="model-essay">' + highlightLinkingWords(m.text) + '</div>';
+    html += '<div class="stats-dashboard">';
+    html += '<div class="stat-box stat-box--good"><div class="stat-box__value">' + m.wordCount + '</div><div class="stat-box__label">Words</div></div>';
+    html += '<div class="stat-box stat-box--good"><div class="stat-box__value">' + m.score + '</div><div class="stat-box__label">Score</div></div>';
+    html += '</div>';
+    if (m.structure) {
+      html += '<div class="mt-8"><strong>Structure Analysis:</strong><ul style="font-size:.85rem;padding-left:18px;margin-top:4px">';
+      html += '<li style="color:var(--blue)"><strong>Intro:</strong> ' + escHtml(m.structure.intro) + '</li>';
+      html += '<li style="color:var(--green)"><strong>Body 1:</strong> ' + escHtml(m.structure.body1) + '</li>';
+      html += '<li style="color:var(--orange)"><strong>Body 2:</strong> ' + escHtml(m.structure.body2) + '</li>';
+      html += '<li style="color:var(--purple)"><strong>Conclusion:</strong> ' + escHtml(m.structure.conclusion) + '</li>';
+      html += '</ul></div>';
+    }
+    html += '</div>';
+    area.innerHTML = html;
+  } else {
+    area.innerHTML = '<p class="text-muted">No model essay available for this topic. Try another topic.</p>';
+  }
+}
+
+/* ════════════════════════════════════════════════════
+   MODULE 4: SWT BUILDER
+   ════════════════════════════════════════════════════ */
+function switchSwtStep(idx) {
+  var btns = document.getElementById('swtStepNav').children;
+  for (var i = 0; i < btns.length; i++) {
+    btns[i].classList.toggle('step-btn--active', i === idx);
+    document.getElementById('swtStep' + i).classList.toggle('step-panel--active', i === idx);
+  }
+}
+
+function getRandomSWT() {
+  var idx = Math.floor(Math.random() * SWT_PASSAGES.length);
+  var p = SWT_PASSAGES[idx];
+  appState.currentSwtId = p.id;
+  document.getElementById('swtPassageTitle').style.display = 'block';
+  document.getElementById('swtPassageTitle').textContent = p.title + ' (' + p.category + ')';
+  document.getElementById('swtPassageText').style.display = 'block';
+  document.getElementById('swtPassageText').textContent = p.text;
+  renderSwtKeyPoints(p);
+  renderSwtTemplates();
+  document.getElementById('swtModelArea').style.display = 'none';
+}
+
+function renderSwtKeyPoints(passage) {
+  var html = '<div class="section-card__subtitle">Key points to capture in your summary:</div>';
+  for (var i = 0; i < passage.keyPoints.length; i++) {
+    html += '<div class="warning-banner warning-banner--green" style="margin:4px 0"><strong>' + (i + 1) + '.</strong> ' + escHtml(passage.keyPoints[i]) + '</div>';
+  }
+  document.getElementById('swtKeyPoints').innerHTML = html;
+}
+
+function renderSwtTemplates() {
+  var html = '';
+  for (var i = 0; i < SWT_GUIDE.templates.length; i++) {
+    var t = SWT_GUIDE.templates[i];
+    html += '<div class="swt-template">';
+    html += '<div class="swt-template__label">' + escHtml(t.label) + '</div>';
+    html += '<div class="swt-template__pattern">' + escHtml(t.pattern) + '</div>';
+    html += '</div>';
+  }
+  document.getElementById('swtTemplates').innerHTML = html;
+}
+
+function updateSwtStats() {
+  var text = document.getElementById('swtTextarea').value;
+  var wc = countWords(text);
+  var periods = (text.match(/\./g) || []).length;
+  var sents = countSentences(text);
+  var wcClass = (wc >= 5 && wc <= 75) ? 'swt-stat--ok' : 'swt-stat--bad';
+  var periodClass = periods === 1 ? 'swt-stat--ok' : 'swt-stat--bad';
+  var sentClass = sents === 1 ? 'swt-stat--ok' : 'swt-stat--bad';
+  var html = '<span class="swt-stat ' + wcClass + '">' + wc + ' words (5-75)</span>';
+  html += '<span class="swt-stat ' + periodClass + '">' + periods + ' period(s) (need 1)</span>';
+  html += '<span class="swt-stat ' + sentClass + '">' + sents + ' sentence(s) (need 1)</span>';
+  document.getElementById('swtStatsArea').innerHTML = html;
+
+  var warnings = '';
+  if (wc > 75) warnings += '<div class="warning-banner warning-banner--red">Too many words! Maximum 75.</div>';
+  if (wc > 0 && wc < 5) warnings += '<div class="warning-banner warning-banner--red">Too few words! Minimum 5.</div>';
+  if (periods > 1) warnings += '<div class="warning-banner warning-banner--red">Only ONE period allowed at the end of the sentence!</div>';
+  if (periods === 0 && wc > 0) warnings += '<div class="warning-banner warning-banner--orange">Remember to end with a period.</div>';
+  document.getElementById('swtWarnings').innerHTML = warnings;
+  debounceSave();
+}
+
+function renderSwtRubric() {
+  var rubric = WRITING_RUBRIC.swt;
+  var keys = Object.keys(rubric);
+  var labels = { content:'Content', form:'Form', grammar:'Grammar', vocabulary:'Vocabulary' };
+  var html = '<tr><th>Criterion</th><th>Score</th><th>Description</th></tr>';
+  for (var k = 0; k < keys.length; k++) {
+    var key = keys[k];
+    var crit = rubric[key];
+    html += '<tr><td><strong>' + (labels[key] || key) + '</strong> (max ' + crit.max + ')</td><td>';
+    for (var s = 0; s <= crit.max; s++) {
+      html += '<button class="rubric-score-btn" onclick="setSwtRubric(\'' + key + '\',' + s + ',' + crit.max + ')" id="srBtn_' + key + '_' + s + '">' + s + '</button>';
+    }
+    html += '</td><td style="font-size:.8rem">';
+    for (var l = 0; l < crit.levels.length; l++) {
+      html += crit.levels[l].score + ': ' + escHtml(crit.levels[l].desc) + '<br>';
+    }
+    html += '</td></tr>';
+  }
+  document.getElementById('swtRubricTable').innerHTML = html;
+}
+function setSwtRubric(key, score, max) {
+  appState.swtRubricScores[key] = score;
+  for (var s = 0; s <= max; s++) {
+    document.getElementById('srBtn_' + key + '_' + s).classList.toggle('rubric-score-btn--selected', s === score);
+  }
+  var total = 0;
+  var keys2 = Object.keys(appState.swtRubricScores);
+  for (var i = 0; i < keys2.length; i++) total += appState.swtRubricScores[keys2[i]];
+  document.getElementById('swtRubricTotal').textContent = 'Total: ' + total + ' / 7';
+}
+
+function renderSwtChecklist() {
+  var html = '<ul style="padding-left:18px">';
+  for (var i = 0; i < SWT_GUIDE.checklist.length; i++) {
+    html += '<li style="margin-bottom:6px;font-size:.88rem"><input type="checkbox" style="margin-right:6px;accent-color:var(--green)"> ' + escHtml(SWT_GUIDE.checklist[i]) + '</li>';
+  }
+  html += '</ul>';
+  document.getElementById('swtChecklistBody').innerHTML = html;
+}
+
+function revealSwtModel() {
+  var passage = null;
+  for (var i = 0; i < SWT_PASSAGES.length; i++) {
+    if (SWT_PASSAGES[i].id === appState.currentSwtId) { passage = SWT_PASSAGES[i]; break; }
+  }
+  if (!passage) {
+    document.getElementById('swtModelArea').style.display = 'block';
+    document.getElementById('swtModelArea').innerHTML = '<p class="text-muted">Select a passage first.</p>';
+    return;
+  }
+  document.getElementById('swtModelArea').style.display = 'block';
+  document.getElementById('swtModelArea').innerHTML = '<strong>Model Answer (' + countWords(passage.model) + ' words):</strong><br><br>' + escHtml(passage.model);
+  markModuleComplete(3);
+}
+
+/* ════════════════════════════════════════════════════
+   MODULE 5: ERROR CLINIC
+   ════════════════════════════════════════════════════ */
+var errorClinicState = { found: 0 };
+function renderErrorExercises() {
+  var html = '';
+  for (var i = 0; i < ERROR_EXERCISES.length; i++) {
+    var ex = ERROR_EXERCISES[i];
+    html += '<div class="error-exercise" id="errEx' + i + '">';
+    html += '<div class="flex-between mb-8"><span class="badge badge--red">' + escHtml(ex.category) + '</span><span class="text-muted">Hint: ' + escHtml(ex.hint) + '</span></div>';
+    html += '<div class="error-exercise__sentence">' + escHtml(ex.sentence) + '</div>';
+    html += '<input class="error-exercise__input" placeholder="What is the error? Type here..." id="errInput' + i + '" />';
+    html += '<button class="btn btn--orange btn--small" onclick="revealError(' + i + ')">Reveal Answer</button>';
+    html += '<div class="error-exercise__reveal" id="errReveal' + i + '">';
+    html += '<p><strong>Error:</strong> <span class="error-exercise__wrong">' + escHtml(ex.error) + '</span></p>';
+    html += '<p><strong>Corrected:</strong> <span class="error-exercise__right">' + escHtml(ex.corrected) + '</span></p>';
+    html += '<p style="margin-top:6px;font-size:.85rem">' + escHtml(ex.explanation) + '</p>';
+    html += '</div></div>';
+  }
+  document.getElementById('errorExercises').innerHTML = html;
+}
+function revealError(idx) {
+  var reveal = document.getElementById('errReveal' + idx);
+  if (reveal.style.display !== 'block') {
+    reveal.style.display = 'block';
+    reveal.style.background = 'var(--grey-light)';
+    var input = document.getElementById('errInput' + idx).value.trim().toLowerCase();
+    var error = ERROR_EXERCISES[idx].error.toLowerCase();
+    if (input && (error.indexOf(input) !== -1 || input.indexOf(error) !== -1)) {
+      errorClinicState.found++;
+    }
+    document.getElementById('errorProgress').textContent = errorClinicState.found + ' / 12';
+    if (errorClinicState.found >= 6) markModuleComplete(4);
+  }
+}
+
+/* ════════════════════════════════════════════════════
+   MODULE 6: FULL PRACTICE
+   ════════════════════════════════════════════════════ */
+var fullTimerInterval = null;
+var fullTimeLeft = 1200;
+var fullTimerTotal = 1200;
+function getFullPracticeTopic() {
+  var idx = Math.floor(Math.random() * ESSAY_TOPICS.length);
+  var t = ESSAY_TOPICS[idx];
+  appState.fullTopicId = t.id;
+  document.getElementById('fullTopicDisplay').style.display = 'block';
+  document.getElementById('fullTopicDisplay').innerHTML = escHtml(t.topic) + ' <span class="badge badge--blue">' + escHtml(t.category) + '</span>';
+  renderFullModel(t.id);
+}
+function startFullTimer() {
+  if (fullTimerInterval) clearInterval(fullTimerInterval);
+  fullTimeLeft = 1200;
+  fullTimerTotal = 1200;
+  updateFullTimerDisplay();
+  fullTimerInterval = setInterval(function(){
+    fullTimeLeft--;
+    if (fullTimeLeft <= 0) { clearInterval(fullTimerInterval); fullTimeLeft = 0; }
+    updateFullTimerDisplay();
+  }, 1000);
+}
+function resetFullTimer() {
+  if (fullTimerInterval) clearInterval(fullTimerInterval);
+  fullTimeLeft = 1200;
+  updateFullTimerDisplay();
+}
+function updateFullTimerDisplay() {
+  var m = Math.floor(fullTimeLeft / 60);
+  var s = fullTimeLeft % 60;
+  document.getElementById('fullTimerText').textContent = m + ':' + (s < 10 ? '0' : '') + s;
+  var circumference = 2 * Math.PI * 54;
+  var offset = circumference * (1 - fullTimeLeft / fullTimerTotal);
+  document.getElementById('fullTimerCircle').setAttribute('stroke-dashoffset', offset);
+  var circle = document.getElementById('fullTimerCircle');
+  circle.setAttribute('stroke', fullTimeLeft <= 120 ? 'var(--red)' : fullTimeLeft <= 300 ? 'var(--orange)' : 'var(--purple)');
+}
+function updateFullStats() {
+  var text = document.getElementById('fullPracticeTextarea').value;
+  var wc = countWords(text);
+  var paras = text.trim() ? text.trim().split(/\n\s*\n/).length : 0;
+  var terms = detectTerms(text);
+  var links = detectLinkingWords(text);
+  var wcBox = document.getElementById('fullStatWords');
+  wcBox.querySelector('.stat-box__value').textContent = wc;
+  wcBox.className = 'stat-box' + (wc >= 200 && wc <= 300 ? ' stat-box--good' : wc >= 150 && wc <= 350 ? ' stat-box--warn' : ' stat-box--bad');
+  document.getElementById('fullStatParas').querySelector('.stat-box__value').textContent = paras;
+  document.getElementById('fullStatTerms').querySelector('.stat-box__value').textContent = terms.length;
+  document.getElementById('fullStatLinks').querySelector('.stat-box__value').textContent = links.length;
+  if (wc >= 200) markModuleComplete(5);
+  debounceSave();
+}
+function renderFullChecklist() {
+  var html = '';
+  for (var i = 0; i < ERROR_CHECKLIST.length; i++) {
+    html += '<div style="padding:4px 0;font-size:.88rem"><input type="checkbox" style="accent-color:var(--green);margin-right:6px"> ' + escHtml(ERROR_CHECKLIST[i].label) + ' &mdash; ' + escHtml(ERROR_CHECKLIST[i].desc) + '</div>';
+  }
+  document.getElementById('fullChecklistBody').innerHTML = html;
+}
+function renderFullRubric() {
+  var rubric = WRITING_RUBRIC.essay;
+  var keys = Object.keys(rubric);
+  var labels = { content:'Content', development:'Development', linguisticRange:'Linguistic Range', grammar:'Grammar', form:'Form', spelling:'Spelling' };
+  var html = '<tr><th>Criterion</th><th>Score</th></tr>';
+  for (var k = 0; k < keys.length; k++) {
+    var key = keys[k];
+    var crit = rubric[key];
+    html += '<tr><td>' + (labels[key] || key) + ' (max ' + crit.max + ')</td><td>';
+    for (var s = 0; s <= crit.max; s++) {
+      html += '<button class="rubric-score-btn" onclick="setFullRubric(\'' + key + '\',' + s + ',' + crit.max + ')" id="frBtn_' + key + '_' + s + '">' + s + '</button>';
+    }
+    html += '</td></tr>';
+  }
+  document.getElementById('fullRubricTable').innerHTML = html;
+}
+function setFullRubric(key, score, max) {
+  appState.fullRubricScores[key] = score;
+  for (var s = 0; s <= max; s++) {
+    document.getElementById('frBtn_' + key + '_' + s).classList.toggle('rubric-score-btn--selected', s === score);
+  }
+  var total = 0;
+  var keys2 = Object.keys(appState.fullRubricScores);
+  for (var i = 0; i < keys2.length; i++) total += appState.fullRubricScores[keys2[i]];
+  document.getElementById('fullRubricTotal').textContent = 'Total: ' + total + ' / 24';
+}
+function saveFullScore() {
+  markModuleComplete(5);
+  alert('Full practice score saved!');
+}
+function renderFullModel(topicId) {
+  var body = document.getElementById('fullModelBody');
+  if (MODEL_ESSAYS[topicId]) {
+    var m = MODEL_ESSAYS[topicId];
+    body.innerHTML = '<div class="model-essay">' + highlightLinkingWords(m.text) + '</div><div class="stats-dashboard"><div class="stat-box stat-box--good"><div class="stat-box__value">' + m.wordCount + '</div><div class="stat-box__label">Words</div></div><div class="stat-box stat-box--good"><div class="stat-box__value">' + m.score + '</div><div class="stat-box__label">Score</div></div></div>';
+  } else {
+    body.innerHTML = '<p class="text-muted">No model essay available for this topic.</p>';
+  }
+}
+
+/* ════════════════════════════════════════════════════
+   SAVE / LOAD MODAL
+   ════════════════════════════════════════════════════ */
+function openSaveLoadModal() {
+  document.getElementById('saveLoadModal').classList.add('modal-overlay--active');
+  generateSaveCode();
+}
+function closeSaveLoadModal() {
+  document.getElementById('saveLoadModal').classList.remove('modal-overlay--active');
+}
+function switchModalTab(idx) {
+  var tabs = document.getElementById('saveLoadModal').querySelectorAll('.modal__tab');
+  for (var i = 0; i < tabs.length; i++) {
+    tabs[i].classList.toggle('modal__tab--active', i === idx);
+  }
+  document.getElementById('modalPanel0').classList.toggle('modal__panel--active', idx === 0);
+  document.getElementById('modalPanel1').classList.toggle('modal__panel--active', idx === 1);
+}
+function generateSaveCode() {
+  var data = {
+    completed: appState.completedModules,
+    streak: loadStreak(),
+    responses: gatherResponses(),
+    essayRubric: appState.essayRubricScores,
+    swtRubric: appState.swtRubricScores,
+    fullRubric: appState.fullRubricScores
+  };
+  var json = JSON.stringify(data);
+  var code = btoa(unescape(encodeURIComponent(json)));
+  document.getElementById('saveCodeArea').value = code;
+}
+function copySaveCode() {
+  var ta = document.getElementById('saveCodeArea');
+  ta.select();
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(ta.value);
+  } else {
+    document.execCommand('copy');
+  }
+  alert('Code copied!');
+}
+function loadFromCode() {
+  var code = document.getElementById('loadCodeArea').value.trim();
+  if (!code) { document.getElementById('loadFeedback').innerHTML = '<span style="color:var(--red)">Please paste a code.</span>'; return; }
+  try {
+    var json = decodeURIComponent(escape(atob(code)));
+    var data = JSON.parse(json);
+    if (data.completed) {
+      appState.completedModules = data.completed;
+      saveProgress();
+    }
+    if (data.streak) {
+      localStorage.setItem('pte_wir_streak', JSON.stringify(data.streak));
+    }
+    if (data.responses) {
+      localStorage.setItem('pte_wir_responses', JSON.stringify(data.responses));
+      restoreResponses(data.responses);
+    }
+    if (data.essayRubric) appState.essayRubricScores = data.essayRubric;
+    if (data.swtRubric) appState.swtRubricScores = data.swtRubric;
+    if (data.fullRubric) appState.fullRubricScores = data.fullRubric;
+    updateProgressUI();
+    updateStreak();
+    document.getElementById('loadFeedback').innerHTML = '<span style="color:var(--green)">Progress loaded successfully!</span>';
+  } catch(e) {
+    document.getElementById('loadFeedback').innerHTML = '<span style="color:var(--red)">Invalid code. Please check and try again.</span>';
+  }
+}
+
+/* ── Response persistence ───────────────────────── */
+function gatherResponses() {
+  return {
+    planIntro: (document.getElementById('planIntro') || {}).value || '',
+    planBody1: (document.getElementById('planBody1') || {}).value || '',
+    planBody2: (document.getElementById('planBody2') || {}).value || '',
+    planConc: (document.getElementById('planConc') || {}).value || '',
+    essayIntro: (document.getElementById('essayIntro') || {}).value || '',
+    essayBody1: (document.getElementById('essayBody1') || {}).value || '',
+    essayBody2: (document.getElementById('essayBody2') || {}).value || '',
+    essayConc: (document.getElementById('essayConc') || {}).value || '',
+    swtTextarea: (document.getElementById('swtTextarea') || {}).value || '',
+    fullPracticeTextarea: (document.getElementById('fullPracticeTextarea') || {}).value || ''
+  };
+}
+function saveResponses() {
+  localStorage.setItem('pte_wir_responses', JSON.stringify(gatherResponses()));
+}
+function restoreResponses(data) {
+  if (!data) return;
+  var fields = ['planIntro','planBody1','planBody2','planConc','essayIntro','essayBody1','essayBody2','essayConc','swtTextarea','fullPracticeTextarea'];
+  for (var i = 0; i < fields.length; i++) {
+    var el = document.getElementById(fields[i]);
+    if (el && data[fields[i]]) el.value = data[fields[i]];
+  }
+}
+function loadResponses() {
+  try {
+    var raw = localStorage.getItem('pte_wir_responses');
+    if (raw) restoreResponses(JSON.parse(raw));
+  } catch(e) {}
+}
+
+/* ════════════════════════════════════════════════════
+   INITIALIZATION
+   ════════════════════════════════════════════════════ */
+function init() {
+  updateStreak();
+  loadProgress();
+  updateProgressUI();
+
+  /* Module 1 */
+  renderStructureCards();
+  renderGradeExercise();
+
+  /* Module 2 */
+  renderVocabWall();
+  renderConnectivesWall();
+  renderTransformCards();
+
+  /* Module 3 */
+  populateTips();
+  renderErrorChecklist();
+  renderConnRef();
+  renderEssayRubric();
+
+  /* Module 4 */
+  renderSwtRubric();
+  renderSwtChecklist();
+  renderSwtTemplates();
+
+  /* Module 5 */
+  renderErrorExercises();
+
+  /* Module 6 */
+  renderFullChecklist();
+  renderFullRubric();
+
+  /* Restore saved textarea values */
+  loadResponses();
+
+  /* If textareas have content, update previews */
+  updateEssayPreview();
+  updateSwtStats();
+  updateFullStats();
+}
+
+init();
+</script>
+</body>
+</html>
