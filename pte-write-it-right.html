@@ -272,6 +272,37 @@ body{font-family:var(--font);background:var(--grey-light);color:var(--grey-dark)
 @media(max-width:1024px){.essay-builder{grid-template-columns:1fr}.structure-grid{grid-template-columns:1fr}}
 @media(max-width:700px){.topbar{padding:10px 12px}.container{padding:12px}.plan-textareas{grid-template-columns:1fr}.tab-btn{padding:8px 10px;font-size:.78rem}.stats-dashboard{grid-template-columns:1fr 1fr}}
 @media(max-width:500px){.topbar__title{font-size:1.15rem}.stats-dashboard{grid-template-columns:1fr}}
+
+/* ── Corpus Module ─────────────────────────────── */
+.corpus-mode-toggle{display:flex;gap:4px;margin-bottom:16px}
+.corpus-mode-btn{padding:8px 20px;border:2px solid var(--grey);border-radius:20px;background:var(--white);cursor:pointer;font-weight:700;font-size:.88rem;transition:all .2s}
+.corpus-mode-btn:hover{border-color:var(--purple);background:var(--purple-light)}
+.corpus-mode-btn--active{background:var(--purple);color:var(--white);border-color:var(--purple)}
+.corpus-cat-filter{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.corpus-cat-pill{padding:5px 14px;border-radius:20px;font-size:.8rem;font-weight:600;cursor:pointer;border:2px solid transparent;transition:all .2s}
+.corpus-cat-pill:hover{opacity:.85}
+.corpus-cat-pill--active{box-shadow:0 0 0 2px var(--grey-dark)}
+.corpus-card{background:var(--white);border-radius:8px;border:1px solid #e0e0e0;padding:14px 16px;margin-bottom:10px;transition:all .2s}
+.corpus-card:hover{box-shadow:var(--shadow)}
+.corpus-card__text{font-size:.92rem;line-height:1.6;margin-bottom:8px;color:var(--grey-dark)}
+.corpus-card__text b{color:var(--purple);font-weight:700}
+.corpus-card__meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.corpus-card__actions{display:flex;gap:6px;margin-left:auto}
+.corpus-typing-area{margin-top:10px;display:none}
+.corpus-typing-input{width:100%;padding:10px 12px;border:2px solid #ddd;border-radius:6px;font-family:var(--font);font-size:.9rem;transition:border-color .2s}
+.corpus-typing-input:focus{outline:none;border-color:var(--teal)}
+.corpus-typing-input--correct{border-color:var(--green)!important;background:var(--green-light)}
+.corpus-typing-input--wrong{border-color:var(--red)!important;background:var(--red-light)}
+.corpus-mastered{opacity:.5}
+.corpus-mastered .corpus-card__text{text-decoration:line-through}
+.corpus-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:16px}
+.corpus-drill-area{background:var(--blue-light);border-radius:var(--radius);padding:20px;margin-bottom:16px;border-left:5px solid var(--blue)}
+.corpus-drill-area__sentence{font-size:1.05rem;font-weight:600;line-height:1.6;margin:12px 0;color:var(--grey-dark)}
+.corpus-drill-progress{font-size:.85rem;color:var(--grey);margin-bottom:8px}
+.idea-card{background:var(--white);border-radius:8px;border-left:4px solid;padding:12px 16px;margin-bottom:8px;font-size:.9rem;line-height:1.5}
+.idea-card__topic{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.idea-topic-group{margin-bottom:20px}
+.idea-topic-group__title{font-size:1.05rem;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:8px}
 </style>
 </head>
 <body>
@@ -289,17 +320,18 @@ body{font-family:var(--font);background:var(--grey-light);color:var(--grey-dark)
 <!-- ═══════════════ PROGRESS BAR ═══════════════ -->
 <div class="progress-bar-wrap">
   <div class="progress-bar"><div class="progress-bar__fill" id="progressFill" style="width:0%"></div></div>
-  <div class="progress-bar__label" id="progressLabel">0 / 6 modules completed</div>
+  <div class="progress-bar__label" id="progressLabel">0 / 7 modules completed</div>
 </div>
 
 <!-- ═══════════════ TAB NAVIGATION ═══════════════ -->
 <div class="tab-nav" id="tabNav">
-  <button class="tab-btn tab-btn--active" onclick="switchTab(0)">1. Structure<span class="checkmark hidden" id="check0"></span></button>
-  <button class="tab-btn" onclick="switchTab(1)">2. Vocabulary<span class="checkmark hidden" id="check1"></span></button>
-  <button class="tab-btn" onclick="switchTab(2)">3. Essay Builder<span class="checkmark hidden" id="check2"></span></button>
-  <button class="tab-btn" onclick="switchTab(3)">4. SWT Builder<span class="checkmark hidden" id="check3"></span></button>
-  <button class="tab-btn" onclick="switchTab(4)">5. Error Clinic<span class="checkmark hidden" id="check4"></span></button>
-  <button class="tab-btn" onclick="switchTab(5)">6. Full Practice<span class="checkmark hidden" id="check5"></span></button>
+  <button class="tab-btn tab-btn--active" data-tab="6" onclick="switchTab(6)">0. Start Here: 语料库<span class="checkmark hidden" id="check6"></span></button>
+  <button class="tab-btn" data-tab="0" onclick="switchTab(0)">1. Structure<span class="checkmark hidden" id="check0"></span></button>
+  <button class="tab-btn" data-tab="1" onclick="switchTab(1)">2. Vocabulary<span class="checkmark hidden" id="check1"></span></button>
+  <button class="tab-btn" data-tab="2" onclick="switchTab(2)">3. Essay Builder<span class="checkmark hidden" id="check2"></span></button>
+  <button class="tab-btn" data-tab="3" onclick="switchTab(3)">4. SWT Builder<span class="checkmark hidden" id="check3"></span></button>
+  <button class="tab-btn" data-tab="4" onclick="switchTab(4)">5. Error Clinic<span class="checkmark hidden" id="check4"></span></button>
+  <button class="tab-btn" data-tab="5" onclick="switchTab(5)">6. Full Practice<span class="checkmark hidden" id="check5"></span></button>
 </div>
 
 <div class="container">
@@ -307,7 +339,7 @@ body{font-family:var(--font);background:var(--grey-light);color:var(--grey-dark)
 <!-- ════════════════════════════════════════════════
      MODULE 1: UNDERSTAND THE STRUCTURE
      ════════════════════════════════════════════════ -->
-<div class="tab-panel tab-panel--active" id="panel0">
+<div class="tab-panel" id="panel0">
   <div class="section-card">
     <div class="section-card__title">PTE Essay Structure: 4-Paragraph Model</div>
     <div class="section-card__subtitle">Every PTE essay follows the same proven structure. Learn each part.</div>
@@ -592,6 +624,51 @@ body{font-family:var(--font);background:var(--grey-light);color:var(--grey-dark)
   </div>
 </div>
 
+<!-- ════════════════════════════════════════════════
+     MODULE 0: SENTENCE & IDEA BANK (语料库)
+     ════════════════════════════════════════════════ -->
+<div class="tab-panel tab-panel--active" id="panel6">
+  <div class="section-card">
+    <div class="section-card__title">语料库 — Sentence & Idea Bank</div>
+    <div class="section-card__subtitle">Memorise these 100 sentences and 100 ideas. Start from sentences, then build essays. Type each sentence to practise.</div>
+
+    <div class="corpus-stats" id="corpusStats"></div>
+
+    <div class="corpus-mode-toggle">
+      <button class="corpus-mode-btn corpus-mode-btn--active" onclick="switchCorpusMode('sentences')">100 Sentences</button>
+      <button class="corpus-mode-btn" onclick="switchCorpusMode('ideas')">100 Ideas</button>
+      <button class="corpus-mode-btn" onclick="switchCorpusMode('drill')">Daily Drill</button>
+    </div>
+
+    <!-- SENTENCES MODE -->
+    <div id="corpusSentencesPanel">
+      <div class="corpus-cat-filter" id="corpusCatFilter"></div>
+      <div id="corpusSentencesList"></div>
+    </div>
+
+    <!-- IDEAS MODE -->
+    <div id="corpusIdeasPanel" style="display:none">
+      <div class="corpus-cat-filter" id="ideaTopicFilter"></div>
+      <div id="corpusIdeasList"></div>
+    </div>
+
+    <!-- DRILL MODE -->
+    <div id="corpusDrillPanel" style="display:none">
+      <div class="corpus-drill-area" id="drillArea">
+        <div class="corpus-drill-progress" id="drillProgress">Drill: 0 / 10</div>
+        <div class="corpus-drill-area__sentence" id="drillSentence">Click "Start Drill" to begin.</div>
+        <input class="corpus-typing-input" id="drillInput" placeholder="Type the sentence from memory..." style="margin:10px 0" />
+        <div class="flex-between">
+          <button class="btn btn--blue" onclick="startDrill()">Start Drill</button>
+          <button class="btn btn--teal" onclick="checkDrill()">Check</button>
+          <button class="btn btn--green" onclick="nextDrill()">Next →</button>
+        </div>
+        <div id="drillFeedback" class="mt-8"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
 </div><!-- /container -->
 
 <!-- ═══════════════ SAVE/LOAD MODAL ═══════════════ -->
@@ -623,6 +700,7 @@ body{font-family:var(--font);background:var(--grey-light);color:var(--grey-dark)
 <script src="js/data.js"></script>
 <script src="js/writing-data.js"></script>
 <script src="js/guided-writing-data.js"></script>
+<script src="js/corpus-data.js"></script>
 
 <script>
 /* ================================================================
@@ -718,7 +796,7 @@ function debounceSave() {
 
 /* ── State ──────────────────────────────────────── */
 var appState = {
-  currentTab: 0,
+  currentTab: 6,
   completedModules: {},
   currentTopicId: null,
   currentSwtId: null,
@@ -753,7 +831,11 @@ function updateStreak() {
     s.lastDate = today;
     localStorage.setItem('pte_wir_streak', JSON.stringify(s));
   }
-  document.getElementById('streakDisplay').textContent = s.count + '-day streak';
+  var streakText = s.count + '-day streak';
+  if (s.count >= 7) streakText += ' \uD83D\uDD25';
+  else if (s.count >= 3) streakText += ' \u2728';
+  document.getElementById('streakDisplay').textContent = streakText;
+  document.getElementById('streakDisplay').title = 'Visit every day to build your streak! Current: ' + s.count + ' consecutive days.';
 }
 
 /* ── Progress ───────────────────────────────────── */
@@ -764,7 +846,7 @@ function markModuleComplete(idx) {
 }
 function updateProgressUI() {
   var count = 0;
-  for (var i = 0; i < 6; i++) {
+  for (var i = 0; i < 7; i++) {
     var el = document.getElementById('check' + i);
     if (appState.completedModules[i]) {
       el.textContent = ' \u2713';
@@ -774,9 +856,9 @@ function updateProgressUI() {
       el.classList.add('hidden');
     }
   }
-  var pct = Math.round(count / 6 * 100);
+  var pct = Math.round(count / 7 * 100);
   document.getElementById('progressFill').style.width = pct + '%';
-  document.getElementById('progressLabel').textContent = count + ' / 6 modules completed';
+  document.getElementById('progressLabel').textContent = count + ' / 7 modules completed';
 }
 function saveProgress() {
   localStorage.setItem('pte_wir_progress', JSON.stringify(appState.completedModules));
@@ -791,10 +873,14 @@ function loadProgress() {
 /* ── Tab Switching ──────────────────────────────── */
 function switchTab(idx) {
   appState.currentTab = idx;
-  var btns = document.getElementById('tabNav').children;
+  var btns = document.getElementById('tabNav').querySelectorAll('.tab-btn');
   for (var i = 0; i < btns.length; i++) {
-    btns[i].classList.toggle('tab-btn--active', i === idx);
-    document.getElementById('panel' + i).classList.toggle('tab-panel--active', i === idx);
+    var btnIdx = parseInt(btns[i].getAttribute('data-tab'));
+    btns[i].classList.toggle('tab-btn--active', btnIdx === idx);
+  }
+  for (var j = 0; j <= 6; j++) {
+    var panel = document.getElementById('panel' + j);
+    if (panel) panel.classList.toggle('tab-panel--active', j === idx);
   }
 }
 
@@ -1654,12 +1740,303 @@ function loadResponses() {
 }
 
 /* ════════════════════════════════════════════════════
+   MODULE 0: SENTENCE & IDEA BANK (语料库)
+   ════════════════════════════════════════════════════ */
+var corpusState = {
+  mode: 'sentences',
+  catFilter: 'all',
+  ideaFilter: 'all',
+  mastered: {},
+  drillQueue: [],
+  drillIdx: 0,
+  drillCorrect: 0
+};
+
+function loadCorpusMastered() {
+  try {
+    var raw = localStorage.getItem('pte_corpus_mastered');
+    if (raw) corpusState.mastered = JSON.parse(raw);
+  } catch(e) {}
+}
+function saveCorpusMastered() {
+  localStorage.setItem('pte_corpus_mastered', JSON.stringify(corpusState.mastered));
+}
+
+function switchCorpusMode(mode) {
+  corpusState.mode = mode;
+  var btns = document.querySelectorAll('.corpus-mode-btn');
+  for (var i = 0; i < btns.length; i++) {
+    var labels = ['sentences','ideas','drill'];
+    btns[i].classList.toggle('corpus-mode-btn--active', labels[i] === mode);
+  }
+  document.getElementById('corpusSentencesPanel').style.display = mode === 'sentences' ? '' : 'none';
+  document.getElementById('corpusIdeasPanel').style.display = mode === 'ideas' ? '' : 'none';
+  document.getElementById('corpusDrillPanel').style.display = mode === 'drill' ? '' : 'none';
+}
+
+function renderCorpusStats() {
+  var total = SENTENCE_CORPUS.length;
+  var mastered = 0;
+  for (var i = 0; i < total; i++) {
+    if (corpusState.mastered[SENTENCE_CORPUS[i].id]) mastered++;
+  }
+  var pct = total ? Math.round(mastered / total * 100) : 0;
+  var ideaTotal = IDEA_BANK.length;
+  var ideaMastered = 0;
+  for (var j = 0; j < ideaTotal; j++) {
+    if (corpusState.mastered[IDEA_BANK[j].id]) ideaMastered++;
+  }
+  var ideaPct = ideaTotal ? Math.round(ideaMastered / ideaTotal * 100) : 0;
+  var html = '';
+  html += '<div class="stat-box' + (pct >= 80 ? ' stat-box--good' : pct >= 30 ? ' stat-box--warn' : '') + '"><div class="stat-box__value">' + mastered + '/' + total + '</div><div class="stat-box__label">Sentences Mastered</div></div>';
+  html += '<div class="stat-box' + (ideaPct >= 80 ? ' stat-box--good' : ideaPct >= 30 ? ' stat-box--warn' : '') + '"><div class="stat-box__value">' + ideaMastered + '/' + ideaTotal + '</div><div class="stat-box__label">Ideas Mastered</div></div>';
+  html += '<div class="stat-box"><div class="stat-box__value">' + pct + '%</div><div class="stat-box__label">Sentence Progress</div></div>';
+  html += '<div class="stat-box"><div class="stat-box__value">' + ideaPct + '%</div><div class="stat-box__label">Idea Progress</div></div>';
+  document.getElementById('corpusStats').innerHTML = html;
+  if (mastered >= 50) markModuleComplete(6);
+}
+
+/* ── Sentence List ─────────────────────────────── */
+function renderCorpusCatFilter() {
+  var html = '<span class="corpus-cat-pill corpus-cat-pill--active" style="background:var(--grey-light);color:var(--grey-dark)" onclick="filterCorpusCat(\'all\')">All (100)</span>';
+  var keys = Object.keys(CORPUS_CATEGORIES);
+  for (var i = 0; i < keys.length; i++) {
+    var cat = CORPUS_CATEGORIES[keys[i]];
+    html += '<span class="corpus-cat-pill" style="background:' + cat.color + '15;color:' + cat.color + '" onclick="filterCorpusCat(\'' + keys[i] + '\')">' + cat.label + ' (' + cat.count + ')</span>';
+  }
+  document.getElementById('corpusCatFilter').innerHTML = html;
+}
+
+function filterCorpusCat(cat) {
+  corpusState.catFilter = cat;
+  var pills = document.getElementById('corpusCatFilter').children;
+  for (var i = 0; i < pills.length; i++) {
+    pills[i].classList.remove('corpus-cat-pill--active');
+    var cats = ['all'].concat(Object.keys(CORPUS_CATEGORIES));
+    if (cats[i] === cat) pills[i].classList.add('corpus-cat-pill--active');
+  }
+  renderCorpusSentences();
+}
+
+function renderCorpusSentences() {
+  var html = '';
+  var count = 0;
+  for (var i = 0; i < SENTENCE_CORPUS.length; i++) {
+    var s = SENTENCE_CORPUS[i];
+    if (corpusState.catFilter !== 'all' && s.cat !== corpusState.catFilter) continue;
+    count++;
+    var isMastered = corpusState.mastered[s.id];
+    var catInfo = CORPUS_CATEGORIES[s.cat] || { label: s.cat, color: '#7f8c8d' };
+    var displayText = escHtml(s.text).replace(/\[([A-Z /]+)\]/g, '<b>[$1]</b>');
+    html += '<div class="corpus-card' + (isMastered ? ' corpus-mastered' : '') + '" id="cc_' + s.id + '">';
+    html += '<div class="corpus-card__text">' + (i + 1) + '. ' + displayText + '</div>';
+    html += '<div class="corpus-card__meta">';
+    html += '<span class="badge" style="background:' + catInfo.color + '20;color:' + catInfo.color + '">' + catInfo.label + '</span>';
+    html += '<span class="badge badge--grey">' + s.pos + '</span>';
+    html += '<div class="corpus-card__actions">';
+    html += '<button class="btn btn--teal btn--small" onclick="toggleTypingPractice(\'' + s.id + '\',' + i + ')">Practice</button>';
+    html += '<button class="btn ' + (isMastered ? 'btn--green' : 'btn--outline') + ' btn--small" onclick="toggleCorpusMastered(\'' + s.id + '\')">' + (isMastered ? '\u2713 Mastered' : 'Mark Mastered') + '</button>';
+    html += '</div></div>';
+    html += '<div class="corpus-typing-area" id="typing_' + s.id + '">';
+    html += '<div style="font-size:.8rem;color:var(--grey);margin-bottom:4px">Type this sentence from memory to practice:</div>';
+    html += '<input class="corpus-typing-input" id="typingInput_' + s.id + '" data-idx="' + i + '" placeholder="Type here..." oninput="checkCorpusTyping(\'' + s.id + '\',' + i + ')" />';
+    html += '<div id="typingFb_' + s.id + '" class="mt-8" style="font-size:.82rem"></div>';
+    html += '</div>';
+    html += '</div>';
+  }
+  if (count === 0) html = '<p class="text-muted">No sentences in this category.</p>';
+  document.getElementById('corpusSentencesList').innerHTML = html;
+}
+
+function toggleTypingPractice(id, idx) {
+  var area = document.getElementById('typing_' + id);
+  area.style.display = area.style.display === 'block' ? 'none' : 'block';
+  if (area.style.display === 'block') {
+    document.getElementById('typingInput_' + id).focus();
+  }
+}
+
+function checkCorpusTyping(id, idx) {
+  var input = document.getElementById('typingInput_' + id);
+  var typed = input.value.trim().toLowerCase().replace(/[^a-z0-9 ]/g, '');
+  var original = SENTENCE_CORPUS[idx].text.toLowerCase().replace(/\[([a-z /]+)\]/g, '').replace(/[^a-z0-9 ]/g, '').trim();
+  var fb = document.getElementById('typingFb_' + id);
+  if (!typed) {
+    input.className = 'corpus-typing-input';
+    fb.innerHTML = '';
+    return;
+  }
+  // Calculate similarity
+  var typedWords = typed.split(/\s+/);
+  var origWords = original.split(/\s+/);
+  var matchCount = 0;
+  for (var i = 0; i < Math.min(typedWords.length, origWords.length); i++) {
+    if (typedWords[i] === origWords[i]) matchCount++;
+  }
+  var similarity = origWords.length > 0 ? Math.round(matchCount / origWords.length * 100) : 0;
+  if (similarity >= 85) {
+    input.className = 'corpus-typing-input corpus-typing-input--correct';
+    fb.innerHTML = '<span style="color:var(--green);font-weight:600">Excellent! ' + similarity + '% match</span>';
+    if (!corpusState.mastered[id]) {
+      toggleCorpusMastered(id);
+    }
+  } else if (similarity >= 50) {
+    input.className = 'corpus-typing-input';
+    fb.innerHTML = '<span style="color:var(--orange)">' + similarity + '% match \u2014 keep going!</span>';
+  } else {
+    input.className = 'corpus-typing-input corpus-typing-input--wrong';
+    fb.innerHTML = '<span style="color:var(--red)">' + similarity + '% match \u2014 try again</span>';
+  }
+}
+
+function toggleCorpusMastered(id) {
+  corpusState.mastered[id] = !corpusState.mastered[id];
+  saveCorpusMastered();
+  renderCorpusSentences();
+  renderCorpusIdeas();
+  renderCorpusStats();
+}
+
+/* ── Ideas List ────────────────────────────────── */
+function renderIdeaTopicFilter() {
+  var topics = Object.keys(IDEA_TOPICS);
+  var html = '<span class="corpus-cat-pill corpus-cat-pill--active" style="background:var(--grey-light);color:var(--grey-dark)" onclick="filterIdeaTopic(\'all\')">All (100)</span>';
+  for (var i = 0; i < topics.length; i++) {
+    var t = IDEA_TOPICS[topics[i]];
+    var count = 0;
+    for (var j = 0; j < IDEA_BANK.length; j++) {
+      if (IDEA_BANK[j].topic === topics[i]) count++;
+    }
+    html += '<span class="corpus-cat-pill" style="background:' + t.color + '15;color:' + t.color + '" onclick="filterIdeaTopic(\'' + topics[i] + '\')">' + t.icon + ' ' + topics[i] + ' (' + count + ')</span>';
+  }
+  document.getElementById('ideaTopicFilter').innerHTML = html;
+}
+
+function filterIdeaTopic(topic) {
+  corpusState.ideaFilter = topic;
+  var pills = document.getElementById('ideaTopicFilter').children;
+  var topics = ['all'].concat(Object.keys(IDEA_TOPICS));
+  for (var i = 0; i < pills.length; i++) {
+    pills[i].classList.toggle('corpus-cat-pill--active', topics[i] === topic);
+  }
+  renderCorpusIdeas();
+}
+
+function renderCorpusIdeas() {
+  var grouped = {};
+  for (var i = 0; i < IDEA_BANK.length; i++) {
+    var idea = IDEA_BANK[i];
+    if (corpusState.ideaFilter !== 'all' && idea.topic !== corpusState.ideaFilter) continue;
+    if (!grouped[idea.topic]) grouped[idea.topic] = [];
+    grouped[idea.topic].push(idea);
+  }
+  var html = '';
+  var topics = Object.keys(grouped);
+  for (var t = 0; t < topics.length; t++) {
+    var topicName = topics[t];
+    var topicMeta = IDEA_TOPICS[topicName] || { color: '#7f8c8d', icon: '\uD83D\uDCDD' };
+    var ideas = grouped[topicName];
+    html += '<div class="idea-topic-group">';
+    html += '<div class="idea-topic-group__title" style="color:' + topicMeta.color + '">' + topicMeta.icon + ' ' + topicName + ' (' + ideas.length + ' ideas)</div>';
+    for (var j = 0; j < ideas.length; j++) {
+      var idea = ideas[j];
+      var isMastered = corpusState.mastered[idea.id];
+      html += '<div class="idea-card' + (isMastered ? ' corpus-mastered' : '') + '" style="border-color:' + topicMeta.color + '">';
+      html += '<div class="flex-between">';
+      html += '<div>' + escHtml(idea.idea) + '</div>';
+      html += '<button class="btn ' + (isMastered ? 'btn--green' : 'btn--outline') + ' btn--small" style="white-space:nowrap;margin-left:8px" onclick="toggleCorpusMastered(\'' + idea.id + '\')">' + (isMastered ? '\u2713' : 'Learn') + '</button>';
+      html += '</div></div>';
+    }
+    html += '</div>';
+  }
+  if (!topics.length) html = '<p class="text-muted">No ideas in this topic.</p>';
+  document.getElementById('corpusIdeasList').innerHTML = html;
+}
+
+/* ── Daily Drill ───────────────────────────────── */
+function startDrill() {
+  // Pick 10 random unmastered sentences (or random if all mastered)
+  var pool = [];
+  for (var i = 0; i < SENTENCE_CORPUS.length; i++) {
+    if (!corpusState.mastered[SENTENCE_CORPUS[i].id]) pool.push(i);
+  }
+  if (pool.length === 0) {
+    for (var j = 0; j < SENTENCE_CORPUS.length; j++) pool.push(j);
+  }
+  corpusState.drillQueue = shuffleArray(pool).slice(0, 10);
+  corpusState.drillIdx = 0;
+  corpusState.drillCorrect = 0;
+  showDrillSentence();
+}
+
+function showDrillSentence() {
+  if (corpusState.drillIdx >= corpusState.drillQueue.length) {
+    document.getElementById('drillSentence').innerHTML = '<span style="color:var(--green);font-size:1.2rem">Drill Complete! Score: ' + corpusState.drillCorrect + ' / ' + corpusState.drillQueue.length + '</span>';
+    document.getElementById('drillInput').style.display = 'none';
+    document.getElementById('drillFeedback').innerHTML = '';
+    if (corpusState.drillCorrect >= 7) markModuleComplete(6);
+    return;
+  }
+  var idx = corpusState.drillQueue[corpusState.drillIdx];
+  var s = SENTENCE_CORPUS[idx];
+  document.getElementById('drillProgress').textContent = 'Drill: ' + (corpusState.drillIdx + 1) + ' / ' + corpusState.drillQueue.length;
+  // Show sentence for 5 seconds then hide
+  document.getElementById('drillSentence').textContent = s.text;
+  document.getElementById('drillSentence').style.color = '';
+  document.getElementById('drillInput').value = '';
+  document.getElementById('drillInput').style.display = '';
+  document.getElementById('drillInput').className = 'corpus-typing-input';
+  document.getElementById('drillFeedback').innerHTML = '<span class="text-muted">Read the sentence carefully, then type it from memory. Click "Check" when ready.</span>';
+}
+
+function checkDrill() {
+  if (corpusState.drillIdx >= corpusState.drillQueue.length) return;
+  var idx = corpusState.drillQueue[corpusState.drillIdx];
+  var s = SENTENCE_CORPUS[idx];
+  var typed = document.getElementById('drillInput').value.trim().toLowerCase().replace(/[^a-z0-9 ]/g, '');
+  var original = s.text.toLowerCase().replace(/\[([a-z /]+)\]/g, '').replace(/[^a-z0-9 ]/g, '').trim();
+  var typedWords = typed.split(/\s+/);
+  var origWords = original.split(/\s+/);
+  var matchCount = 0;
+  for (var i = 0; i < Math.min(typedWords.length, origWords.length); i++) {
+    if (typedWords[i] === origWords[i]) matchCount++;
+  }
+  var similarity = origWords.length > 0 ? Math.round(matchCount / origWords.length * 100) : 0;
+  var fb = document.getElementById('drillFeedback');
+  if (similarity >= 80) {
+    document.getElementById('drillInput').className = 'corpus-typing-input corpus-typing-input--correct';
+    fb.innerHTML = '<span style="color:var(--green);font-weight:600">\u2713 Great! ' + similarity + '% match</span>';
+    corpusState.drillCorrect++;
+  } else {
+    document.getElementById('drillInput').className = 'corpus-typing-input corpus-typing-input--wrong';
+    fb.innerHTML = '<span style="color:var(--red)">' + similarity + '% match.</span> <strong>Correct:</strong> ' + escHtml(s.text);
+  }
+}
+
+function nextDrill() {
+  corpusState.drillIdx++;
+  showDrillSentence();
+}
+
+function renderCorpus() {
+  loadCorpusMastered();
+  renderCorpusStats();
+  renderCorpusCatFilter();
+  renderCorpusSentences();
+  renderIdeaTopicFilter();
+  renderCorpusIdeas();
+}
+
+/* ════════════════════════════════════════════════════
    INITIALIZATION
    ════════════════════════════════════════════════════ */
 function init() {
   updateStreak();
   loadProgress();
   updateProgressUI();
+
+  /* Module 0 */
+  renderCorpus();
 
   /* Module 1 */
   renderStructureCards();
