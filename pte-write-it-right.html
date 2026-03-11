@@ -303,6 +303,60 @@ body{font-family:var(--font);background:var(--grey-light);color:var(--grey-dark)
 .idea-card__topic{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
 .idea-topic-group{margin-bottom:20px}
 .idea-topic-group__title{font-size:1.05rem;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+
+/* ── Grammar & Sentence Structure Module ──────── */
+.grammar-mode-toggle{display:flex;gap:4px;margin-bottom:16px;flex-wrap:wrap}
+.grammar-mode-btn{padding:8px 18px;border:2px solid var(--grey);border-radius:20px;background:var(--white);cursor:pointer;font-weight:700;font-size:.85rem;transition:all .2s;white-space:nowrap}
+.grammar-mode-btn:hover{border-color:var(--teal);background:var(--teal-light)}
+.grammar-mode-btn--active{background:var(--teal);color:var(--white);border-color:var(--teal)}
+.sent-type-card{border-radius:var(--radius);padding:20px;margin-bottom:16px;border-left:5px solid;background:var(--white);box-shadow:var(--shadow)}
+.sent-type-card__formula{font-size:1.3rem;font-weight:800;letter-spacing:1px;margin-bottom:8px;font-family:monospace}
+.sent-type-card__desc{font-size:.92rem;line-height:1.6;color:var(--grey);margin-bottom:12px}
+.sent-type-example{background:var(--grey-light);border-radius:6px;padding:12px;margin:8px 0;font-size:.9rem;line-height:1.7}
+.sent-type-example__part{display:inline;border-radius:3px;padding:1px 4px;font-weight:600}
+.sent-type-tips{margin:12px 0}
+.sent-type-tips li{font-size:.85rem;color:var(--grey-dark);margin-bottom:4px;padding-left:4px}
+.block-card{background:var(--white);border-radius:8px;border:1px solid #e0e0e0;padding:16px;margin-bottom:12px;box-shadow:var(--shadow)}
+.block-card__header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.block-card__icon{font-size:1.3rem}
+.block-card__title{font-weight:700;font-size:1rem}
+.block-pattern{display:flex;align-items:flex-start;gap:10px;padding:8px 10px;border-radius:6px;margin-bottom:6px;font-size:.88rem;background:var(--grey-light)}
+.block-pattern__name{font-weight:700;white-space:nowrap;min-width:130px;font-size:.82rem}
+.block-pattern__example{color:var(--grey-dark);line-height:1.5}
+.block-pattern__highlight{background:rgba(0,0,0,.06);border-radius:3px;padding:0 3px;font-weight:600}
+.combining-card{background:var(--white);border-radius:8px;box-shadow:var(--shadow);padding:16px;margin-bottom:14px;border-left:4px solid var(--teal)}
+.combining-card__originals{background:var(--red-light);border-radius:6px;padding:10px 14px;margin-bottom:10px}
+.combining-card__original{font-size:.9rem;margin-bottom:4px;color:var(--red)}
+.combining-technique{background:var(--green-light);border-radius:6px;padding:10px 14px;margin-bottom:6px}
+.combining-technique__method{font-weight:700;font-size:.82rem;color:var(--green);margin-bottom:4px}
+.combining-technique__result{font-size:.88rem;color:var(--grey-dark);line-height:1.5}
+.grammar-rule-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px;margin-bottom:16px}
+.grammar-rule-item{background:var(--white);border-radius:8px;border:1px solid #e0e0e0;padding:14px;transition:all .2s}
+.grammar-rule-item:hover{box-shadow:var(--shadow)}
+.grammar-rule-item__title{font-weight:700;font-size:.88rem;margin-bottom:6px;color:var(--grey-dark)}
+.grammar-rule-item__example{font-size:.82rem;margin-bottom:3px}
+.grammar-rule-item__ok{color:var(--green)}
+.grammar-rule-item__no{color:var(--red);text-decoration:line-through}
+.grammar-rule-item__trap{font-size:.78rem;color:var(--orange);margin-top:6px;font-style:italic}
+.grammar-cat-header{display:flex;align-items:center;gap:8px;margin-bottom:12px;margin-top:20px;cursor:pointer;user-select:none}
+.grammar-cat-header__icon{font-size:1.2rem}
+.grammar-cat-header__title{font-weight:700;font-size:1.05rem}
+.grammar-cat-header__count{font-size:.8rem;color:var(--grey);margin-left:auto}
+.grammar-drill-area{background:var(--teal-light);border-radius:var(--radius);padding:20px;margin-bottom:16px;border-left:5px solid var(--teal)}
+.grammar-drill-q{font-size:1rem;font-weight:600;line-height:1.6;margin-bottom:12px;color:var(--grey-dark)}
+.grammar-drill-options{display:flex;flex-direction:column;gap:8px}
+.grammar-drill-opt{padding:10px 16px;border:2px solid #ddd;border-radius:8px;background:var(--white);cursor:pointer;font-size:.9rem;font-weight:500;transition:all .2s;text-align:left}
+.grammar-drill-opt:hover{border-color:var(--teal);background:var(--teal-light)}
+.grammar-drill-opt--correct{border-color:var(--green)!important;background:var(--green-light)!important;color:var(--green);font-weight:700}
+.grammar-drill-opt--wrong{border-color:var(--red)!important;background:var(--red-light)!important;color:var(--red)}
+.grammar-drill-feedback{margin-top:12px;padding:12px;border-radius:8px;font-size:.88rem;line-height:1.5}
+.grammar-drill-progress{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.grammar-drill-score{font-weight:700;font-size:.9rem}
+.clause-exercise{background:var(--white);border-radius:8px;box-shadow:var(--shadow);padding:16px;margin-bottom:12px}
+.clause-exercise__sentence{font-size:1rem;font-weight:600;line-height:1.6;margin-bottom:10px;color:var(--grey-dark);padding:10px;background:var(--grey-light);border-radius:6px}
+.clause-tag{display:inline-block;padding:3px 10px;border-radius:12px;font-size:.75rem;font-weight:600;margin:2px}
+.clause-tag--independent{background:var(--green-light);color:var(--green)}
+.clause-tag--dependent{background:var(--orange-light);color:var(--orange)}
 </style>
 </head>
 <body>
@@ -325,13 +379,14 @@ body{font-family:var(--font);background:var(--grey-light);color:var(--grey-dark)
 
 <!-- ═══════════════ TAB NAVIGATION ═══════════════ -->
 <div class="tab-nav" id="tabNav">
-  <button class="tab-btn tab-btn--active" data-tab="6" onclick="switchTab(6)">0. Start Here: 语料库<span class="checkmark hidden" id="check6"></span></button>
-  <button class="tab-btn" data-tab="0" onclick="switchTab(0)">1. Structure<span class="checkmark hidden" id="check0"></span></button>
-  <button class="tab-btn" data-tab="1" onclick="switchTab(1)">2. Vocabulary<span class="checkmark hidden" id="check1"></span></button>
-  <button class="tab-btn" data-tab="2" onclick="switchTab(2)">3. Essay Builder<span class="checkmark hidden" id="check2"></span></button>
-  <button class="tab-btn" data-tab="3" onclick="switchTab(3)">4. SWT Builder<span class="checkmark hidden" id="check3"></span></button>
-  <button class="tab-btn" data-tab="4" onclick="switchTab(4)">5. Error Clinic<span class="checkmark hidden" id="check4"></span></button>
-  <button class="tab-btn" data-tab="5" onclick="switchTab(5)">6. Full Practice<span class="checkmark hidden" id="check5"></span></button>
+  <button class="tab-btn tab-btn--active" data-tab="6" onclick="switchTab(6)">0. 语料库<span class="checkmark hidden" id="check6"></span></button>
+  <button class="tab-btn" data-tab="7" onclick="switchTab(7)">1. Grammar<span class="checkmark hidden" id="check7"></span></button>
+  <button class="tab-btn" data-tab="0" onclick="switchTab(0)">2. Structure<span class="checkmark hidden" id="check0"></span></button>
+  <button class="tab-btn" data-tab="1" onclick="switchTab(1)">3. Vocabulary<span class="checkmark hidden" id="check1"></span></button>
+  <button class="tab-btn" data-tab="2" onclick="switchTab(2)">4. Essay Builder<span class="checkmark hidden" id="check2"></span></button>
+  <button class="tab-btn" data-tab="3" onclick="switchTab(3)">5. SWT Builder<span class="checkmark hidden" id="check3"></span></button>
+  <button class="tab-btn" data-tab="4" onclick="switchTab(4)">6. Error Clinic<span class="checkmark hidden" id="check4"></span></button>
+  <button class="tab-btn" data-tab="5" onclick="switchTab(5)">7. Full Practice<span class="checkmark hidden" id="check5"></span></button>
 </div>
 
 <div class="container">
@@ -669,6 +724,43 @@ body{font-family:var(--font);background:var(--grey-light);color:var(--grey-dark)
   </div>
 </div>
 
+<!-- ════════════════════════════════════════════════
+     MODULE 1.5: SENTENCE STRUCTURE & GRAMMAR
+     ════════════════════════════════════════════════ -->
+<div class="tab-panel" id="panel7">
+  <div class="section-card">
+    <div class="section-card__title">Sentence Structure & Grammar Workbook</div>
+    <div class="section-card__subtitle">Learn how to build simple, compound, complex, and compound-complex sentences. Master all grammar rules to write accurate, sophisticated PTE essays.</div>
+
+    <div class="grammar-mode-toggle">
+      <button class="grammar-mode-btn grammar-mode-btn--active" onclick="switchGrammarMode('types')">Sentence Types</button>
+      <button class="grammar-mode-btn" onclick="switchGrammarMode('blocks')">Building Blocks</button>
+      <button class="grammar-mode-btn" onclick="switchGrammarMode('combining')">Sentence Combining</button>
+      <button class="grammar-mode-btn" onclick="switchGrammarMode('rules')">Grammar Rules</button>
+      <button class="grammar-mode-btn" onclick="switchGrammarMode('clauses')">Clause ID</button>
+      <button class="grammar-mode-btn" onclick="switchGrammarMode('drill')">Grammar Drill</button>
+    </div>
+
+    <!-- SENTENCE TYPES -->
+    <div id="grammarTypesPanel"></div>
+
+    <!-- BUILDING BLOCKS -->
+    <div id="grammarBlocksPanel" style="display:none"></div>
+
+    <!-- SENTENCE COMBINING -->
+    <div id="grammarCombiningPanel" style="display:none"></div>
+
+    <!-- GRAMMAR RULES -->
+    <div id="grammarRulesPanel" style="display:none"></div>
+
+    <!-- CLAUSE IDENTIFICATION -->
+    <div id="grammarClausesPanel" style="display:none"></div>
+
+    <!-- GRAMMAR DRILL -->
+    <div id="grammarDrillPanel" style="display:none"></div>
+  </div>
+</div>
+
 </div><!-- /container -->
 
 <!-- ═══════════════ SAVE/LOAD MODAL ═══════════════ -->
@@ -701,6 +793,7 @@ body{font-family:var(--font);background:var(--grey-light);color:var(--grey-dark)
 <script src="js/writing-data.js"></script>
 <script src="js/guided-writing-data.js"></script>
 <script src="js/corpus-data.js"></script>
+<script src="js/grammar-structure-data.js"></script>
 
 <script>
 /* ================================================================
@@ -846,19 +939,19 @@ function markModuleComplete(idx) {
 }
 function updateProgressUI() {
   var count = 0;
-  for (var i = 0; i < 7; i++) {
+  for (var i = 0; i < 8; i++) {
     var el = document.getElementById('check' + i);
-    if (appState.completedModules[i]) {
+    if (el && appState.completedModules[i]) {
       el.textContent = ' \u2713';
       el.classList.remove('hidden');
       count++;
-    } else {
+    } else if (el) {
       el.classList.add('hidden');
     }
   }
-  var pct = Math.round(count / 7 * 100);
+  var pct = Math.round(count / 8 * 100);
   document.getElementById('progressFill').style.width = pct + '%';
-  document.getElementById('progressLabel').textContent = count + ' / 7 modules completed';
+  document.getElementById('progressLabel').textContent = count + ' / 8 modules completed';
 }
 function saveProgress() {
   localStorage.setItem('pte_wir_progress', JSON.stringify(appState.completedModules));
@@ -878,7 +971,7 @@ function switchTab(idx) {
     var btnIdx = parseInt(btns[i].getAttribute('data-tab'));
     btns[i].classList.toggle('tab-btn--active', btnIdx === idx);
   }
-  for (var j = 0; j <= 6; j++) {
+  for (var j = 0; j <= 7; j++) {
     var panel = document.getElementById('panel' + j);
     if (panel) panel.classList.toggle('tab-panel--active', j === idx);
   }
@@ -2028,6 +2121,279 @@ function renderCorpus() {
 }
 
 /* ════════════════════════════════════════════════════
+   MODULE 1.5: SENTENCE STRUCTURE & GRAMMAR
+   ════════════════════════════════════════════════════ */
+var grammarState = {
+  mode: 'types',
+  drillQueue: [],
+  drillIdx: 0,
+  drillCorrect: 0,
+  drillAnswered: false,
+  clauseRevealed: {}
+};
+
+function switchGrammarMode(mode) {
+  grammarState.mode = mode;
+  var modes = ['types','blocks','combining','rules','clauses','drill'];
+  var panels = ['grammarTypesPanel','grammarBlocksPanel','grammarCombiningPanel','grammarRulesPanel','grammarClausesPanel','grammarDrillPanel'];
+  var btns = document.querySelectorAll('.grammar-mode-btn');
+  for (var i = 0; i < modes.length; i++) {
+    if (btns[i]) btns[i].classList.toggle('grammar-mode-btn--active', modes[i] === mode);
+    document.getElementById(panels[i]).style.display = modes[i] === mode ? '' : 'none';
+  }
+}
+
+/* ── Sentence Types ───────────────────────────── */
+function renderSentenceTypes() {
+  var html = '';
+  for (var i = 0; i < SENTENCE_TYPES.length; i++) {
+    var st = SENTENCE_TYPES[i];
+    html += '<div class="sent-type-card" style="border-color:' + st.color + '">';
+    html += '<div class="sent-type-card__formula" style="color:' + st.color + '">' + escHtml(st.formula) + '</div>';
+    html += '<div style="font-weight:700;font-size:1.05rem;margin-bottom:6px">' + escHtml(st.title) + '</div>';
+    html += '<div class="sent-type-card__desc">' + escHtml(st.description) + '</div>';
+
+    // Examples
+    html += '<div style="font-weight:700;font-size:.85rem;margin-bottom:6px">Examples:</div>';
+    for (var e = 0; e < st.examples.length; e++) {
+      var ex = st.examples[e];
+      html += '<div class="sent-type-example">';
+      for (var p = 0; p < ex.parts.length; p++) {
+        var part = ex.parts[p];
+        html += '<span class="sent-type-example__part" style="background:' + st.color + '15;color:' + st.color + '" title="' + escHtml(part.r) + '">' + escHtml(part.w) + '</span> ';
+      }
+      html += '</div>';
+    }
+
+    // Tips
+    html += '<ul class="sent-type-tips">';
+    for (var t = 0; t < st.tips.length; t++) {
+      html += '<li>' + escHtml(st.tips[t]) + '</li>';
+    }
+    html += '</ul>';
+
+    // Exercises
+    html += '<div style="font-weight:700;font-size:.85rem;margin:12px 0 8px">Quick Check:</div>';
+    for (var x = 0; x < st.exercises.length; x++) {
+      var qx = st.exercises[x];
+      html += '<div class="grammar-drill-area" style="border-color:' + st.color + ';background:' + st.color + '10;margin-bottom:10px">';
+      html += '<div class="grammar-drill-q">' + escHtml(qx.q) + '</div>';
+      html += '<div class="grammar-drill-options">';
+      for (var o = 0; o < qx.a.length; o++) {
+        html += '<button class="grammar-drill-opt" onclick="checkTypeExercise(this,' + o + ',' + qx.ans + ',\'' + escHtml(qx.exp).replace(/'/g, "\\'") + '\')">' + escHtml(qx.a[o]) + '</button>';
+      }
+      html += '</div>';
+      html += '<div class="grammar-drill-feedback"></div>';
+      html += '</div>';
+    }
+
+    html += '</div>';
+  }
+  document.getElementById('grammarTypesPanel').innerHTML = html;
+}
+
+function checkTypeExercise(btn, selected, correct, explanation) {
+  var parent = btn.parentNode;
+  var feedback = parent.parentNode.querySelector('.grammar-drill-feedback');
+  var btns = parent.querySelectorAll('.grammar-drill-opt');
+  for (var i = 0; i < btns.length; i++) {
+    btns[i].disabled = true;
+    if (i === correct) btns[i].classList.add('grammar-drill-opt--correct');
+    if (i === selected && i !== correct) btns[i].classList.add('grammar-drill-opt--wrong');
+  }
+  if (selected === correct) {
+    feedback.innerHTML = '<div class="grammar-drill-feedback" style="background:var(--green-light);color:var(--green)">\u2713 Correct! ' + explanation + '</div>';
+  } else {
+    feedback.innerHTML = '<div class="grammar-drill-feedback" style="background:var(--red-light);color:var(--red)">\u2717 ' + explanation + '</div>';
+  }
+}
+
+/* ── Building Blocks ──────────────────────────── */
+function renderBuildingBlocks() {
+  var html = '';
+  for (var i = 0; i < BUILDING_BLOCKS.length; i++) {
+    var bb = BUILDING_BLOCKS[i];
+    html += '<div class="block-card">';
+    html += '<div class="block-card__header"><span class="block-card__icon">' + bb.icon + '</span><span class="block-card__title" style="color:' + bb.color + '">' + escHtml(bb.title) + '</span><span class="badge" style="background:' + bb.color + '15;color:' + bb.color + '">' + escHtml(bb.desc) + '</span></div>';
+    for (var p = 0; p < bb.patterns.length; p++) {
+      var pat = bb.patterns[p];
+      var highlighted = pat.example.replace(pat.highlight, '<span class="block-pattern__highlight" style="color:' + bb.color + '">' + escHtml(pat.highlight) + '</span>');
+      html += '<div class="block-pattern">';
+      html += '<span class="block-pattern__name" style="color:' + bb.color + '">' + escHtml(pat.name) + '</span>';
+      html += '<span class="block-pattern__example">' + highlighted + '</span>';
+      html += '</div>';
+    }
+    html += '</div>';
+  }
+  document.getElementById('grammarBlocksPanel').innerHTML = html;
+}
+
+/* ── Sentence Combining ──────────────────────── */
+function renderCombiningExercises() {
+  var html = '<div style="margin-bottom:16px"><div class="section-card__subtitle">Practice combining simple sentences into compound, complex, and compound-complex sentences. Expand each card to see multiple techniques.</div></div>';
+  for (var i = 0; i < COMBINING_EXERCISES.length; i++) {
+    var ce = COMBINING_EXERCISES[i];
+    html += '<div class="combining-card">';
+    html += '<div class="combining-card__originals">';
+    html += '<div style="font-weight:700;font-size:.82rem;color:var(--red);margin-bottom:4px">Simple Sentences:</div>';
+    for (var s = 0; s < ce.simple.length; s++) {
+      html += '<div class="combining-card__original">' + escHtml(ce.simple[s]) + '</div>';
+    }
+    html += '</div>';
+    for (var t = 0; t < ce.techniques.length; t++) {
+      var tech = ce.techniques[t];
+      html += '<div class="combining-technique">';
+      html += '<div class="combining-technique__method">\u2192 ' + escHtml(tech.method) + ':</div>';
+      html += '<div class="combining-technique__result">' + escHtml(tech.result) + '</div>';
+      html += '</div>';
+    }
+    html += '</div>';
+  }
+  document.getElementById('grammarCombiningPanel').innerHTML = html;
+}
+
+/* ── Grammar Rules ────────────────────────────── */
+function renderGrammarRules() {
+  var html = '';
+  for (var c = 0; c < GRAMMAR_QUICK_RULES.length; c++) {
+    var cat = GRAMMAR_QUICK_RULES[c];
+    html += '<div class="grammar-cat-header" onclick="toggleGrammarCat(' + c + ')">';
+    html += '<span class="grammar-cat-header__icon">' + cat.icon + '</span>';
+    html += '<span class="grammar-cat-header__title" style="color:' + cat.color + '">' + escHtml(cat.category) + '</span>';
+    html += '<span class="grammar-cat-header__count">' + cat.rules.length + ' rules</span>';
+    html += '</div>';
+    html += '<div class="grammar-rule-grid" id="grammarCat' + c + '">';
+    for (var r = 0; r < cat.rules.length; r++) {
+      var rule = cat.rules[r];
+      html += '<div class="grammar-rule-item" style="border-left:4px solid ' + cat.color + '">';
+      html += '<div class="grammar-rule-item__title">' + escHtml(rule.rule) + '</div>';
+      html += '<div class="grammar-rule-item__example grammar-rule-item__ok">\u2713 ' + escHtml(rule.ok) + '</div>';
+      html += '<div class="grammar-rule-item__example grammar-rule-item__no">\u2717 ' + escHtml(rule.no) + '</div>';
+      html += '<div class="grammar-rule-item__trap">\uD83D\uDCA1 ' + escHtml(rule.trap) + '</div>';
+      html += '</div>';
+    }
+    html += '</div>';
+  }
+  document.getElementById('grammarRulesPanel').innerHTML = html;
+}
+
+function toggleGrammarCat(idx) {
+  var el = document.getElementById('grammarCat' + idx);
+  el.style.display = el.style.display === 'none' ? '' : 'none';
+}
+
+/* ── Clause Identification ───────────────────── */
+function renderClauseExercises() {
+  var html = '<div style="margin-bottom:16px"><div class="section-card__subtitle">Read each sentence and identify the clause types. Click "Reveal" to see the analysis.</div></div>';
+  for (var i = 0; i < CLAUSE_EXERCISES.length; i++) {
+    var ce = CLAUSE_EXERCISES[i];
+    html += '<div class="clause-exercise">';
+    html += '<div class="clause-exercise__sentence">' + escHtml(ce.sentence) + '</div>';
+    html += '<div class="flex-between">';
+    html += '<span class="badge badge--purple">Type: ?</span>';
+    html += '<button class="btn btn--teal btn--small" onclick="revealClauses(' + i + ')">Reveal</button>';
+    html += '</div>';
+    html += '<div id="clauseReveal' + i + '" style="display:none;margin-top:10px">';
+    html += '<div style="margin-bottom:6px"><span class="badge" style="background:var(--purple-light);color:var(--purple)">' + escHtml(ce.sentenceType) + ' Sentence</span></div>';
+    for (var cl = 0; cl < ce.clauses.length; cl++) {
+      var clause = ce.clauses[cl];
+      var isIndep = clause.type.indexOf('Independent') >= 0;
+      html += '<div style="margin-bottom:4px">';
+      html += '<span class="clause-tag ' + (isIndep ? 'clause-tag--independent' : 'clause-tag--dependent') + '">' + escHtml(clause.type) + '</span> ';
+      html += '<span style="font-size:.88rem">' + escHtml(clause.text) + '</span>';
+      html += '</div>';
+    }
+    html += '</div></div>';
+  }
+  document.getElementById('grammarClausesPanel').innerHTML = html;
+}
+
+function revealClauses(idx) {
+  var el = document.getElementById('clauseReveal' + idx);
+  el.style.display = el.style.display === 'none' ? '' : 'none';
+}
+
+/* ── Grammar Drill ────────────────────────────── */
+function startGrammarDrill() {
+  var indices = [];
+  for (var i = 0; i < GRAMMAR_DRILL_QUESTIONS.length; i++) indices.push(i);
+  grammarState.drillQueue = shuffleArray(indices).slice(0, 15);
+  grammarState.drillIdx = 0;
+  grammarState.drillCorrect = 0;
+  grammarState.drillAnswered = false;
+  showGrammarDrillQ();
+}
+
+function showGrammarDrillQ() {
+  var panel = document.getElementById('grammarDrillPanel');
+  if (grammarState.drillIdx >= grammarState.drillQueue.length) {
+    var score = grammarState.drillCorrect;
+    var total = grammarState.drillQueue.length;
+    var pct = Math.round(score / total * 100);
+    var msg = pct >= 80 ? '\uD83C\uDF89 Excellent!' : pct >= 60 ? '\uD83D\uDC4D Good effort!' : '\uD83D\uDCDA Keep practising!';
+    panel.innerHTML = '<div class="grammar-drill-area"><div style="text-align:center"><div style="font-size:1.5rem;font-weight:700;margin-bottom:8px">' + msg + '</div><div style="font-size:1.2rem;margin-bottom:12px">Score: ' + score + ' / ' + total + ' (' + pct + '%)</div><button class="btn btn--teal" onclick="startGrammarDrill()">Try Again</button></div></div>';
+    if (score >= 12) markModuleComplete(7);
+    return;
+  }
+  var qIdx = grammarState.drillQueue[grammarState.drillIdx];
+  var q = GRAMMAR_DRILL_QUESTIONS[qIdx];
+  grammarState.drillAnswered = false;
+  var html = '<div class="grammar-drill-area">';
+  html += '<div class="grammar-drill-progress"><span class="grammar-drill-score">Question ' + (grammarState.drillIdx + 1) + ' / ' + grammarState.drillQueue.length + '</span><span class="badge" style="background:' + getCatColor(q.cat) + '15;color:' + getCatColor(q.cat) + '">' + escHtml(q.cat) + '</span><span class="grammar-drill-score" style="margin-left:auto">\u2713 ' + grammarState.drillCorrect + '</span></div>';
+  html += '<div class="grammar-drill-q">' + escHtml(q.q) + '</div>';
+  html += '<div class="grammar-drill-options" id="grammarDrillOpts">';
+  for (var o = 0; o < q.options.length; o++) {
+    html += '<button class="grammar-drill-opt" onclick="checkGrammarDrill(' + o + ',' + q.ans + ')">' + escHtml(q.options[o]) + '</button>';
+  }
+  html += '</div>';
+  html += '<div id="grammarDrillFb" class="grammar-drill-feedback"></div>';
+  html += '<div style="margin-top:12px;text-align:right"><button class="btn btn--green" onclick="nextGrammarDrill()">Next \u2192</button></div>';
+  html += '</div>';
+  panel.innerHTML = html;
+}
+
+function getCatColor(cat) {
+  var map = { 'Articles': '#2c5f8a', 'Tenses': '#e67e22', 'Agreement': '#27ae60', 'Connectors': '#8e44ad', 'Clauses': '#8e44ad', 'Word Form': '#1a8a7d', 'Structure': '#1a8a7d' };
+  return map[cat] || '#7f8c8d';
+}
+
+function checkGrammarDrill(selected, correct) {
+  if (grammarState.drillAnswered) return;
+  grammarState.drillAnswered = true;
+  var btns = document.getElementById('grammarDrillOpts').querySelectorAll('.grammar-drill-opt');
+  var qIdx = grammarState.drillQueue[grammarState.drillIdx];
+  var q = GRAMMAR_DRILL_QUESTIONS[qIdx];
+  for (var i = 0; i < btns.length; i++) {
+    btns[i].disabled = true;
+    if (i === correct) btns[i].classList.add('grammar-drill-opt--correct');
+    if (i === selected && i !== correct) btns[i].classList.add('grammar-drill-opt--wrong');
+  }
+  var fb = document.getElementById('grammarDrillFb');
+  if (selected === correct) {
+    grammarState.drillCorrect++;
+    fb.innerHTML = '<div style="background:var(--green-light);color:var(--green);padding:10px;border-radius:6px">\u2713 Correct! ' + escHtml(q.exp) + '</div>';
+  } else {
+    fb.innerHTML = '<div style="background:var(--red-light);color:var(--red);padding:10px;border-radius:6px">\u2717 ' + escHtml(q.exp) + '</div>';
+  }
+}
+
+function nextGrammarDrill() {
+  grammarState.drillIdx++;
+  showGrammarDrillQ();
+}
+
+function renderGrammarModule() {
+  renderSentenceTypes();
+  renderBuildingBlocks();
+  renderCombiningExercises();
+  renderGrammarRules();
+  renderClauseExercises();
+  // Drill panel starts empty, rendered on "Start Drill" click
+  var drillPanel = document.getElementById('grammarDrillPanel');
+  drillPanel.innerHTML = '<div class="grammar-drill-area"><div style="text-align:center"><p style="margin-bottom:12px;font-size:.95rem">Test your grammar knowledge with 15 random questions covering articles, tenses, agreement, connectors, and sentence structure.</p><button class="btn btn--teal" onclick="startGrammarDrill()">Start Grammar Drill</button></div></div>';
+}
+
+/* ════════════════════════════════════════════════════
    INITIALIZATION
    ════════════════════════════════════════════════════ */
 function init() {
@@ -2037,6 +2403,9 @@ function init() {
 
   /* Module 0 */
   renderCorpus();
+
+  /* Module 1.5 - Grammar */
+  renderGrammarModule();
 
   /* Module 1 */
   renderStructureCards();
