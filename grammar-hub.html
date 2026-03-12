@@ -201,9 +201,10 @@ body{font-family:var(--font);background:var(--grey-light);color:var(--grey-dark)
 
 <!-- ── Stats Bar ──────────────────────────────── -->
 <div class="stats-bar">
-  <div class="stat-chip stat-chip--verb" id="statVerb">Verb Tenses: 0/1020</div>
-  <div class="stat-chip stat-chip--sentence" id="statSentence">Sentences: 0/1150</div>
+  <div class="stat-chip stat-chip--verb" id="statVerb">Verb Tenses: 0/1520</div>
+  <div class="stat-chip stat-chip--sentence" id="statSentence">Sentences: 0/980</div>
   <div class="stat-chip stat-chip--corpus" id="statCorpus">Corpus: 0/1000</div>
+  <div class="stat-chip" style="background:#fce4e4;color:#c0392b" id="statTyping">Typing: 0/500</div>
   <div class="stat-chip stat-chip--total" id="statTotal">Total: 0%</div>
 </div>
 
@@ -211,6 +212,7 @@ body{font-family:var(--font);background:var(--grey-light);color:var(--grey-dark)
 <div class="main-tabs">
   <button class="main-tab main-tab--active" data-tab="verb" onclick="switchMainTab('verb')">Verb Tenses</button>
   <button class="main-tab" data-tab="sentence" onclick="switchMainTab('sentence')">Sentence Structure</button>
+  <button class="main-tab" data-tab="typing" onclick="switchMainTab('typing')">Sentence Typing</button>
   <button class="main-tab" data-tab="corpus" onclick="switchMainTab('corpus')">Corpus Bank</button>
 </div>
 
@@ -269,7 +271,30 @@ body{font-family:var(--font);background:var(--grey-light);color:var(--grey-dark)
 </div>
 
 <!-- ═══════════════════════════════════════════════
-     PANEL 3 — CORPUS BANK
+     PANEL 3 — SENTENCE TYPING
+     ═══════════════════════════════════════════════ -->
+<div class="panel" id="panelTyping">
+
+  <div class="card">
+    <div class="card__title">Sentence Typing Practice</div>
+    <div class="card__subtitle">500 academic sentences covering 10 structure types. Type or fill in blanks to build muscle memory for PTE writing.</div>
+
+    <div class="mode-toggle" style="margin-bottom:16px">
+      <button class="mode-toggle__btn mode-toggle__btn--active" onclick="setTypingPracticeMode('type')">Typing Mode</button>
+      <button class="mode-toggle__btn" onclick="setTypingPracticeMode('fill')">Fill-in-Blank Mode</button>
+    </div>
+
+    <!-- Structure filter -->
+    <div class="sub-nav" id="typingStructureNav"></div>
+  </div>
+
+  <!-- Typing practice area -->
+  <div id="typingPracticeArea"></div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     PANEL 4 — CORPUS BANK
      ═══════════════════════════════════════════════ -->
 <div class="panel" id="panelCorpus">
 
@@ -314,6 +339,8 @@ body{font-family:var(--font);background:var(--grey-light);color:var(--grey-dark)
 <script src="js/verb-tenses-data-2.js"></script>
 <script src="js/sentence-practice-data-1.js"></script>
 <script src="js/sentence-practice-data-2.js"></script>
+<script src="js/subjunctive-data.js"></script>
+<script src="js/sentence-typing-data.js"></script>
 <script src="js/corpus-data.js"></script>
 <script src="js/corpus-sentences-ext.js"></script>
 <script src="js/corpus-ideas-ext.js"></script>
@@ -328,6 +355,8 @@ var hubState = JSON.parse(localStorage.getItem(STATE_KEY) || '{}');
 if (!hubState.verbCorrect) hubState.verbCorrect = {};
 if (!hubState.sentenceCorrect) hubState.sentenceCorrect = {};
 if (!hubState.corpusTyped) hubState.corpusTyped = 0;
+if (!hubState.typingDone) hubState.typingDone = {};
+if (!hubState.fillDone) hubState.fillDone = {};
 function saveHub() { localStorage.setItem(STATE_KEY, JSON.stringify(hubState)); }
 
 function escHtml(s) {
@@ -346,7 +375,8 @@ function shuffleArray(arr) {
 
 /* ── Merge Tenses ──────────────────────────────── */
 var ALL_TENSES = (typeof VERB_TENSES_1 !== 'undefined' ? VERB_TENSES_1 : [])
-  .concat(typeof VERB_TENSES_2 !== 'undefined' ? VERB_TENSES_2 : []);
+  .concat(typeof VERB_TENSES_2 !== 'undefined' ? VERB_TENSES_2 : [])
+  .concat(typeof VERB_TENSES_3 !== 'undefined' ? VERB_TENSES_3 : []);
 
 /* ── Merge Sentence Practice ───────────────────── */
 var ALL_SENTENCE_SECTIONS = [];
@@ -396,6 +426,7 @@ function switchMainTab(tab) {
   }
   document.getElementById('panelVerb').classList.toggle('panel--active', tab === 'verb');
   document.getElementById('panelSentence').classList.toggle('panel--active', tab === 'sentence');
+  document.getElementById('panelTyping').classList.toggle('panel--active', tab === 'typing');
   document.getElementById('panelCorpus').classList.toggle('panel--active', tab === 'corpus');
 }
 
@@ -965,6 +996,218 @@ function markCorrect(uid, module) {
 /* ════════════════════════════════════════════════════
    CORPUS BANK MODULE
    ════════════════════════════════════════════════════ */
+/* ════════════════════════════════════════════════════
+   SENTENCE TYPING MODULE
+   ════════════════════════════════════════════════════ */
+var typingPState = {
+  mode: 'type',       // type | fill
+  filter: 'all',      // all | structure category
+  currentIdx: 0,
+  pool: [],
+  sessionDone: 0
+};
+
+function setTypingPracticeMode(mode) {
+  typingPState.mode = mode;
+  var btns = document.querySelectorAll('#panelTyping .mode-toggle__btn');
+  for (var i = 0; i < btns.length; i++) {
+    btns[i].classList.toggle('mode-toggle__btn--active', (i === 0 && mode === 'type') || (i === 1 && mode === 'fill'));
+  }
+  typingPState.currentIdx = 0;
+  buildTypingPool();
+  renderTypingPractice();
+}
+
+function renderTypingStructureNav() {
+  var nav = document.getElementById('typingStructureNav');
+  var cats = typeof TYPING_CATEGORIES !== 'undefined' ? TYPING_CATEGORIES : {};
+  var html = '<button class="sub-pill' + (typingPState.filter === 'all' ? ' sub-pill--active' : '') + '" onclick="typingPState.filter=\'all\';typingPState.currentIdx=0;buildTypingPool();renderTypingStructureNav();renderTypingPractice()">All</button>';
+  var keys = Object.keys(cats);
+  for (var i = 0; i < keys.length; i++) {
+    var k = keys[i];
+    var c = cats[k];
+    var done = countTypingDone(k);
+    html += '<button class="sub-pill' + (typingPState.filter === k ? ' sub-pill--active' : '') + '" onclick="typingPState.filter=\'' + k + '\';typingPState.currentIdx=0;buildTypingPool();renderTypingStructureNav();renderTypingPractice()">';
+    html += escHtml(c.label);
+    html += '<span class="sub-pill__count">' + done + '/' + c.count + '</span>';
+    html += '</button>';
+  }
+  nav.innerHTML = html;
+}
+
+function countTypingDone(cat) {
+  var store = typingPState.mode === 'fill' ? hubState.fillDone : hubState.typingDone;
+  var count = 0;
+  for (var k in store) {
+    if (k.indexOf(cat + '_') === 0 || cat === 'all') count++;
+  }
+  return count;
+}
+
+function buildTypingPool() {
+  var sentences = typeof TYPING_SENTENCES !== 'undefined' ? TYPING_SENTENCES : [];
+  typingPState.pool = [];
+  for (var i = 0; i < sentences.length; i++) {
+    if (typingPState.filter === 'all' || sentences[i].cat === typingPState.filter) {
+      typingPState.pool.push(i);
+    }
+  }
+}
+
+function renderTypingPractice() {
+  var area = document.getElementById('typingPracticeArea');
+  var sentences = typeof TYPING_SENTENCES !== 'undefined' ? TYPING_SENTENCES : [];
+  if (!sentences.length) {
+    area.innerHTML = '<div class="card"><p>No typing sentences loaded. Check that sentence-typing-data.js is linked.</p></div>';
+    return;
+  }
+  if (!typingPState.pool.length) {
+    area.innerHTML = '<div class="card"><p>No sentences match this filter.</p></div>';
+    return;
+  }
+
+  var idx = typingPState.pool[typingPState.currentIdx % typingPState.pool.length];
+  var s = sentences[idx];
+  var store = typingPState.mode === 'fill' ? hubState.fillDone : hubState.typingDone;
+  var doneCount = Object.keys(store).length;
+
+  var html = '<div class="card">';
+  html += '<div class="exercise-controls">';
+  html += '<span class="exercise-progress">Sentence ' + (typingPState.currentIdx + 1) + ' of ' + typingPState.pool.length + '</span>';
+  html += '<span class="badge" style="background:var(--indigo-light);color:var(--indigo)">' + escHtml(s.structure) + '</span>';
+  html += '<span class="exercise-score exercise-score--good" style="margin-left:auto">' + doneCount + ' completed</span>';
+  html += '</div>';
+
+  if (typingPState.mode === 'type') {
+    // Typing mode — show full sentence, user types it
+    html += '<div style="background:var(--blue-light);padding:16px 20px;border-radius:8px;font-size:1.05rem;line-height:1.8;margin-bottom:14px;border-left:4px solid var(--blue)">' + escHtml(s.text) + '</div>';
+    html += '<textarea class="answer-area" id="typingPInput" placeholder="Type the sentence exactly as shown..." oninput="checkTypingPractice()" style="min-height:80px;font-size:1rem"></textarea>';
+    html += '<div id="typingPFeedback" style="margin-top:8px"></div>';
+  } else {
+    // Fill-in-blank mode — show blanked version, user fills in
+    var blanked = s.blanked || s.text;
+    var parts = blanked.split('___');
+    html += '<div style="font-size:1.05rem;line-height:2;margin-bottom:14px">';
+    for (var p = 0; p < parts.length; p++) {
+      html += escHtml(parts[p]);
+      if (p < parts.length - 1) {
+        html += '<input type="text" class="fill-input" style="width:140px;margin:0 4px" data-fill-idx="' + p + '" placeholder="...">';
+      }
+    }
+    html += '</div>';
+    html += '<div style="margin-bottom:8px"><button class="btn btn--indigo btn--small" onclick="checkFillPractice()">Check</button>';
+    html += '<button class="btn btn--outline btn--small" style="margin-left:6px" onclick="revealFillPractice()">Show Answer</button></div>';
+    html += '<div id="typingPFeedback" style="margin-top:8px"></div>';
+  }
+
+  html += '<div style="display:flex;gap:8px;margin-top:14px;justify-content:center">';
+  html += '<button class="btn btn--outline" onclick="typingPPrev()" ' + (typingPState.currentIdx === 0 ? 'disabled' : '') + '>Previous</button>';
+  html += '<button class="btn btn--indigo" onclick="typingPNext()">Next</button>';
+  html += '<button class="btn btn--teal" onclick="typingPRandom()">Random</button>';
+  html += '</div>';
+  html += '</div>';
+
+  area.innerHTML = html;
+  if (typingPState.mode === 'type') {
+    var inp = document.getElementById('typingPInput');
+    if (inp) inp.focus();
+  }
+}
+
+function checkTypingPractice() {
+  var sentences = typeof TYPING_SENTENCES !== 'undefined' ? TYPING_SENTENCES : [];
+  var idx = typingPState.pool[typingPState.currentIdx % typingPState.pool.length];
+  var s = sentences[idx];
+  var input = document.getElementById('typingPInput').value;
+  var fb = document.getElementById('typingPFeedback');
+
+  if (normalise(input) === normalise(s.text)) {
+    fb.innerHTML = '<div class="feedback feedback--correct" style="display:block"><span class="feedback__label">Perfect!</span> Great muscle memory practice.</div>';
+    hubState.typingDone[s.cat + '_' + s.id] = 1;
+    saveHub();
+    updateStats();
+    renderTypingStructureNav();
+  } else if (input.length > 0) {
+    // Show character-by-character comparison hint
+    var matchLen = 0;
+    for (var i = 0; i < Math.min(input.length, s.text.length); i++) {
+      if (input[i] === s.text[i]) matchLen++;
+      else break;
+    }
+    var pct = Math.round(matchLen / s.text.length * 100);
+    fb.innerHTML = '<div style="font-size:.82rem;color:var(--grey)">Match: ' + pct + '% (' + matchLen + '/' + s.text.length + ' characters)</div>';
+  }
+}
+
+function checkFillPractice() {
+  var sentences = typeof TYPING_SENTENCES !== 'undefined' ? TYPING_SENTENCES : [];
+  var idx = typingPState.pool[typingPState.currentIdx % typingPState.pool.length];
+  var s = sentences[idx];
+  var blanked = s.blanked || s.text;
+  var blankParts = blanked.split('___');
+  var originalParts = [];
+
+  // Extract the expected fill words from the original text
+  var remaining = s.text;
+  for (var i = 0; i < blankParts.length - 1; i++) {
+    var pos = remaining.indexOf(blankParts[i]);
+    remaining = remaining.substring(pos + blankParts[i].length);
+    var nextPartPos = blankParts[i + 1] ? remaining.indexOf(blankParts[i + 1]) : remaining.length;
+    originalParts.push(remaining.substring(0, nextPartPos));
+    remaining = remaining.substring(nextPartPos);
+  }
+
+  var inputs = document.querySelectorAll('#typingPracticeArea [data-fill-idx]');
+  var allCorrect = true;
+  for (var i = 0; i < inputs.length; i++) {
+    var expected = originalParts[i] || '';
+    var userVal = inputs[i].value.trim();
+    if (normalise(userVal) === normalise(expected)) {
+      inputs[i].classList.add('fill-input--correct');
+      inputs[i].classList.remove('fill-input--wrong');
+    } else {
+      inputs[i].classList.add('fill-input--wrong');
+      inputs[i].classList.remove('fill-input--correct');
+      allCorrect = false;
+    }
+  }
+
+  var fb = document.getElementById('typingPFeedback');
+  if (allCorrect) {
+    fb.innerHTML = '<div class="feedback feedback--correct" style="display:block"><span class="feedback__label">All correct!</span></div>';
+    hubState.fillDone[s.cat + '_' + s.id] = 1;
+    saveHub();
+    updateStats();
+    renderTypingStructureNav();
+  } else {
+    fb.innerHTML = '<div class="feedback feedback--wrong" style="display:block"><span class="feedback__label">Some blanks are incorrect.</span> Try again or click Show Answer.</div>';
+  }
+}
+
+function revealFillPractice() {
+  var sentences = typeof TYPING_SENTENCES !== 'undefined' ? TYPING_SENTENCES : [];
+  var idx = typingPState.pool[typingPState.currentIdx % typingPState.pool.length];
+  var s = sentences[idx];
+  var fb = document.getElementById('typingPFeedback');
+  fb.innerHTML = '<div class="feedback feedback--info" style="display:block"><span class="feedback__label">Full sentence:</span> ' + escHtml(s.text) + '</div>';
+}
+
+function typingPPrev() {
+  if (typingPState.currentIdx > 0) typingPState.currentIdx--;
+  renderTypingPractice();
+}
+
+function typingPNext() {
+  if (typingPState.currentIdx < typingPState.pool.length - 1) typingPState.currentIdx++;
+  else typingPState.currentIdx = 0;
+  renderTypingPractice();
+}
+
+function typingPRandom() {
+  typingPState.currentIdx = Math.floor(Math.random() * typingPState.pool.length);
+  renderTypingPractice();
+}
+
 var corpusState = {
   view: 'sentences',
   filter: 'all',
@@ -1141,12 +1384,16 @@ function updateStats() {
   if (typeof IDEA_BANK !== 'undefined') corpusTotal += IDEA_BANK.length;
   var corpusDone = hubState.corpusTyped || 0;
 
+  var typingTotal = typeof TYPING_SENTENCES !== 'undefined' ? TYPING_SENTENCES.length : 0;
+  var typingDone = Object.keys(hubState.typingDone).length + Object.keys(hubState.fillDone).length;
+
   document.getElementById('statVerb').textContent = 'Verb Tenses: ' + verbDone + '/' + totalVerbEx;
   document.getElementById('statSentence').textContent = 'Sentences: ' + sentenceDone + '/' + totalSentenceEx;
   document.getElementById('statCorpus').textContent = 'Corpus: ' + corpusDone + '/' + corpusTotal;
+  document.getElementById('statTyping').textContent = 'Typing: ' + typingDone + '/' + typingTotal;
 
-  var grandTotal = totalVerbEx + totalSentenceEx + corpusTotal;
-  var grandDone = verbDone + sentenceDone + corpusDone;
+  var grandTotal = totalVerbEx + totalSentenceEx + corpusTotal + typingTotal;
+  var grandDone = verbDone + sentenceDone + corpusDone + typingDone;
   var pct = grandTotal > 0 ? Math.round(grandDone / grandTotal * 100) : 0;
   document.getElementById('statTotal').textContent = 'Total: ' + pct + '%';
   document.getElementById('totalScore').textContent = grandDone + ' / ' + grandTotal;
@@ -1167,6 +1414,9 @@ function init() {
   renderSentenceSubNav();
   renderSentenceSectionInfo();
   renderSentenceExercises();
+  buildTypingPool();
+  renderTypingStructureNav();
+  renderTypingPractice();
   renderCorpusFilters();
   renderCorpusList();
   updateStats();
