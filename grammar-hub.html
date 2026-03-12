@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PTE Grammar & Sentence Mastery Hub</title>
+<style>
+:root {
+  --blue: #2c5f8a; --blue-light: #e8f0f8;
+  --teal: #1a8a7d; --teal-light: #e0f5f2;
+  --orange: #e67e22; --orange-light: #fdf0e0;
+  --green: #27ae60; --green-light: #e8f8ef;
+  --purple: #8e44ad; --purple-light: #f3e8f9;
+  --red: #c0392b; --red-light: #fce4e4;
+  --grey: #7f8c8d; --grey-light: #f4f6f7;
+  --grey-dark: #2c3e50; --white: #ffffff;
+  --indigo: #4f46e5; --indigo-light: #eef2ff;
+  --shadow: 0 2px 8px rgba(0,0,0,0.10);
+  --radius: 10px;
+  --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font);background:var(--grey-light);color:var(--grey-dark);line-height:1.6}
+
+/* ── Topbar ─────────────────────────────────────── */
+.topbar{background:var(--white);border-bottom:3px solid var(--indigo);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;box-shadow:var(--shadow);position:sticky;top:0;z-index:100}
+.topbar__title{font-size:1.4rem;font-weight:700;color:var(--indigo)}
+.topbar__title span{color:var(--grey-dark);font-weight:400}
+.topbar__right{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.topbar__stat{padding:4px 14px;border-radius:20px;font-weight:600;font-size:.85rem}
+.topbar__btn{background:var(--indigo);color:var(--white);border:none;padding:7px 16px;border-radius:6px;cursor:pointer;font-size:.85rem;font-weight:600;transition:background .2s}
+.topbar__btn:hover{background:#3730a3}
+.topbar__btn--outline{background:transparent;border:2px solid var(--indigo);color:var(--indigo)}
+.topbar__btn--outline:hover{background:var(--indigo-light)}
+
+/* ── Stats Bar ─────────────────────────────────── */
+.stats-bar{display:flex;gap:12px;padding:12px 24px;background:var(--white);border-bottom:1px solid #e0e0e0;flex-wrap:wrap;justify-content:center}
+.stat-chip{display:flex;align-items:center;gap:6px;padding:6px 16px;border-radius:20px;font-size:.82rem;font-weight:600}
+.stat-chip--verb{background:var(--blue-light);color:var(--blue)}
+.stat-chip--sentence{background:var(--green-light);color:var(--green)}
+.stat-chip--corpus{background:var(--purple-light);color:var(--purple)}
+.stat-chip--total{background:var(--orange-light);color:var(--orange)}
+
+/* ── Main Tab Navigation ───────────────────────── */
+.main-tabs{display:flex;gap:0;background:var(--white);border-bottom:2px solid #e0e0e0;padding:0 24px}
+.main-tab{padding:14px 28px;border:none;background:transparent;cursor:pointer;font-size:.95rem;font-weight:700;color:var(--grey);border-bottom:3px solid transparent;transition:all .2s}
+.main-tab:hover{background:var(--grey-light);color:var(--grey-dark)}
+.main-tab--active{color:var(--indigo);border-bottom-color:var(--indigo)}
+.main-tab .tab-count{font-size:.75rem;font-weight:400;color:var(--grey);margin-left:6px}
+
+/* ── Container ─────────────────────────────────── */
+.container{max-width:960px;margin:0 auto;padding:20px 24px 60px}
+.panel{display:none}
+.panel--active{display:block}
+
+/* ── Section Cards ─────────────────────────────── */
+.card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px;margin-bottom:20px}
+.card__title{font-size:1.15rem;font-weight:700;margin-bottom:6px}
+.card__subtitle{font-size:.9rem;color:var(--grey);margin-bottom:16px}
+
+/* ── Sub-navigation (pill selector) ────────────── */
+.sub-nav{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px}
+.sub-pill{padding:7px 18px;border-radius:20px;font-size:.82rem;font-weight:600;cursor:pointer;border:2px solid var(--grey);color:var(--grey-dark);background:var(--white);transition:all .2s}
+.sub-pill:hover{border-color:var(--indigo);background:var(--indigo-light)}
+.sub-pill--active{border-color:var(--indigo);background:var(--indigo);color:var(--white)}
+.sub-pill__count{font-size:.7rem;opacity:.7;margin-left:4px}
+
+/* ── Tense Info Box ────────────────────────────── */
+.tense-info{background:var(--blue-light);border-radius:var(--radius);padding:20px;margin-bottom:20px;border-left:5px solid var(--blue)}
+.tense-info__name{font-size:1.2rem;font-weight:700;color:var(--blue);margin-bottom:8px}
+.tense-info__formula{font-size:.9rem;background:var(--white);padding:8px 14px;border-radius:6px;margin-bottom:6px;font-family:monospace;display:inline-block}
+.tense-info__row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+.tense-info__label{font-weight:700;font-size:.82rem;color:var(--blue);min-width:60px}
+.tense-info__val{font-size:.88rem}
+.tense-info__signals{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.signal-word{background:var(--white);padding:2px 10px;border-radius:12px;font-size:.78rem;font-weight:600;color:var(--blue);border:1px solid #b3d4f0}
+
+/* ── Section Info Box ──────────────────────────── */
+.section-info{border-radius:var(--radius);padding:20px;margin-bottom:20px;border-left:5px solid}
+.section-info--green{background:var(--green-light);border-color:var(--green)}
+.section-info--orange{background:var(--orange-light);border-color:var(--orange)}
+.section-info--purple{background:var(--purple-light);border-color:var(--purple)}
+.section-info--teal{background:var(--teal-light);border-color:var(--teal)}
+.section-info--blue{background:var(--blue-light);border-color:var(--blue)}
+.section-info--red{background:var(--red-light);border-color:var(--red)}
+.section-info__title{font-size:1.1rem;font-weight:700;margin-bottom:6px}
+.section-info__text{font-size:.88rem;line-height:1.6}
+
+/* ── Exercise Controls ─────────────────────────── */
+.exercise-controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:16px}
+.exercise-progress{font-size:.85rem;color:var(--grey);font-weight:600}
+.exercise-score{padding:4px 14px;border-radius:20px;font-weight:700;font-size:.85rem}
+.exercise-score--good{background:var(--green-light);color:var(--green)}
+.exercise-score--mid{background:var(--orange-light);color:var(--orange)}
+.exercise-score--low{background:var(--red-light);color:var(--red)}
+
+/* ── Buttons ───────────────────────────────────── */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 20px;border:none;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:all .2s}
+.btn--blue{background:var(--blue);color:var(--white)}.btn--blue:hover{background:#1e4a6e}
+.btn--green{background:var(--green);color:var(--white)}.btn--green:hover{background:#1e8e50}
+.btn--orange{background:var(--orange);color:var(--white)}.btn--orange:hover{background:#cf6e17}
+.btn--purple{background:var(--purple);color:var(--white)}.btn--purple:hover{background:#732d91}
+.btn--red{background:var(--red);color:var(--white)}.btn--red:hover{background:#a5301f}
+.btn--teal{background:var(--teal);color:var(--white)}.btn--teal:hover{background:#14706a}
+.btn--indigo{background:var(--indigo);color:var(--white)}.btn--indigo:hover{background:#3730a3}
+.btn--outline{background:transparent;border:2px solid var(--grey);color:var(--grey-dark)}.btn--outline:hover{background:var(--grey-light)}
+.btn--small{padding:5px 12px;font-size:.8rem}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+
+/* ── Exercise Card ─────────────────────────────── */
+.exercise{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px;margin-bottom:16px}
+.exercise__type{display:inline-block;padding:2px 10px;border-radius:10px;font-size:.72rem;font-weight:700;text-transform:uppercase;margin-bottom:10px}
+.exercise__type--fill{background:var(--blue-light);color:var(--blue)}
+.exercise__type--mc{background:var(--purple-light);color:var(--purple)}
+.exercise__type--error{background:var(--red-light);color:var(--red)}
+.exercise__type--transform{background:var(--orange-light);color:var(--orange)}
+.exercise__type--combine{background:var(--teal-light);color:var(--teal)}
+.exercise__type--identify{background:var(--green-light);color:var(--green)}
+.exercise__type--rewrite{background:var(--indigo-light);color:var(--indigo)}
+.exercise__q{font-size:1rem;margin-bottom:14px;line-height:1.7}
+.exercise__instruction{font-size:.85rem;color:var(--grey);margin-bottom:10px;font-style:italic}
+
+/* ── MC Options ────────────────────────────────── */
+.mc-options{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
+.mc-opt{padding:10px 16px;border:2px solid #e0e0e0;border-radius:8px;background:var(--white);cursor:pointer;font-size:.9rem;transition:all .2s;text-align:left}
+.mc-opt:hover{border-color:var(--indigo);background:var(--indigo-light)}
+.mc-opt--selected{border-color:var(--indigo);background:var(--indigo-light)}
+.mc-opt--correct{border-color:var(--green);background:var(--green-light);color:var(--green);font-weight:600}
+.mc-opt--wrong{border-color:var(--red);background:var(--red-light);color:var(--red)}
+.mc-opt:disabled{cursor:default;opacity:1}
+
+/* ── Fill Input ────────────────────────────────── */
+.fill-input{padding:8px 14px;border:2px solid #d0d0d0;border-radius:6px;font-size:.95rem;width:200px;max-width:100%;transition:border-color .2s;font-family:var(--font)}
+.fill-input:focus{outline:none;border-color:var(--indigo)}
+.fill-input--correct{border-color:var(--green);background:var(--green-light)}
+.fill-input--wrong{border-color:var(--red);background:var(--red-light)}
+
+/* ── Textarea ──────────────────────────────────── */
+.answer-area{width:100%;padding:10px 14px;border:2px solid #d0d0d0;border-radius:6px;font-size:.9rem;font-family:var(--font);min-height:60px;resize:vertical;transition:border-color .2s}
+.answer-area:focus{outline:none;border-color:var(--indigo)}
+
+/* ── Feedback ──────────────────────────────────── */
+.feedback{padding:12px 16px;border-radius:8px;font-size:.88rem;margin-top:12px;display:none;line-height:1.6}
+.feedback--correct{background:var(--green-light);color:#166534;display:block}
+.feedback--wrong{background:var(--red-light);color:#991b1b;display:block}
+.feedback--info{background:var(--blue-light);color:var(--blue);display:block}
+.feedback__label{font-weight:700;margin-right:6px}
+
+/* ── Corpus Bank ───────────────────────────────── */
+.corpus-filters{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.corpus-pill{padding:5px 14px;border-radius:16px;font-size:.8rem;font-weight:600;cursor:pointer;border:2px solid transparent;transition:all .2s}
+.corpus-pill:hover{transform:translateY(-1px)}
+.corpus-pill--active{box-shadow:0 0 0 2px var(--indigo)}
+.corpus-item{padding:12px 16px;border-radius:8px;margin-bottom:8px;font-size:.9rem;border-left:4px solid;transition:background .2s}
+.corpus-item:hover{background:#f8fafc}
+.corpus-item__id{font-size:.72rem;color:var(--grey);font-weight:600}
+.corpus-item__text{margin-top:4px}
+.corpus-search{padding:8px 16px;border:2px solid #d0d0d0;border-radius:8px;width:100%;max-width:400px;font-size:.9rem;font-family:var(--font)}
+.corpus-search:focus{outline:none;border-color:var(--indigo)}
+
+/* ── Drill Mode Banner ─────────────────────────── */
+.drill-banner{background:linear-gradient(135deg,var(--indigo),#7c3aed);color:var(--white);border-radius:var(--radius);padding:20px;text-align:center;margin-bottom:20px}
+.drill-banner__title{font-size:1.2rem;font-weight:700;margin-bottom:6px}
+.drill-banner__desc{font-size:.88rem;opacity:.9;margin-bottom:12px}
+
+/* ── Mode Toggle ───────────────────────────────── */
+.mode-toggle{display:flex;gap:0;border:2px solid var(--indigo);border-radius:8px;overflow:hidden;margin-bottom:20px;display:inline-flex}
+.mode-toggle__btn{padding:8px 20px;font-size:.85rem;font-weight:600;border:none;cursor:pointer;background:var(--white);color:var(--indigo);transition:all .2s}
+.mode-toggle__btn--active{background:var(--indigo);color:var(--white)}
+.mode-toggle__btn:hover:not(.mode-toggle__btn--active){background:var(--indigo-light)}
+
+/* ── Responsive ────────────────────────────────── */
+@media(max-width:600px){
+  .topbar{padding:10px 16px}
+  .topbar__title{font-size:1.15rem}
+  .main-tabs{padding:0 12px}
+  .main-tab{padding:10px 14px;font-size:.82rem}
+  .container{padding:14px 16px 40px}
+  .tense-info__row{flex-direction:column;gap:2px}
+  .sub-nav{gap:4px}
+  .sub-pill{padding:5px 12px;font-size:.78rem}
+  .exercise{padding:16px}
+  .fill-input{width:100%}
+  .stats-bar{padding:8px 16px;gap:6px}
+  .stat-chip{padding:4px 10px;font-size:.75rem}
+  .mc-opt{padding:8px 12px;font-size:.85rem}
+  .mode-toggle__btn{padding:6px 14px;font-size:.8rem}
+}
+</style>
+</head>
+<body>
+
+<!-- ── Topbar ──────────────────────────────────── -->
+<div class="topbar">
+  <div class="topbar__title">Grammar & Sentence Mastery <span>Hub</span></div>
+  <div class="topbar__right">
+    <span class="topbar__stat" style="background:var(--green-light);color:var(--green)" id="totalScore">0 / 0</span>
+    <a href="index.html" class="topbar__btn topbar__btn--outline">Back to Planner</a>
+  </div>
+</div>
+
+<!-- ── Stats Bar ──────────────────────────────── -->
+<div class="stats-bar">
+  <div class="stat-chip stat-chip--verb" id="statVerb">Verb Tenses: 0/1020</div>
+  <div class="stat-chip stat-chip--sentence" id="statSentence">Sentences: 0/1150</div>
+  <div class="stat-chip stat-chip--corpus" id="statCorpus">Corpus: 0/1000</div>
+  <div class="stat-chip stat-chip--total" id="statTotal">Total: 0%</div>
+</div>
+
+<!-- ── Main Tabs ──────────────────────────────── -->
+<div class="main-tabs">
+  <button class="main-tab main-tab--active" data-tab="verb" onclick="switchMainTab('verb')">Verb Tenses</button>
+  <button class="main-tab" data-tab="sentence" onclick="switchMainTab('sentence')">Sentence Structure</button>
+  <button class="main-tab" data-tab="corpus" onclick="switchMainTab('corpus')">Corpus Bank</button>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     PANEL 1 — VERB TENSES
+     ═══════════════════════════════════════════════ -->
+<div class="container">
+<div class="panel panel--active" id="panelVerb">
+
+  <!-- Mode toggle -->
+  <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:16px">
+    <div class="mode-toggle">
+      <button class="mode-toggle__btn mode-toggle__btn--active" onclick="setVerbMode('study')">Study Mode</button>
+      <button class="mode-toggle__btn" onclick="setVerbMode('drill')">Drill Mode</button>
+    </div>
+    <div>
+      <button class="btn btn--outline btn--small" onclick="resetVerbProgress()">Reset Progress</button>
+    </div>
+  </div>
+
+  <!-- Tense selector -->
+  <div class="sub-nav" id="verbSubNav"></div>
+
+  <!-- Tense info -->
+  <div id="verbTenseInfo"></div>
+
+  <!-- Exercise area -->
+  <div id="verbExerciseArea"></div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     PANEL 2 — SENTENCE STRUCTURE
+     ═══════════════════════════════════════════════ -->
+<div class="panel" id="panelSentence">
+
+  <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:16px">
+    <div class="mode-toggle">
+      <button class="mode-toggle__btn mode-toggle__btn--active" onclick="setSentenceMode('study')">Study Mode</button>
+      <button class="mode-toggle__btn" onclick="setSentenceMode('drill')">Drill Mode</button>
+    </div>
+    <div>
+      <button class="btn btn--outline btn--small" onclick="resetSentenceProgress()">Reset Progress</button>
+    </div>
+  </div>
+
+  <!-- Section selector -->
+  <div class="sub-nav" id="sentenceSubNav"></div>
+
+  <!-- Section info -->
+  <div id="sentenceSectionInfo"></div>
+
+  <!-- Exercise area -->
+  <div id="sentenceExerciseArea"></div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     PANEL 3 — CORPUS BANK
+     ═══════════════════════════════════════════════ -->
+<div class="panel" id="panelCorpus">
+
+  <div class="card">
+    <div class="card__title">Corpus Bank</div>
+    <div class="card__subtitle">500 academic sentences + 500 essay ideas for PTE writing practice</div>
+
+    <div class="mode-toggle" style="margin-bottom:16px">
+      <button class="mode-toggle__btn mode-toggle__btn--active" onclick="setCorpusView('sentences')">Sentences (500)</button>
+      <button class="mode-toggle__btn" onclick="setCorpusView('ideas')">Ideas (500)</button>
+      <button class="mode-toggle__btn" onclick="setCorpusView('typing')">Typing Drill</button>
+    </div>
+
+    <div style="margin-bottom:16px">
+      <input type="text" class="corpus-search" id="corpusSearch" placeholder="Search corpus..." oninput="filterCorpus()">
+    </div>
+
+    <div class="corpus-filters" id="corpusFilters"></div>
+    <div id="corpusList" style="max-height:600px;overflow-y:auto"></div>
+  </div>
+
+  <!-- Typing drill area -->
+  <div id="typingDrillArea" style="display:none">
+    <div class="card">
+      <div class="card__title">Typing Drill</div>
+      <div class="card__subtitle">Type the sentence exactly as shown to build muscle memory</div>
+      <div id="typingTarget" style="background:var(--blue-light);padding:16px;border-radius:8px;font-size:1rem;margin-bottom:12px;line-height:1.8"></div>
+      <textarea class="answer-area" id="typingInput" placeholder="Type the sentence here..." oninput="checkTyping()" style="min-height:80px"></textarea>
+      <div id="typingFeedback" style="margin-top:8px"></div>
+      <div style="margin-top:12px;display:flex;gap:8px">
+        <button class="btn btn--indigo" onclick="nextTypingSentence()">Next Sentence</button>
+        <span id="typingScore" style="padding:6px 14px;border-radius:20px;background:var(--green-light);color:var(--green);font-weight:600;font-size:.85rem">0 completed</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ── Data Scripts ────────────────────────────── -->
+<script src="js/verb-tenses-data-1.js"></script>
+<script src="js/verb-tenses-data-2.js"></script>
+<script src="js/sentence-practice-data-1.js"></script>
+<script src="js/sentence-practice-data-2.js"></script>
+<script src="js/corpus-data.js"></script>
+<script src="js/corpus-sentences-ext.js"></script>
+<script src="js/corpus-ideas-ext.js"></script>
+
+<script>
+/* ════════════════════════════════════════════════════
+   GLOBAL STATE & HELPERS
+   ════════════════════════════════════════════════════ */
+
+var STATE_KEY = 'pte_grammar_hub_v1';
+var hubState = JSON.parse(localStorage.getItem(STATE_KEY) || '{}');
+if (!hubState.verbCorrect) hubState.verbCorrect = {};
+if (!hubState.sentenceCorrect) hubState.sentenceCorrect = {};
+if (!hubState.corpusTyped) hubState.corpusTyped = 0;
+function saveHub() { localStorage.setItem(STATE_KEY, JSON.stringify(hubState)); }
+
+function escHtml(s) {
+  if (!s) return '';
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function shuffleArray(arr) {
+  var a = arr.slice();
+  for (var i = a.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+  }
+  return a;
+}
+
+/* ── Merge Tenses ──────────────────────────────── */
+var ALL_TENSES = (typeof VERB_TENSES_1 !== 'undefined' ? VERB_TENSES_1 : [])
+  .concat(typeof VERB_TENSES_2 !== 'undefined' ? VERB_TENSES_2 : []);
+
+/* ── Merge Sentence Practice ───────────────────── */
+var ALL_SENTENCE_SECTIONS = [];
+function buildSentenceSections() {
+  var sp1 = typeof SENTENCE_PRACTICE_1 !== 'undefined' ? SENTENCE_PRACTICE_1 : {};
+  var sp2 = typeof SENTENCE_PRACTICE_2 !== 'undefined' ? SENTENCE_PRACTICE_2 : {};
+  var sectionDefs = [
+    {key:'coordinatingConjunctions', data:sp1, color:'var(--blue)', infoClass:'section-info--blue'},
+    {key:'subordinatingConjunctions', data:sp1, color:'var(--teal)', infoClass:'section-info--teal'},
+    {key:'correlativeConjunctions', data:sp1, color:'var(--purple)', infoClass:'section-info--purple'},
+    {key:'compoundSentences', data:sp1, color:'var(--green)', infoClass:'section-info--green'},
+    {key:'complexSentences', data:sp1, color:'var(--orange)', infoClass:'section-info--orange'},
+    {key:'commaUsage', data:sp2, color:'var(--red)', infoClass:'section-info--red'},
+    {key:'parallelStructure', data:sp2, color:'var(--teal)', infoClass:'section-info--teal'},
+    {key:'sentenceVariety', data:sp2, color:'var(--indigo)', infoClass:'section-info--blue'}
+  ];
+  ALL_SENTENCE_SECTIONS = [];
+  for (var i = 0; i < sectionDefs.length; i++) {
+    var d = sectionDefs[i];
+    if (d.data[d.key]) {
+      var sec = d.data[d.key];
+      ALL_SENTENCE_SECTIONS.push({
+        id: d.key,
+        title: sec.title || d.key,
+        theory: sec.theory || '',
+        rules: sec.rules || null,
+        patterns: sec.patterns || null,
+        strategies: sec.strategies || null,
+        exercises: sec.exercises || [],
+        color: d.color,
+        infoClass: d.infoClass
+      });
+    }
+  }
+}
+
+/* ════════════════════════════════════════════════════
+   TAB SWITCHING
+   ════════════════════════════════════════════════════ */
+var currentMainTab = 'verb';
+
+function switchMainTab(tab) {
+  currentMainTab = tab;
+  var tabs = document.querySelectorAll('.main-tab');
+  for (var i = 0; i < tabs.length; i++) {
+    tabs[i].classList.toggle('main-tab--active', tabs[i].getAttribute('data-tab') === tab);
+  }
+  document.getElementById('panelVerb').classList.toggle('panel--active', tab === 'verb');
+  document.getElementById('panelSentence').classList.toggle('panel--active', tab === 'sentence');
+  document.getElementById('panelCorpus').classList.toggle('panel--active', tab === 'corpus');
+}
+
+/* ════════════════════════════════════════════════════
+   VERB TENSES MODULE
+   ════════════════════════════════════════════════════ */
+var verbState = {
+  currentTense: 0,
+  mode: 'study',    // study | drill
+  studyIdx: 0,      // current exercise index in study mode
+  drillQueue: [],
+  drillIdx: 0,
+  drillCorrect: 0,
+  pageSize: 5
+};
+
+function setVerbMode(mode) {
+  verbState.mode = mode;
+  var btns = document.querySelectorAll('#panelVerb .mode-toggle__btn');
+  for (var i = 0; i < btns.length; i++) {
+    btns[i].classList.toggle('mode-toggle__btn--active', (i === 0 && mode === 'study') || (i === 1 && mode === 'drill'));
+  }
+  renderVerbExercises();
+}
+
+function renderVerbSubNav() {
+  var nav = document.getElementById('verbSubNav');
+  var html = '';
+  for (var i = 0; i < ALL_TENSES.length; i++) {
+    var t = ALL_TENSES[i];
+    var count = t.exercises ? t.exercises.length : 0;
+    var done = countTenseCorrect(t.id);
+    html += '<button class="sub-pill' + (i === verbState.currentTense ? ' sub-pill--active' : '') + '" onclick="selectTense(' + i + ')">';
+    html += escHtml(t.name);
+    html += '<span class="sub-pill__count">' + done + '/' + count + '</span>';
+    html += '</button>';
+  }
+  nav.innerHTML = html;
+}
+
+function countTenseCorrect(tenseId) {
+  var count = 0;
+  for (var k in hubState.verbCorrect) {
+    if (k.indexOf(tenseId + '_') === 0) count++;
+  }
+  return count;
+}
+
+function selectTense(idx) {
+  verbState.currentTense = idx;
+  verbState.studyIdx = 0;
+  renderVerbSubNav();
+  renderVerbTenseInfo();
+  renderVerbExercises();
+}
+
+function renderVerbTenseInfo() {
+  var t = ALL_TENSES[verbState.currentTense];
+  if (!t) { document.getElementById('verbTenseInfo').innerHTML = ''; return; }
+  var html = '<div class="tense-info">';
+  html += '<div class="tense-info__name">' + escHtml(t.name) + '</div>';
+  html += '<div class="tense-info__row"><span class="tense-info__label">+</span><span class="tense-info__formula">' + escHtml(t.formula) + '</span></div>';
+  html += '<div class="tense-info__row"><span class="tense-info__label">-</span><span class="tense-info__formula">' + escHtml(t.negFormula) + '</span></div>';
+  html += '<div class="tense-info__row"><span class="tense-info__label">?</span><span class="tense-info__formula">' + escHtml(t.qFormula) + '</span></div>';
+  if (t.usage && t.usage.length) {
+    html += '<div class="tense-info__row" style="margin-top:8px"><span class="tense-info__label">Usage</span><span class="tense-info__val">' + t.usage.map(escHtml).join(' &bull; ') + '</span></div>';
+  }
+  if (t.signalWords && t.signalWords.length) {
+    html += '<div class="tense-info__signals">';
+    for (var i = 0; i < t.signalWords.length; i++) {
+      html += '<span class="signal-word">' + escHtml(t.signalWords[i]) + '</span>';
+    }
+    html += '</div>';
+  }
+  if (t.examples) {
+    html += '<div style="margin-top:10px;font-size:.85rem">';
+    html += '<span style="color:var(--green);font-weight:600">+ </span>' + escHtml(t.examples.pos) + '<br>';
+    html += '<span style="color:var(--red);font-weight:600">- </span>' + escHtml(t.examples.neg) + '<br>';
+    html += '<span style="color:var(--blue);font-weight:600">? </span>' + escHtml(t.examples.q);
+    html += '</div>';
+  }
+  html += '</div>';
+  document.getElementById('verbTenseInfo').innerHTML = html;
+}
+
+function renderVerbExercises() {
+  var t = ALL_TENSES[verbState.currentTense];
+  if (!t || !t.exercises) {
+    document.getElementById('verbExerciseArea').innerHTML = '<div class="card"><p>No exercises loaded yet. Please check that the data files are properly linked.</p></div>';
+    return;
+  }
+
+  if (verbState.mode === 'drill') {
+    renderVerbDrill(t);
+    return;
+  }
+
+  // Study mode — paginated
+  var exercises = t.exercises;
+  var start = verbState.studyIdx;
+  var end = Math.min(start + verbState.pageSize, exercises.length);
+  var html = '';
+
+  html += '<div class="exercise-controls">';
+  html += '<span class="exercise-progress">Exercises ' + (start + 1) + '-' + end + ' of ' + exercises.length + '</span>';
+  var done = countTenseCorrect(t.id);
+  var pct = exercises.length > 0 ? Math.round(done / exercises.length * 100) : 0;
+  var scoreClass = pct >= 70 ? 'exercise-score--good' : pct >= 40 ? 'exercise-score--mid' : 'exercise-score--low';
+  html += '<span class="exercise-score ' + scoreClass + '">' + done + '/' + exercises.length + ' (' + pct + '%)</span>';
+  html += '</div>';
+
+  for (var i = start; i < end; i++) {
+    html += renderExercise(exercises[i], 'verb', t.id);
+  }
+
+  html += '<div style="display:flex;gap:10px;justify-content:center;margin-top:16px">';
+  html += '<button class="btn btn--outline" onclick="verbPrev()" ' + (start === 0 ? 'disabled' : '') + '>Previous</button>';
+  html += '<button class="btn btn--indigo" onclick="verbNext()" ' + (end >= exercises.length ? 'disabled' : '') + '>Next</button>';
+  html += '</div>';
+
+  document.getElementById('verbExerciseArea').innerHTML = html;
+}
+
+function verbPrev() {
+  verbState.studyIdx = Math.max(0, verbState.studyIdx - verbState.pageSize);
+  renderVerbExercises();
+}
+
+function verbNext() {
+  var t = ALL_TENSES[verbState.currentTense];
+  verbState.studyIdx = Math.min(verbState.studyIdx + verbState.pageSize, t.exercises.length - verbState.pageSize);
+  if (verbState.studyIdx < 0) verbState.studyIdx = 0;
+  renderVerbExercises();
+}
+
+function renderVerbDrill(tense) {
+  var area = document.getElementById('verbExerciseArea');
+  if (!verbState.drillQueue.length || verbState.drillIdx === 0) {
+    // Start new drill
+    var indices = [];
+    for (var i = 0; i < tense.exercises.length; i++) indices.push(i);
+    verbState.drillQueue = shuffleArray(indices).slice(0, 20);
+    verbState.drillIdx = 0;
+    verbState.drillCorrect = 0;
+  }
+
+  if (verbState.drillIdx >= verbState.drillQueue.length) {
+    // Show results
+    var score = verbState.drillCorrect;
+    var total = verbState.drillQueue.length;
+    var pct = Math.round(score / total * 100);
+    var msg = pct >= 80 ? 'Excellent!' : pct >= 60 ? 'Good effort!' : 'Keep practising!';
+    area.innerHTML = '<div class="drill-banner"><div class="drill-banner__title">' + msg + '</div><div class="drill-banner__desc">Score: ' + score + ' / ' + total + ' (' + pct + '%)</div><button class="btn btn--green" onclick="verbState.drillQueue=[];verbState.drillIdx=0;renderVerbExercises()">Try Again</button></div>';
+    return;
+  }
+
+  var qIdx = verbState.drillQueue[verbState.drillIdx];
+  var ex = tense.exercises[qIdx];
+  var html = '<div class="drill-banner"><div class="drill-banner__title">Drill Mode: ' + escHtml(tense.name) + '</div>';
+  html += '<div class="drill-banner__desc">Question ' + (verbState.drillIdx + 1) + ' / ' + verbState.drillQueue.length + ' &bull; Score: ' + verbState.drillCorrect + '</div></div>';
+  html += renderExercise(ex, 'verb-drill', tense.id);
+  area.innerHTML = html;
+}
+
+function resetVerbProgress() {
+  if (!confirm('Reset all verb tense progress?')) return;
+  hubState.verbCorrect = {};
+  saveHub();
+  renderVerbSubNav();
+  renderVerbExercises();
+  updateStats();
+}
+
+/* ════════════════════════════════════════════════════
+   SENTENCE STRUCTURE MODULE
+   ════════════════════════════════════════════════════ */
+var sentenceState = {
+  currentSection: 0,
+  mode: 'study',
+  studyIdx: 0,
+  drillQueue: [],
+  drillIdx: 0,
+  drillCorrect: 0,
+  pageSize: 5
+};
+
+function setSentenceMode(mode) {
+  sentenceState.mode = mode;
+  var btns = document.querySelectorAll('#panelSentence .mode-toggle__btn');
+  for (var i = 0; i < btns.length; i++) {
+    btns[i].classList.toggle('mode-toggle__btn--active', (i === 0 && mode === 'study') || (i === 1 && mode === 'drill'));
+  }
+  renderSentenceExercises();
+}
+
+function renderSentenceSubNav() {
+  var nav = document.getElementById('sentenceSubNav');
+  var html = '';
+  for (var i = 0; i < ALL_SENTENCE_SECTIONS.length; i++) {
+    var s = ALL_SENTENCE_SECTIONS[i];
+    var count = s.exercises ? s.exercises.length : 0;
+    var done = countSectionCorrect(s.id);
+    html += '<button class="sub-pill' + (i === sentenceState.currentSection ? ' sub-pill--active' : '') + '" onclick="selectSection(' + i + ')">';
+    html += escHtml(s.title);
+    html += '<span class="sub-pill__count">' + done + '/' + count + '</span>';
+    html += '</button>';
+  }
+  nav.innerHTML = html;
+}
+
+function countSectionCorrect(sectionId) {
+  var count = 0;
+  for (var k in hubState.sentenceCorrect) {
+    if (k.indexOf(sectionId + '_') === 0) count++;
+  }
+  return count;
+}
+
+function selectSection(idx) {
+  sentenceState.currentSection = idx;
+  sentenceState.studyIdx = 0;
+  renderSentenceSubNav();
+  renderSentenceSectionInfo();
+  renderSentenceExercises();
+}
+
+function renderSentenceSectionInfo() {
+  var s = ALL_SENTENCE_SECTIONS[sentenceState.currentSection];
+  if (!s) { document.getElementById('sentenceSectionInfo').innerHTML = ''; return; }
+  var html = '<div class="section-info ' + s.infoClass + '">';
+  html += '<div class="section-info__title">' + escHtml(s.title) + '</div>';
+  if (s.theory) html += '<div class="section-info__text">' + escHtml(s.theory) + '</div>';
+  if (s.rules && s.rules.length) {
+    html += '<div style="margin-top:12px">';
+    for (var i = 0; i < s.rules.length; i++) {
+      var r = s.rules[i];
+      html += '<div style="margin-bottom:8px;padding:8px 12px;background:rgba(255,255,255,0.6);border-radius:6px">';
+      html += '<div style="font-weight:700;font-size:.85rem">' + escHtml(r.name) + '</div>';
+      html += '<div style="font-size:.82rem;color:var(--grey-dark)">' + escHtml(r.desc) + '</div>';
+      html += '<div style="font-size:.82rem;font-style:italic;margin-top:2px">"' + escHtml(r.ex) + '"</div>';
+      html += '</div>';
+    }
+    html += '</div>';
+  }
+  if (s.patterns && s.patterns.length) {
+    html += '<ul style="margin-top:10px;padding-left:20px;list-style:disc">';
+    for (var i = 0; i < s.patterns.length; i++) {
+      html += '<li style="font-size:.85rem;margin-bottom:4px">' + escHtml(s.patterns[i]) + '</li>';
+    }
+    html += '</ul>';
+  }
+  if (s.strategies && s.strategies.length) {
+    html += '<div style="margin-top:12px">';
+    for (var i = 0; i < s.strategies.length; i++) {
+      var st = s.strategies[i];
+      html += '<div style="margin-bottom:8px;padding:8px 12px;background:rgba(255,255,255,0.6);border-radius:6px">';
+      html += '<div style="font-weight:700;font-size:.85rem">' + escHtml(st.name) + '</div>';
+      html += '<div style="font-size:.82rem;font-style:italic">"' + escHtml(st.ex) + '"</div>';
+      html += '</div>';
+    }
+    html += '</div>';
+  }
+  html += '</div>';
+  document.getElementById('sentenceSectionInfo').innerHTML = html;
+}
+
+function renderSentenceExercises() {
+  var s = ALL_SENTENCE_SECTIONS[sentenceState.currentSection];
+  if (!s || !s.exercises || !s.exercises.length) {
+    document.getElementById('sentenceExerciseArea').innerHTML = '<div class="card"><p>No exercises loaded yet. Please check that the data files are properly linked.</p></div>';
+    return;
+  }
+
+  if (sentenceState.mode === 'drill') {
+    renderSentenceDrill(s);
+    return;
+  }
+
+  var exercises = s.exercises;
+  var start = sentenceState.studyIdx;
+  var end = Math.min(start + sentenceState.pageSize, exercises.length);
+  var html = '';
+
+  html += '<div class="exercise-controls">';
+  html += '<span class="exercise-progress">Exercises ' + (start + 1) + '-' + end + ' of ' + exercises.length + '</span>';
+  var done = countSectionCorrect(s.id);
+  var pct = exercises.length > 0 ? Math.round(done / exercises.length * 100) : 0;
+  var scoreClass = pct >= 70 ? 'exercise-score--good' : pct >= 40 ? 'exercise-score--mid' : 'exercise-score--low';
+  html += '<span class="exercise-score ' + scoreClass + '">' + done + '/' + exercises.length + ' (' + pct + '%)</span>';
+  html += '</div>';
+
+  for (var i = start; i < end; i++) {
+    html += renderExercise(exercises[i], 'sentence', s.id);
+  }
+
+  html += '<div style="display:flex;gap:10px;justify-content:center;margin-top:16px">';
+  html += '<button class="btn btn--outline" onclick="sentencePrev()" ' + (start === 0 ? 'disabled' : '') + '>Previous</button>';
+  html += '<button class="btn btn--indigo" onclick="sentenceNext()" ' + (end >= exercises.length ? 'disabled' : '') + '>Next</button>';
+  html += '</div>';
+
+  document.getElementById('sentenceExerciseArea').innerHTML = html;
+}
+
+function sentencePrev() {
+  sentenceState.studyIdx = Math.max(0, sentenceState.studyIdx - sentenceState.pageSize);
+  renderSentenceExercises();
+}
+
+function sentenceNext() {
+  var s = ALL_SENTENCE_SECTIONS[sentenceState.currentSection];
+  sentenceState.studyIdx = Math.min(sentenceState.studyIdx + sentenceState.pageSize, s.exercises.length - sentenceState.pageSize);
+  if (sentenceState.studyIdx < 0) sentenceState.studyIdx = 0;
+  renderSentenceExercises();
+}
+
+function renderSentenceDrill(section) {
+  var area = document.getElementById('sentenceExerciseArea');
+  if (!sentenceState.drillQueue.length || sentenceState.drillIdx === 0) {
+    var indices = [];
+    for (var i = 0; i < section.exercises.length; i++) indices.push(i);
+    sentenceState.drillQueue = shuffleArray(indices).slice(0, 20);
+    sentenceState.drillIdx = 0;
+    sentenceState.drillCorrect = 0;
+  }
+
+  if (sentenceState.drillIdx >= sentenceState.drillQueue.length) {
+    var score = sentenceState.drillCorrect;
+    var total = sentenceState.drillQueue.length;
+    var pct = Math.round(score / total * 100);
+    var msg = pct >= 80 ? 'Excellent!' : pct >= 60 ? 'Good effort!' : 'Keep practising!';
+    area.innerHTML = '<div class="drill-banner"><div class="drill-banner__title">' + msg + '</div><div class="drill-banner__desc">Score: ' + score + ' / ' + total + ' (' + pct + '%)</div><button class="btn btn--green" onclick="sentenceState.drillQueue=[];sentenceState.drillIdx=0;renderSentenceExercises()">Try Again</button></div>';
+    return;
+  }
+
+  var qIdx = sentenceState.drillQueue[sentenceState.drillIdx];
+  var ex = section.exercises[qIdx];
+  var html = '<div class="drill-banner"><div class="drill-banner__title">Drill: ' + escHtml(section.title) + '</div>';
+  html += '<div class="drill-banner__desc">Question ' + (sentenceState.drillIdx + 1) + ' / ' + sentenceState.drillQueue.length + ' &bull; Score: ' + sentenceState.drillCorrect + '</div></div>';
+  html += renderExercise(ex, 'sentence-drill', section.id);
+  area.innerHTML = html;
+}
+
+function resetSentenceProgress() {
+  if (!confirm('Reset all sentence structure progress?')) return;
+  hubState.sentenceCorrect = {};
+  saveHub();
+  renderSentenceSubNav();
+  renderSentenceExercises();
+  updateStats();
+}
+
+/* ════════════════════════════════════════════════════
+   GENERIC EXERCISE RENDERER
+   ════════════════════════════════════════════════════ */
+function renderExercise(ex, module, parentId) {
+  if (!ex) return '';
+  var uid = parentId + '_' + ex.id;
+  var typeLabels = {fill:'Fill in the Blank', mc:'Multiple Choice', error:'Error Correction', transform:'Transform', combine:'Combine Sentences', identify:'Identify', rewrite:'Rewrite', punctuate:'Punctuate'};
+  var type = ex.type || 'fill';
+  var html = '<div class="exercise" id="ex_' + uid + '">';
+  html += '<span class="exercise__type exercise__type--' + type + '">' + (typeLabels[type] || type) + '</span>';
+
+  if (ex.instruction) {
+    html += '<div class="exercise__instruction">' + escHtml(ex.instruction) + '</div>';
+  }
+
+  switch (type) {
+    case 'fill':
+      html += renderFillExercise(ex, uid, module);
+      break;
+    case 'mc':
+      html += renderMCExercise(ex, uid, module);
+      break;
+    case 'error':
+      html += renderErrorExercise(ex, uid, module);
+      break;
+    case 'transform':
+    case 'combine':
+    case 'rewrite':
+    case 'punctuate':
+      html += renderOpenExercise(ex, uid, module, type);
+      break;
+    case 'identify':
+      html += renderIdentifyExercise(ex, uid, module);
+      break;
+    default:
+      html += renderOpenExercise(ex, uid, module, type);
+  }
+
+  html += '<div class="feedback" id="fb_' + uid + '"></div>';
+  html += '</div>';
+  return html;
+}
+
+function renderFillExercise(ex, uid, module) {
+  var parts = ex.q.split('___');
+  var html = '<div class="exercise__q">';
+  if (parts.length > 1) {
+    html += escHtml(parts[0]);
+    html += '<input type="text" class="fill-input" id="inp_' + uid + '" placeholder="..." autocomplete="off" onkeydown="if(event.key===\'Enter\')checkAnswer(\'' + uid + '\',\'' + module + '\')">';
+    html += escHtml(parts.slice(1).join('___'));
+  } else {
+    html += escHtml(ex.q);
+    html += '<br><input type="text" class="fill-input" id="inp_' + uid + '" placeholder="Your answer..." autocomplete="off" onkeydown="if(event.key===\'Enter\')checkAnswer(\'' + uid + '\',\'' + module + '\')">';
+  }
+  html += '</div>';
+  html += '<button class="btn btn--indigo btn--small" onclick="checkAnswer(\'' + uid + '\',\'' + module + '\')">Check</button>';
+  return html;
+}
+
+function renderMCExercise(ex, uid, module) {
+  var html = '<div class="exercise__q">' + escHtml(ex.q) + '</div>';
+  html += '<div class="mc-options" id="opts_' + uid + '">';
+  for (var i = 0; i < ex.options.length; i++) {
+    html += '<button class="mc-opt" onclick="checkMC(\'' + uid + '\',' + i + ',\'' + module + '\')">' + escHtml(ex.options[i]) + '</button>';
+  }
+  html += '</div>';
+  return html;
+}
+
+function renderErrorExercise(ex, uid, module) {
+  var html = '<div class="exercise__q" style="color:var(--red)">Find and correct the error:</div>';
+  html += '<div class="exercise__q" style="font-style:italic;background:var(--red-light);padding:10px 14px;border-radius:6px">' + escHtml(ex.q) + '</div>';
+  html += '<textarea class="answer-area" id="inp_' + uid + '" placeholder="Write the corrected sentence..." rows="2"></textarea>';
+  html += '<button class="btn btn--indigo btn--small" style="margin-top:8px" onclick="checkAnswer(\'' + uid + '\',\'' + module + '\')">Check</button>';
+  return html;
+}
+
+function renderOpenExercise(ex, uid, module, type) {
+  var labels = {transform:'Rewrite the sentence as instructed:', combine:'Combine these sentences:', rewrite:'Improve this sentence:', punctuate:'Add correct punctuation:'};
+  var html = '<div class="exercise__q" style="font-weight:600">' + (labels[type] || 'Your answer:') + '</div>';
+  html += '<div class="exercise__q" style="background:var(--grey-light);padding:10px 14px;border-radius:6px">' + escHtml(ex.q) + '</div>';
+  html += '<textarea class="answer-area" id="inp_' + uid + '" placeholder="Your answer..." rows="2"></textarea>';
+  html += '<div style="display:flex;gap:8px;margin-top:8px">';
+  html += '<button class="btn btn--indigo btn--small" onclick="checkAnswer(\'' + uid + '\',\'' + module + '\')">Check</button>';
+  html += '<button class="btn btn--outline btn--small" onclick="revealAnswer(\'' + uid + '\')">Show Answer</button>';
+  html += '</div>';
+  return html;
+}
+
+function renderIdentifyExercise(ex, uid, module) {
+  var html = '<div class="exercise__q">' + escHtml(ex.q) + '</div>';
+  html += '<input type="text" class="fill-input" id="inp_' + uid + '" placeholder="Your answer..." autocomplete="off" onkeydown="if(event.key===\'Enter\')checkAnswer(\'' + uid + '\',\'' + module + '\')">';
+  html += '<button class="btn btn--indigo btn--small" style="margin-left:8px" onclick="checkAnswer(\'' + uid + '\',\'' + module + '\')">Check</button>';
+  html += '<button class="btn btn--outline btn--small" style="margin-left:4px" onclick="revealAnswer(\'' + uid + '\')">Show Answer</button>';
+  return html;
+}
+
+/* ════════════════════════════════════════════════════
+   ANSWER CHECKING
+   ════════════════════════════════════════════════════ */
+function getExerciseByUid(uid) {
+  // Parse uid to find the exercise
+  for (var t = 0; t < ALL_TENSES.length; t++) {
+    var tense = ALL_TENSES[t];
+    if (uid.indexOf(tense.id + '_') === 0) {
+      var exId = uid.substring(tense.id.length + 1);
+      for (var e = 0; e < tense.exercises.length; e++) {
+        if (tense.exercises[e].id === exId) return tense.exercises[e];
+      }
+    }
+  }
+  for (var s = 0; s < ALL_SENTENCE_SECTIONS.length; s++) {
+    var sec = ALL_SENTENCE_SECTIONS[s];
+    if (uid.indexOf(sec.id + '_') === 0) {
+      var exId = uid.substring(sec.id.length + 1);
+      for (var e = 0; e < sec.exercises.length; e++) {
+        if (sec.exercises[e].id === exId) return sec.exercises[e];
+      }
+    }
+  }
+  return null;
+}
+
+function normalise(s) {
+  return s.toLowerCase().replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, ' ').trim();
+}
+
+function checkAnswer(uid, module) {
+  var ex = getExerciseByUid(uid);
+  if (!ex) return;
+  var input = document.getElementById('inp_' + uid);
+  if (!input) return;
+  var userAns = (input.value || input.textContent || '').trim();
+  if (!userAns) return;
+
+  var fb = document.getElementById('fb_' + uid);
+  var correct = normalise(userAns) === normalise(ex.a);
+
+  // For fill type, also check just the key word
+  if (!correct && ex.type === 'fill') {
+    correct = normalise(userAns) === normalise(ex.a);
+  }
+
+  if (correct) {
+    fb.className = 'feedback feedback--correct';
+    fb.innerHTML = '<span class="feedback__label">Correct!</span> ' + escHtml(ex.exp || '');
+    if (input.classList) { input.classList.add('fill-input--correct'); input.classList.remove('fill-input--wrong'); }
+    markCorrect(uid, module);
+  } else {
+    fb.className = 'feedback feedback--wrong';
+    fb.innerHTML = '<span class="feedback__label">Not quite.</span> Correct answer: <strong>' + escHtml(ex.a) + '</strong><br>' + escHtml(ex.exp || '');
+    if (input.classList) { input.classList.add('fill-input--wrong'); input.classList.remove('fill-input--correct'); }
+  }
+}
+
+function checkMC(uid, selected, module) {
+  var ex = getExerciseByUid(uid);
+  if (!ex) return;
+  var opts = document.getElementById('opts_' + uid);
+  if (!opts) return;
+  var btns = opts.querySelectorAll('.mc-opt');
+  var correct = ex.a;
+
+  for (var i = 0; i < btns.length; i++) {
+    btns[i].disabled = true;
+    btns[i].onclick = null;
+    if (i === correct) btns[i].classList.add('mc-opt--correct');
+    if (i === selected && i !== correct) btns[i].classList.add('mc-opt--wrong');
+  }
+
+  var fb = document.getElementById('fb_' + uid);
+  if (selected === correct) {
+    fb.className = 'feedback feedback--correct';
+    fb.innerHTML = '<span class="feedback__label">Correct!</span> ' + escHtml(ex.exp || '');
+    markCorrect(uid, module);
+  } else {
+    fb.className = 'feedback feedback--wrong';
+    fb.innerHTML = '<span class="feedback__label">Incorrect.</span> ' + escHtml(ex.exp || '');
+  }
+}
+
+function revealAnswer(uid) {
+  var ex = getExerciseByUid(uid);
+  if (!ex) return;
+  var fb = document.getElementById('fb_' + uid);
+  fb.className = 'feedback feedback--info';
+  fb.innerHTML = '<span class="feedback__label">Answer:</span> ' + escHtml(ex.a) + '<br>' + escHtml(ex.exp || '');
+}
+
+function markCorrect(uid, module) {
+  if (module === 'verb' || module === 'verb-drill') {
+    hubState.verbCorrect[uid] = 1;
+    if (module === 'verb-drill') {
+      verbState.drillCorrect++;
+      setTimeout(function() {
+        verbState.drillIdx++;
+        var t = ALL_TENSES[verbState.currentTense];
+        renderVerbDrill(t);
+      }, 1500);
+    }
+  } else if (module === 'sentence' || module === 'sentence-drill') {
+    hubState.sentenceCorrect[uid] = 1;
+    if (module === 'sentence-drill') {
+      sentenceState.drillCorrect++;
+      setTimeout(function() {
+        sentenceState.drillIdx++;
+        var s = ALL_SENTENCE_SECTIONS[sentenceState.currentSection];
+        renderSentenceDrill(s);
+      }, 1500);
+    }
+  }
+  saveHub();
+  updateStats();
+}
+
+/* ════════════════════════════════════════════════════
+   CORPUS BANK MODULE
+   ════════════════════════════════════════════════════ */
+var corpusState = {
+  view: 'sentences',
+  filter: 'all',
+  typingIdx: 0,
+  typingCompleted: 0,
+  typingPool: []
+};
+
+function setCorpusView(view) {
+  corpusState.view = view;
+  var btns = document.querySelectorAll('#panelCorpus .mode-toggle__btn');
+  for (var i = 0; i < btns.length; i++) {
+    btns[i].classList.toggle('mode-toggle__btn--active',
+      (i === 0 && view === 'sentences') || (i === 1 && view === 'ideas') || (i === 2 && view === 'typing'));
+  }
+  document.getElementById('typingDrillArea').style.display = view === 'typing' ? '' : 'none';
+  document.getElementById('corpusSearch').parentElement.style.display = view === 'typing' ? 'none' : '';
+  document.getElementById('corpusFilters').style.display = view === 'typing' ? 'none' : '';
+  document.getElementById('corpusList').style.display = view === 'typing' ? 'none' : '';
+  if (view === 'typing') startTypingDrill();
+  else renderCorpusFilters();
+  renderCorpusList();
+}
+
+function renderCorpusFilters() {
+  var el = document.getElementById('corpusFilters');
+  var html = '';
+  if (corpusState.view === 'sentences') {
+    var cats = typeof CORPUS_CATEGORIES !== 'undefined' ? CORPUS_CATEGORIES : [];
+    html += '<button class="corpus-pill' + (corpusState.filter === 'all' ? ' corpus-pill--active' : '') + '" style="background:var(--grey-light);color:var(--grey-dark);border-color:var(--grey)" onclick="corpusState.filter=\'all\';renderCorpusFilters();renderCorpusList()">All</button>';
+    for (var i = 0; i < cats.length; i++) {
+      var c = cats[i];
+      html += '<button class="corpus-pill' + (corpusState.filter === c.id ? ' corpus-pill--active' : '') + '" style="background:' + c.color + '18;color:' + c.color + ';border-color:' + c.color + '" onclick="corpusState.filter=\'' + c.id + '\';renderCorpusFilters();renderCorpusList()">' + escHtml(c.label) + ' (' + c.count + ')</button>';
+    }
+  } else if (corpusState.view === 'ideas') {
+    var topics = typeof IDEA_TOPICS !== 'undefined' ? IDEA_TOPICS : [];
+    html += '<button class="corpus-pill' + (corpusState.filter === 'all' ? ' corpus-pill--active' : '') + '" style="background:var(--grey-light);color:var(--grey-dark);border-color:var(--grey)" onclick="corpusState.filter=\'all\';renderCorpusFilters();renderCorpusList()">All</button>';
+    for (var i = 0; i < topics.length; i++) {
+      var t = topics[i];
+      html += '<button class="corpus-pill' + (corpusState.filter === t.id ? ' corpus-pill--active' : '') + '" style="background:' + t.color + '18;color:' + t.color + ';border-color:' + t.color + '" onclick="corpusState.filter=\'' + t.id + '\';renderCorpusFilters();renderCorpusList()">' + escHtml(t.label) + ' (' + t.count + ')</button>';
+    }
+  }
+  el.innerHTML = html;
+}
+
+function renderCorpusList() {
+  var el = document.getElementById('corpusList');
+  var search = (document.getElementById('corpusSearch').value || '').toLowerCase();
+  var html = '';
+
+  if (corpusState.view === 'sentences') {
+    var items = typeof SENTENCE_CORPUS !== 'undefined' ? SENTENCE_CORPUS : [];
+    var catColors = {};
+    if (typeof CORPUS_CATEGORIES !== 'undefined') {
+      for (var i = 0; i < CORPUS_CATEGORIES.length; i++) {
+        catColors[CORPUS_CATEGORIES[i].id] = CORPUS_CATEGORIES[i].color;
+      }
+    }
+    var count = 0;
+    for (var i = 0; i < items.length; i++) {
+      var item = items[i];
+      if (corpusState.filter !== 'all' && item.cat !== corpusState.filter) continue;
+      if (search && item.text.toLowerCase().indexOf(search) === -1) continue;
+      var color = catColors[item.cat] || 'var(--grey)';
+      html += '<div class="corpus-item" style="border-color:' + color + '">';
+      html += '<span class="corpus-item__id">' + item.id + ' &bull; ' + escHtml(item.cat) + '</span>';
+      html += '<div class="corpus-item__text">' + escHtml(item.text) + '</div>';
+      html += '</div>';
+      count++;
+      if (count >= 100) {
+        html += '<div style="text-align:center;padding:16px;color:var(--grey)">Showing first 100 results. Use search or filters to narrow down.</div>';
+        break;
+      }
+    }
+    if (count === 0) html = '<div style="text-align:center;padding:20px;color:var(--grey)">No sentences found.</div>';
+  } else if (corpusState.view === 'ideas') {
+    var items = typeof IDEA_BANK !== 'undefined' ? IDEA_BANK : [];
+    var topicColors = {};
+    if (typeof IDEA_TOPICS !== 'undefined') {
+      for (var i = 0; i < IDEA_TOPICS.length; i++) {
+        topicColors[IDEA_TOPICS[i].id] = IDEA_TOPICS[i].color;
+      }
+    }
+    var count = 0;
+    for (var i = 0; i < items.length; i++) {
+      var item = items[i];
+      if (corpusState.filter !== 'all' && item.topic !== corpusState.filter) continue;
+      if (search && item.idea.toLowerCase().indexOf(search) === -1 && item.topic.toLowerCase().indexOf(search) === -1) continue;
+      var color = topicColors[item.topic] || 'var(--grey)';
+      html += '<div class="corpus-item" style="border-color:' + color + '">';
+      html += '<span class="corpus-item__id">' + item.id + ' &bull; ' + escHtml(item.topic) + '</span>';
+      html += '<div class="corpus-item__text">' + escHtml(item.idea) + '</div>';
+      html += '</div>';
+      count++;
+      if (count >= 100) {
+        html += '<div style="text-align:center;padding:16px;color:var(--grey)">Showing first 100 results. Use search or filters to narrow down.</div>';
+        break;
+      }
+    }
+    if (count === 0) html = '<div style="text-align:center;padding:20px;color:var(--grey)">No ideas found.</div>';
+  }
+
+  el.innerHTML = html;
+}
+
+function filterCorpus() { renderCorpusList(); }
+
+/* ── Typing Drill ──────────────────────────────── */
+function startTypingDrill() {
+  var sentences = typeof SENTENCE_CORPUS !== 'undefined' ? SENTENCE_CORPUS : [];
+  var indices = [];
+  for (var i = 0; i < sentences.length; i++) indices.push(i);
+  corpusState.typingPool = shuffleArray(indices).slice(0, 20);
+  corpusState.typingIdx = 0;
+  corpusState.typingCompleted = hubState.corpusTyped || 0;
+  showTypingSentence();
+}
+
+function showTypingSentence() {
+  var sentences = typeof SENTENCE_CORPUS !== 'undefined' ? SENTENCE_CORPUS : [];
+  if (corpusState.typingIdx >= corpusState.typingPool.length) {
+    document.getElementById('typingTarget').innerHTML = '<strong>Session complete!</strong> You typed ' + corpusState.typingPool.length + ' sentences.';
+    document.getElementById('typingInput').style.display = 'none';
+    return;
+  }
+  var idx = corpusState.typingPool[corpusState.typingIdx];
+  var s = sentences[idx];
+  document.getElementById('typingTarget').textContent = s ? s.text : '';
+  document.getElementById('typingInput').value = '';
+  document.getElementById('typingInput').style.display = '';
+  document.getElementById('typingFeedback').innerHTML = '';
+  document.getElementById('typingInput').focus();
+}
+
+function checkTyping() {
+  var sentences = typeof SENTENCE_CORPUS !== 'undefined' ? SENTENCE_CORPUS : [];
+  var idx = corpusState.typingPool[corpusState.typingIdx];
+  var target = sentences[idx] ? sentences[idx].text : '';
+  var input = document.getElementById('typingInput').value;
+
+  if (normalise(input) === normalise(target)) {
+    document.getElementById('typingFeedback').innerHTML = '<span style="color:var(--green);font-weight:600">Perfect match!</span>';
+    corpusState.typingCompleted++;
+    hubState.corpusTyped = corpusState.typingCompleted;
+    saveHub();
+    document.getElementById('typingScore').textContent = corpusState.typingCompleted + ' completed';
+    updateStats();
+  }
+}
+
+function nextTypingSentence() {
+  corpusState.typingIdx++;
+  showTypingSentence();
+}
+
+/* ════════════════════════════════════════════════════
+   STATS UPDATE
+   ════════════════════════════════════════════════════ */
+function updateStats() {
+  var totalVerbEx = 0;
+  for (var i = 0; i < ALL_TENSES.length; i++) {
+    totalVerbEx += ALL_TENSES[i].exercises ? ALL_TENSES[i].exercises.length : 0;
+  }
+  var verbDone = Object.keys(hubState.verbCorrect).length;
+
+  var totalSentenceEx = 0;
+  for (var i = 0; i < ALL_SENTENCE_SECTIONS.length; i++) {
+    totalSentenceEx += ALL_SENTENCE_SECTIONS[i].exercises ? ALL_SENTENCE_SECTIONS[i].exercises.length : 0;
+  }
+  var sentenceDone = Object.keys(hubState.sentenceCorrect).length;
+
+  var corpusTotal = 0;
+  if (typeof SENTENCE_CORPUS !== 'undefined') corpusTotal += SENTENCE_CORPUS.length;
+  if (typeof IDEA_BANK !== 'undefined') corpusTotal += IDEA_BANK.length;
+  var corpusDone = hubState.corpusTyped || 0;
+
+  document.getElementById('statVerb').textContent = 'Verb Tenses: ' + verbDone + '/' + totalVerbEx;
+  document.getElementById('statSentence').textContent = 'Sentences: ' + sentenceDone + '/' + totalSentenceEx;
+  document.getElementById('statCorpus').textContent = 'Corpus: ' + corpusDone + '/' + corpusTotal;
+
+  var grandTotal = totalVerbEx + totalSentenceEx + corpusTotal;
+  var grandDone = verbDone + sentenceDone + corpusDone;
+  var pct = grandTotal > 0 ? Math.round(grandDone / grandTotal * 100) : 0;
+  document.getElementById('statTotal').textContent = 'Total: ' + pct + '%';
+  document.getElementById('totalScore').textContent = grandDone + ' / ' + grandTotal;
+
+  // Update sub-navs
+  renderVerbSubNav();
+  renderSentenceSubNav();
+}
+
+/* ════════════════════════════════════════════════════
+   INITIALIZATION
+   ════════════════════════════════════════════════════ */
+function init() {
+  buildSentenceSections();
+  renderVerbSubNav();
+  renderVerbTenseInfo();
+  renderVerbExercises();
+  renderSentenceSubNav();
+  renderSentenceSectionInfo();
+  renderSentenceExercises();
+  renderCorpusFilters();
+  renderCorpusList();
+  updateStats();
+}
+
+init();
+</script>
+</body>
+</html>
