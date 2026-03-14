@@ -966,6 +966,7 @@ function loadProgress() {
 /* ── Tab Switching ──────────────────────────────── */
 function switchTab(idx) {
   appState.currentTab = idx;
+  localStorage.setItem('pte_wir_tab', String(idx));
   var btns = document.getElementById('tabNav').querySelectorAll('.tab-btn');
   for (var i = 0; i < btns.length; i++) {
     var btnIdx = parseInt(btns[i].getAttribute('data-tab'));
@@ -1428,6 +1429,13 @@ function renderEssayRubric() {
   }
   document.getElementById('essayRubricTable').innerHTML = html;
 }
+function saveRubricScores() {
+  localStorage.setItem('pte_wir_rubrics', JSON.stringify({
+    essay: appState.essayRubricScores,
+    swt: appState.swtRubricScores,
+    full: appState.fullRubricScores
+  }));
+}
 function setEssayRubric(key, score, max) {
   appState.essayRubricScores[key] = score;
   for (var s = 0; s <= max; s++) {
@@ -1438,6 +1446,7 @@ function setEssayRubric(key, score, max) {
   var keys2 = Object.keys(appState.essayRubricScores);
   for (var i = 0; i < keys2.length; i++) total += appState.essayRubricScores[keys2[i]];
   document.getElementById('essayRubricTotal').textContent = 'Total: ' + total + ' / 24';
+  saveRubricScores();
 }
 function saveEssayScore() {
   markModuleComplete(2);
@@ -1566,6 +1575,7 @@ function setSwtRubric(key, score, max) {
   var keys2 = Object.keys(appState.swtRubricScores);
   for (var i = 0; i < keys2.length; i++) total += appState.swtRubricScores[keys2[i]];
   document.getElementById('swtRubricTotal').textContent = 'Total: ' + total + ' / 7';
+  saveRubricScores();
 }
 
 function renderSwtChecklist() {
@@ -1715,6 +1725,7 @@ function setFullRubric(key, score, max) {
   var keys2 = Object.keys(appState.fullRubricScores);
   for (var i = 0; i < keys2.length; i++) total += appState.fullRubricScores[keys2[i]];
   document.getElementById('fullRubricTotal').textContent = 'Total: ' + total + ' / 24';
+  saveRubricScores();
 }
 function saveFullScore() {
   markModuleComplete(5);
@@ -2437,10 +2448,60 @@ function init() {
   /* Restore saved textarea values */
   loadResponses();
 
+  /* Restore rubric scores */
+  try {
+    var rubricRaw = localStorage.getItem('pte_wir_rubrics');
+    if (rubricRaw) {
+      var rubrics = JSON.parse(rubricRaw);
+      if (rubrics.essay) {
+        appState.essayRubricScores = rubrics.essay;
+        var eKeys = Object.keys(rubrics.essay);
+        for (var ei = 0; ei < eKeys.length; ei++) {
+          var eBtn = document.getElementById('erBtn_' + eKeys[ei] + '_' + rubrics.essay[eKeys[ei]]);
+          if (eBtn) eBtn.classList.add('rubric-score-btn--selected');
+        }
+        var eTotal = 0;
+        for (var ej = 0; ej < eKeys.length; ej++) eTotal += rubrics.essay[eKeys[ej]];
+        var eTotalEl = document.getElementById('essayRubricTotal');
+        if (eTotalEl) eTotalEl.textContent = 'Total: ' + eTotal + ' / 24';
+      }
+      if (rubrics.swt) {
+        appState.swtRubricScores = rubrics.swt;
+        var sKeys = Object.keys(rubrics.swt);
+        for (var si = 0; si < sKeys.length; si++) {
+          var sBtn = document.getElementById('srBtn_' + sKeys[si] + '_' + rubrics.swt[sKeys[si]]);
+          if (sBtn) sBtn.classList.add('rubric-score-btn--selected');
+        }
+        var sTotal = 0;
+        for (var sj = 0; sj < sKeys.length; sj++) sTotal += rubrics.swt[sKeys[sj]];
+        var sTotalEl = document.getElementById('swtRubricTotal');
+        if (sTotalEl) sTotalEl.textContent = 'Total: ' + sTotal + ' / 7';
+      }
+      if (rubrics.full) {
+        appState.fullRubricScores = rubrics.full;
+        var fKeys = Object.keys(rubrics.full);
+        for (var fi = 0; fi < fKeys.length; fi++) {
+          var fBtn = document.getElementById('frBtn_' + fKeys[fi] + '_' + rubrics.full[fKeys[fi]]);
+          if (fBtn) fBtn.classList.add('rubric-score-btn--selected');
+        }
+        var fTotal = 0;
+        for (var fj = 0; fj < fKeys.length; fj++) fTotal += rubrics.full[fKeys[fj]];
+        var fTotalEl = document.getElementById('fullRubricTotal');
+        if (fTotalEl) fTotalEl.textContent = 'Total: ' + fTotal + ' / 24';
+      }
+    }
+  } catch(e) {}
+
   /* If textareas have content, update previews */
   updateEssayPreview();
   updateSwtStats();
   updateFullStats();
+
+  /* Restore last active tab */
+  var savedTab = localStorage.getItem('pte_wir_tab');
+  if (savedTab !== null) {
+    switchTab(parseInt(savedTab, 10));
+  }
 }
 
 init();

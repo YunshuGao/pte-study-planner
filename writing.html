@@ -1647,11 +1647,26 @@ function getGroupMastery(groupKey) {
   return { done: done, total: total, pct: total ? Math.round(done / total * 100) : 0 };
 }
 
+// ========== SESSION STATE (localStorage) ==========
+function loadSessionState() {
+  try {
+    var raw = localStorage.getItem('pte_writing_session');
+    if (raw) return JSON.parse(raw);
+  } catch(e) {}
+  return {};
+}
+function saveSessionState(key, value) {
+  var s = loadSessionState();
+  s[key] = value;
+  localStorage.setItem('pte_writing_session', JSON.stringify(s));
+}
+
 // ========== TAB SWITCHING ==========
 var activeTab = 'grammar';
 
 function switchTab(tab) {
   activeTab = tab;
+  saveSessionState('activeTab', tab);
   var btns = document.querySelectorAll('.tabs__btn');
   for (var i = 0; i < btns.length; i++) {
     if (btns[i].getAttribute('data-tab') === tab) {
@@ -1705,6 +1720,7 @@ function renderGrammarSidebar() {
 
 function selectGrammarGroup(key) {
   activeGrammarGroup = key;
+  saveSessionState('grammarGroup', key);
   renderGrammarSidebar();
   renderGrammarRules(key);
 }
@@ -1951,6 +1967,7 @@ var activeTimer = null;
 
 function switchWritingMode(mode) {
   activeWritingMode = mode;
+  saveSessionState('writingMode', mode);
   var btns = document.querySelectorAll('.mode-toggle__btn');
   for (var i = 0; i < btns.length; i++) {
     if (btns[i].getAttribute('data-mode') === mode) {
@@ -2098,6 +2115,7 @@ function renderSwtMode() {
 function randomSwtPassage() {
   var idx = Math.floor(Math.random() * SWT_PASSAGES.length);
   currentSwtPassage = SWT_PASSAGES[idx];
+  saveSessionState('swtIdx', idx);
   if (activeTimer) { activeTimer.stop(); activeTimer = null; }
   document.getElementById('swtPassageDisplay').innerHTML = renderSwtPassageContent();
 }
@@ -2158,6 +2176,7 @@ function stopSwtTimer() {
 function updateSwtStats() {
   var textarea = document.getElementById('swtTextarea');
   if (!textarea) return;
+  saveSessionState('swtText', textarea.value);
   var analysis = analyzeText(textarea.value);
 
   var wcEl = document.getElementById('swtWordCount');
@@ -2249,6 +2268,7 @@ function randomEssayTopic() {
   if (typeof ESSAY_TOPICS !== 'undefined' && ESSAY_TOPICS.length > 0) {
     var idx = Math.floor(Math.random() * ESSAY_TOPICS.length);
     currentEssayTopic = ESSAY_TOPICS[idx];
+    saveSessionState('essayIdx', idx);
   }
   if (activeTimer) { activeTimer.stop(); activeTimer = null; }
   document.getElementById('essayTopicDisplay').innerHTML = renderEssayContent();
@@ -2366,6 +2386,7 @@ function stopEssayTimer() {
 function updateEssayStats() {
   var textarea = document.getElementById('essayTextarea');
   if (!textarea) return;
+  saveSessionState('essayText', textarea.value);
   var analysis = analyzeText(textarea.value);
 
   var wcEl = document.getElementById('essayWordCount');
@@ -2856,6 +2877,7 @@ function saveSlProgress() {
 
 function switchSlMode(mode) {
   activeSlMode = mode;
+  saveSessionState('slMode', mode);
   var btns = document.querySelectorAll('.sl-mode-btn');
   for (var i = 0; i < btns.length; i++) {
     if (btns[i].getAttribute('data-slmode') === mode) {
@@ -2907,6 +2929,7 @@ function renderSlCategorySidebar() {
 
 function selectSlCategory(key) {
   activeSlCategory = key;
+  saveSessionState('slCategory', key);
   renderSlCategorySidebar();
   renderSlPatterns(key);
 }
@@ -3180,15 +3203,57 @@ function renderSlTransformProgress() {
 
 // ========== INITIALIZATION ==========
 function init() {
+  var session = loadSessionState();
+
   renderStreak();
   renderGrammarSidebar();
+
+  // Restore SWT passage and essay topic before rendering
+  if (typeof session.swtIdx === 'number' && typeof SWT_PASSAGES !== 'undefined' && SWT_PASSAGES[session.swtIdx]) {
+    currentSwtPassage = SWT_PASSAGES[session.swtIdx];
+  }
+  if (typeof session.essayIdx === 'number' && typeof ESSAY_TOPICS !== 'undefined' && ESSAY_TOPICS[session.essayIdx]) {
+    currentEssayTopic = ESSAY_TOPICS[session.essayIdx];
+  }
+
   renderSwtMode();
   renderEssayMode();
+
+  // Restore textarea content
+  if (session.swtText) {
+    var swtEl = document.getElementById('swtTextarea');
+    if (swtEl) { swtEl.value = session.swtText; updateSwtStats(); }
+  }
+  if (session.essayText) {
+    var essayEl = document.getElementById('essayTextarea');
+    if (essayEl) { essayEl.value = session.essayText; updateEssayStats(); }
+  }
+
+  // Restore writing mode (swt/essay)
+  if (session.writingMode) {
+    switchWritingMode(session.writingMode);
+  }
+
   initSentenceLab();
 
-  // Auto-select first grammar group if on desktop
-  if (window.innerWidth >= 1024 && grammarGroupKeys.length > 0) {
+  // Restore sentence lab mode and category
+  if (session.slMode) {
+    switchSlMode(session.slMode);
+  }
+  if (session.slCategory) {
+    selectSlCategory(session.slCategory);
+  }
+
+  // Restore grammar group (or auto-select first on desktop)
+  if (session.grammarGroup) {
+    selectGrammarGroup(session.grammarGroup);
+  } else if (window.innerWidth >= 1024 && grammarGroupKeys.length > 0) {
     selectGrammarGroup(grammarGroupKeys[0]);
+  }
+
+  // Restore active tab last (so panels render correctly)
+  if (session.activeTab) {
+    switchTab(session.activeTab);
   }
 }
 
