@@ -178,6 +178,17 @@ body{font-family:var(--font);background:var(--grey-light);color:var(--grey-dark)
 .exercise--done .btn{display:none}
 .exercise--done .feedback{display:block}
 .exercise--done textarea{pointer-events:none;background:var(--green-light);border-color:var(--green)}
+.exercise--wrong{border-left:4px solid var(--red)}
+.exercise--wrong .fill-input{background:var(--red-light);border-color:var(--red);color:var(--red)}
+.exercise--wrong .mc-opt{pointer-events:none}
+.exercise--wrong .mc-opt--wrong{background:rgba(192,57,43,0.15);border-color:var(--red);color:var(--red)}
+.exercise--wrong .mc-opt--correct{background:rgba(39,174,96,0.15);border-color:var(--green);color:var(--green);font-weight:700}
+.exercise--wrong .fill-input{pointer-events:none}
+.exercise--wrong .btn{display:none}
+.exercise--wrong .feedback{display:block}
+.exercise--wrong textarea{pointer-events:none;background:var(--red-light);border-color:var(--red)}
+.exercise--wrong .wrong-answer{color:var(--red);font-weight:600;text-decoration:line-through;margin-right:8px}
+.exercise--wrong .correct-answer{color:var(--green);font-weight:600}
 
 /* ── Sync Bar ─────────────────────────────────── */
 .sync-bar{background:var(--white);border-top:2px solid var(--indigo);padding:12px 24px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center;position:fixed;bottom:0;left:0;right:0;z-index:100;box-shadow:0 -2px 8px rgba(0,0,0,0.08)}
@@ -397,6 +408,7 @@ if (!hubState.sentenceCorrect) hubState.sentenceCorrect = {};
 if (!hubState.corpusTyped) hubState.corpusTyped = 0;
 if (!hubState.typingDone) hubState.typingDone = {};
 if (!hubState.fillDone) hubState.fillDone = {};
+if (!hubState.answered) hubState.answered = {}; // {uid: {ans: string|number, correct: bool, exp: string}}
 function saveHub() { localStorage.setItem(STATE_KEY, JSON.stringify(hubState)); }
 
 function escHtml(s) {
@@ -848,14 +860,23 @@ function isExDone(uid, module) {
   if (module === 'sentence' || module === 'sentence-drill') return !!hubState.sentenceCorrect[uid];
   return false;
 }
+function getAttempt(uid) {
+  return hubState.answered[uid] || null;
+}
 function renderExercise(ex, module, parentId) {
   if (!ex) return '';
   var uid = parentId + '_' + ex.id;
-  var done = isExDone(uid, module);
+  var attempt = getAttempt(uid);
   var typeLabels = {fill:'Fill in the Blank', mc:'Multiple Choice', error:'Error Correction', transform:'Transform', combine:'Combine Sentences', identify:'Identify', rewrite:'Rewrite', punctuate:'Punctuate'};
   var type = ex.type || 'fill';
-  var html = '<div class="exercise' + (done ? ' exercise--done' : '') + '" id="ex_' + uid + '">';
-  html += '<span class="exercise__type exercise__type--' + type + '">' + (typeLabels[type] || type) + (done ? ' &#10003;' : '') + '</span>';
+  var statusCls = '';
+  var statusIcon = '';
+  if (attempt) {
+    statusCls = attempt.correct ? ' exercise--done' : ' exercise--wrong';
+    statusIcon = attempt.correct ? ' &#10003;' : ' &#10007;';
+  }
+  var html = '<div class="exercise' + statusCls + '" id="ex_' + uid + '">';
+  html += '<span class="exercise__type exercise__type--' + type + '">' + (typeLabels[type] || type) + statusIcon + '</span>';
 
   if (ex.instruction) {
     html += '<div class="exercise__instruction">' + escHtml(ex.instruction) + '</div>';
@@ -890,10 +911,17 @@ function renderExercise(ex, module, parentId) {
 }
 
 function renderFillExercise(ex, uid, module) {
-  var done = isExDone(uid, module);
+  var attempt = getAttempt(uid);
+  var done = attempt !== null;
+  var wasCorrect = done && attempt.correct;
+  var wasWrong = done && !attempt.correct;
   var parts = ex.q.split('___');
   var blankCount = parts.length - 1;
   var answers = blankCount > 1 ? ex.a.split(/\s*\.\.\.\s*/) : [ex.a];
+  var userParts = [];
+  if (wasWrong && attempt.ans) {
+    userParts = attempt.ans.split(/\s*\.\.\.\s*/);
+  }
   var html = '<div class="exercise__q">';
   if (blankCount >= 1) {
     for (var b = 0; b < parts.length; b++) {
@@ -901,52 +929,99 @@ function renderFillExercise(ex, uid, module) {
       if (b < blankCount) {
         var ans = answers[b] || '';
         var inputId = blankCount > 1 ? 'inp_' + uid + '_' + b : 'inp_' + uid;
-        html += '<input type="text" class="fill-input' + (done ? ' fill-input--correct' : '') + '" id="' + inputId + '"' + (done ? ' value="' + escHtml(ans) + '" disabled' : ' placeholder="..."') + ' autocomplete="off" data-fill-group="' + uid + '" onkeydown="if(event.key===\'Enter\')checkAnswer(\'' + uid + '\',\'' + module + '\')">';
+        if (wasCorrect) {
+          html += '<input type="text" class="fill-input fill-input--correct" id="' + inputId + '" value="' + escHtml(ans) + '" disabled autocomplete="off" data-fill-group="' + uid + '">';
+        } else if (wasWrong) {
+          var userVal = userParts[b] || attempt.ans || '';
+          html += '<input type="text" class="fill-input fill-input--wrong" id="' + inputId + '" value="' + escHtml(userVal) + '" disabled autocomplete="off" data-fill-group="' + uid + '">';
+        } else {
+          html += '<input type="text" class="fill-input" id="' + inputId + '" placeholder="..." autocomplete="off" data-fill-group="' + uid + '" onkeydown="if(event.key===\'Enter\')checkAnswer(\'' + uid + '\',\'' + module + '\')">';
+        }
       }
     }
   } else {
     html += escHtml(ex.q);
-    html += '<br><input type="text" class="fill-input' + (done ? ' fill-input--correct' : '') + '" id="inp_' + uid + '"' + (done ? ' value="' + escHtml(ex.a) + '" disabled' : ' placeholder="Your answer..."') + ' autocomplete="off" data-fill-group="' + uid + '" onkeydown="if(event.key===\'Enter\')checkAnswer(\'' + uid + '\',\'' + module + '\')">';
+    if (wasCorrect) {
+      html += '<br><input type="text" class="fill-input fill-input--correct" id="inp_' + uid + '" value="' + escHtml(ex.a) + '" disabled autocomplete="off" data-fill-group="' + uid + '">';
+    } else if (wasWrong) {
+      html += '<br><input type="text" class="fill-input fill-input--wrong" id="inp_' + uid + '" value="' + escHtml(attempt.ans) + '" disabled autocomplete="off" data-fill-group="' + uid + '">';
+    } else {
+      html += '<br><input type="text" class="fill-input" id="inp_' + uid + '" placeholder="Your answer..." autocomplete="off" data-fill-group="' + uid + '" onkeydown="if(event.key===\'Enter\')checkAnswer(\'' + uid + '\',\'' + module + '\')">';
+    }
   }
   html += '</div>';
+  if (wasWrong) {
+    html += '<div style="margin-top:6px"><span class="correct-answer">Correct: ' + escHtml(ex.a) + '</span></div>';
+    html += '<button class="btn btn--outline btn--small" style="margin-top:6px" onclick="retryExercise(\'' + uid + '\')">Retry</button>';
+  }
   if (!done) html += '<button class="btn btn--indigo btn--small" onclick="checkAnswer(\'' + uid + '\',\'' + module + '\')">Check</button>';
+  if (done && ex.exp) {
+    html += '<div class="feedback ' + (wasCorrect ? 'feedback--correct' : 'feedback--wrong') + '" style="display:block;margin-top:8px">' + escHtml(ex.exp) + '</div>';
+  }
   return html;
 }
 
 function renderMCExercise(ex, uid, module) {
-  var done = isExDone(uid, module);
+  var attempt = getAttempt(uid);
+  var done = attempt !== null;
+  var wasCorrect = done && attempt.correct;
+  var wasWrong = done && !attempt.correct;
   var html = '<div class="exercise__q">' + escHtml(ex.q) + '</div>';
   html += '<div class="mc-options" id="opts_' + uid + '">';
   for (var i = 0; i < ex.options.length; i++) {
     var cls = 'mc-opt';
     if (done && i === ex.a) cls += ' mc-opt--correct';
+    if (wasWrong && i === attempt.ans) cls += ' mc-opt--wrong';
     if (done) cls += ' mc-opt--dimmed';
     html += '<button class="' + cls + '"' + (done ? ' disabled' : ' onclick="checkMC(\'' + uid + '\',' + i + ',\'' + module + '\')"') + '>' + escHtml(ex.options[i]) + '</button>';
   }
   html += '</div>';
+  if (wasWrong) {
+    html += '<button class="btn btn--outline btn--small" style="margin-top:6px" onclick="retryExercise(\'' + uid + '\')">Retry</button>';
+  }
+  if (done && ex.exp) {
+    html += '<div class="feedback ' + (wasCorrect ? 'feedback--correct' : 'feedback--wrong') + '" style="display:block;margin-top:8px">' + escHtml(ex.exp) + '</div>';
+  }
   return html;
 }
 
 function renderErrorExercise(ex, uid, module) {
-  var done = isExDone(uid, module);
+  var attempt = getAttempt(uid);
+  var done = attempt !== null;
+  var wasCorrect = done && attempt.correct;
+  var wasWrong = done && !attempt.correct;
   var html = '<div class="exercise__q" style="color:var(--red)">Find and correct the error:</div>';
   html += '<div class="exercise__q" style="font-style:italic;background:var(--red-light);padding:10px 14px;border-radius:6px">' + escHtml(ex.q) + '</div>';
-  if (done) {
+  if (wasCorrect) {
     html += '<div style="padding:8px 14px;background:var(--green-light);border-radius:6px;color:var(--green);font-weight:600">' + escHtml(ex.a) + '</div>';
+  } else if (wasWrong) {
+    html += '<div style="padding:8px 14px;background:var(--red-light);border-radius:6px;color:var(--red);font-weight:600;text-decoration:line-through">' + escHtml(attempt.ans) + '</div>';
+    html += '<div style="padding:8px 14px;background:var(--green-light);border-radius:6px;color:var(--green);font-weight:600;margin-top:4px">Correct: ' + escHtml(ex.a) + '</div>';
+    html += '<button class="btn btn--outline btn--small" style="margin-top:6px" onclick="retryExercise(\'' + uid + '\')">Retry</button>';
   } else {
     html += '<textarea class="answer-area" id="inp_' + uid + '" placeholder="Write the corrected sentence..." rows="2"></textarea>';
     html += '<button class="btn btn--indigo btn--small" style="margin-top:8px" onclick="checkAnswer(\'' + uid + '\',\'' + module + '\')">Check</button>';
+  }
+  if (done && ex.exp) {
+    html += '<div class="feedback ' + (wasCorrect ? 'feedback--correct' : 'feedback--wrong') + '" style="display:block;margin-top:8px">' + escHtml(ex.exp) + '</div>';
   }
   return html;
 }
 
 function renderOpenExercise(ex, uid, module, type) {
-  var done = isExDone(uid, module);
+  var attempt = getAttempt(uid);
+  var done = attempt !== null;
+  var wasCorrect = done && attempt.correct;
+  var wasWrong = done && !attempt.correct;
   var labels = {transform:'Rewrite the sentence as instructed:', combine:'Combine these sentences:', rewrite:'Improve this sentence:', punctuate:'Add correct punctuation:'};
   var html = '<div class="exercise__q" style="font-weight:600">' + (labels[type] || 'Your answer:') + '</div>';
   html += '<div class="exercise__q" style="background:var(--grey-light);padding:10px 14px;border-radius:6px">' + escHtml(ex.q) + '</div>';
-  if (done) {
+  if (wasCorrect) {
     html += '<div style="padding:8px 14px;background:var(--green-light);border-radius:6px;color:var(--green);font-weight:600">' + escHtml(ex.a) + '</div>';
+  } else if (wasWrong) {
+    html += '<div style="padding:8px 14px;background:var(--red-light);border-radius:6px;color:var(--red);font-weight:600;text-decoration:line-through">' + escHtml(attempt.ans) + '</div>';
+    html += '<div style="padding:8px 14px;background:var(--green-light);border-radius:6px;color:var(--green);font-weight:600;margin-top:4px">Correct: ' + escHtml(ex.a) + '</div>';
+    html += '<button class="btn btn--outline btn--small" style="margin-top:6px" onclick="retryExercise(\'' + uid + '\')">Retry</button>';
   } else {
     html += '<textarea class="answer-area" id="inp_' + uid + '" placeholder="Your answer..." rows="2"></textarea>';
     html += '<div style="display:flex;gap:8px;margin-top:8px">';
@@ -954,18 +1029,31 @@ function renderOpenExercise(ex, uid, module, type) {
     html += '<button class="btn btn--outline btn--small" onclick="revealAnswer(\'' + uid + '\')">Show Answer</button>';
     html += '</div>';
   }
+  if (done && ex.exp) {
+    html += '<div class="feedback ' + (wasCorrect ? 'feedback--correct' : 'feedback--wrong') + '" style="display:block;margin-top:8px">' + escHtml(ex.exp) + '</div>';
+  }
   return html;
 }
 
 function renderIdentifyExercise(ex, uid, module) {
-  var done = isExDone(uid, module);
+  var attempt = getAttempt(uid);
+  var done = attempt !== null;
+  var wasCorrect = done && attempt.correct;
+  var wasWrong = done && !attempt.correct;
   var html = '<div class="exercise__q">' + escHtml(ex.q) + '</div>';
-  if (done) {
+  if (wasCorrect) {
     html += '<div style="padding:8px 14px;background:var(--green-light);border-radius:6px;color:var(--green);font-weight:600">' + escHtml(ex.a) + '</div>';
+  } else if (wasWrong) {
+    html += '<div style="padding:8px 14px;background:var(--red-light);border-radius:6px;color:var(--red);font-weight:600;text-decoration:line-through">' + escHtml(attempt.ans) + '</div>';
+    html += '<div style="padding:8px 14px;background:var(--green-light);border-radius:6px;color:var(--green);font-weight:600;margin-top:4px">Correct: ' + escHtml(ex.a) + '</div>';
+    html += '<button class="btn btn--outline btn--small" style="margin-top:6px" onclick="retryExercise(\'' + uid + '\')">Retry</button>';
   } else {
     html += '<input type="text" class="fill-input" id="inp_' + uid + '" placeholder="Your answer..." autocomplete="off" onkeydown="if(event.key===\'Enter\')checkAnswer(\'' + uid + '\',\'' + module + '\')">';
     html += '<button class="btn btn--indigo btn--small" style="margin-left:8px" onclick="checkAnswer(\'' + uid + '\',\'' + module + '\')">Check</button>';
     html += '<button class="btn btn--outline btn--small" style="margin-left:4px" onclick="revealAnswer(\'' + uid + '\')">Show Answer</button>';
+  }
+  if (done && ex.exp) {
+    html += '<div class="feedback ' + (wasCorrect ? 'feedback--correct' : 'feedback--wrong') + '" style="display:block;margin-top:8px">' + escHtml(ex.exp) + '</div>';
   }
   return html;
 }
@@ -1042,7 +1130,13 @@ function checkAnswer(uid, module) {
     correct = allMatch;
   }
 
+  // Save attempt record (both correct and wrong)
+  hubState.answered[uid] = { ans: userAns, correct: correct };
+  saveHub();
+
+  var exDiv = document.getElementById('ex_' + uid);
   if (correct) {
+    if (exDiv) exDiv.classList.add('exercise--done');
     fb.className = 'feedback feedback--correct';
     fb.innerHTML = '<span class="feedback__label">Correct!</span> ' + escHtml(ex.exp || '');
     for (var k = 0; k < inputs.length; k++) {
@@ -1051,6 +1145,7 @@ function checkAnswer(uid, module) {
     }
     markCorrect(uid, module);
   } else {
+    if (exDiv) exDiv.classList.add('exercise--wrong');
     fb.className = 'feedback feedback--wrong';
     fb.innerHTML = '<span class="feedback__label">Not quite.</span> Correct answer: <strong>' + escHtml(ex.a) + '</strong><br>' + escHtml(ex.exp || '');
     for (var k = 0; k < inputs.length; k++) {
@@ -1067,6 +1162,11 @@ function checkMC(uid, selected, module) {
   if (!opts) return;
   var btns = opts.querySelectorAll('.mc-opt');
   var correct = ex.a;
+  var isCorrect = (selected === correct);
+
+  // Save attempt record
+  hubState.answered[uid] = { ans: selected, correct: isCorrect };
+  saveHub();
 
   for (var i = 0; i < btns.length; i++) {
     btns[i].disabled = true;
@@ -1075,12 +1175,15 @@ function checkMC(uid, selected, module) {
     if (i === selected && i !== correct) btns[i].classList.add('mc-opt--wrong');
   }
 
+  var exDiv = document.getElementById('ex_' + uid);
   var fb = document.getElementById('fb_' + uid);
-  if (selected === correct) {
+  if (isCorrect) {
+    if (exDiv) exDiv.classList.add('exercise--done');
     fb.className = 'feedback feedback--correct';
     fb.innerHTML = '<span class="feedback__label">Correct!</span> ' + escHtml(ex.exp || '');
     markCorrect(uid, module);
   } else {
+    if (exDiv) exDiv.classList.add('exercise--wrong');
     fb.className = 'feedback feedback--wrong';
     fb.innerHTML = '<span class="feedback__label">Incorrect.</span> ' + escHtml(ex.exp || '');
   }
@@ -1092,6 +1195,17 @@ function revealAnswer(uid) {
   var fb = document.getElementById('fb_' + uid);
   fb.className = 'feedback feedback--info';
   fb.innerHTML = '<span class="feedback__label">Answer:</span> ' + escHtml(ex.a) + '<br>' + escHtml(ex.exp || '');
+}
+
+function retryExercise(uid) {
+  delete hubState.answered[uid];
+  saveHub();
+  // Re-render current view
+  if (currentMainTab === 'verb') {
+    renderVerbExercises();
+  } else if (currentMainTab === 'sentence') {
+    renderSentenceExercises();
+  }
 }
 
 function markCorrect(uid, module) {
