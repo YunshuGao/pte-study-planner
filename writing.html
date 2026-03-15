@@ -1453,7 +1453,25 @@
   }
   .pattern-card { padding: 14px; }
   .transform-card { padding: 14px; }
+  .tabs { overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tabs__btn { white-space: nowrap; flex-shrink: 0; }
+  .writing-textarea { font-size: .9rem; }
+  .planning-textarea { font-size: .9rem; }
 }
+@media (max-width: 400px) {
+  .writing-header__title { font-size: 1.15rem; }
+  .tabs__btn { padding: 8px 10px; font-size: .75rem; }
+}
+
+/* ── Sync Bar ─────────────────────────────────── */
+.sync-bar{background:#fff;border-top:2px solid #8e44ad;padding:12px 24px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center;position:fixed;bottom:0;left:0;right:0;z-index:100;box-shadow:0 -2px 8px rgba(0,0,0,0.08)}
+.sync-bar__input{flex:1;min-width:160px;max-width:400px;padding:6px 12px;border:2px solid #d0d0d0;border-radius:6px;font-size:.82rem}
+.sync-bar__btn{padding:6px 16px;border:none;border-radius:6px;font-size:.82rem;font-weight:600;cursor:pointer;transition:all .2s}
+.sync-bar__btn--export{background:#8e44ad;color:#fff}
+.sync-bar__btn--import{background:#27ae60;color:#fff}
+.sync-bar__btn--toggle{background:#f4f6f7;color:#2c3e50;border:2px solid #d0d0d0}
+.sync-bar__msg{font-size:.8rem;font-weight:600}
 </style>
 </head>
 <body>
@@ -3259,5 +3277,19 @@ function init() {
 
 init();
 </script>
+
+<!-- ── Sync Bar ──── -->
+<div class="sync-bar" id="syncBar" style="display:none">
+  <span style="font-size:.82rem;font-weight:700;color:#8e44ad">Sync Progress:</span>
+  <input type="text" class="sync-bar__input" id="syncCode" placeholder="Paste sync code here..." readonly>
+  <button class="sync-bar__btn sync-bar__btn--export" onclick="exportProgress()">Export</button>
+  <button class="sync-bar__btn sync-bar__btn--import" onclick="importProgress()">Import</button>
+  <span class="sync-bar__msg" id="syncMsg"></span>
+</div>
+<div style="position:fixed;bottom:8px;right:12px;z-index:101">
+  <button class="sync-bar__btn sync-bar__btn--toggle" onclick="toggleSyncBar()" style="border-radius:20px;padding:6px 14px;font-size:.78rem">Sync</button>
+</div>
+<script src="js/sync.js"></script>
+
 </body>
 </html>

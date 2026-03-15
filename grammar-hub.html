@@ -169,22 +169,62 @@ body{font-family:var(--font);background:var(--grey-light);color:var(--grey-dark)
 .mode-toggle__btn--active{background:var(--indigo);color:var(--white)}
 .mode-toggle__btn:hover:not(.mode-toggle__btn--active){background:var(--indigo-light)}
 
+/* ── Completed Exercise State ──────────────────── */
+.exercise--done{opacity:.7;border-left:4px solid var(--green)}
+.exercise--done .fill-input{background:var(--green-light);border-color:var(--green);color:var(--green)}
+.exercise--done .mc-opt--correct{background:rgba(39,174,96,0.15);border-color:var(--green);color:var(--green);font-weight:700}
+.exercise--done .mc-opt{pointer-events:none}
+.exercise--done .fill-input{pointer-events:none}
+.exercise--done .btn{display:none}
+.exercise--done .feedback{display:block}
+.exercise--done textarea{pointer-events:none;background:var(--green-light);border-color:var(--green)}
+
+/* ── Sync Bar ─────────────────────────────────── */
+.sync-bar{background:var(--white);border-top:2px solid var(--indigo);padding:12px 24px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center;position:fixed;bottom:0;left:0;right:0;z-index:100;box-shadow:0 -2px 8px rgba(0,0,0,0.08)}
+.sync-bar__input{flex:1;min-width:160px;max-width:400px;padding:6px 12px;border:2px solid #d0d0d0;border-radius:6px;font-size:.82rem;font-family:var(--font)}
+.sync-bar__btn{padding:6px 16px;border:none;border-radius:6px;font-size:.82rem;font-weight:600;cursor:pointer;transition:all .2s}
+.sync-bar__btn--export{background:var(--indigo);color:var(--white)}
+.sync-bar__btn--export:hover{background:#3730a3}
+.sync-bar__btn--import{background:var(--green);color:var(--white)}
+.sync-bar__btn--import:hover{background:#1e8e50}
+.sync-bar__btn--toggle{background:var(--grey-light);color:var(--grey-dark);border:2px solid #d0d0d0}
+.sync-bar__msg{font-size:.8rem;font-weight:600}
+
 /* ── Responsive ────────────────────────────────── */
-@media(max-width:600px){
-  .topbar{padding:10px 16px}
-  .topbar__title{font-size:1.15rem}
-  .main-tabs{padding:0 12px}
-  .main-tab{padding:10px 14px;font-size:.82rem}
-  .container{padding:14px 16px 40px}
-  .tense-info__row{flex-direction:column;gap:2px}
+@media(max-width:768px){
+  .topbar{padding:10px 14px}
+  .topbar__title{font-size:1.1rem}
+  .topbar__stat{font-size:.75rem;padding:3px 10px}
+  .topbar__btn{padding:5px 10px;font-size:.78rem}
+  .stats-bar{padding:8px 14px;gap:6px}
+  .stat-chip{padding:4px 10px;font-size:.72rem}
+  .main-tabs{padding:0 10px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .main-tabs::-webkit-scrollbar{display:none}
+  .main-tab{padding:10px 16px;font-size:.82rem;white-space:nowrap;flex-shrink:0}
+  .container{padding:14px 14px 80px}
+  .card{padding:16px}
   .sub-nav{gap:4px}
-  .sub-pill{padding:5px 12px;font-size:.78rem}
-  .exercise{padding:16px}
-  .fill-input{width:100%}
-  .stats-bar{padding:8px 16px;gap:6px}
-  .stat-chip{padding:4px 10px;font-size:.75rem}
-  .mc-opt{padding:8px 12px;font-size:.85rem}
+  .sub-pill{padding:5px 12px;font-size:.75rem}
+  .tense-info{padding:14px}
+  .tense-info__name{font-size:1rem}
+  .tense-info__row{flex-direction:column;gap:2px}
+  .exercise{padding:14px}
+  .exercise__q{font-size:.9rem}
+  .fill-input{width:100%;font-size:.9rem}
+  .mc-opt{padding:10px 12px;font-size:.88rem}
+  .answer-area{font-size:.9rem}
+  .mode-toggle{gap:0}
   .mode-toggle__btn{padding:6px 14px;font-size:.8rem}
+  .exercise-controls{flex-direction:column;gap:6px;align-items:flex-start}
+  .drill-banner{padding:20px}
+  .sync-bar{padding:8px 14px;gap:8px}
+}
+@media(max-width:400px){
+  .topbar__title{font-size:.95rem}
+  .topbar__right{gap:6px}
+  .main-tab{padding:8px 12px;font-size:.78rem}
+  .sub-pill{padding:4px 8px;font-size:.7rem}
+  .stat-chip{font-size:.68rem;padding:3px 8px}
 }
 </style>
 </head>
@@ -418,8 +458,22 @@ function buildSentenceSections() {
    ════════════════════════════════════════════════════ */
 var currentMainTab = 'verb';
 
+function saveNavState() {
+  hubState._nav = {
+    tab: currentMainTab,
+    verbTense: verbState.currentTense,
+    verbMode: verbState.mode,
+    verbPage: verbState.studyIdx,
+    sentSection: sentenceState.currentSection,
+    sentMode: sentenceState.mode,
+    sentPage: sentenceState.studyIdx
+  };
+  saveHub();
+}
+
 function switchMainTab(tab) {
   currentMainTab = tab;
+  saveNavState();
   var tabs = document.querySelectorAll('.main-tab');
   for (var i = 0; i < tabs.length; i++) {
     tabs[i].classList.toggle('main-tab--active', tabs[i].getAttribute('data-tab') === tab);
@@ -445,6 +499,7 @@ var verbState = {
 
 function setVerbMode(mode) {
   verbState.mode = mode;
+  saveNavState();
   var btns = document.querySelectorAll('#panelVerb .mode-toggle__btn');
   for (var i = 0; i < btns.length; i++) {
     btns[i].classList.toggle('mode-toggle__btn--active', (i === 0 && mode === 'study') || (i === 1 && mode === 'drill'));
@@ -478,6 +533,7 @@ function countTenseCorrect(tenseId) {
 function selectTense(idx) {
   verbState.currentTense = idx;
   verbState.studyIdx = 0;
+  saveNavState();
   renderVerbSubNav();
   renderVerbTenseInfo();
   renderVerbExercises();
@@ -552,6 +608,7 @@ function renderVerbExercises() {
 
 function verbPrev() {
   verbState.studyIdx = Math.max(0, verbState.studyIdx - verbState.pageSize);
+  saveNavState();
   renderVerbExercises();
 }
 
@@ -559,6 +616,7 @@ function verbNext() {
   var t = ALL_TENSES[verbState.currentTense];
   verbState.studyIdx = Math.min(verbState.studyIdx + verbState.pageSize, t.exercises.length - verbState.pageSize);
   if (verbState.studyIdx < 0) verbState.studyIdx = 0;
+  saveNavState();
   renderVerbExercises();
 }
 
@@ -615,6 +673,7 @@ var sentenceState = {
 
 function setSentenceMode(mode) {
   sentenceState.mode = mode;
+  saveNavState();
   var btns = document.querySelectorAll('#panelSentence .mode-toggle__btn');
   for (var i = 0; i < btns.length; i++) {
     btns[i].classList.toggle('mode-toggle__btn--active', (i === 0 && mode === 'study') || (i === 1 && mode === 'drill'));
@@ -648,6 +707,7 @@ function countSectionCorrect(sectionId) {
 function selectSection(idx) {
   sentenceState.currentSection = idx;
   sentenceState.studyIdx = 0;
+  saveNavState();
   renderSentenceSubNav();
   renderSentenceSectionInfo();
   renderSentenceExercises();
@@ -732,6 +792,7 @@ function renderSentenceExercises() {
 
 function sentencePrev() {
   sentenceState.studyIdx = Math.max(0, sentenceState.studyIdx - sentenceState.pageSize);
+  saveNavState();
   renderSentenceExercises();
 }
 
@@ -739,6 +800,7 @@ function sentenceNext() {
   var s = ALL_SENTENCE_SECTIONS[sentenceState.currentSection];
   sentenceState.studyIdx = Math.min(sentenceState.studyIdx + sentenceState.pageSize, s.exercises.length - sentenceState.pageSize);
   if (sentenceState.studyIdx < 0) sentenceState.studyIdx = 0;
+  saveNavState();
   renderSentenceExercises();
 }
 
@@ -781,13 +843,19 @@ function resetSentenceProgress() {
 /* ════════════════════════════════════════════════════
    GENERIC EXERCISE RENDERER
    ════════════════════════════════════════════════════ */
+function isExDone(uid, module) {
+  if (module === 'verb' || module === 'verb-drill') return !!hubState.verbCorrect[uid];
+  if (module === 'sentence' || module === 'sentence-drill') return !!hubState.sentenceCorrect[uid];
+  return false;
+}
 function renderExercise(ex, module, parentId) {
   if (!ex) return '';
   var uid = parentId + '_' + ex.id;
+  var done = isExDone(uid, module);
   var typeLabels = {fill:'Fill in the Blank', mc:'Multiple Choice', error:'Error Correction', transform:'Transform', combine:'Combine Sentences', identify:'Identify', rewrite:'Rewrite', punctuate:'Punctuate'};
   var type = ex.type || 'fill';
-  var html = '<div class="exercise" id="ex_' + uid + '">';
-  html += '<span class="exercise__type exercise__type--' + type + '">' + (typeLabels[type] || type) + '</span>';
+  var html = '<div class="exercise' + (done ? ' exercise--done' : '') + '" id="ex_' + uid + '">';
+  html += '<span class="exercise__type exercise__type--' + type + '">' + (typeLabels[type] || type) + (done ? ' &#10003;' : '') + '</span>';
 
   if (ex.instruction) {
     html += '<div class="exercise__instruction">' + escHtml(ex.instruction) + '</div>';
@@ -822,56 +890,83 @@ function renderExercise(ex, module, parentId) {
 }
 
 function renderFillExercise(ex, uid, module) {
+  var done = isExDone(uid, module);
   var parts = ex.q.split('___');
+  var blankCount = parts.length - 1;
+  var answers = blankCount > 1 ? ex.a.split(/\s*\.\.\.\s*/) : [ex.a];
   var html = '<div class="exercise__q">';
-  if (parts.length > 1) {
-    html += escHtml(parts[0]);
-    html += '<input type="text" class="fill-input" id="inp_' + uid + '" placeholder="..." autocomplete="off" onkeydown="if(event.key===\'Enter\')checkAnswer(\'' + uid + '\',\'' + module + '\')">';
-    html += escHtml(parts.slice(1).join('___'));
+  if (blankCount >= 1) {
+    for (var b = 0; b < parts.length; b++) {
+      html += escHtml(parts[b]);
+      if (b < blankCount) {
+        var ans = answers[b] || '';
+        var inputId = blankCount > 1 ? 'inp_' + uid + '_' + b : 'inp_' + uid;
+        html += '<input type="text" class="fill-input' + (done ? ' fill-input--correct' : '') + '" id="' + inputId + '"' + (done ? ' value="' + escHtml(ans) + '" disabled' : ' placeholder="..."') + ' autocomplete="off" data-fill-group="' + uid + '" onkeydown="if(event.key===\'Enter\')checkAnswer(\'' + uid + '\',\'' + module + '\')">';
+      }
+    }
   } else {
     html += escHtml(ex.q);
-    html += '<br><input type="text" class="fill-input" id="inp_' + uid + '" placeholder="Your answer..." autocomplete="off" onkeydown="if(event.key===\'Enter\')checkAnswer(\'' + uid + '\',\'' + module + '\')">';
+    html += '<br><input type="text" class="fill-input' + (done ? ' fill-input--correct' : '') + '" id="inp_' + uid + '"' + (done ? ' value="' + escHtml(ex.a) + '" disabled' : ' placeholder="Your answer..."') + ' autocomplete="off" data-fill-group="' + uid + '" onkeydown="if(event.key===\'Enter\')checkAnswer(\'' + uid + '\',\'' + module + '\')">';
   }
   html += '</div>';
-  html += '<button class="btn btn--indigo btn--small" onclick="checkAnswer(\'' + uid + '\',\'' + module + '\')">Check</button>';
+  if (!done) html += '<button class="btn btn--indigo btn--small" onclick="checkAnswer(\'' + uid + '\',\'' + module + '\')">Check</button>';
   return html;
 }
 
 function renderMCExercise(ex, uid, module) {
+  var done = isExDone(uid, module);
   var html = '<div class="exercise__q">' + escHtml(ex.q) + '</div>';
   html += '<div class="mc-options" id="opts_' + uid + '">';
   for (var i = 0; i < ex.options.length; i++) {
-    html += '<button class="mc-opt" onclick="checkMC(\'' + uid + '\',' + i + ',\'' + module + '\')">' + escHtml(ex.options[i]) + '</button>';
+    var cls = 'mc-opt';
+    if (done && i === ex.a) cls += ' mc-opt--correct';
+    if (done) cls += ' mc-opt--dimmed';
+    html += '<button class="' + cls + '"' + (done ? ' disabled' : ' onclick="checkMC(\'' + uid + '\',' + i + ',\'' + module + '\')"') + '>' + escHtml(ex.options[i]) + '</button>';
   }
   html += '</div>';
   return html;
 }
 
 function renderErrorExercise(ex, uid, module) {
+  var done = isExDone(uid, module);
   var html = '<div class="exercise__q" style="color:var(--red)">Find and correct the error:</div>';
   html += '<div class="exercise__q" style="font-style:italic;background:var(--red-light);padding:10px 14px;border-radius:6px">' + escHtml(ex.q) + '</div>';
-  html += '<textarea class="answer-area" id="inp_' + uid + '" placeholder="Write the corrected sentence..." rows="2"></textarea>';
-  html += '<button class="btn btn--indigo btn--small" style="margin-top:8px" onclick="checkAnswer(\'' + uid + '\',\'' + module + '\')">Check</button>';
+  if (done) {
+    html += '<div style="padding:8px 14px;background:var(--green-light);border-radius:6px;color:var(--green);font-weight:600">' + escHtml(ex.a) + '</div>';
+  } else {
+    html += '<textarea class="answer-area" id="inp_' + uid + '" placeholder="Write the corrected sentence..." rows="2"></textarea>';
+    html += '<button class="btn btn--indigo btn--small" style="margin-top:8px" onclick="checkAnswer(\'' + uid + '\',\'' + module + '\')">Check</button>';
+  }
   return html;
 }
 
 function renderOpenExercise(ex, uid, module, type) {
+  var done = isExDone(uid, module);
   var labels = {transform:'Rewrite the sentence as instructed:', combine:'Combine these sentences:', rewrite:'Improve this sentence:', punctuate:'Add correct punctuation:'};
   var html = '<div class="exercise__q" style="font-weight:600">' + (labels[type] || 'Your answer:') + '</div>';
   html += '<div class="exercise__q" style="background:var(--grey-light);padding:10px 14px;border-radius:6px">' + escHtml(ex.q) + '</div>';
-  html += '<textarea class="answer-area" id="inp_' + uid + '" placeholder="Your answer..." rows="2"></textarea>';
-  html += '<div style="display:flex;gap:8px;margin-top:8px">';
-  html += '<button class="btn btn--indigo btn--small" onclick="checkAnswer(\'' + uid + '\',\'' + module + '\')">Check</button>';
-  html += '<button class="btn btn--outline btn--small" onclick="revealAnswer(\'' + uid + '\')">Show Answer</button>';
-  html += '</div>';
+  if (done) {
+    html += '<div style="padding:8px 14px;background:var(--green-light);border-radius:6px;color:var(--green);font-weight:600">' + escHtml(ex.a) + '</div>';
+  } else {
+    html += '<textarea class="answer-area" id="inp_' + uid + '" placeholder="Your answer..." rows="2"></textarea>';
+    html += '<div style="display:flex;gap:8px;margin-top:8px">';
+    html += '<button class="btn btn--indigo btn--small" onclick="checkAnswer(\'' + uid + '\',\'' + module + '\')">Check</button>';
+    html += '<button class="btn btn--outline btn--small" onclick="revealAnswer(\'' + uid + '\')">Show Answer</button>';
+    html += '</div>';
+  }
   return html;
 }
 
 function renderIdentifyExercise(ex, uid, module) {
+  var done = isExDone(uid, module);
   var html = '<div class="exercise__q">' + escHtml(ex.q) + '</div>';
-  html += '<input type="text" class="fill-input" id="inp_' + uid + '" placeholder="Your answer..." autocomplete="off" onkeydown="if(event.key===\'Enter\')checkAnswer(\'' + uid + '\',\'' + module + '\')">';
-  html += '<button class="btn btn--indigo btn--small" style="margin-left:8px" onclick="checkAnswer(\'' + uid + '\',\'' + module + '\')">Check</button>';
-  html += '<button class="btn btn--outline btn--small" style="margin-left:4px" onclick="revealAnswer(\'' + uid + '\')">Show Answer</button>';
+  if (done) {
+    html += '<div style="padding:8px 14px;background:var(--green-light);border-radius:6px;color:var(--green);font-weight:600">' + escHtml(ex.a) + '</div>';
+  } else {
+    html += '<input type="text" class="fill-input" id="inp_' + uid + '" placeholder="Your answer..." autocomplete="off" onkeydown="if(event.key===\'Enter\')checkAnswer(\'' + uid + '\',\'' + module + '\')">';
+    html += '<button class="btn btn--indigo btn--small" style="margin-left:8px" onclick="checkAnswer(\'' + uid + '\',\'' + module + '\')">Check</button>';
+    html += '<button class="btn btn--outline btn--small" style="margin-left:4px" onclick="revealAnswer(\'' + uid + '\')">Show Answer</button>';
+  }
   return html;
 }
 
@@ -908,28 +1003,60 @@ function normalise(s) {
 function checkAnswer(uid, module) {
   var ex = getExerciseByUid(uid);
   if (!ex) return;
-  var input = document.getElementById('inp_' + uid);
-  if (!input) return;
-  var userAns = (input.value || input.textContent || '').trim();
-  if (!userAns) return;
+
+  // Collect all inputs for this exercise (multi-blank support)
+  var inputs = document.querySelectorAll('[data-fill-group="' + uid + '"]');
+  var singleInput = document.getElementById('inp_' + uid);
+  var userAns = '';
+
+  if (inputs.length > 1) {
+    // Multi-blank: join answers with " ... "
+    var parts = [];
+    for (var i = 0; i < inputs.length; i++) {
+      var v = (inputs[i].value || '').trim();
+      if (!v) return; // all blanks must be filled
+      parts.push(v);
+    }
+    userAns = parts.join(' ... ');
+  } else if (singleInput) {
+    userAns = (singleInput.value || singleInput.textContent || '').trim();
+    if (!userAns) return;
+    inputs = [singleInput];
+  } else {
+    return;
+  }
 
   var fb = document.getElementById('fb_' + uid);
   var correct = normalise(userAns) === normalise(ex.a);
 
-  // For fill type, also check just the key word
-  if (!correct && ex.type === 'fill') {
-    correct = normalise(userAns) === normalise(ex.a);
+  // Also try matching individual parts for multi-blank
+  if (!correct && inputs.length > 1) {
+    var expectedParts = ex.a.split(/\s*\.\.\.\s*/);
+    var allMatch = true;
+    for (var j = 0; j < inputs.length; j++) {
+      if (normalise((inputs[j].value || '').trim()) !== normalise(expectedParts[j] || '')) {
+        allMatch = false;
+        break;
+      }
+    }
+    correct = allMatch;
   }
 
   if (correct) {
     fb.className = 'feedback feedback--correct';
     fb.innerHTML = '<span class="feedback__label">Correct!</span> ' + escHtml(ex.exp || '');
-    if (input.classList) { input.classList.add('fill-input--correct'); input.classList.remove('fill-input--wrong'); }
+    for (var k = 0; k < inputs.length; k++) {
+      inputs[k].classList.add('fill-input--correct');
+      inputs[k].classList.remove('fill-input--wrong');
+    }
     markCorrect(uid, module);
   } else {
     fb.className = 'feedback feedback--wrong';
     fb.innerHTML = '<span class="feedback__label">Not quite.</span> Correct answer: <strong>' + escHtml(ex.a) + '</strong><br>' + escHtml(ex.exp || '');
-    if (input.classList) { input.classList.add('fill-input--wrong'); input.classList.remove('fill-input--correct'); }
+    for (var k = 0; k < inputs.length; k++) {
+      inputs[k].classList.add('fill-input--wrong');
+      inputs[k].classList.remove('fill-input--correct');
+    }
   }
 }
 
@@ -1408,21 +1535,53 @@ function updateStats() {
    ════════════════════════════════════════════════════ */
 function init() {
   buildSentenceSections();
+
+  // Restore navigation state
+  var nav = hubState._nav || {};
+  if (typeof nav.verbTense === 'number') verbState.currentTense = nav.verbTense;
+  if (nav.verbMode) verbState.mode = nav.verbMode;
+  if (typeof nav.verbPage === 'number') verbState.studyIdx = nav.verbPage;
+  if (typeof nav.sentSection === 'number') sentenceState.currentSection = nav.sentSection;
+  if (nav.sentMode) sentenceState.mode = nav.sentMode;
+  if (typeof nav.sentPage === 'number') sentenceState.studyIdx = nav.sentPage;
+
   renderVerbSubNav();
   renderVerbTenseInfo();
   renderVerbExercises();
+  // Restore verb mode toggle visually
+  if (nav.verbMode) setVerbMode(nav.verbMode);
+
   renderSentenceSubNav();
   renderSentenceSectionInfo();
   renderSentenceExercises();
+  if (nav.sentMode) setSentenceMode(nav.sentMode);
+
   buildTypingPool();
   renderTypingStructureNav();
   renderTypingPractice();
   renderCorpusFilters();
   renderCorpusList();
   updateStats();
+
+  // Restore active tab last
+  if (nav.tab) switchMainTab(nav.tab);
 }
 
 init();
 </script>
+
+<!-- ── Sync Bar (cross-platform progress) ──── -->
+<div class="sync-bar" id="syncBar" style="display:none">
+  <span style="font-size:.82rem;font-weight:700;color:var(--indigo)">Sync Progress:</span>
+  <input type="text" class="sync-bar__input" id="syncCode" placeholder="Paste sync code here..." readonly>
+  <button class="sync-bar__btn sync-bar__btn--export" onclick="exportProgress()">Export</button>
+  <button class="sync-bar__btn sync-bar__btn--import" onclick="importProgress()">Import</button>
+  <span class="sync-bar__msg" id="syncMsg"></span>
+</div>
+<div style="position:fixed;bottom:8px;right:12px;z-index:101">
+  <button class="sync-bar__btn sync-bar__btn--toggle" onclick="toggleSyncBar()" style="border-radius:20px;padding:6px 14px;font-size:.78rem">Sync</button>
+</div>
+<script src="js/sync.js"></script>
+
 </body>
 </html>
