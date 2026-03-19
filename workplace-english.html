@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Workplace English — High-Value Contexts for Australian Teachers</title>
+<style>
+:root {
+  --blue: #2c5f8a; --blue-light: #e8f0f8;
+  --teal: #1a8a7d; --teal-light: #e0f5f2;
+  --orange: #e67e22; --orange-light: #fdf0e0;
+  --green: #27ae60; --green-light: #e8f8ef;
+  --purple: #8e44ad; --purple-light: #f3e8f9;
+  --red: #c0392b; --red-light: #fce4e4;
+  --grey: #7f8c8d; --grey-light: #f4f6f7;
+  --grey-dark: #2c3e50; --white: #ffffff;
+  --indigo: #4f46e5; --indigo-light: #eef2ff;
+  --amber: #d97706; --amber-light: #fef3c7;
+  --shadow: 0 2px 8px rgba(0,0,0,0.10);
+  --radius: 10px;
+  --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font);background:var(--grey-light);color:var(--grey-dark);line-height:1.6}
+
+/* ── Topbar ─────────────────────────────────────── */
+.topbar{background:var(--white);border-bottom:3px solid var(--teal);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;box-shadow:var(--shadow);position:sticky;top:0;z-index:100}
+.topbar__title{font-size:1.4rem;font-weight:700;color:var(--teal)}
+.topbar__title span{color:var(--grey-dark);font-weight:400}
+.topbar__right{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.topbar__stat{padding:4px 14px;border-radius:20px;font-weight:600;font-size:.85rem}
+.topbar__btn{background:var(--teal);color:var(--white);border:none;padding:7px 16px;border-radius:6px;cursor:pointer;font-size:.85rem;font-weight:600;transition:background .2s}
+.topbar__btn:hover{background:#0f7069}
+.topbar__btn--outline{background:transparent;border:2px solid var(--teal);color:var(--teal)}
+.topbar__btn--outline:hover{background:var(--teal-light)}
+
+/* ── Stats Bar ─────────────────────────────────── */
+.stats-bar{display:flex;gap:12px;padding:12px 24px;background:var(--white);border-bottom:1px solid #e0e0e0;flex-wrap:wrap;justify-content:center}
+.stat-chip{display:flex;align-items:center;gap:6px;padding:6px 16px;border-radius:20px;font-size:.82rem;font-weight:600}
+.stat-chip--classroom{background:var(--blue-light);color:var(--blue)}
+.stat-chip--email{background:var(--purple-light);color:var(--purple)}
+.stat-chip--staffroom{background:var(--orange-light);color:var(--orange)}
+.stat-chip--meeting{background:var(--teal-light);color:var(--teal)}
+.stat-chip--writing{background:var(--green-light);color:var(--green)}
+.stat-chip--chinese{background:var(--red-light);color:var(--red)}
+.stat-chip--interview{background:var(--indigo-light);color:var(--indigo)}
+.stat-chip--total{background:var(--amber-light);color:var(--amber)}
+
+/* ── Main Tab Navigation ───────────────────────── */
+.main-tabs{display:flex;gap:0;background:var(--white);border-bottom:2px solid #e0e0e0;padding:0 24px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.main-tab{padding:12px 18px;border:none;background:transparent;cursor:pointer;font-size:.88rem;font-weight:700;color:var(--grey);border-bottom:3px solid transparent;transition:all .2s;white-space:nowrap;flex-shrink:0}
+.main-tab:hover{background:var(--grey-light);color:var(--grey-dark)}
+.main-tab--active{color:var(--teal);border-bottom-color:var(--teal)}
+.main-tab .tab-count{font-size:.72rem;font-weight:400;color:var(--grey);margin-left:4px}
+
+/* ── Panels ────────────────────────────────────── */
+.panel{display:none;padding:16px 24px}
+.panel--active{display:block}
+
+/* ── Sub Navigation ────────────────────────────── */
+.sub-nav{display:flex;gap:8px;flex-wrap:wrap;padding:12px 0;overflow-x:auto}
+.sub-pill{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;border-radius:20px;border:2px solid #e0e0e0;background:var(--white);cursor:pointer;font-size:.82rem;font-weight:600;transition:all .2s;white-space:nowrap}
+.sub-pill:hover{border-color:var(--teal);color:var(--teal)}
+.sub-pill--active{border-color:var(--teal);background:var(--teal);color:var(--white)}
+.sub-pill__count{font-size:.72rem;font-weight:400;opacity:.8}
+
+/* ── Section Info ──────────────────────────────── */
+.section-info{padding:16px 20px;border-radius:var(--radius);margin-bottom:16px;line-height:1.7}
+.section-info__title{font-size:1.1rem;font-weight:700;margin-bottom:6px}
+.section-info__text{font-size:.88rem;color:var(--grey-dark)}
+.section-info--blue{background:var(--blue-light)}
+.section-info--teal{background:var(--teal-light)}
+.section-info--green{background:var(--green-light)}
+.section-info--purple{background:var(--purple-light)}
+.section-info--orange{background:var(--orange-light)}
+.section-info--red{background:var(--red-light)}
+
+/* ── Mode Toggle ───────────────────────────────── */
+.mode-toggle{display:flex;gap:0;border-radius:8px;overflow:hidden;border:2px solid #e0e0e0;width:fit-content;margin-bottom:12px}
+.mode-toggle__btn{padding:8px 20px;border:none;background:var(--white);cursor:pointer;font-weight:600;font-size:.85rem;color:var(--grey);transition:all .2s}
+.mode-toggle__btn--active{background:var(--teal);color:var(--white)}
+
+/* ── Exercise Cards ────────────────────────────── */
+.exercise{background:var(--white);border-radius:var(--radius);padding:16px 20px;margin-bottom:12px;box-shadow:var(--shadow);border-left:4px solid transparent}
+.exercise--done{opacity:.7;border-left:4px solid var(--green)}
+.exercise--done .fill-input{background:var(--green-light);border-color:var(--green);color:var(--green)}
+.exercise--done .mc-opt--correct{background:rgba(39,174,96,0.15);border-color:var(--green);color:var(--green);font-weight:700}
+.exercise--wrong{border-left:4px solid var(--red);background:#fff5f5}
+.exercise--wrong .fill-input--wrong{background:var(--red-light);border-color:var(--red);color:var(--red);text-decoration:line-through}
+.exercise__type{display:inline-block;padding:2px 10px;border-radius:12px;font-size:.72rem;font-weight:700;text-transform:uppercase;margin-bottom:8px}
+.exercise__type--fill{background:var(--blue-light);color:var(--blue)}
+.exercise__type--mc{background:var(--green-light);color:var(--green)}
+.exercise__type--error{background:var(--red-light);color:var(--red)}
+.exercise__type--open{background:var(--purple-light);color:var(--purple)}
+.exercise__type--transform{background:var(--orange-light);color:var(--orange)}
+.exercise__type--combine{background:var(--orange-light);color:var(--orange)}
+.exercise__type--rewrite{background:var(--orange-light);color:var(--orange)}
+.exercise__instruction{font-size:.85rem;color:var(--grey);margin-bottom:6px;font-style:italic}
+.exercise__q{font-size:.95rem;line-height:1.7;margin-bottom:10px}
+.fill-input{border:2px solid #d0d0d0;border-radius:6px;padding:6px 12px;font-size:.92rem;font-family:inherit;min-width:120px;transition:border-color .2s}
+.fill-input:focus{outline:none;border-color:var(--teal)}
+.fill-input--correct{background:var(--green-light);border-color:var(--green);color:var(--green)}
+.fill-input--wrong{background:var(--red-light);border-color:var(--red);color:var(--red)}
+.mc-options{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
+.mc-opt{text-align:left;padding:10px 16px;border:2px solid #e0e0e0;border-radius:8px;background:var(--white);cursor:pointer;font-size:.9rem;transition:all .2s}
+.mc-opt:hover:not(:disabled){border-color:var(--teal);background:var(--teal-light)}
+.mc-opt--correct{background:rgba(39,174,96,0.15) !important;border-color:var(--green) !important;color:var(--green);font-weight:700}
+.mc-opt--wrong{background:var(--red-light) !important;border-color:var(--red) !important;color:var(--red);text-decoration:line-through}
+.mc-opt--dimmed{opacity:.6}
+.answer-area{width:100%;border:2px solid #d0d0d0;border-radius:6px;padding:10px 14px;font-size:.92rem;font-family:inherit;resize:vertical}
+.answer-area:focus{outline:none;border-color:var(--teal)}
+.correct-answer{background:var(--green-light);color:var(--green);padding:4px 12px;border-radius:6px;font-weight:600;font-size:.88rem}
+
+/* ── Feedback ──────────────────────────────────── */
+.feedback{display:none;padding:10px 14px;border-radius:6px;font-size:.85rem;line-height:1.6;margin-top:8px}
+.feedback--correct{background:var(--green-light);color:#1a6b3c;display:block}
+.feedback--wrong{background:var(--red-light);color:#8b1a1a;display:block}
+.feedback--info{background:var(--blue-light);color:var(--blue);display:block}
+.feedback__label{font-weight:700}
+
+/* ── Buttons ───────────────────────────────────── */
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:10px 22px;border:none;border-radius:8px;font-weight:700;font-size:.88rem;cursor:pointer;transition:all .2s;font-family:inherit}
+.btn--teal{background:var(--teal);color:var(--white)}
+.btn--teal:hover{background:#0f7069}
+.btn--green{background:var(--green);color:var(--white)}
+.btn--green:hover{background:#1e8e4f}
+.btn--indigo{background:var(--indigo);color:var(--white)}
+.btn--indigo:hover{background:#3730a3}
+.btn--outline{background:transparent;border:2px solid #d0d0d0;color:var(--grey-dark)}
+.btn--outline:hover{border-color:var(--teal);color:var(--teal)}
+.btn--small{padding:6px 14px;font-size:.82rem}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+
+/* ── Exercise Controls ─────────────────────────── */
+.exercise-controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.exercise-progress{font-size:.85rem;color:var(--grey)}
+.exercise-score{font-size:.82rem;font-weight:600;padding:4px 12px;border-radius:12px}
+.exercise-score--good{background:var(--green-light);color:var(--green)}
+.exercise-score--mid{background:var(--orange-light);color:var(--orange)}
+.exercise-score--low{background:var(--red-light);color:var(--red)}
+
+/* ── Drill Banner ──────────────────────────────── */
+.drill-banner{background:linear-gradient(135deg,var(--teal-light),var(--blue-light));padding:20px 24px;border-radius:var(--radius);margin-bottom:16px;text-align:center}
+.drill-banner__title{font-size:1.2rem;font-weight:700;color:var(--teal)}
+.drill-banner__desc{font-size:.88rem;color:var(--grey-dark);margin-top:4px}
+
+/* ── Badge ─────────────────────────────────────── */
+.badge{padding:2px 10px;border-radius:12px;font-size:.75rem;font-weight:600}
+
+/* ── Card ──────────────────────────────────────── */
+.card{background:var(--white);border-radius:var(--radius);padding:20px 24px;box-shadow:var(--shadow)}
+
+/* ── Sync Bar ──────────────────────────────────── */
+.sync-bar{display:none;background:var(--white);border-bottom:1px solid #e0e0e0;padding:12px 24px;gap:10px;align-items:center;flex-wrap:wrap;justify-content:center}
+.sync-bar.open{display:flex}
+.sync-bar input[type=text]{flex:1;min-width:200px;max-width:500px;border:2px solid #d0d0d0;border-radius:6px;padding:8px 12px;font-size:.85rem;font-family:inherit}
+.sync-bar input[type=text]:focus{outline:none;border-color:var(--teal)}
+.sync-msg{font-size:.82rem;font-weight:600;padding:4px 12px;border-radius:6px;margin-left:8px}
+
+/* ── Mobile ────────────────────────────────────── */
+@media(max-width:768px){
+  .topbar{padding:10px 12px}
+  .topbar__title{font-size:1.1rem}
+  .main-tabs{padding:0 8px}
+  .main-tab{padding:10px 12px;font-size:.82rem}
+  .panel{padding:12px}
+  .exercise{padding:12px 14px}
+  .stats-bar{padding:8px 12px;gap:6px}
+  .stat-chip{padding:4px 10px;font-size:.75rem}
+}
+@media(max-width:400px){
+  .topbar__title{font-size:.95rem}
+  .topbar__right{gap:6px}
+  .main-tab{padding:8px 10px;font-size:.78rem}
+  .sub-pill{padding:5px 10px;font-size:.75rem}
+  .btn{padding:8px 14px;font-size:.82rem}
+  .btn--small{padding:5px 10px;font-size:.78rem}
+}
+</style>
+</head>
+<body>
+
+<!-- ── Top Bar ──────────────────────────────────── -->
+<div class="topbar">
+  <div>
+    <div class="topbar__title">Workplace English <span>High-Value Contexts</span></div>
+    <div style="font-size:.78rem;color:var(--grey)">Professionally reliable English for Australian teachers | <a href="index.html" style="color:var(--teal)">Back to Planner</a></div>
+  </div>
+  <div class="topbar__right">
+    <button class="topbar__btn topbar__btn--outline" onclick="toggleSyncBar()">Sync</button>
+    <a href="grammar-hub.html" class="topbar__btn" style="text-decoration:none">Grammar Hub</a>
+  </div>
+</div>
+
+<!-- ── Sync Bar ─────────────────────────────────── -->
+<div class="sync-bar" id="syncBar">
+  <button class="btn btn--teal btn--small" onclick="exportProgress()">Export Progress</button>
+  <input type="text" id="syncImportField" placeholder="Paste sync code here...">
+  <button class="btn btn--outline btn--small" onclick="importProgress()">Import</button>
+  <span class="sync-msg" id="syncMsg"></span>
+</div>
+
+<!-- ── Stats Bar ───────────────────────────────── -->
+<div class="stats-bar" id="statsBar"></div>
+
+<!-- ── Main Tabs ───────────────────────────────── -->
+<div class="main-tabs">
+  <button class="main-tab main-tab--active" data-tab="classroom" onclick="switchMainTab('classroom')">Classroom<span class="tab-count" id="tcClassroom"></span></button>
+  <button class="main-tab" data-tab="email" onclick="switchMainTab('email')">Emails<span class="tab-count" id="tcEmail"></span></button>
+  <button class="main-tab" data-tab="staffroom" onclick="switchMainTab('staffroom')">Staffroom<span class="tab-count" id="tcStaffroom"></span></button>
+  <button class="main-tab" data-tab="meeting" onclick="switchMainTab('meeting')">Meetings<span class="tab-count" id="tcMeeting"></span></button>
+  <button class="main-tab" data-tab="writing" onclick="switchMainTab('writing')">Reflections<span class="tab-count" id="tcWriting"></span></button>
+  <button class="main-tab" data-tab="chinese" onclick="switchMainTab('chinese')">CN Errors<span class="tab-count" id="tcChinese"></span></button>
+  <button class="main-tab" data-tab="interview" onclick="switchMainTab('interview')">Interview<span class="tab-count" id="tcInterview"></span></button>
+</div>
+
+<!-- ── Panels ──────────────────────────────────── -->
+<div id="panelClassroom" class="panel panel--active">
+  <div class="mode-toggle">
+    <button class="mode-toggle__btn mode-toggle__btn--active" onclick="setModuleMode('classroom','study')">Study</button>
+    <button class="mode-toggle__btn" onclick="setModuleMode('classroom','drill')">Drill (20 Qs)</button>
+  </div>
+  <div class="sub-nav" id="subNavClassroom"></div>
+  <div id="sectionInfoClassroom"></div>
+  <div id="exerciseAreaClassroom"></div>
+</div>
+
+<div id="panelEmail" class="panel">
+  <div class="mode-toggle">
+    <button class="mode-toggle__btn mode-toggle__btn--active" onclick="setModuleMode('email','study')">Study</button>
+    <button class="mode-toggle__btn" onclick="setModuleMode('email','drill')">Drill (20 Qs)</button>
+  </div>
+  <div class="sub-nav" id="subNavEmail"></div>
+  <div id="sectionInfoEmail"></div>
+  <div id="exerciseAreaEmail"></div>
+</div>
+
+<div id="panelStaffroom" class="panel">
+  <div class="mode-toggle">
+    <button class="mode-toggle__btn mode-toggle__btn--active" onclick="setModuleMode('staffroom','study')">Study</button>
+    <button class="mode-toggle__btn" onclick="setModuleMode('staffroom','drill')">Drill (20 Qs)</button>
+  </div>
+  <div class="sub-nav" id="subNavStaffroom"></div>
+  <div id="sectionInfoStaffroom"></div>
+  <div id="exerciseAreaStaffroom"></div>
+</div>
+
+<div id="panelMeeting" class="panel">
+  <div class="mode-toggle">
+    <button class="mode-toggle__btn mode-toggle__btn--active" onclick="setModuleMode('meeting','study')">Study</button>
+    <button class="mode-toggle__btn" onclick="setModuleMode('meeting','drill')">Drill (20 Qs)</button>
+  </div>
+  <div class="sub-nav" id="subNavMeeting"></div>
+  <div id="sectionInfoMeeting"></div>
+  <div id="exerciseAreaMeeting"></div>
+</div>
+
+<div id="panelWriting" class="panel">
+  <div class="mode-toggle">
+    <button class="mode-toggle__btn mode-toggle__btn--active" onclick="setModuleMode('writing','study')">Study</button>
+    <button class="mode-toggle__btn" onclick="setModuleMode('writing','drill')">Drill (20 Qs)</button>
+  </div>
+  <div class="sub-nav" id="subNavWriting"></div>
+  <div id="sectionInfoWriting"></div>
+  <div id="exerciseAreaWriting"></div>
+</div>
+
+<div id="panelChinese" class="panel">
+  <div class="mode-toggle">
+    <button class="mode-toggle__btn mode-toggle__btn--active" onclick="setModuleMode('chinese','study')">Study</button>
+    <button class="mode-toggle__btn" onclick="setModuleMode('chinese','drill')">Drill (20 Qs)</button>
+  </div>
+  <div class="sub-nav" id="subNavChinese"></div>
+  <div id="sectionInfoChinese"></div>
+  <div id="exerciseAreaChinese"></div>
+</div>
+
+<div id="panelInterview" class="panel">
+  <div class="mode-toggle">
+    <button class="mode-toggle__btn mode-toggle__btn--active" onclick="setModuleMode('interview','study')">Study</button>
+    <button class="mode-toggle__btn" onclick="setModuleMode('interview','drill')">Drill (20 Qs)</button>
+  </div>
+  <div class="sub-nav" id="subNavInterview"></div>
+  <div id="sectionInfoInterview"></div>
+  <div id="exerciseAreaInterview"></div>
+</div>
+
+<!-- ── Footer ──────────────────────────────────── -->
+<div style="text-align:center;padding:24px;color:var(--grey);font-size:.82rem">
+  <button class="btn btn--outline btn--small" onclick="if(confirm('Reset ALL Workplace English progress? This cannot be undone.')){localStorage.removeItem(STATE_KEY);for(var k in localStorage){if(k.indexOf('pte_workplace')===0)localStorage.removeItem(k);}location.reload();}">Reset All Progress</button>
+  <p style="margin-top:8px">Progress saves automatically in your browser</p>
+</div>
+
+<!-- ── Data Scripts ────────────────────────────── -->
+<script src="js/workplace-english-data.js"></script>
+<script src="js/workplace-english-data-2.js"></script>
+<script src="js/workplace-english-data-3.js"></script>
+<script src="js/workplace-english-data-4.js"></script>
+<script src="js/workplace-classroom-ext.js"></script>
+<script src="js/sync.js"></script>
+
+<script>
+/* ════════════════════════════════════════════════════
+   GLOBAL STATE & HELPERS
+   ════════════════════════════════════════════════════ */
+
+var STATE_KEY = 'pte_workplace_v1';
+var wpState = JSON.parse(localStorage.getItem(STATE_KEY) || '{}');
+if (!wpState.correct) wpState.correct = {};    // {uid: 1} for correct answers
+if (!wpState.answered) wpState.answered = {};   // {uid: {ans, correct}} for all attempts
+if (!wpState._nav) wpState._nav = {};
+function saveState() { localStorage.setItem(STATE_KEY, JSON.stringify(wpState)); }
+
+function escHtml(s) {
+  if (!s) return '';
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function shuffleArray(arr) {
+  var a = arr.slice();
+  for (var i = a.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+  }
+  return a;
+}
+
+function normalise(s) {
+  return s.toLowerCase().replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, ' ').trim();
+}
+
+function getAttempt(uid) { return wpState.answered[uid] || null; }
+
+function saveNavState() {
+  wpState._nav = {
+    tab: currentTab,
+    modules: {}
+  };
+  for (var k in modules) {
+    wpState._nav.modules[k] = {
+      section: modules[k].currentSection,
+      mode: modules[k].mode,
+      page: modules[k].studyIdx
+    };
+  }
+  saveState();
+}
+
+/* ════════════════════════════════════════════════════
+   MODULE DATA LOADING
+   ════════════════════════════════════════════════════ */
+
+var DATA = typeof WORKPLACE_ENGLISH !== 'undefined' ? WORKPLACE_ENGLISH : {};
+
+var MODULE_KEYS = ['classroom', 'email', 'staffroom', 'meeting', 'writing', 'chinese', 'interview'];
+var MODULE_MAP = {
+  classroom: 'classroomInstructions',
+  email: 'professionalEmails',
+  staffroom: 'staffroomTalk',
+  meeting: 'meetingsExplanations',
+  writing: 'writtenReflections',
+  chinese: 'chineseSpeakerErrors',
+  interview: 'interviewSkills'
+};
+
+var INFO_CLASSES = {
+  classroom: 'section-info--blue',
+  email: 'section-info--purple',
+  staffroom: 'section-info--orange',
+  meeting: 'section-info--teal',
+  writing: 'section-info--green',
+  chinese: 'section-info--red',
+  interview: 'section-info--blue'
+};
+
+function getModuleData(key) {
+  var dataKey = MODULE_MAP[key];
+  return DATA[dataKey] || { title: key, sections: [] };
+}
+
+function getSections(key) {
+  var mod = getModuleData(key);
+  return mod.sections || [];
+}
+
+/* ════════════════════════════════════════════════════
+   MODULE STATE
+   ════════════════════════════════════════════════════ */
+
+var modules = {};
+for (var i = 0; i < MODULE_KEYS.length; i++) {
+  var k = MODULE_KEYS[i];
+  modules[k] = {
+    currentSection: 0,
+    mode: 'study',
+    studyIdx: 0,
+    drillQueue: [],
+    drillIdx: 0,
+    drillCorrect: 0,
+    pageSize: 5
+  };
+}
+
+var currentTab = 'classroom';
+
+/* ════════════════════════════════════════════════════
+   TAB SWITCHING
+   ════════════════════════════════════════════════════ */
+
+function switchMainTab(tab) {
+  currentTab = tab;
+  saveNavState();
+  var tabs = document.querySelectorAll('.main-tab');
+  for (var i = 0; i < tabs.length; i++) {
+    tabs[i].classList.toggle('main-tab--active', tabs[i].getAttribute('data-tab') === tab);
+  }
+  for (var j = 0; j < MODULE_KEYS.length; j++) {
+    var mk = MODULE_KEYS[j];
+    var panel = document.getElementById('panel' + mk.charAt(0).toUpperCase() + mk.slice(1));
+    if (panel) panel.classList.toggle('panel--active', mk === tab);
+  }
+  renderModule(tab);
+}
+
+/* ════════════════════════════════════════════════════
+   MODULE RENDERING
+   ════════════════════════════════════════════════════ */
+
+function setModuleMode(modKey, mode) {
+  modules[modKey].mode = mode;
+  modules[modKey].drillQueue = [];
+  modules[modKey].drillIdx = 0;
+  modules[modKey].drillCorrect = 0;
+  saveNavState();
+  var capKey = modKey.charAt(0).toUpperCase() + modKey.slice(1);
+  var btns = document.querySelectorAll('#panel' + capKey + ' .mode-toggle__btn');
+  for (var i = 0; i < btns.length; i++) {
+    btns[i].classList.toggle('mode-toggle__btn--active', (i === 0 && mode === 'study') || (i === 1 && mode === 'drill'));
+  }
+  renderExercises(modKey);
+}
+
+function renderModule(modKey) {
+  renderSubNav(modKey);
+  renderSectionInfo(modKey);
+  renderExercises(modKey);
+}
+
+function countSectionCorrect(modKey, sectionId) {
+  var count = 0;
+  for (var k in wpState.correct) {
+    if (k.indexOf(sectionId + '_') === 0) count++;
+  }
+  return count;
+}
+
+function renderSubNav(modKey) {
+  var capKey = modKey.charAt(0).toUpperCase() + modKey.slice(1);
+  var nav = document.getElementById('subNav' + capKey);
+  var sections = getSections(modKey);
+  var html = '';
+  for (var i = 0; i < sections.length; i++) {
+    var s = sections[i];
+    var count = s.exercises ? s.exercises.length : 0;
+    var done = countSectionCorrect(modKey, s.id);
+    html += '<button class="sub-pill' + (i === modules[modKey].currentSection ? ' sub-pill--active' : '') + '" onclick="selectSection(\'' + modKey + '\',' + i + ')">';
+    html += escHtml(s.title);
+    html += '<span class="sub-pill__count">' + done + '/' + count + '</span>';
+    html += '</button>';
+  }
+  nav.innerHTML = html;
+}
+
+function selectSection(modKey, idx) {
+  modules[modKey].currentSection = idx;
+  modules[modKey].studyIdx = 0;
+  saveNavState();
+  renderSubNav(modKey);
+  renderSectionInfo(modKey);
+  renderExercises(modKey);
+}
+
+function renderSectionInfo(modKey) {
+  var capKey = modKey.charAt(0).toUpperCase() + modKey.slice(1);
+  var el = document.getElementById('sectionInfo' + capKey);
+  var sections = getSections(modKey);
+  var s = sections[modules[modKey].currentSection];
+  if (!s) { el.innerHTML = ''; return; }
+  var cls = INFO_CLASSES[modKey] || 'section-info--blue';
+  var html = '<div class="section-info ' + cls + '">';
+  html += '<div class="section-info__title">' + escHtml(s.title) + '</div>';
+  if (s.theory) html += '<div class="section-info__text">' + escHtml(s.theory) + '</div>';
+  html += '</div>';
+  el.innerHTML = html;
+}
+
+function renderExercises(modKey) {
+  var capKey = modKey.charAt(0).toUpperCase() + modKey.slice(1);
+  var area = document.getElementById('exerciseArea' + capKey);
+  var sections = getSections(modKey);
+  var s = sections[modules[modKey].currentSection];
+
+  if (!s || !s.exercises || !s.exercises.length) {
+    area.innerHTML = '<div class="card"><p>No exercises loaded yet. Check that workplace-english-data.js is linked.</p></div>';
+    return;
+  }
+
+  if (modules[modKey].mode === 'drill') {
+    renderDrill(modKey, s);
+    return;
+  }
+
+  // Study mode — paginated
+  var exercises = s.exercises;
+  var start = modules[modKey].studyIdx;
+  var end = Math.min(start + modules[modKey].pageSize, exercises.length);
+  var html = '';
+
+  html += '<div class="exercise-controls">';
+  html += '<span class="exercise-progress">Exercises ' + (start + 1) + '-' + end + ' of ' + exercises.length + '</span>';
+  var done = countSectionCorrect(modKey, s.id);
+  var pct = exercises.length > 0 ? Math.round(done / exercises.length * 100) : 0;
+  var scoreClass = pct >= 70 ? 'exercise-score--good' : pct >= 40 ? 'exercise-score--mid' : 'exercise-score--low';
+  html += '<span class="exercise-score ' + scoreClass + '">' + done + '/' + exercises.length + ' (' + pct + '%)</span>';
+  html += '</div>';
+
+  for (var i = start; i < end; i++) {
+    html += renderExercise(exercises[i], modKey, s.id);
+  }
+
+  html += '<div style="display:flex;gap:10px;justify-content:center;margin-top:16px">';
+  html += '<button class="btn btn--outline" onclick="pagePrev(\'' + modKey + '\')" ' + (start === 0 ? 'disabled' : '') + '>Previous</button>';
+  html += '<button class="btn btn--teal" onclick="pageNext(\'' + modKey + '\')" ' + (end >= exercises.length ? 'disabled' : '') + '>Next</button>';
+  html += '</div>';
+
+  area.innerHTML = html;
+}
+
+function pagePrev(modKey) {
+  modules[modKey].studyIdx = Math.max(0, modules[modKey].studyIdx - modules[modKey].pageSize);
+  saveNavState();
+  renderExercises(modKey);
+}
+
+function pageNext(modKey) {
+  var sections = getSections(modKey);
+  var s = sections[modules[modKey].currentSection];
+  modules[modKey].studyIdx = Math.min(modules[modKey].studyIdx + modules[modKey].pageSize, s.exercises.length - modules[modKey].pageSize);
+  if (modules[modKey].studyIdx < 0) modules[modKey].studyIdx = 0;
+  saveNavState();
+  renderExercises(modKey);
+}
+
+function renderDrill(modKey, section) {
+  var capKey = modKey.charAt(0).toUpperCase() + modKey.slice(1);
+  var area = document.getElementById('exerciseArea' + capKey);
+  var ms = modules[modKey];
+
+  if (!ms.drillQueue.length || ms.drillIdx === 0) {
+    var indices = [];
+    for (var i = 0; i < section.exercises.length; i++) indices.push(i);
+    ms.drillQueue = shuffleArray(indices).slice(0, Math.min(20, section.exercises.length));
+    ms.drillIdx = 0;
+    ms.drillCorrect = 0;
+  }
+
+  if (ms.drillIdx >= ms.drillQueue.length) {
+    var score = ms.drillCorrect;
+    var total = ms.drillQueue.length;
+    var pct = Math.round(score / total * 100);
+    var msg = pct >= 80 ? 'Excellent!' : pct >= 60 ? 'Good effort!' : 'Keep practising!';
+    area.innerHTML = '<div class="drill-banner"><div class="drill-banner__title">' + msg + '</div><div class="drill-banner__desc">Score: ' + score + ' / ' + total + ' (' + pct + '%)</div><button class="btn btn--green" onclick="modules[\'' + modKey + '\'].drillQueue=[];modules[\'' + modKey + '\'].drillIdx=0;renderExercises(\'' + modKey + '\')">Try Again</button></div>';
+    return;
+  }
+
+  var qIdx = ms.drillQueue[ms.drillIdx];
+  var ex = section.exercises[qIdx];
+  var html = '<div class="drill-banner"><div class="drill-banner__title">Drill: ' + escHtml(section.title) + '</div>';
+  html += '<div class="drill-banner__desc">Question ' + (ms.drillIdx + 1) + ' / ' + ms.drillQueue.length + ' &bull; Score: ' + ms.drillCorrect + '</div></div>';
+  html += renderExercise(ex, modKey + '-drill', section.id);
+  area.innerHTML = html;
+}
+
+/* ════════════════════════════════════════════════════
+   GENERIC EXERCISE RENDERER
+   ════════════════════════════════════════════════════ */
+
+function renderExercise(ex, module, parentId) {
+  if (!ex) return '';
+  var uid = parentId + '_' + ex.id;
+  var attempt = getAttempt(uid);
+  var typeLabels = {fill:'Fill in the Blank', mc:'Multiple Choice', error:'Error Correction', open:'Open Response', transform:'Transform', combine:'Combine', rewrite:'Rewrite'};
+  var type = ex.type || 'fill';
+  var statusCls = '';
+  var statusIcon = '';
+  if (attempt) {
+    statusCls = attempt.correct ? ' exercise--done' : ' exercise--wrong';
+    statusIcon = attempt.correct ? ' &#10003;' : ' &#10007;';
+  }
+  var html = '<div class="exercise' + statusCls + '" id="ex_' + uid + '">';
+  html += '<span class="exercise__type exercise__type--' + type + '">' + (typeLabels[type] || type) + statusIcon + '</span>';
+  if (ex.instruction) {
+    html += '<div class="exercise__instruction">' + escHtml(ex.instruction) + '</div>';
+  }
+
+  switch (type) {
+    case 'fill':
+      html += renderFillExercise(ex, uid, module);
+      break;
+    case 'mc':
+      html += renderMCExercise(ex, uid, module);
+      break;
+    case 'error':
+      html += renderErrorExercise(ex, uid, module);
+      break;
+    default:
+      html += renderOpenExercise(ex, uid, module, type);
+  }
+
+  html += '<div class="feedback" id="fb_' + uid + '"></div>';
+  html += '</div>';
+  return html;
+}
+
+function renderFillExercise(ex, uid, module) {
+  var attempt = getAttempt(uid);
+  var done = attempt !== null;
+  var wasCorrect = done && attempt.correct;
+  var wasWrong = done && !attempt.correct;
+  var parts = ex.q.split('___');
+  var blankCount = parts.length - 1;
+  var answers = blankCount > 1 ? ex.a.split(/\s*\.\.\.\s*/) : [ex.a];
+  var userParts = [];
+  if (wasWrong && attempt.ans) {
+    userParts = attempt.ans.split(/\s*\.\.\.\s*/);
+  }
+  var html = '<div class="exercise__q">';
+  if (blankCount >= 1) {
+    for (var b = 0; b < parts.length; b++) {
+      html += escHtml(parts[b]);
+      if (b < blankCount) {
+        var ans = answers[b] || '';
+        var inputId = blankCount > 1 ? 'inp_' + uid + '_' + b : 'inp_' + uid;
+        if (wasCorrect) {
+          html += '<input type="text" class="fill-input fill-input--correct" id="' + inputId + '" value="' + escHtml(ans) + '" disabled autocomplete="off" data-fill-group="' + uid + '">';
+        } else if (wasWrong) {
+          var userVal = userParts[b] || attempt.ans || '';
+          html += '<input type="text" class="fill-input fill-input--wrong" id="' + inputId + '" value="' + escHtml(userVal) + '" disabled autocomplete="off" data-fill-group="' + uid + '">';
+        } else {
+          html += '<input type="text" class="fill-input" id="' + inputId + '" placeholder="..." autocomplete="off" data-fill-group="' + uid + '" onkeydown="if(event.key===\'Enter\')checkAnswer(\'' + uid + '\',\'' + module + '\')">';
+        }
+      }
+    }
+  } else {
+    html += escHtml(ex.q);
+    if (wasCorrect) {
+      html += '<br><input type="text" class="fill-input fill-input--correct" id="inp_' + uid + '" value="' + escHtml(ex.a) + '" disabled autocomplete="off" data-fill-group="' + uid + '">';
+    } else if (wasWrong) {
+      html += '<br><input type="text" class="fill-input fill-input--wrong" id="inp_' + uid + '" value="' + escHtml(attempt.ans) + '" disabled autocomplete="off" data-fill-group="' + uid + '">';
+    } else {
+      html += '<br><input type="text" class="fill-input" id="inp_' + uid + '" placeholder="Your answer..." autocomplete="off" data-fill-group="' + uid + '" onkeydown="if(event.key===\'Enter\')checkAnswer(\'' + uid + '\',\'' + module + '\')">';
+    }
+  }
+  html += '</div>';
+  if (wasWrong) {
+    html += '<div style="margin-top:6px"><span class="correct-answer">Correct: ' + escHtml(ex.a) + '</span></div>';
+    html += '<button class="btn btn--outline btn--small" style="margin-top:6px" onclick="retryExercise(\'' + uid + '\',\'' + module + '\')">Retry</button>';
+  }
+  if (!done) html += '<button class="btn btn--teal btn--small" onclick="checkAnswer(\'' + uid + '\',\'' + module + '\')">Check</button>';
+  if (done && ex.exp) {
+    html += '<div class="feedback ' + (wasCorrect ? 'feedback--correct' : 'feedback--wrong') + '" style="display:block;margin-top:8px">' + escHtml(ex.exp) + '</div>';
+  }
+  return html;
+}
+
+function renderMCExercise(ex, uid, module) {
+  var attempt = getAttempt(uid);
+  var done = attempt !== null;
+  var wasCorrect = done && attempt.correct;
+  var wasWrong = done && !attempt.correct;
+  var html = '<div class="exercise__q">' + escHtml(ex.q) + '</div>';
+  html += '<div class="mc-options" id="opts_' + uid + '">';
+  for (var i = 0; i < ex.options.length; i++) {
+    var cls = 'mc-opt';
+    if (done && i === ex.a) cls += ' mc-opt--correct';
+    if (wasWrong && i === attempt.ans) cls += ' mc-opt--wrong';
+    if (done) cls += ' mc-opt--dimmed';
+    html += '<button class="' + cls + '"' + (done ? ' disabled' : ' onclick="checkMC(\'' + uid + '\',' + i + ',\'' + module + '\')"') + '>' + escHtml(ex.options[i]) + '</button>';
+  }
+  html += '</div>';
+  if (wasWrong) {
+    html += '<button class="btn btn--outline btn--small" style="margin-top:6px" onclick="retryExercise(\'' + uid + '\',\'' + module + '\')">Retry</button>';
+  }
+  if (done && ex.exp) {
+    html += '<div class="feedback ' + (wasCorrect ? 'feedback--correct' : 'feedback--wrong') + '" style="display:block;margin-top:8px">' + escHtml(ex.exp) + '</div>';
+  }
+  return html;
+}
+
+function renderErrorExercise(ex, uid, module) {
+  var attempt = getAttempt(uid);
+  var done = attempt !== null;
+  var wasCorrect = done && attempt.correct;
+  var wasWrong = done && !attempt.correct;
+  var html = '<div class="exercise__q" style="color:var(--red)">Find and correct the error:</div>';
+  html += '<div class="exercise__q" style="font-style:italic;background:var(--red-light);padding:10px 14px;border-radius:6px">' + escHtml(ex.q) + '</div>';
+  if (wasCorrect) {
+    html += '<div style="padding:8px 14px;background:var(--green-light);border-radius:6px;color:var(--green);font-weight:600">' + escHtml(ex.a) + '</div>';
+  } else if (wasWrong) {
+    html += '<div style="padding:8px 14px;background:var(--red-light);border-radius:6px;color:var(--red);font-weight:600;text-decoration:line-through">' + escHtml(attempt.ans) + '</div>';
+    html += '<div style="padding:8px 14px;background:var(--green-light);border-radius:6px;color:var(--green);font-weight:600;margin-top:4px">Correct: ' + escHtml(ex.a) + '</div>';
+    html += '<button class="btn btn--outline btn--small" style="margin-top:6px" onclick="retryExercise(\'' + uid + '\',\'' + module + '\')">Retry</button>';
+  } else {
+    html += '<textarea class="answer-area" id="inp_' + uid + '" placeholder="Write the corrected sentence..." rows="2"></textarea>';
+    html += '<button class="btn btn--teal btn--small" style="margin-top:8px" onclick="checkAnswer(\'' + uid + '\',\'' + module + '\')">Check</button>';
+  }
+  if (done && ex.exp) {
+    html += '<div class="feedback ' + (wasCorrect ? 'feedback--correct' : 'feedback--wrong') + '" style="display:block;margin-top:8px">' + escHtml(ex.exp) + '</div>';
+  }
+  return html;
+}
+
+function renderOpenExercise(ex, uid, module, type) {
+  var attempt = getAttempt(uid);
+  var done = attempt !== null;
+  var wasCorrect = done && attempt.correct;
+  var wasWrong = done && !attempt.correct;
+  var html = '<div class="exercise__q" style="background:var(--grey-light);padding:10px 14px;border-radius:6px">' + escHtml(ex.q) + '</div>';
+  if (wasCorrect) {
+    html += '<div style="padding:8px 14px;background:var(--green-light);border-radius:6px;color:var(--green);font-weight:600">' + escHtml(ex.a) + '</div>';
+  } else if (wasWrong) {
+    html += '<div style="padding:8px 14px;background:var(--red-light);border-radius:6px;color:var(--red);font-weight:600;text-decoration:line-through">' + escHtml(attempt.ans) + '</div>';
+    html += '<div style="padding:8px 14px;background:var(--green-light);border-radius:6px;color:var(--green);font-weight:600;margin-top:4px">Model: ' + escHtml(ex.a) + '</div>';
+    html += '<button class="btn btn--outline btn--small" style="margin-top:6px" onclick="retryExercise(\'' + uid + '\',\'' + module + '\')">Retry</button>';
+  } else {
+    html += '<textarea class="answer-area" id="inp_' + uid + '" placeholder="Your answer..." rows="2"></textarea>';
+    html += '<div style="display:flex;gap:8px;margin-top:8px">';
+    html += '<button class="btn btn--teal btn--small" onclick="checkAnswer(\'' + uid + '\',\'' + module + '\')">Check</button>';
+    html += '<button class="btn btn--outline btn--small" onclick="revealAnswer(\'' + uid + '\')">Show Answer</button>';
+    html += '</div>';
+  }
+  if (done && ex.exp) {
+    html += '<div class="feedback ' + (wasCorrect ? 'feedback--correct' : 'feedback--wrong') + '" style="display:block;margin-top:8px">' + escHtml(ex.exp) + '</div>';
+  }
+  return html;
+}
+
+/* ════════════════════════════════════════════════════
+   ANSWER CHECKING
+   ════════════════════════════════════════════════════ */
+
+function getExerciseByUid(uid) {
+  for (var m = 0; m < MODULE_KEYS.length; m++) {
+    var sections = getSections(MODULE_KEYS[m]);
+    for (var s = 0; s < sections.length; s++) {
+      var sec = sections[s];
+      if (uid.indexOf(sec.id + '_') === 0) {
+        var exId = uid.substring(sec.id.length + 1);
+        for (var e = 0; e < sec.exercises.length; e++) {
+          if (sec.exercises[e].id === exId) return sec.exercises[e];
+        }
+      }
+    }
+  }
+  return null;
+}
+
+function getModuleKeyFromModule(module) {
+  // module can be 'classroom', 'classroom-drill', etc.
+  return module.replace('-drill', '');
+}
+
+function checkAnswer(uid, module) {
+  var ex = getExerciseByUid(uid);
+  if (!ex) return;
+
+  var inputs = document.querySelectorAll('[data-fill-group="' + uid + '"]');
+  var singleInput = document.getElementById('inp_' + uid);
+  var userAns = '';
+
+  if (inputs.length > 1) {
+    var parts = [];
+    for (var i = 0; i < inputs.length; i++) {
+      var v = (inputs[i].value || '').trim();
+      if (!v) return;
+      parts.push(v);
+    }
+    userAns = parts.join(' ... ');
+  } else if (singleInput) {
+    userAns = (singleInput.value || singleInput.textContent || '').trim();
+    if (!userAns) return;
+    inputs = [singleInput];
+  } else {
+    return;
+  }
+
+  var fb = document.getElementById('fb_' + uid);
+  var correct = normalise(userAns) === normalise(ex.a);
+
+  // Multi-blank per-part check
+  if (!correct && inputs.length > 1) {
+    var expectedParts = ex.a.split(/\s*\.\.\.\s*/);
+    var allMatch = true;
+    for (var j = 0; j < inputs.length; j++) {
+      if (normalise((inputs[j].value || '').trim()) !== normalise(expectedParts[j] || '')) {
+        allMatch = false;
+        break;
+      }
+    }
+    correct = allMatch;
+  }
+
+  // Save attempt
+  wpState.answered[uid] = { ans: userAns, correct: correct };
+  saveState();
+
+  var exDiv = document.getElementById('ex_' + uid);
+  if (correct) {
+    if (exDiv) exDiv.classList.add('exercise--done');
+    fb.className = 'feedback feedback--correct';
+    fb.innerHTML = '<span class="feedback__label">Correct!</span> ' + escHtml(ex.exp || '');
+    for (var k = 0; k < inputs.length; k++) {
+      inputs[k].classList.add('fill-input--correct');
+      inputs[k].classList.remove('fill-input--wrong');
+    }
+    markCorrect(uid, module);
+  } else {
+    if (exDiv) exDiv.classList.add('exercise--wrong');
+    fb.className = 'feedback feedback--wrong';
+    fb.innerHTML = '<span class="feedback__label">Not quite.</span> Correct answer: <strong>' + escHtml(ex.a) + '</strong><br>' + escHtml(ex.exp || '');
+    for (var k = 0; k < inputs.length; k++) {
+      inputs[k].classList.add('fill-input--wrong');
+      inputs[k].classList.remove('fill-input--correct');
+    }
+  }
+}
+
+function checkMC(uid, selected, module) {
+  var ex = getExerciseByUid(uid);
+  if (!ex) return;
+  var opts = document.getElementById('opts_' + uid);
+  if (!opts) return;
+  var btns = opts.querySelectorAll('.mc-opt');
+  var correctIdx = ex.a;
+  var isCorrect = (selected === correctIdx);
+
+  wpState.answered[uid] = { ans: selected, correct: isCorrect };
+  saveState();
+
+  for (var i = 0; i < btns.length; i++) {
+    btns[i].disabled = true;
+    btns[i].onclick = null;
+    if (i === correctIdx) btns[i].classList.add('mc-opt--correct');
+    if (i === selected && i !== correctIdx) btns[i].classList.add('mc-opt--wrong');
+  }
+
+  var exDiv = document.getElementById('ex_' + uid);
+  var fb = document.getElementById('fb_' + uid);
+  if (isCorrect) {
+    if (exDiv) exDiv.classList.add('exercise--done');
+    fb.className = 'feedback feedback--correct';
+    fb.innerHTML = '<span class="feedback__label">Correct!</span> ' + escHtml(ex.exp || '');
+    markCorrect(uid, module);
+  } else {
+    if (exDiv) exDiv.classList.add('exercise--wrong');
+    fb.className = 'feedback feedback--wrong';
+    fb.innerHTML = '<span class="feedback__label">Incorrect.</span> ' + escHtml(ex.exp || '');
+  }
+}
+
+function revealAnswer(uid) {
+  var ex = getExerciseByUid(uid);
+  if (!ex) return;
+  var fb = document.getElementById('fb_' + uid);
+  fb.className = 'feedback feedback--info';
+  fb.innerHTML = '<span class="feedback__label">Answer:</span> ' + escHtml(ex.a) + '<br>' + escHtml(ex.exp || '');
+}
+
+function retryExercise(uid, module) {
+  delete wpState.answered[uid];
+  delete wpState.correct[uid];
+  saveState();
+  var modKey = getModuleKeyFromModule(module);
+  renderModule(modKey);
+  updateStats();
+}
+
+function markCorrect(uid, module) {
+  wpState.correct[uid] = 1;
+  var modKey = getModuleKeyFromModule(module);
+
+  if (module.indexOf('-drill') !== -1) {
+    modules[modKey].drillCorrect++;
+    var ms = modules[modKey];
+    setTimeout(function() {
+      ms.drillIdx++;
+      var sections = getSections(modKey);
+      var s = sections[ms.currentSection];
+      renderDrill(modKey, s);
+    }, 1500);
+  }
+
+  saveState();
+  renderSubNav(modKey);
+  updateStats();
+}
+
+/* ════════════════════════════════════════════════════
+   STATS
+   ════════════════════════════════════════════════════ */
+
+function updateStats() {
+  var bar = document.getElementById('statsBar');
+  var total = 0;
+  var totalDone = 0;
+  var modStats = {};
+
+  for (var m = 0; m < MODULE_KEYS.length; m++) {
+    var mk = MODULE_KEYS[m];
+    var sections = getSections(mk);
+    var modTotal = 0;
+    var modDone = 0;
+    for (var s = 0; s < sections.length; s++) {
+      var exCount = sections[s].exercises ? sections[s].exercises.length : 0;
+      modTotal += exCount;
+      modDone += countSectionCorrect(mk, sections[s].id);
+    }
+    total += modTotal;
+    totalDone += modDone;
+    modStats[mk] = { total: modTotal, done: modDone };
+  }
+
+  var html = '';
+  var chipClasses = {
+    classroom: 'stat-chip--classroom',
+    email: 'stat-chip--email',
+    staffroom: 'stat-chip--staffroom',
+    meeting: 'stat-chip--meeting',
+    writing: 'stat-chip--writing',
+    chinese: 'stat-chip--chinese',
+    interview: 'stat-chip--interview'
+  };
+  var chipLabels = {
+    classroom: 'Classroom',
+    email: 'Emails',
+    staffroom: 'Staffroom',
+    meeting: 'Meetings',
+    writing: 'Reflections',
+    chinese: 'CN Errors',
+    interview: 'Interview'
+  };
+
+  for (var m = 0; m < MODULE_KEYS.length; m++) {
+    var mk = MODULE_KEYS[m];
+    var ms = modStats[mk];
+    html += '<span class="stat-chip ' + chipClasses[mk] + '">' + chipLabels[mk] + ': ' + ms.done + '/' + ms.total + '</span>';
+  }
+  html += '<span class="stat-chip stat-chip--total">Total: ' + totalDone + '/' + total + '</span>';
+  bar.innerHTML = html;
+
+  // Update tab counts
+  for (var m = 0; m < MODULE_KEYS.length; m++) {
+    var mk = MODULE_KEYS[m];
+    var ms = modStats[mk];
+    var capKey = mk.charAt(0).toUpperCase() + mk.slice(1);
+    var el = document.getElementById('tc' + capKey);
+    if (el) el.textContent = ms.done + '/' + ms.total;
+  }
+}
+
+/* ════════════════════════════════════════════════════
+   SYNC (shared with other pages via sync.js)
+   ════════════════════════════════════════════════════ */
+
+// Sync functions are loaded from js/sync.js
+// They work with all pte_* localStorage keys
+
+/* ════════════════════════════════════════════════════
+   INIT
+   ════════════════════════════════════════════════════ */
+
+(function init() {
+  // Restore nav state
+  if (wpState._nav) {
+    if (wpState._nav.tab) currentTab = wpState._nav.tab;
+    if (wpState._nav.modules) {
+      for (var k in wpState._nav.modules) {
+        if (modules[k]) {
+          var saved = wpState._nav.modules[k];
+          if (typeof saved.section === 'number') modules[k].currentSection = saved.section;
+          if (saved.mode) modules[k].mode = saved.mode;
+          if (typeof saved.page === 'number') modules[k].studyIdx = saved.page;
+        }
+      }
+    }
+  }
+
+  // Activate correct tab
+  switchMainTab(currentTab);
+
+  // Restore mode toggle buttons for active tab
+  var capKey = currentTab.charAt(0).toUpperCase() + currentTab.slice(1);
+  var btns = document.querySelectorAll('#panel' + capKey + ' .mode-toggle__btn');
+  for (var i = 0; i < btns.length; i++) {
+    btns[i].classList.toggle('mode-toggle__btn--active', (i === 0 && modules[currentTab].mode === 'study') || (i === 1 && modules[currentTab].mode === 'drill'));
+  }
+
+  updateStats();
+})();
+</script>
+</body>
+</html>
