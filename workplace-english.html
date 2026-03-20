@@ -375,7 +375,15 @@ var INFO_CLASSES = {
 
 function getModuleData(key) {
   var dataKey = MODULE_MAP[key];
-  return DATA[dataKey] || { title: key, sections: [] };
+  var mod = DATA[dataKey] || { title: key, sections: [] };
+  /* Merge professionalEmails2 into email tab */
+  if (key === 'email' && DATA.professionalEmails2) {
+    var extra = DATA.professionalEmails2.sections || [];
+    if (extra.length && mod.sections.indexOf(extra[0]) === -1) {
+      mod = { title: mod.title, sections: mod.sections.concat(extra) };
+    }
+  }
+  return mod;
 }
 
 function getSections(key) {
