@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>FSI Pattern Drills — PTE Workplace English</title>
+<style>
+:root{--bg:#f8f9fa;--card:#fff;--text:#1a1a2e;--muted:#6c757d;--primary:#2563eb;--primary-light:#dbeafe;--green:#27ae60;--green-light:#d4efdf;--red:#e74c3c;--red-light:#fadbd8;--yellow:#f39c12;--yellow-light:#fef9e7;--orange:#e67e22;--border:#dee2e6;--radius:12px;--shadow:0 2px 8px rgba(0,0,0,.08)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+.container{max-width:800px;margin:0 auto;padding:16px}
+h1{font-size:1.5rem;text-align:center;margin-bottom:4px}
+.subtitle{text-align:center;color:var(--muted);font-size:.85rem;margin-bottom:16px}
+.back-link{display:inline-block;color:var(--primary);text-decoration:none;font-size:.85rem;margin-bottom:12px}
+
+/* Module Tabs */
+.mod-tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:8px;margin-bottom:16px;-webkit-overflow-scrolling:touch}
+.mod-tab{flex-shrink:0;padding:8px 16px;border:2px solid var(--border);border-radius:20px;background:var(--card);cursor:pointer;font-size:.85rem;font-weight:600;white-space:nowrap;transition:.2s}
+.mod-tab:hover{border-color:var(--primary);color:var(--primary)}
+.mod-tab--active{background:var(--primary);color:#fff;border-color:var(--primary)}
+.mod-tab .tab-count{font-size:.7rem;opacity:.7;margin-left:4px}
+
+/* Drill Type Selector */
+.type-bar{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
+.type-btn{padding:6px 14px;border:2px solid var(--border);border-radius:16px;background:var(--card);cursor:pointer;font-size:.8rem;font-weight:600;transition:.2s}
+.type-btn:hover{border-color:var(--primary)}
+.type-btn--active{background:var(--primary-light);border-color:var(--primary);color:var(--primary)}
+
+/* Mode Toggle */
+.mode-bar{display:flex;gap:8px;align-items:center;margin-bottom:16px;padding:8px 12px;background:var(--card);border-radius:var(--radius);border:1px solid var(--border)}
+.mode-bar label{font-size:.85rem;font-weight:600;margin-right:8px}
+.mode-btn{padding:6px 14px;border:2px solid var(--border);border-radius:12px;background:var(--card);cursor:pointer;font-size:.8rem;font-weight:600;transition:.2s}
+.mode-btn--active{background:var(--primary);color:#fff;border-color:var(--primary)}
+
+/* Drill Area */
+.drill-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px;margin-bottom:16px;text-align:center}
+.drill-label{font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.drill-instruction{font-size:.9rem;color:var(--primary);font-weight:600;margin-bottom:12px}
+.drill-base{font-size:1.3rem;font-weight:700;margin-bottom:16px;line-height:1.4;min-height:2.8em}
+.drill-cue{display:inline-block;font-size:1.4rem;font-weight:800;color:var(--primary);background:var(--primary-light);padding:8px 20px;border-radius:8px;margin-bottom:16px;min-height:2.4em;line-height:2.4em}
+.drill-add{font-size:1rem;color:var(--orange);font-weight:600;margin-bottom:8px}
+
+/* Timer Bar */
+.timer-wrap{width:100%;height:8px;background:var(--border);border-radius:4px;margin-bottom:16px;overflow:hidden}
+.timer-bar{height:100%;background:var(--green);border-radius:4px;transition:width .1s linear,background .3s}
+.timer-bar--warn{background:var(--yellow)}
+.timer-bar--danger{background:var(--red)}
+.timer-text{text-align:center;font-size:.8rem;color:var(--muted);margin-bottom:8px}
+.timer-text--warn{color:var(--red);font-weight:700;animation:pulse .5s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+/* Input Area */
+.answer-input{width:100%;padding:12px 16px;font-size:1.1rem;border:2px solid var(--border);border-radius:8px;text-align:center;outline:none;transition:.2s}
+.answer-input:focus{border-color:var(--primary)}
+.answer-input--correct{border-color:var(--green);background:var(--green-light);color:var(--green)}
+.answer-input--wrong{border-color:var(--red);background:var(--red-light);color:var(--red)}
+.answer-input:disabled{opacity:.8}
+
+/* Oral Mode Buttons */
+.oral-btns{display:flex;gap:12px;justify-content:center;margin-top:12px}
+.oral-btn{padding:12px 24px;border:none;border-radius:8px;font-size:1rem;font-weight:700;cursor:pointer;transition:.2s}
+.oral-btn--show{background:var(--primary);color:#fff}
+.oral-btn--got{background:var(--green);color:#fff}
+.oral-btn--missed{background:var(--red);color:#fff}
+
+/* Correct Answer Display */
+.correct-ans{margin-top:12px;padding:12px;background:var(--green-light);border-radius:8px;font-size:1.05rem;font-weight:600;color:var(--green);display:none}
+.correct-ans--visible{display:block}
+
+/* Progress & Score */
+.progress-bar{display:flex;align-items:center;gap:12px;margin-bottom:16px;padding:10px 16px;background:var(--card);border-radius:var(--radius);border:1px solid var(--border)}
+.progress-label{font-size:.85rem;font-weight:600;white-space:nowrap}
+.progress-track{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+.progress-fill{height:100%;background:var(--primary);border-radius:3px;transition:width .3s}
+.progress-score{font-size:.85rem;font-weight:700;color:var(--green)}
+
+/* Stats Panel */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px}
+.stat-box{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:10px;text-align:center}
+.stat-val{font-size:1.3rem;font-weight:800}
+.stat-label{font-size:.7rem;color:var(--muted);text-transform:uppercase}
+.stat-val--green{color:var(--green)}
+.stat-val--red{color:var(--red)}
+.stat-val--blue{color:var(--primary)}
+
+/* Drill Selector List */
+.drill-list{list-style:none;margin-bottom:16px}
+.drill-list li{padding:10px 14px;border:1px solid var(--border);border-radius:8px;margin-bottom:6px;cursor:pointer;font-size:.85rem;display:flex;justify-content:space-between;align-items:center;background:var(--card);transition:.2s}
+.drill-list li:hover{border-color:var(--primary);background:var(--primary-light)}
+.drill-list li.active{border-color:var(--primary);background:var(--primary-light)}
+.drill-badge{font-size:.7rem;padding:2px 8px;border-radius:10px;font-weight:700}
+.drill-badge--done{background:var(--green-light);color:var(--green)}
+.drill-badge--partial{background:var(--yellow-light);color:var(--yellow)}
+
+/* Controls */
+.ctrl-bar{display:flex;gap:8px;justify-content:center;margin-top:16px}
+.ctrl-btn{padding:10px 20px;border:2px solid var(--border);border-radius:8px;background:var(--card);cursor:pointer;font-size:.85rem;font-weight:600;transition:.2s}
+.ctrl-btn:hover{border-color:var(--primary)}
+.ctrl-btn--primary{background:var(--primary);color:#fff;border-color:var(--primary)}
+.ctrl-btn--primary:hover{opacity:.9}
+
+/* Speed indicator */
+.speed-flash{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);font-size:2rem;font-weight:800;padding:16px 32px;border-radius:12px;z-index:100;opacity:0;pointer-events:none;transition:opacity .3s}
+.speed-flash--fast{background:var(--green-light);color:var(--green)}
+.speed-flash--slow{background:var(--red-light);color:var(--red)}
+.speed-flash--visible{opacity:1}
+
+/* Empty State */
+.empty-state{text-align:center;padding:40px;color:var(--muted)}
+
+/* Sync bar */
+.sync-bar{display:none;padding:12px;background:#fff3cd;border:1px solid #ffc107;border-radius:var(--radius);margin-bottom:16px;text-align:center}
+.sync-bar.open{display:block}
+.sync-bar input{width:100%;margin:8px 0;padding:8px;border:1px solid var(--border);border-radius:6px;font-size:.8rem}
+.sync-bar button{margin:4px;padding:6px 14px;border:1px solid var(--border);border-radius:6px;background:var(--card);cursor:pointer;font-size:.8rem}
+
+/* Responsive */
+@media(max-width:600px){
+  .container{padding:10px}
+  .drill-base{font-size:1.1rem}
+  .drill-cue{font-size:1.2rem}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .oral-btns{flex-direction:column}
+  .oral-btn{width:100%}
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <a href="index.html" class="back-link">&larr; Back to Study Planner</a>
+  <h1>FSI Pattern Drills</h1>
+  <p class="subtitle">Build automatic English through rapid-fire pattern practice</p>
+
+  <!-- Module Tabs -->
+  <div class="mod-tabs" id="modTabs"></div>
+
+  <!-- Drill Type Filter -->
+  <div class="type-bar" id="typeBar">
+    <button class="type-btn type-btn--active" onclick="filterType('all')">All Drills</button>
+    <button class="type-btn" onclick="filterType('substitution')">Substitution</button>
+    <button class="type-btn" onclick="filterType('transformation')">Transformation</button>
+    <button class="type-btn" onclick="filterType('response')">Response</button>
+    <button class="type-btn" onclick="filterType('expansion')">Expansion</button>
+  </div>
+
+  <!-- Mode Toggle -->
+  <div class="mode-bar">
+    <label>Mode:</label>
+    <button class="mode-btn mode-btn--active" id="btnTyping" onclick="setMode('typing')">Typing</button>
+    <button class="mode-btn" id="btnOral" onclick="setMode('oral')">Oral Practice</button>
+    <span style="flex:1"></span>
+    <button class="ctrl-btn" onclick="toggleSyncBar()" style="font-size:.75rem;padding:4px 10px">Sync</button>
+    <button class="ctrl-btn" onclick="if(confirm('Reset ALL FSI drill progress?')){localStorage.removeItem(STATE_KEY);location.reload()}" style="font-size:.75rem;padding:4px 10px;color:var(--red)">Reset</button>
+  </div>
+
+  <!-- Sync Bar -->
+  <div class="sync-bar" id="syncBar">
+    <strong>Cross-Device Sync</strong><br>
+    <button onclick="exportProgress()">Export Progress</button>
+    <button onclick="importProgress()">Import Progress</button>
+    <input id="syncInput" placeholder="Paste exported code here to import...">
+    <div id="syncMsg" style="font-size:.8rem;margin-top:4px"></div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats">
+    <div class="stat-box"><div class="stat-val stat-val--blue" id="statTotal">0</div><div class="stat-label">Total Drills</div></div>
+    <div class="stat-box"><div class="stat-val stat-val--green" id="statCorrect">0</div><div class="stat-label">Correct</div></div>
+    <div class="stat-box"><div class="stat-val stat-val--red" id="statWrong">0</div><div class="stat-label">Missed</div></div>
+    <div class="stat-box"><div class="stat-val" id="statAvgTime">-</div><div class="stat-label">Avg Speed</div></div>
+  </div>
+
+  <!-- Drill List (shown when not in active drill) -->
+  <div id="drillListArea">
+    <ul class="drill-list" id="drillList"></ul>
+  </div>
+
+  <!-- Active Drill Area (shown during drill) -->
+  <div id="drillArea" style="display:none">
+    <!-- Progress -->
+    <div class="progress-bar">
+      <span class="progress-label" id="repLabel">Rep 1 / 15</span>
+      <div class="progress-track"><div class="progress-fill" id="repFill"></div></div>
+      <span class="progress-score" id="repScore">0/0</span>
+    </div>
+
+    <!-- Drill Card -->
+    <div class="drill-card">
+      <div class="drill-label" id="drillLabel">SUBSTITUTION DRILL</div>
+      <div class="drill-instruction" id="drillInstruction"></div>
+      <div class="drill-base" id="drillBase"></div>
+      <div class="drill-add" id="drillAdd"></div>
+      <div class="drill-cue" id="drillCue"></div>
+
+      <!-- Timer -->
+      <div class="timer-text" id="timerText">3.0s</div>
+      <div class="timer-wrap"><div class="timer-bar" id="timerBar"></div></div>
+
+      <!-- Typing Mode Input -->
+      <div id="typingArea">
+        <input type="text" class="answer-input" id="answerInput" placeholder="Type your answer and press Enter" autocomplete="off" autocapitalize="off">
+      </div>
+
+      <!-- Oral Mode Buttons -->
+      <div id="oralArea" style="display:none">
+        <div class="oral-btns" id="oralBtns1">
+          <button class="oral-btn oral-btn--show" onclick="oralShowAnswer()">Show Answer</button>
+        </div>
+        <div class="oral-btns" id="oralBtns2" style="display:none">
+          <button class="oral-btn oral-btn--got" onclick="oralRate(true)">Got it</button>
+          <button class="oral-btn oral-btn--missed" onclick="oralRate(false)">Missed it</button>
+        </div>
+      </div>
+
+      <!-- Correct Answer -->
+      <div class="correct-ans" id="correctAns"></div>
+    </div>
+
+    <!-- Controls -->
+    <div class="ctrl-bar">
+      <button class="ctrl-btn" onclick="exitDrill()">Exit Drill</button>
+      <button class="ctrl-btn ctrl-btn--primary" id="nextBtn" onclick="nextItem()" style="display:none">Next &rarr;</button>
+    </div>
+  </div>
+
+  <!-- Speed Flash -->
+  <div class="speed-flash" id="speedFlash"></div>
+</div>
+
+<!-- Data Files -->
+<script src="js/fsi-drills-data.js"></script>
+<script src="js/fsi-drills-data-2.js"></script>
+<script src="js/sync.js"></script>
+
+<script>
+/* ════════════════════════════════════════════════════
+   STATE
+   ════════════════════════════════════════════════════ */
+
+var STATE_KEY = 'pte_fsi_drills_v1';
+var state = JSON.parse(localStorage.getItem(STATE_KEY) || '{}');
+if (!state.results) state.results = {};
+if (!state.times) state.times = [];
+function saveState() { localStorage.setItem(STATE_KEY, JSON.stringify(state)); }
+
+var DATA = typeof FSI_DRILLS !== 'undefined' ? FSI_DRILLS : { modules: [] };
+var currentModule = 0;
+var currentTypeFilter = 'all';
+var currentMode = 'typing';
+var activeDrill = null;
+var activeItems = [];
+var activeIdx = 0;
+var drillCorrect = 0;
+var drillTotal = 0;
+var timerInterval = null;
+var timerStart = 0;
+var TIMER_MS = 3000;
+
+/* ════════════════════════════════════════════════════
+   INIT
+   ════════════════════════════════════════════════════ */
+
+function init() {
+  renderModTabs();
+  renderDrillList();
+  updateStats();
+
+  var input = document.getElementById('answerInput');
+  input.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' || e.keyCode === 13) {
+      e.preventDefault();
+      checkTypedAnswer();
+    }
+  });
+}
+
+/* ════════════════════════════════════════════════════
+   MODULE TABS
+   ════════════════════════════════════════════════════ */
+
+function renderModTabs() {
+  var html = '';
+  for (var i = 0; i < DATA.modules.length; i++) {
+    var m = DATA.modules[i];
+    var cls = i === currentModule ? ' mod-tab--active' : '';
+    var count = m.drills ? m.drills.length : 0;
+    html += '<button class="mod-tab' + cls + '" onclick="switchModule(' + i + ')">' +
+      m.title + '<span class="tab-count">(' + count + ')</span></button>';
+  }
+  document.getElementById('modTabs').innerHTML = html;
+}
+
+function switchModule(idx) {
+  currentModule = idx;
+  renderModTabs();
+  renderDrillList();
+}
+
+/* ════════════════════════════════════════════════════
+   DRILL TYPE FILTER
+   ════════════════════════════════════════════════════ */
+
+function filterType(type) {
+  currentTypeFilter = type;
+  var btns = document.querySelectorAll('.type-btn');
+  for (var i = 0; i < btns.length; i++) {
+    btns[i].classList.toggle('type-btn--active', btns[i].textContent.toLowerCase().indexOf(type) >= 0 || (type === 'all' && i === 0));
+  }
+  renderDrillList();
+}
+
+/* ════════════════════════════════════════════════════
+   MODE TOGGLE
+   ════════════════════════════════════════════════════ */
+
+function setMode(mode) {
+  currentMode = mode;
+  document.getElementById('btnTyping').classList.toggle('mode-btn--active', mode === 'typing');
+  document.getElementById('btnOral').classList.toggle('mode-btn--active', mode === 'oral');
+}
+
+/* ════════════════════════════════════════════════════
+   DRILL LIST
+   ════════════════════════════════════════════════════ */
+
+function getFilteredDrills() {
+  var mod = DATA.modules[currentModule];
+  if (!mod || !mod.drills) return [];
+  var drills = mod.drills;
+  if (currentTypeFilter !== 'all') {
+    var filtered = [];
+    for (var i = 0; i < drills.length; i++) {
+      if (drills[i].type === currentTypeFilter) filtered.push(drills[i]);
+    }
+    return filtered;
+  }
+  return drills;
+}
+
+function getDrillItemCount(drill) {
+  if (drill.type === 'substitution') return drill.cues ? drill.cues.length : 0;
+  if (drill.type === 'expansion') return drill.steps ? drill.steps.length : 0;
+  return drill.pairs ? drill.pairs.length : 0;
+}
+
+function getDrillLabel(drill) {
+  var typeLabels = {
+    substitution: 'Substitution',
+    transformation: 'Transformation',
+    response: 'Response',
+    expansion: 'Expansion'
+  };
+  var label = typeLabels[drill.type] || drill.type;
+  if (drill.label) label += ': ' + drill.label;
+  else if (drill.base) label += ': "' + (drill.base.length > 40 ? drill.base.substring(0, 40) + '...' : drill.base) + '"';
+  return label;
+}
+
+function getDrillCompletion(drill) {
+  var key = DATA.modules[currentModule].id + '_' + drill.id;
+  var r = state.results[key];
+  if (!r) return null;
+  return r;
+}
+
+function renderDrillList() {
+  var drills = getFilteredDrills();
+  if (drills.length === 0) {
+    document.getElementById('drillList').innerHTML = '<li class="empty-state">No drills available for this module yet.</li>';
+    return;
+  }
+  var html = '';
+  for (var i = 0; i < drills.length; i++) {
+    var d = drills[i];
+    var count = getDrillItemCount(d);
+    var comp = getDrillCompletion(d);
+    var badge = '';
+    if (comp) {
+      var pct = comp.total > 0 ? Math.round(comp.correct / comp.total * 100) : 0;
+      badge = '<span class="drill-badge ' + (pct >= 80 ? 'drill-badge--done' : 'drill-badge--partial') + '">' + pct + '%</span>';
+    }
+    html += '<li onclick="startDrill(' + i + ')">' +
+      '<span>' + getDrillLabel(d) + ' <span style="color:var(--muted);font-size:.75rem">(' + count + ' items)</span></span>' +
+      badge + '</li>';
+  }
+  document.getElementById('drillList').innerHTML = html;
+  document.getElementById('drillListArea').style.display = '';
+  document.getElementById('drillArea').style.display = 'none';
+}
+
+/* ════════════════════════════════════════════════════
+   START DRILL
+   ════════════════════════════════════════════════════ */
+
+function startDrill(idx) {
+  var drills = getFilteredDrills();
+  activeDrill = drills[idx];
+  if (!activeDrill) return;
+
+  /* Build item list */
+  activeItems = [];
+  if (activeDrill.type === 'substitution' && activeDrill.cues) {
+    for (var i = 0; i < activeDrill.cues.length; i++) {
+      activeItems.push({ cue: activeDrill.cues[i].cue, ans: activeDrill.cues[i].ans });
+    }
+  } else if (activeDrill.type === 'expansion' && activeDrill.steps) {
+    for (var i = 0; i < activeDrill.steps.length; i++) {
+      activeItems.push({
+        base: activeDrill.steps[i].base || (i > 0 ? activeDrill.steps[i - 1].ans : ''),
+        add: activeDrill.steps[i].add,
+        ans: activeDrill.steps[i].ans
+      });
+    }
+  } else if (activeDrill.pairs) {
+    for (var i = 0; i < activeDrill.pairs.length; i++) {
+      activeItems.push({ prompt: activeDrill.pairs[i].prompt, ans: activeDrill.pairs[i].ans });
+    }
+  }
+
+  activeIdx = 0;
+  drillCorrect = 0;
+  drillTotal = 0;
+
+  document.getElementById('drillListArea').style.display = 'none';
+  document.getElementById('drillArea').style.display = '';
+
+  showItem();
+}
+
+function exitDrill() {
+  stopTimer();
+  activeDrill = null;
+  activeItems = [];
+  renderDrillList();
+  updateStats();
+}
+
+/* ════════════════════════════════════════════════════
+   SHOW ITEM
+   ════════════════════════════════════════════════════ */
+
+function showItem() {
+  if (activeIdx >= activeItems.length) {
+    finishDrill();
+    return;
+  }
+
+  var item = activeItems[activeIdx];
+  var labelEl = document.getElementById('drillLabel');
+  var instrEl = document.getElementById('drillInstruction');
+  var baseEl = document.getElementById('drillBase');
+  var cueEl = document.getElementById('drillCue');
+  var addEl = document.getElementById('drillAdd');
+  var correctEl = document.getElementById('correctAns');
+  var input = document.getElementById('answerInput');
+
+  /* Reset UI */
+  correctEl.classList.remove('correct-ans--visible');
+  correctEl.textContent = '';
+  input.value = '';
+  input.className = 'answer-input';
+  input.disabled = false;
+  document.getElementById('nextBtn').style.display = 'none';
+
+  /* Type label */
+  var typeNames = {
+    substitution: 'SUBSTITUTION DRILL',
+    transformation: 'TRANSFORMATION DRILL',
+    response: 'RESPONSE DRILL',
+    expansion: 'EXPANSION DRILL'
+  };
+  labelEl.textContent = typeNames[activeDrill.type] || activeDrill.type.toUpperCase();
+
+  /* Instruction */
+  instrEl.textContent = activeDrill.label || '';
+
+  /* Content by type */
+  if (activeDrill.type === 'substitution') {
+    baseEl.textContent = activeDrill.base;
+    cueEl.textContent = item.cue;
+    cueEl.style.display = '';
+    addEl.style.display = 'none';
+  } else if (activeDrill.type === 'expansion') {
+    baseEl.textContent = item.base || '';
+    cueEl.style.display = 'none';
+    addEl.style.display = '';
+    addEl.textContent = '+ ' + item.add;
+  } else {
+    /* transformation or response */
+    baseEl.textContent = item.prompt;
+    cueEl.style.display = 'none';
+    addEl.style.display = 'none';
+  }
+
+  /* Progress */
+  var total = activeItems.length;
+  document.getElementById('repLabel').textContent = 'Rep ' + (activeIdx + 1) + ' / ' + total;
+  document.getElementById('repFill').style.width = ((activeIdx) / total * 100) + '%';
+  document.getElementById('repScore').textContent = drillCorrect + '/' + drillTotal;
+
+  /* Mode setup */
+  if (currentMode === 'typing') {
+    document.getElementById('typingArea').style.display = '';
+    document.getElementById('oralArea').style.display = 'none';
+    input.focus();
+  } else {
+    document.getElementById('typingArea').style.display = 'none';
+    document.getElementById('oralArea').style.display = '';
+    document.getElementById('oralBtns1').style.display = '';
+    document.getElementById('oralBtns2').style.display = 'none';
+  }
+
+  /* Start timer */
+  startTimer();
+}
+
+/* ════════════════════════════════════════════════════
+   TIMER
+   ════════════════════════════════════════════════════ */
+
+function startTimer() {
+  stopTimer();
+  timerStart = Date.now();
+  var bar = document.getElementById('timerBar');
+  var txt = document.getElementById('timerText');
+  bar.style.width = '100%';
+  bar.className = 'timer-bar';
+  txt.className = 'timer-text';
+  txt.textContent = '3.0s';
+
+  timerInterval = setInterval(function() {
+    var elapsed = Date.now() - timerStart;
+    var remaining = TIMER_MS - elapsed;
+    if (remaining <= 0) remaining = 0;
+    var pct = remaining / TIMER_MS * 100;
+    bar.style.width = pct + '%';
+
+    var secs = (remaining / 1000).toFixed(1);
+    txt.textContent = secs + 's';
+
+    if (remaining <= 1000) {
+      bar.className = 'timer-bar timer-bar--danger';
+      txt.className = 'timer-text timer-text--warn';
+    } else if (remaining <= 2000) {
+      bar.className = 'timer-bar timer-bar--warn';
+    }
+
+    if (remaining <= 0) {
+      stopTimer();
+      handleTimeout();
+    }
+  }, 100);
+}
+
+function stopTimer() {
+  if (timerInterval) {
+    clearInterval(timerInterval);
+    timerInterval = null;
+  }
+}
+
+function handleTimeout() {
+  var item = activeItems[activeIdx];
+  if (currentMode === 'typing') {
+    /* Auto-submit whatever they typed */
+    var input = document.getElementById('answerInput');
+    if (input.value.trim()) {
+      checkTypedAnswer();
+    } else {
+      showSpeedFlash(false);
+      showCorrectAnswer(item.ans, false);
+      drillTotal++;
+      updateRepScore();
+    }
+  } else {
+    /* Oral mode — show answer automatically */
+    showSpeedFlash(false);
+    oralShowAnswer();
+  }
+}
+
+/* ════════════════════════════════════════════════════
+   CHECK ANSWER (TYPING MODE)
+   ════════════════════════════════════════════════════ */
+
+function checkTypedAnswer() {
+  stopTimer();
+  var input = document.getElementById('answerInput');
+  var userAns = input.value.trim();
+  var item = activeItems[activeIdx];
+  var correctAns = item.ans;
+
+  var elapsed = Date.now() - timerStart;
+  var isCorrect = normalise(userAns) === normalise(correctAns);
+
+  drillTotal++;
+  if (isCorrect) {
+    drillCorrect++;
+    input.className = 'answer-input answer-input--correct';
+    showSpeedFlash(true);
+    state.times.push(elapsed);
+  } else {
+    input.className = 'answer-input answer-input--wrong';
+    showSpeedFlash(false);
+    showCorrectAnswer(correctAns, false);
+  }
+
+  input.disabled = true;
+  updateRepScore();
+  document.getElementById('nextBtn').style.display = '';
+
+  /* Auto-advance after short delay for correct answers */
+  if (isCorrect) {
+    setTimeout(function() {
+      if (activeDrill) nextItem();
+    }, 800);
+  }
+}
+
+function normalise(s) {
+  return s.toLowerCase().replace(/[^a-z0-9 ]/g, '').replace(/\s+/g, ' ').trim();
+}
+
+/* ════════════════════════════════════════════════════
+   ORAL MODE
+   ════════════════════════════════════════════════════ */
+
+function oralShowAnswer() {
+  stopTimer();
+  var item = activeItems[activeIdx];
+  showCorrectAnswer(item.ans, true);
+  document.getElementById('oralBtns1').style.display = 'none';
+  document.getElementById('oralBtns2').style.display = '';
+}
+
+function oralRate(gotIt) {
+  drillTotal++;
+  if (gotIt) {
+    drillCorrect++;
+    var elapsed = Date.now() - timerStart;
+    state.times.push(elapsed);
+  }
+  updateRepScore();
+  nextItem();
+}
+
+/* ════════════════════════════════════════════════════
+   HELPERS
+   ════════════════════════════════════════════════════ */
+
+function showCorrectAnswer(ans, show) {
+  var el = document.getElementById('correctAns');
+  el.textContent = ans;
+  el.classList.add('correct-ans--visible');
+}
+
+function showSpeedFlash(fast) {
+  var el = document.getElementById('speedFlash');
+  if (fast) {
+    el.textContent = 'Nice!';
+    el.className = 'speed-flash speed-flash--fast speed-flash--visible';
+  } else {
+    el.textContent = 'Speed up! \u52A0\u5FEB\u901F\u5EA6\uFF01';
+    el.className = 'speed-flash speed-flash--slow speed-flash--visible';
+  }
+  setTimeout(function() {
+    el.classList.remove('speed-flash--visible');
+  }, 600);
+}
+
+function updateRepScore() {
+  document.getElementById('repScore').textContent = drillCorrect + '/' + drillTotal;
+}
+
+function nextItem() {
+  activeIdx++;
+  if (activeIdx >= activeItems.length) {
+    finishDrill();
+  } else {
+    showItem();
+  }
+}
+
+function finishDrill() {
+  stopTimer();
+  /* Save results */
+  var key = DATA.modules[currentModule].id + '_' + activeDrill.id;
+  var prev = state.results[key];
+  if (!prev || drillCorrect > prev.correct) {
+    state.results[key] = { correct: drillCorrect, total: drillTotal };
+  }
+  saveState();
+
+  var pct = drillTotal > 0 ? Math.round(drillCorrect / drillTotal * 100) : 0;
+
+  var area = document.getElementById('drillArea');
+  area.innerHTML =
+    '<div class="drill-card">' +
+    '<h2>Drill Complete!</h2>' +
+    '<div class="stats" style="margin-top:16px">' +
+    '<div class="stat-box"><div class="stat-val stat-val--green">' + drillCorrect + '</div><div class="stat-label">Correct</div></div>' +
+    '<div class="stat-box"><div class="stat-val stat-val--red">' + (drillTotal - drillCorrect) + '</div><div class="stat-label">Missed</div></div>' +
+    '<div class="stat-box"><div class="stat-val stat-val--blue">' + pct + '%</div><div class="stat-label">Accuracy</div></div>' +
+    '<div class="stat-box"><div class="stat-val">' + drillTotal + '</div><div class="stat-label">Total</div></div>' +
+    '</div>' +
+    (pct >= 80 ? '<p style="color:var(--green);font-weight:700;margin-top:12px">Great job! Pattern is becoming automatic.</p>' :
+     '<p style="color:var(--orange);font-weight:700;margin-top:12px">Keep practising! Repeat this drill to build speed.</p>') +
+    '</div>' +
+    '<div class="ctrl-bar">' +
+    '<button class="ctrl-btn" onclick="exitDrill()">Back to List</button>' +
+    '<button class="ctrl-btn ctrl-btn--primary" onclick="replayDrill()">Drill Again</button>' +
+    '</div>';
+}
+
+function replayDrill() {
+  if (!activeDrill) { exitDrill(); return; }
+  activeIdx = 0;
+  drillCorrect = 0;
+  drillTotal = 0;
+
+  /* Rebuild drill area HTML */
+  document.getElementById('drillArea').innerHTML =
+    '<div class="progress-bar">' +
+    '<span class="progress-label" id="repLabel">Rep 1 / ' + activeItems.length + '</span>' +
+    '<div class="progress-track"><div class="progress-fill" id="repFill"></div></div>' +
+    '<span class="progress-score" id="repScore">0/0</span>' +
+    '</div>' +
+    '<div class="drill-card">' +
+    '<div class="drill-label" id="drillLabel"></div>' +
+    '<div class="drill-instruction" id="drillInstruction"></div>' +
+    '<div class="drill-base" id="drillBase"></div>' +
+    '<div class="drill-add" id="drillAdd"></div>' +
+    '<div class="drill-cue" id="drillCue"></div>' +
+    '<div class="timer-text" id="timerText">3.0s</div>' +
+    '<div class="timer-wrap"><div class="timer-bar" id="timerBar"></div></div>' +
+    '<div id="typingArea"><input type="text" class="answer-input" id="answerInput" placeholder="Type your answer and press Enter" autocomplete="off" autocapitalize="off"></div>' +
+    '<div id="oralArea" style="display:none">' +
+    '<div class="oral-btns" id="oralBtns1"><button class="oral-btn oral-btn--show" onclick="oralShowAnswer()">Show Answer</button></div>' +
+    '<div class="oral-btns" id="oralBtns2" style="display:none">' +
+    '<button class="oral-btn oral-btn--got" onclick="oralRate(true)">Got it</button>' +
+    '<button class="oral-btn oral-btn--missed" onclick="oralRate(false)">Missed it</button>' +
+    '</div></div>' +
+    '<div class="correct-ans" id="correctAns"></div>' +
+    '</div>' +
+    '<div class="ctrl-bar">' +
+    '<button class="ctrl-btn" onclick="exitDrill()">Exit Drill</button>' +
+    '<button class="ctrl-btn ctrl-btn--primary" id="nextBtn" onclick="nextItem()" style="display:none">Next &rarr;</button>' +
+    '</div>';
+
+  /* Re-bind Enter key */
+  var input = document.getElementById('answerInput');
+  input.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' || e.keyCode === 13) {
+      e.preventDefault();
+      checkTypedAnswer();
+    }
+  });
+
+  showItem();
+}
+
+/* ════════════════════════════════════════════════════
+   STATS
+   ════════════════════════════════════════════════════ */
+
+function updateStats() {
+  var totalDrills = 0;
+  var totalCorrect = 0;
+  var totalWrong = 0;
+  for (var key in state.results) {
+    var r = state.results[key];
+    totalDrills++;
+    totalCorrect += r.correct;
+    totalWrong += r.total - r.correct;
+  }
+  document.getElementById('statTotal').textContent = totalDrills;
+  document.getElementById('statCorrect').textContent = totalCorrect;
+  document.getElementById('statWrong').textContent = totalWrong;
+
+  if (state.times && state.times.length > 0) {
+    var sum = 0;
+    for (var i = 0; i < state.times.length; i++) sum += state.times[i];
+    var avg = sum / state.times.length / 1000;
+    document.getElementById('statAvgTime').textContent = avg.toFixed(1) + 's';
+  }
+}
+
+/* ════════════════════════════════════════════════════
+   SYNC (reuse sync.js pattern)
+   ════════════════════════════════════════════════════ */
+
+function toggleSyncBar() {
+  var bar = document.getElementById('syncBar');
+  bar.classList.toggle('open');
+}
+
+function exportProgress() {
+  try {
+    var data = {};
+    for (var k in localStorage) {
+      if (k.indexOf('pte_') === 0) data[k] = localStorage.getItem(k);
+    }
+    var encoded = btoa(unescape(encodeURIComponent(JSON.stringify(data))));
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(encoded);
+      document.getElementById('syncMsg').textContent = 'Copied to clipboard!';
+    } else {
+      document.getElementById('syncInput').value = encoded;
+      document.getElementById('syncMsg').textContent = 'Code shown in box - copy it manually.';
+    }
+  } catch (e) {
+    document.getElementById('syncMsg').textContent = 'Export failed: ' + e.message;
+  }
+}
+
+function importProgress() {
+  try {
+    var raw = document.getElementById('syncInput').value.trim();
+    if (!raw) { document.getElementById('syncMsg').textContent = 'Paste a code first.'; return; }
+    var json = JSON.parse(decodeURIComponent(escape(atob(raw))));
+    for (var k in json) {
+      if (k.indexOf('pte_') === 0) {
+        var existing = localStorage.getItem(k);
+        if (existing) {
+          try {
+            var local = JSON.parse(existing);
+            var imported = JSON.parse(json[k]);
+            for (var p in imported) {
+              if (!local[p]) local[p] = imported[p];
+              else if (typeof imported[p] === 'number' && imported[p] > local[p]) local[p] = imported[p];
+              else if (typeof imported[p] === 'object' && typeof local[p] === 'object') {
+                for (var pp in imported[p]) { if (!local[p][pp]) local[p][pp] = imported[p][pp]; }
+              }
+            }
+            localStorage.setItem(k, JSON.stringify(local));
+          } catch (e2) { localStorage.setItem(k, json[k]); }
+        } else {
+          localStorage.setItem(k, json[k]);
+        }
+      }
+    }
+    document.getElementById('syncMsg').textContent = 'Imported! Reloading...';
+    setTimeout(function() { location.reload(); }, 500);
+  } catch (e) {
+    document.getElementById('syncMsg').textContent = 'Import failed: ' + e.message;
+  }
+}
+
+/* ════════════════════════════════════════════════════
+   BOOTSTRAP
+   ════════════════════════════════════════════════════ */
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+
+</body>
+</html>
