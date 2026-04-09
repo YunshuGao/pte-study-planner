@@ -1,0 +1,2404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PTE Speaking Trainer — Score 88 Mission</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+/* ============================================================
+   Speaking Trainer — Inline Styles
+   ============================================================ */
+:root {
+  --sp-bg: #f8f9fa;
+  --sp-card: #fff;
+  --sp-text: #1a1a2e;
+  --sp-muted: #6c757d;
+  --sp-primary: #2563eb;
+  --sp-green: #27ae60;
+  --sp-red: #e74c3c;
+  --sp-yellow: #f39c12;
+  --sp-radius: 12px;
+  --sp-orange: #e67e22;
+  --sp-purple: #8b5cf6;
+}
+
+.sp-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px 16px 60px;
+}
+
+/* --- Header --- */
+.sp-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.sp-header__back {
+  display: inline-block;
+  color: var(--sp-primary);
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.sp-header__back:hover { color: #1d4ed8; }
+.sp-header__title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--sp-text);
+  margin: 0 0 4px;
+  letter-spacing: -0.02em;
+}
+.sp-header__title span { color: var(--sp-primary); }
+.sp-header__subtitle {
+  font-size: 0.9375rem;
+  color: var(--sp-muted);
+  margin: 0 0 10px;
+}
+.sp-stats {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+.sp-stat {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--sp-card);
+  border: 1px solid #e2e8f0;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--sp-text);
+}
+.sp-stat__icon { font-size: 1rem; }
+
+/* --- Reminder Banner --- */
+.sp-reminder {
+  background: linear-gradient(135deg, #fef3c7, #fde68a);
+  color: #92400e;
+  text-align: center;
+  padding: 8px 16px;
+  border-radius: var(--sp-radius);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+/* --- Tabs --- */
+.sp-tabs {
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  margin-bottom: 20px;
+  -webkit-overflow-scrolling: touch;
+}
+.sp-tabs::-webkit-scrollbar { height: 3px; }
+.sp-tabs::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+.sp-tab {
+  flex-shrink: 0;
+  padding: 10px 18px;
+  border: none;
+  background: var(--sp-card);
+  color: var(--sp-muted);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  border-radius: var(--sp-radius);
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 2px solid transparent;
+  white-space: nowrap;
+}
+.sp-tab:hover { color: var(--sp-primary); background: #eff6ff; }
+.sp-tab.active {
+  color: var(--sp-primary);
+  background: #eff6ff;
+  border-color: var(--sp-primary);
+}
+
+/* --- Panel --- */
+.sp-panel { display: none; animation: spFadeIn 0.3s ease; }
+.sp-panel.active { display: block; }
+@keyframes spFadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+/* --- Cards --- */
+.sp-card {
+  background: var(--sp-card);
+  border-radius: var(--sp-radius);
+  padding: 20px;
+  margin-bottom: 16px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  border: 1px solid #e2e8f0;
+}
+.sp-card__title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--sp-text);
+  margin: 0 0 12px;
+}
+
+/* --- Text Display (Read Aloud) --- */
+.sp-text-display {
+  font-size: 1.125rem;
+  line-height: 1.8;
+  color: var(--sp-text);
+  padding: 16px;
+  background: #f8fafc;
+  border-radius: 8px;
+  border-left: 4px solid var(--sp-primary);
+  margin-bottom: 12px;
+}
+.sp-text-display .stress {
+  font-weight: 800;
+  color: var(--sp-primary);
+}
+
+/* --- Difficulty pills --- */
+.sp-diff-pills {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.sp-diff-pill {
+  padding: 4px 14px;
+  border-radius: 20px;
+  border: 2px solid #e2e8f0;
+  background: var(--sp-card);
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: var(--sp-muted);
+}
+.sp-diff-pill.active { border-color: var(--sp-primary); color: var(--sp-primary); background: #eff6ff; }
+.sp-diff-pill:hover { border-color: var(--sp-primary); }
+
+/* --- Timer bar --- */
+.sp-timer-wrap {
+  margin: 12px 0;
+}
+.sp-timer-bar {
+  height: 8px;
+  border-radius: 4px;
+  background: #e2e8f0;
+  overflow: hidden;
+  margin-bottom: 4px;
+}
+.sp-timer-bar__fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.3s linear, background 0.5s;
+  width: 100%;
+  background: var(--sp-green);
+}
+.sp-timer-label {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--sp-muted);
+  text-align: center;
+}
+.sp-timer-label .time-val { color: var(--sp-text); font-size: 1.25rem; }
+
+/* --- Buttons --- */
+.sp-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.sp-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.sp-btn--primary { background: var(--sp-primary); color: #fff; }
+.sp-btn--primary:hover:not(:disabled) { background: #1d4ed8; }
+.sp-btn--green { background: var(--sp-green); color: #fff; }
+.sp-btn--green:hover:not(:disabled) { background: #219a52; }
+.sp-btn--red { background: var(--sp-red); color: #fff; }
+.sp-btn--red:hover:not(:disabled) { background: #c0392b; }
+.sp-btn--yellow { background: var(--sp-yellow); color: #fff; }
+.sp-btn--yellow:hover:not(:disabled) { background: #d68910; }
+.sp-btn--outline {
+  background: transparent;
+  color: var(--sp-primary);
+  border: 2px solid var(--sp-primary);
+}
+.sp-btn--outline:hover:not(:disabled) { background: #eff6ff; }
+.sp-btn--sm { padding: 6px 14px; font-size: 0.75rem; }
+.sp-btn--ghost {
+  background: transparent;
+  color: var(--sp-muted);
+  border: 1px solid #e2e8f0;
+}
+.sp-btn--ghost:hover:not(:disabled) { background: #f1f5f9; color: var(--sp-text); }
+
+.sp-btn-group {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* --- Recording controls --- */
+.sp-rec-controls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 12px 0;
+}
+.sp-rec-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  transition: all 0.2s;
+}
+.sp-rec-btn--record { background: var(--sp-red); color: #fff; }
+.sp-rec-btn--record.recording { animation: spPulse 1s infinite; }
+.sp-rec-btn--play { background: var(--sp-green); color: #fff; }
+.sp-rec-btn--play:disabled { background: #cbd5e1; }
+@keyframes spPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(231,76,60,0.5); }
+  50% { box-shadow: 0 0 0 12px rgba(231,76,60,0); }
+}
+.sp-wpm {
+  font-size: 0.875rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+  background: #f1f5f9;
+}
+.sp-wpm.good { background: #d1fae5; color: #065f46; }
+.sp-wpm.warn { background: #fef3c7; color: #92400e; }
+.sp-wpm.bad { background: #fee2e2; color: #991b1b; }
+
+/* --- Self Assessment --- */
+.sp-assess {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin: 12px 0;
+}
+.sp-assess__item { flex: 1; min-width: 120px; }
+.sp-assess__label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--sp-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
+}
+.sp-stars {
+  display: flex;
+  gap: 2px;
+}
+.sp-star {
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 1.25rem;
+  color: #cbd5e1;
+  transition: color 0.15s;
+  padding: 0;
+}
+.sp-star.filled { color: var(--sp-yellow); }
+.sp-star:hover { color: var(--sp-yellow); }
+
+/* --- Slider (for RS word accuracy) --- */
+.sp-slider-wrap { display: flex; align-items: center; gap: 8px; }
+.sp-slider {
+  flex: 1;
+  -webkit-appearance: none;
+  height: 6px;
+  border-radius: 3px;
+  background: #e2e8f0;
+  outline: none;
+}
+.sp-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: var(--sp-primary);
+  cursor: pointer;
+}
+.sp-slider-val {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--sp-primary);
+  min-width: 40px;
+  text-align: right;
+}
+
+/* --- Nav counter --- */
+.sp-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.sp-counter {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--sp-muted);
+}
+.sp-counter strong { color: var(--sp-text); }
+
+/* --- Progress mini --- */
+.sp-progress-mini {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #e2e8f0;
+}
+.sp-progress-mini__item {
+  font-size: 0.75rem;
+  color: var(--sp-muted);
+  font-weight: 600;
+}
+.sp-progress-mini__item strong { color: var(--sp-text); }
+
+/* --- RS hidden text --- */
+.sp-hidden-text {
+  padding: 16px;
+  background: #1a1a2e;
+  color: #1a1a2e;
+  border-radius: 8px;
+  font-size: 1.125rem;
+  line-height: 1.6;
+  cursor: pointer;
+  transition: color 0.3s;
+  user-select: none;
+  margin-bottom: 12px;
+  text-align: center;
+}
+.sp-hidden-text.revealed {
+  color: #e2e8f0;
+  background: #1e293b;
+}
+.sp-hidden-text__hint {
+  color: #64748b;
+  font-size: 0.75rem;
+  font-weight: 600;
+  pointer-events: none;
+}
+
+/* --- DI image frame --- */
+.sp-image-frame {
+  border: 3px dashed #cbd5e1;
+  border-radius: var(--sp-radius);
+  padding: 24px;
+  text-align: center;
+  background: #f8fafc;
+  margin-bottom: 12px;
+}
+.sp-image-frame__icon { font-size: 3rem; margin-bottom: 8px; }
+.sp-image-frame__type {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--sp-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 4px;
+}
+.sp-image-frame__title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--sp-text);
+  margin-bottom: 8px;
+}
+.sp-image-frame__desc {
+  font-size: 0.875rem;
+  color: var(--sp-muted);
+  line-height: 1.6;
+}
+
+/* --- Checklist --- */
+.sp-checklist { list-style: none; margin: 0 0 12px; padding: 0; }
+.sp-checklist li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 6px 0;
+  font-size: 0.875rem;
+  color: var(--sp-text);
+}
+.sp-checklist input[type="checkbox"] {
+  width: 18px; height: 18px;
+  accent-color: var(--sp-green);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* --- Structure guide --- */
+.sp-structure {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.sp-structure__step {
+  flex: 1;
+  min-width: 100px;
+  padding: 8px 12px;
+  background: #eff6ff;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--sp-primary);
+}
+.sp-structure__step span {
+  display: block;
+  font-size: 1.25rem;
+  margin-bottom: 2px;
+}
+
+/* --- Toggle reveal --- */
+.sp-reveal {
+  background: #f8fafc;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 12px;
+  border: 1px solid #e2e8f0;
+}
+.sp-reveal__toggle {
+  width: 100%;
+  padding: 10px 16px;
+  background: transparent;
+  border: none;
+  text-align: left;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--sp-primary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.sp-reveal__toggle:hover { background: #eff6ff; }
+.sp-reveal__content {
+  display: none;
+  padding: 12px 16px;
+  font-size: 0.875rem;
+  line-height: 1.7;
+  color: var(--sp-text);
+  border-top: 1px solid #e2e8f0;
+}
+.sp-reveal__content.open { display: block; }
+
+/* --- Notes area --- */
+.sp-notes {
+  width: 100%;
+  min-height: 80px;
+  padding: 10px;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.875rem;
+  resize: vertical;
+  margin-bottom: 12px;
+  color: var(--sp-text);
+}
+.sp-notes:focus { border-color: var(--sp-primary); outline: none; }
+
+/* --- ASQ --- */
+.sp-asq-question {
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-align: center;
+  color: var(--sp-text);
+  padding: 24px;
+  background: #f8fafc;
+  border-radius: var(--sp-radius);
+  margin-bottom: 12px;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sp-asq-input-wrap {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.sp-asq-input {
+  flex: 1;
+  padding: 10px 14px;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: inherit;
+  color: var(--sp-text);
+}
+.sp-asq-input:focus { border-color: var(--sp-primary); outline: none; }
+.sp-asq-feedback {
+  text-align: center;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.9375rem;
+  margin-bottom: 12px;
+  display: none;
+}
+.sp-asq-feedback.correct { display: block; background: #d1fae5; color: #065f46; }
+.sp-asq-feedback.incorrect { display: block; background: #fee2e2; color: #991b1b; }
+
+.sp-streak-counter {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--sp-yellow);
+  margin-bottom: 8px;
+}
+
+.sp-score-tracker {
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--sp-text);
+  margin-bottom: 12px;
+}
+
+.sp-speed-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+.sp-speed-toggle label { font-size: 0.8125rem; font-weight: 700; color: var(--sp-muted); }
+.sp-toggle-switch {
+  position: relative;
+  width: 44px;
+  height: 24px;
+}
+.sp-toggle-switch input { opacity: 0; width: 0; height: 0; }
+.sp-toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: #cbd5e1;
+  border-radius: 12px;
+  transition: 0.3s;
+}
+.sp-toggle-slider::before {
+  content: '';
+  position: absolute;
+  width: 18px; height: 18px;
+  left: 3px; bottom: 3px;
+  background: #fff;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+.sp-toggle-switch input:checked + .sp-toggle-slider { background: var(--sp-primary); }
+.sp-toggle-switch input:checked + .sp-toggle-slider::before { transform: translateX(20px); }
+
+/* --- Filter pills (ASQ categories) --- */
+.sp-filter-pills {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+  justify-content: center;
+}
+
+/* --- 14-Day Plan --- */
+.sp-plan-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+}
+.sp-plan-day {
+  background: var(--sp-card);
+  border-radius: var(--sp-radius);
+  padding: 16px;
+  border: 2px solid #e2e8f0;
+  transition: all 0.2s;
+}
+.sp-plan-day.today { border-color: var(--sp-primary); box-shadow: 0 0 0 3px rgba(37,99,235,0.15); }
+.sp-plan-day.completed { border-color: var(--sp-green); background: #f0fdf4; }
+.sp-plan-day__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.sp-plan-day__num {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #fff;
+  background: var(--sp-primary);
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sp-plan-day.completed .sp-plan-day__num { background: var(--sp-green); }
+.sp-plan-day__title {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--sp-text);
+  flex: 1;
+  margin-left: 10px;
+}
+.sp-plan-day__focus {
+  font-size: 0.75rem;
+  color: var(--sp-primary);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.sp-plan-task {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  font-size: 0.8125rem;
+  color: var(--sp-text);
+  padding: 4px 0;
+}
+.sp-plan-task__time {
+  flex-shrink: 0;
+  font-weight: 700;
+  color: var(--sp-muted);
+  min-width: 40px;
+  text-align: right;
+}
+.sp-plan-tip {
+  font-size: 0.75rem;
+  color: var(--sp-muted);
+  font-style: italic;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px dashed #e2e8f0;
+}
+.sp-plan-complete-btn {
+  margin-top: 8px;
+  width: 100%;
+}
+.sp-plan-total {
+  text-align: center;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--sp-muted);
+  margin-bottom: 16px;
+}
+.sp-plan-total strong { color: var(--sp-text); }
+.sp-plan-motivation {
+  text-align: center;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #eff6ff, #dbeafe);
+  border-radius: var(--sp-radius);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--sp-primary);
+  margin-bottom: 16px;
+}
+
+/* --- Quick Start Modal --- */
+.sp-modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+  animation: spFadeIn 0.3s;
+}
+.sp-modal-overlay.hidden { display: none; }
+.sp-modal {
+  background: var(--sp-card);
+  border-radius: var(--sp-radius);
+  max-width: 600px;
+  width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
+  padding: 24px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+.sp-modal h2 {
+  font-size: 1.25rem;
+  color: var(--sp-text);
+  margin: 0 0 16px;
+}
+.sp-modal h3 {
+  font-size: 0.9375rem;
+  color: var(--sp-primary);
+  margin: 12px 0 4px;
+}
+.sp-modal p {
+  font-size: 0.8125rem;
+  color: var(--sp-muted);
+  line-height: 1.6;
+  margin: 0 0 8px;
+}
+.sp-modal__shortcuts {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 4px 12px;
+  margin: 12px 0;
+}
+.sp-modal__shortcuts kbd {
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  padding: 2px 8px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--sp-text);
+}
+.sp-modal__shortcuts span {
+  font-size: 0.8125rem;
+  color: var(--sp-muted);
+}
+
+/* --- Confetti --- */
+.sp-confetti {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 99999;
+}
+
+/* --- Keyboard shortcut hint --- */
+.sp-kbd-hint {
+  font-size: 0.6875rem;
+  color: #94a3b8;
+  font-weight: 600;
+  text-align: center;
+  margin-top: 8px;
+}
+.sp-kbd-hint kbd {
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  border-radius: 3px;
+  padding: 1px 5px;
+  font-size: 0.625rem;
+}
+
+/* --- Responsive --- */
+@media (max-width: 640px) {
+  .sp-header__title { font-size: 1.25rem; }
+  .sp-tab { padding: 8px 12px; font-size: 0.75rem; }
+  .sp-text-display { font-size: 1rem; }
+  .sp-assess { gap: 10px; }
+  .sp-assess__item { min-width: 100px; }
+  .sp-plan-grid { grid-template-columns: 1fr; }
+  .sp-structure__step { min-width: 80px; padding: 6px 8px; }
+  .sp-asq-question { font-size: 1rem; padding: 16px; }
+}
+
+/* --- Dual timer (DI/RL) --- */
+.sp-dual-timer {
+  display: flex;
+  gap: 8px;
+  margin: 12px 0;
+}
+.sp-dual-timer__phase {
+  flex: 1;
+  text-align: center;
+}
+.sp-dual-timer__label {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 4px;
+}
+.sp-dual-timer__label.prep { color: var(--sp-yellow); }
+.sp-dual-timer__label.speak { color: var(--sp-green); }
+
+/* --- Tips panel --- */
+.sp-tips {
+  background: #eff6ff;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-top: 12px;
+}
+.sp-tips__title {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--sp-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
+}
+.sp-tips ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.sp-tips li {
+  font-size: 0.8125rem;
+  color: var(--sp-text);
+  padding: 3px 0;
+  padding-left: 16px;
+  position: relative;
+}
+.sp-tips li::before {
+  content: '\2022';
+  position: absolute;
+  left: 0;
+  color: var(--sp-primary);
+  font-weight: bold;
+}
+
+/* mic error */
+.sp-mic-error {
+  background: #fee2e2;
+  color: #991b1b;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin: 12px 0;
+  display: none;
+}
+.sp-mic-error.show { display: block; }
+</style>
+</head>
+<body>
+
+<!-- Quick Start Modal -->
+<div class="sp-modal-overlay" id="quickStartModal">
+  <div class="sp-modal">
+    <h2>Welcome to PTE Speaking Trainer</h2>
+    <p>Your mission: raise your Speaking score from <strong>69 to 88</strong> in 14 days. Here is how each task works:</p>
+
+    <h3>Read Aloud</h3>
+    <p>Read the displayed text aloud within 30-40 seconds. Stress highlighted words. Aim for 120-135 WPM.</p>
+
+    <h3>Repeat Sentence</h3>
+    <p>Listen to a sentence, then repeat it from memory. The text is hidden until you choose to reveal it.</p>
+
+    <h3>Describe Image</h3>
+    <p>25 seconds to prepare, then 40 seconds to describe the chart/graph. Follow the structure guide.</p>
+
+    <h3>Re-tell Lecture</h3>
+    <p>Listen to a lecture, take notes, then re-tell the key points in 40 seconds.</p>
+
+    <h3>Answer Short Question</h3>
+    <p>Quick-fire general knowledge. Answer in 1-2 words within 10 seconds.</p>
+
+    <h3>Keyboard Shortcuts</h3>
+    <div class="sp-modal__shortcuts">
+      <kbd>Space</kbd><span>Start / Stop recording</span>
+      <kbd>Enter</kbd><span>Next question</span>
+      <kbd>R</kbd><span>Reveal answer</span>
+      <kbd>1-6</kbd><span>Switch tabs</span>
+    </div>
+
+    <div style="text-align:center;margin-top:16px;">
+      <button class="sp-btn sp-btn--primary" onclick="closeQuickStart()" style="padding:12px 40px;font-size:1rem;">Start Training</button>
+    </div>
+  </div>
+</div>
+
+<div class="sp-page">
+
+  <!-- Header -->
+  <header class="sp-header">
+    <a href="index.html" class="sp-header__back">&larr; Back to Study Planner</a>
+    <h1 class="sp-header__title">PTE Speaking Trainer <span>Score 88 Mission</span></h1>
+    <p class="sp-header__subtitle">Current: 69 | Target: 88 | Exam: 26 Apr 2026 | 17-Day Sprint</p>
+    <div class="sp-stats" id="headerStats">
+      <div class="sp-stat"><span class="sp-stat__icon">&#x1F3AF;</span> Sessions: <strong id="statSessions">0</strong></div>
+      <div class="sp-stat"><span class="sp-stat__icon">&#x1F525;</span> Streak: <strong id="statStreak">0</strong> days</div>
+      <div class="sp-stat"><span class="sp-stat__icon">&#x2B50;</span> Avg Score: <strong id="statAvg">--</strong></div>
+    </div>
+  </header>
+
+  <!-- Reminder Banner -->
+  <div class="sp-reminder" id="reminderBanner">
+    &#x26A0; No self-correction! If you stumble, keep going. Fluency &gt; perfection.
+  </div>
+
+  <!-- Mic error -->
+  <div class="sp-mic-error" id="micError">
+    Microphone access was denied. Please allow microphone access in your browser settings to use the recording feature.
+  </div>
+
+  <!-- Tab Navigation -->
+  <div class="sp-tabs" id="tabNav">
+    <button class="sp-tab active" data-tab="ra">Read Aloud</button>
+    <button class="sp-tab" data-tab="rs">Repeat Sentence</button>
+    <button class="sp-tab" data-tab="di">Describe Image</button>
+    <button class="sp-tab" data-tab="rl">Re-tell Lecture</button>
+    <button class="sp-tab" data-tab="asq">Answer Short Q</button>
+    <button class="sp-tab" data-tab="plan">14-Day Plan</button>
+  </div>
+
+  <!-- ============================================================
+       TAB 1: READ ALOUD
+       ============================================================ -->
+  <div class="sp-panel active" id="panel-ra">
+    <div class="sp-card">
+      <div class="sp-nav">
+        <div class="sp-btn-group">
+          <button class="sp-btn sp-btn--ghost sp-btn--sm" id="raPrev">&larr; Prev</button>
+          <button class="sp-btn sp-btn--ghost sp-btn--sm" id="raNext">Next &rarr;</button>
+        </div>
+        <span class="sp-counter" id="raCounter">1 / 12</span>
+      </div>
+
+      <div class="sp-diff-pills" id="raDiffFilter">
+        <button class="sp-diff-pill active" data-diff="All">All</button>
+        <button class="sp-diff-pill" data-diff="Easy">Easy</button>
+        <button class="sp-diff-pill" data-diff="Medium">Medium</button>
+        <button class="sp-diff-pill" data-diff="Hard">Hard</button>
+      </div>
+
+      <div class="sp-card__title" id="raTitle">Climate Change Impact</div>
+      <div class="sp-text-display" id="raText"></div>
+
+      <div class="sp-timer-wrap" id="raTimerWrap">
+        <div class="sp-timer-bar"><div class="sp-timer-bar__fill" id="raTimerFill"></div></div>
+        <div class="sp-timer-label">Time remaining: <span class="time-val" id="raTimeVal">35s</span></div>
+      </div>
+
+      <div class="sp-rec-controls">
+        <button class="sp-rec-btn sp-rec-btn--record" id="raRecBtn" title="Start/Stop Recording (Space)">&#x23FA;</button>
+        <button class="sp-rec-btn sp-rec-btn--play" id="raPlayBtn" disabled title="Play Recording">&#x25B6;</button>
+        <span class="sp-wpm" id="raWpm">-- WPM</span>
+        <button class="sp-btn sp-btn--outline sp-btn--sm" id="raTimerStart">Start Timer</button>
+      </div>
+
+      <div class="sp-assess" id="raAssess">
+        <div class="sp-assess__item">
+          <div class="sp-assess__label">Content</div>
+          <div class="sp-stars" data-assess="ra-content"></div>
+        </div>
+        <div class="sp-assess__item">
+          <div class="sp-assess__label">Fluency</div>
+          <div class="sp-stars" data-assess="ra-fluency"></div>
+        </div>
+        <div class="sp-assess__item">
+          <div class="sp-assess__label">Pronunciation</div>
+          <div class="sp-stars" data-assess="ra-pronunciation"></div>
+        </div>
+      </div>
+
+      <div style="text-align:center;margin-top:8px;">
+        <button class="sp-btn sp-btn--green sp-btn--sm" id="raSaveScore">Save Score</button>
+      </div>
+
+      <div class="sp-progress-mini" id="raProgress">
+        <span class="sp-progress-mini__item">Attempted: <strong id="raAttempted">0</strong></span>
+        <span class="sp-progress-mini__item">Avg Content: <strong id="raAvgContent">--</strong></span>
+        <span class="sp-progress-mini__item">Avg Fluency: <strong id="raAvgFluency">--</strong></span>
+        <span class="sp-progress-mini__item">Avg Pronunciation: <strong id="raAvgPron">--</strong></span>
+      </div>
+
+      <div class="sp-kbd-hint"><kbd>Space</kbd> Record &nbsp; <kbd>Enter</kbd> Next</div>
+
+      <div class="sp-tips">
+        <div class="sp-tips__title">Tips</div>
+        <ul id="raTips"></ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       TAB 2: REPEAT SENTENCE
+       ============================================================ -->
+  <div class="sp-panel" id="panel-rs">
+    <div class="sp-card">
+      <div class="sp-nav">
+        <div class="sp-btn-group">
+          <button class="sp-btn sp-btn--ghost sp-btn--sm" id="rsPrev">&larr; Prev</button>
+          <button class="sp-btn sp-btn--ghost sp-btn--sm" id="rsNext">Next &rarr;</button>
+        </div>
+        <span class="sp-counter" id="rsCounter">1 / 80</span>
+      </div>
+
+      <div class="sp-diff-pills" id="rsCatFilter"></div>
+
+      <div style="text-align:center;margin-bottom:12px;">
+        <button class="sp-btn sp-btn--primary" id="rsPlayBtn">&#x1F50A; Play Sentence</button>
+      </div>
+
+      <div class="sp-hidden-text" id="rsHiddenText" onclick="revealRS()">
+        <span class="sp-hidden-text__hint">Click to reveal after attempting (or press R)</span>
+      </div>
+
+      <div class="sp-timer-wrap">
+        <div class="sp-timer-bar"><div class="sp-timer-bar__fill" id="rsTimerFill"></div></div>
+        <div class="sp-timer-label">Time remaining: <span class="time-val" id="rsTimeVal">15s</span></div>
+      </div>
+
+      <div class="sp-rec-controls">
+        <button class="sp-rec-btn sp-rec-btn--record" id="rsRecBtn" title="Start/Stop Recording (Space)">&#x23FA;</button>
+        <button class="sp-rec-btn sp-rec-btn--play" id="rsRecPlayBtn" disabled title="Play Recording">&#x25B6;</button>
+      </div>
+
+      <div class="sp-assess">
+        <div class="sp-assess__item" style="flex:2;">
+          <div class="sp-assess__label">Word Accuracy</div>
+          <div class="sp-slider-wrap">
+            <input type="range" class="sp-slider" id="rsAccuracy" min="0" max="100" value="50">
+            <span class="sp-slider-val" id="rsAccuracyVal">50%</span>
+          </div>
+        </div>
+        <div class="sp-assess__item">
+          <div class="sp-assess__label">Fluency</div>
+          <div class="sp-stars" data-assess="rs-fluency"></div>
+        </div>
+      </div>
+
+      <div style="text-align:center;margin-top:8px;">
+        <button class="sp-btn sp-btn--green sp-btn--sm" id="rsSaveScore">Save Score</button>
+      </div>
+
+      <div class="sp-progress-mini">
+        <span class="sp-progress-mini__item">Attempted: <strong id="rsAttempted">0</strong></span>
+        <span class="sp-progress-mini__item">Avg Accuracy: <strong id="rsAvgAcc">--</strong></span>
+        <span class="sp-progress-mini__item">Avg Fluency: <strong id="rsAvgFluency">--</strong></span>
+      </div>
+
+      <div class="sp-kbd-hint"><kbd>Space</kbd> Record &nbsp; <kbd>Enter</kbd> Next &nbsp; <kbd>R</kbd> Reveal</div>
+
+      <div class="sp-tips">
+        <div class="sp-tips__title">Tips</div>
+        <ul id="rsTips"></ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       TAB 3: DESCRIBE IMAGE
+       ============================================================ -->
+  <div class="sp-panel" id="panel-di">
+    <div class="sp-card">
+      <div class="sp-nav">
+        <div class="sp-btn-group">
+          <button class="sp-btn sp-btn--ghost sp-btn--sm" id="diPrev">&larr; Prev</button>
+          <button class="sp-btn sp-btn--ghost sp-btn--sm" id="diNext">Next &rarr;</button>
+        </div>
+        <span class="sp-counter" id="diCounter">1 / 6</span>
+      </div>
+
+      <div class="sp-structure">
+        <div class="sp-structure__step"><span>1</span>Identify</div>
+        <div class="sp-structure__step"><span>2</span>Key Features</div>
+        <div class="sp-structure__step"><span>3</span>Data/Details</div>
+        <div class="sp-structure__step"><span>4</span>Conclusion</div>
+      </div>
+
+      <div class="sp-image-frame" id="diImageFrame">
+        <div class="sp-image-frame__icon" id="diIcon">&#x1F4CA;</div>
+        <div class="sp-image-frame__type" id="diType">Bar Chart</div>
+        <div class="sp-image-frame__title" id="diTitle">Title</div>
+        <div class="sp-image-frame__desc" id="diDesc">Description</div>
+      </div>
+
+      <div class="sp-card__title">Key Points</div>
+      <ul class="sp-checklist" id="diChecklist"></ul>
+
+      <div class="sp-dual-timer">
+        <div class="sp-dual-timer__phase">
+          <div class="sp-dual-timer__label prep">Prep (25s)</div>
+          <div class="sp-timer-bar"><div class="sp-timer-bar__fill" id="diPrepFill"></div></div>
+          <div class="sp-timer-label"><span class="time-val" id="diPrepVal">25s</span></div>
+        </div>
+        <div class="sp-dual-timer__phase">
+          <div class="sp-dual-timer__label speak">Speak (40s)</div>
+          <div class="sp-timer-bar"><div class="sp-timer-bar__fill" id="diSpeakFill"></div></div>
+          <div class="sp-timer-label"><span class="time-val" id="diSpeakVal">40s</span></div>
+        </div>
+      </div>
+
+      <div style="text-align:center;margin-bottom:8px;">
+        <button class="sp-btn sp-btn--yellow" id="diTimerStart">Start Prep Timer</button>
+      </div>
+
+      <div class="sp-rec-controls">
+        <button class="sp-rec-btn sp-rec-btn--record" id="diRecBtn" title="Start/Stop Recording (Space)">&#x23FA;</button>
+        <button class="sp-rec-btn sp-rec-btn--play" id="diPlayBtn" disabled title="Play Recording">&#x25B6;</button>
+      </div>
+
+      <div class="sp-assess" id="diAssess">
+        <div class="sp-assess__item">
+          <div class="sp-assess__label">Content</div>
+          <div class="sp-stars" data-assess="di-content"></div>
+        </div>
+        <div class="sp-assess__item">
+          <div class="sp-assess__label">Fluency</div>
+          <div class="sp-stars" data-assess="di-fluency"></div>
+        </div>
+        <div class="sp-assess__item">
+          <div class="sp-assess__label">Pronunciation</div>
+          <div class="sp-stars" data-assess="di-pronunciation"></div>
+        </div>
+      </div>
+
+      <div style="text-align:center;margin-top:8px;">
+        <button class="sp-btn sp-btn--green sp-btn--sm" id="diSaveScore">Save Score</button>
+      </div>
+
+      <div class="sp-reveal">
+        <button class="sp-reveal__toggle" id="diRevealToggle">&#x25B6; Show Sample Response</button>
+        <div class="sp-reveal__content" id="diSampleResp"></div>
+      </div>
+
+      <div class="sp-progress-mini">
+        <span class="sp-progress-mini__item">Attempted: <strong id="diAttempted">0</strong></span>
+        <span class="sp-progress-mini__item">Avg Content: <strong id="diAvgContent">--</strong></span>
+        <span class="sp-progress-mini__item">Avg Fluency: <strong id="diAvgFluency">--</strong></span>
+      </div>
+
+      <div class="sp-tips">
+        <div class="sp-tips__title">Tips</div>
+        <ul id="diTips"></ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       TAB 4: RE-TELL LECTURE
+       ============================================================ -->
+  <div class="sp-panel" id="panel-rl">
+    <div class="sp-card">
+      <div class="sp-nav">
+        <div class="sp-btn-group">
+          <button class="sp-btn sp-btn--ghost sp-btn--sm" id="rlPrev">&larr; Prev</button>
+          <button class="sp-btn sp-btn--ghost sp-btn--sm" id="rlNext">Next &rarr;</button>
+        </div>
+        <span class="sp-counter" id="rlCounter">1 / 5</span>
+      </div>
+
+      <div class="sp-card__title" id="rlTitle">Lecture Title</div>
+
+      <div style="text-align:center;margin-bottom:12px;">
+        <button class="sp-btn sp-btn--primary" id="rlPlayBtn">&#x1F50A; Play Lecture</button>
+        <button class="sp-btn sp-btn--outline sp-btn--sm" id="rlShowTranscript" style="margin-left:8px;">Show Transcript</button>
+      </div>
+
+      <div class="sp-reveal" id="rlTranscriptWrap">
+        <div class="sp-reveal__content" id="rlTranscript" style="display:none;"></div>
+      </div>
+
+      <div class="sp-card__title" style="margin-top:12px;">Notes (keywords only)</div>
+      <textarea class="sp-notes" id="rlNotes" placeholder="Jot quick keywords as you listen..."></textarea>
+
+      <div class="sp-card__title">Key Points</div>
+      <ul class="sp-checklist" id="rlChecklist"></ul>
+
+      <div class="sp-dual-timer">
+        <div class="sp-dual-timer__phase">
+          <div class="sp-dual-timer__label prep">Prep (10s)</div>
+          <div class="sp-timer-bar"><div class="sp-timer-bar__fill" id="rlPrepFill"></div></div>
+          <div class="sp-timer-label"><span class="time-val" id="rlPrepVal">10s</span></div>
+        </div>
+        <div class="sp-dual-timer__phase">
+          <div class="sp-dual-timer__label speak">Speak (40s)</div>
+          <div class="sp-timer-bar"><div class="sp-timer-bar__fill" id="rlSpeakFill"></div></div>
+          <div class="sp-timer-label"><span class="time-val" id="rlSpeakVal">40s</span></div>
+        </div>
+      </div>
+
+      <div style="text-align:center;margin-bottom:8px;">
+        <button class="sp-btn sp-btn--yellow" id="rlTimerStart">Start Prep Timer</button>
+      </div>
+
+      <div class="sp-rec-controls">
+        <button class="sp-rec-btn sp-rec-btn--record" id="rlRecBtn" title="Start/Stop Recording (Space)">&#x23FA;</button>
+        <button class="sp-rec-btn sp-rec-btn--play" id="rlPlayRecBtn" disabled title="Play Recording">&#x25B6;</button>
+      </div>
+
+      <div class="sp-assess" id="rlAssess">
+        <div class="sp-assess__item">
+          <div class="sp-assess__label">Content</div>
+          <div class="sp-stars" data-assess="rl-content"></div>
+        </div>
+        <div class="sp-assess__item">
+          <div class="sp-assess__label">Fluency</div>
+          <div class="sp-stars" data-assess="rl-fluency"></div>
+        </div>
+        <div class="sp-assess__item">
+          <div class="sp-assess__label">Pronunciation</div>
+          <div class="sp-stars" data-assess="rl-pronunciation"></div>
+        </div>
+      </div>
+
+      <div style="text-align:center;margin-top:8px;">
+        <button class="sp-btn sp-btn--green sp-btn--sm" id="rlSaveScore">Save Score</button>
+      </div>
+
+      <div class="sp-reveal">
+        <button class="sp-reveal__toggle" id="rlRevealToggle">&#x25B6; Show Sample Retelling</button>
+        <div class="sp-reveal__content" id="rlSampleRetelling"></div>
+      </div>
+
+      <div class="sp-progress-mini">
+        <span class="sp-progress-mini__item">Attempted: <strong id="rlAttempted">0</strong></span>
+        <span class="sp-progress-mini__item">Avg Content: <strong id="rlAvgContent">--</strong></span>
+        <span class="sp-progress-mini__item">Avg Fluency: <strong id="rlAvgFluency">--</strong></span>
+      </div>
+
+      <div class="sp-tips">
+        <div class="sp-tips__title">Tips</div>
+        <ul id="rlTips"></ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       TAB 5: ANSWER SHORT QUESTION
+       ============================================================ -->
+  <div class="sp-panel" id="panel-asq">
+    <div class="sp-card">
+      <div class="sp-nav">
+        <span class="sp-counter" id="asqCounter">Question 1 of 60</span>
+        <div class="sp-btn-group">
+          <button class="sp-btn sp-btn--ghost sp-btn--sm" id="asqPrev">&larr;</button>
+          <button class="sp-btn sp-btn--ghost sp-btn--sm" id="asqNext">&rarr;</button>
+        </div>
+      </div>
+
+      <div class="sp-filter-pills" id="asqCatFilter"></div>
+
+      <div class="sp-speed-toggle">
+        <label>Speed Round</label>
+        <div class="sp-toggle-switch">
+          <input type="checkbox" id="asqSpeedMode">
+          <span class="sp-toggle-slider"></span>
+        </div>
+      </div>
+
+      <div class="sp-streak-counter" id="asqStreak">Streak: 0</div>
+      <div class="sp-score-tracker" id="asqScore">Score: 0 / 0</div>
+
+      <div class="sp-asq-question" id="asqQuestion">Loading...</div>
+
+      <div class="sp-timer-wrap">
+        <div class="sp-timer-bar"><div class="sp-timer-bar__fill" id="asqTimerFill"></div></div>
+        <div class="sp-timer-label">Time: <span class="time-val" id="asqTimeVal">10s</span></div>
+      </div>
+
+      <div class="sp-asq-input-wrap">
+        <input type="text" class="sp-asq-input" id="asqInput" placeholder="Type your answer..." autocomplete="off">
+        <button class="sp-btn sp-btn--primary" id="asqSubmit">Submit</button>
+      </div>
+
+      <div class="sp-rec-controls" style="justify-content:center;">
+        <button class="sp-rec-btn sp-rec-btn--record" id="asqRecBtn" title="Voice answer (Space)">&#x23FA;</button>
+      </div>
+
+      <div class="sp-asq-feedback" id="asqFeedback"></div>
+
+      <div style="text-align:center;">
+        <button class="sp-btn sp-btn--outline sp-btn--sm" id="asqStartTimer">Start Timer</button>
+        <button class="sp-btn sp-btn--ghost sp-btn--sm" id="asqReset">Reset Score</button>
+      </div>
+
+      <div class="sp-kbd-hint"><kbd>Enter</kbd> Submit / Next &nbsp; <kbd>Space</kbd> Voice answer</div>
+
+      <div class="sp-tips">
+        <div class="sp-tips__title">Tips</div>
+        <ul id="asqTips"></ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       TAB 6: 14-DAY PLAN
+       ============================================================ -->
+  <div class="sp-panel" id="panel-plan">
+    <div class="sp-plan-motivation" id="planMotivation">Your 14-day mission to Speaking 88 starts now. Every session counts!</div>
+    <div class="sp-plan-total">Days completed: <strong id="planDaysComplete">0</strong> / 14 &nbsp;&bull;&nbsp; Total minutes planned: <strong id="planTotalMins">0</strong></div>
+    <div class="sp-plan-grid" id="planGrid"></div>
+  </div>
+
+</div><!-- /.sp-page -->
+
+<!-- Confetti canvas -->
+<canvas class="sp-confetti" id="confettiCanvas"></canvas>
+
+<script src="js/speaking-data.js"></script>
+<script>
+/* ============================================================
+   PTE Speaking Trainer — Main Application Logic
+   ============================================================ */
+(function() {
+'use strict';
+
+// ---- Storage ----
+const STORAGE_KEY = 'pte-speaking-trainer';
+let state = loadState();
+
+function defaultState() {
+  return {
+    sessionsCompleted: 0,
+    lastSessionDate: null,
+    streak: 0,
+    taskScores: { ra: [], rs: [], di: [], rl: [], asq: [] },
+    planProgress: new Array(14).fill(false),
+    firstVisit: true,
+    raIndex: 0,
+    rsIndex: 0,
+    diIndex: 0,
+    rlIndex: 0,
+    asqIndex: 0,
+    asqCorrect: 0,
+    asqTotal: 0,
+    asqStreak: 0
+  };
+}
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) {
+      const s = JSON.parse(raw);
+      // Ensure all keys exist
+      const def = defaultState();
+      for (const k in def) { if (!(k in s)) s[k] = def[k]; }
+      return s;
+    }
+  } catch(e) {}
+  return defaultState();
+}
+
+function saveState() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e) {}
+}
+
+// ---- Recording System ----
+let mediaRecorder = null;
+let audioChunks = [];
+let currentAudioUrl = null;
+let currentAudio = null;
+let isRecording = false;
+let recordingStartTime = 0;
+let recordingWordCount = 0;
+let wpmInterval = null;
+let micAvailable = null; // null = unknown, true/false
+
+async function startRecording(wpmEl, wordCount) {
+  if (isRecording) return;
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    micAvailable = true;
+    document.getElementById('micError').classList.remove('show');
+    mediaRecorder = new MediaRecorder(stream);
+    audioChunks = [];
+    mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
+    mediaRecorder.start();
+    isRecording = true;
+    recordingStartTime = Date.now();
+    recordingWordCount = wordCount || 0;
+    if (wpmEl && wordCount) {
+      wpmInterval = setInterval(() => {
+        const elapsed = (Date.now() - recordingStartTime) / 1000 / 60;
+        if (elapsed > 0.01) {
+          const wpm = Math.round(wordCount / elapsed);
+          updateWpmDisplay(wpmEl, wpm);
+        }
+      }, 500);
+    }
+  } catch(e) {
+    micAvailable = false;
+    document.getElementById('micError').classList.add('show');
+  }
+}
+
+function stopRecording() {
+  return new Promise(resolve => {
+    if (!mediaRecorder || mediaRecorder.state === 'inactive') { resolve(null); return; }
+    if (wpmInterval) { clearInterval(wpmInterval); wpmInterval = null; }
+    mediaRecorder.onstop = () => {
+      const blob = new Blob(audioChunks, { type: 'audio/webm' });
+      if (currentAudioUrl) URL.revokeObjectURL(currentAudioUrl);
+      currentAudioUrl = URL.createObjectURL(blob);
+      isRecording = false;
+      // Stop mic tracks
+      mediaRecorder.stream.getTracks().forEach(t => t.stop());
+      resolve(currentAudioUrl);
+    };
+    mediaRecorder.stop();
+  });
+}
+
+function playRecording(url) {
+  if (!url) return;
+  if (currentAudio) { currentAudio.pause(); }
+  currentAudio = new Audio(url);
+  currentAudio.play();
+}
+
+function updateWpmDisplay(el, wpm) {
+  if (!el) return;
+  el.textContent = wpm + ' WPM';
+  el.className = 'sp-wpm';
+  if (wpm >= 120 && wpm <= 135) el.classList.add('good');
+  else if ((wpm >= 100 && wpm < 120) || (wpm > 135 && wpm <= 150)) el.classList.add('warn');
+  else el.classList.add('bad');
+}
+
+// ---- TTS ----
+function speak(text, rate, onEnd) {
+  if (!('speechSynthesis' in window)) { if (onEnd) onEnd(); return; }
+  window.speechSynthesis.cancel();
+  const utter = new SpeechSynthesisUtterance(text);
+  utter.rate = rate || 0.95;
+  utter.pitch = 1;
+  utter.lang = 'en-AU';
+  // Try to pick a good voice
+  const voices = window.speechSynthesis.getVoices();
+  const enVoice = voices.find(v => v.lang.startsWith('en') && v.name.includes('Female')) ||
+                  voices.find(v => v.lang.startsWith('en-AU')) ||
+                  voices.find(v => v.lang.startsWith('en'));
+  if (enVoice) utter.voice = enVoice;
+  if (onEnd) utter.onend = onEnd;
+  window.speechSynthesis.speak(utter);
+}
+
+// ---- Timer system ----
+function createTimer(fillEl, valEl, totalSeconds, onTick, onComplete) {
+  let remaining = totalSeconds;
+  fillEl.style.width = '100%';
+  fillEl.style.background = 'var(--sp-green)';
+  valEl.textContent = remaining + 's';
+  const id = setInterval(() => {
+    remaining--;
+    const pct = (remaining / totalSeconds) * 100;
+    fillEl.style.width = pct + '%';
+    if (pct > 50) fillEl.style.background = 'var(--sp-green)';
+    else if (pct > 20) fillEl.style.background = 'var(--sp-yellow)';
+    else fillEl.style.background = 'var(--sp-red)';
+    valEl.textContent = remaining + 's';
+    if (onTick) onTick(remaining);
+    if (remaining <= 0) {
+      clearInterval(id);
+      if (onComplete) onComplete();
+    }
+  }, 1000);
+  return id;
+}
+
+// ---- Stars ----
+const assessScores = {};
+function initStars() {
+  document.querySelectorAll('.sp-stars').forEach(container => {
+    const key = container.dataset.assess;
+    assessScores[key] = 0;
+    container.innerHTML = '';
+    for (let i = 1; i <= 5; i++) {
+      const btn = document.createElement('button');
+      btn.className = 'sp-star';
+      btn.textContent = '\u2605';
+      btn.dataset.val = i;
+      btn.addEventListener('click', () => {
+        assessScores[key] = i;
+        container.querySelectorAll('.sp-star').forEach((s, idx) => {
+          s.classList.toggle('filled', idx < i);
+        });
+      });
+      container.appendChild(btn);
+    }
+  });
+}
+
+function resetStars() {
+  for (const key in assessScores) assessScores[key] = 0;
+  document.querySelectorAll('.sp-star').forEach(s => s.classList.remove('filled'));
+}
+
+// ---- Tabs ----
+const tabs = document.querySelectorAll('.sp-tab');
+const panels = document.querySelectorAll('.sp-panel');
+let activeTab = 'ra';
+
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => switchTab(tab.dataset.tab));
+});
+
+function switchTab(tabId) {
+  activeTab = tabId;
+  tabs.forEach(t => t.classList.toggle('active', t.dataset.tab === tabId));
+  panels.forEach(p => p.classList.toggle('active', p.id === 'panel-' + tabId));
+  // Hide reminder banner for plan tab
+  document.getElementById('reminderBanner').style.display = tabId === 'plan' || tabId === 'asq' ? 'none' : 'block';
+}
+
+// ---- Quick Start Modal ----
+function closeQuickStart() {
+  document.getElementById('quickStartModal').classList.add('hidden');
+  state.firstVisit = false;
+  saveState();
+}
+window.closeQuickStart = closeQuickStart;
+
+if (!state.firstVisit) {
+  document.getElementById('quickStartModal').classList.add('hidden');
+}
+
+// ---- Header Stats ----
+function updateHeaderStats() {
+  document.getElementById('statSessions').textContent = state.sessionsCompleted;
+  document.getElementById('statStreak').textContent = state.streak;
+  // Compute overall average
+  const allScores = [];
+  for (const k in state.taskScores) {
+    state.taskScores[k].forEach(s => {
+      if (typeof s === 'object' && s.avg !== undefined) allScores.push(s.avg);
+      else if (typeof s === 'number') allScores.push(s);
+    });
+  }
+  document.getElementById('statAvg').textContent = allScores.length ? (allScores.reduce((a,b) => a+b, 0) / allScores.length).toFixed(1) : '--';
+}
+
+function recordSession() {
+  const today = new Date().toDateString();
+  if (state.lastSessionDate === today) {
+    // Already recorded today
+  } else {
+    const yesterday = new Date(Date.now() - 86400000).toDateString();
+    if (state.lastSessionDate === yesterday) {
+      state.streak++;
+    } else {
+      state.streak = 1;
+    }
+    state.lastSessionDate = today;
+  }
+  state.sessionsCompleted++;
+  saveState();
+  updateHeaderStats();
+}
+
+// ============================================================
+// TAB 1: READ ALOUD
+// ============================================================
+let raFiltered = [...READ_ALOUD_TEXTS];
+let raIdx = state.raIndex || 0;
+let raTimerId = null;
+let raAudioUrl = null;
+
+function raFilterTexts(diff) {
+  raFiltered = diff === 'All' ? [...READ_ALOUD_TEXTS] : READ_ALOUD_TEXTS.filter(t => t.difficulty.toLowerCase() === diff.toLowerCase());
+  raIdx = 0;
+  raRender();
+}
+
+document.querySelectorAll('#raDiffFilter .sp-diff-pill').forEach(pill => {
+  pill.addEventListener('click', () => {
+    document.querySelectorAll('#raDiffFilter .sp-diff-pill').forEach(p => p.classList.remove('active'));
+    pill.classList.add('active');
+    raFilterTexts(pill.dataset.diff);
+  });
+});
+
+function raRender() {
+  if (raFiltered.length === 0) {
+    document.getElementById('raText').textContent = 'No texts available for this filter.';
+    return;
+  }
+  if (raIdx >= raFiltered.length) raIdx = 0;
+  if (raIdx < 0) raIdx = raFiltered.length - 1;
+  const item = raFiltered[raIdx];
+  const raTitle = item.title || item.topic || 'Untitled';
+  const raDiff = item.difficulty.charAt(0).toUpperCase() + item.difficulty.slice(1);
+  document.getElementById('raTitle').textContent = raTitle + ' (' + raDiff + ')';
+  // Highlight stress words
+  let html = item.text;
+  item.stressWords.forEach(w => {
+    const re = new RegExp('\\b(' + w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')\\b', 'gi');
+    html = html.replace(re, '<span class="stress">$1</span>');
+  });
+  document.getElementById('raText').innerHTML = html;
+  document.getElementById('raCounter').innerHTML = (raIdx + 1) + ' / ' + raFiltered.length;
+  // Reset timer
+  document.getElementById('raTimerFill').style.width = '100%';
+  document.getElementById('raTimerFill').style.background = 'var(--sp-green)';
+  document.getElementById('raTimeVal').textContent = '35s';
+  if (raTimerId) { clearInterval(raTimerId); raTimerId = null; }
+  // Reset WPM
+  document.getElementById('raWpm').textContent = '-- WPM';
+  document.getElementById('raWpm').className = 'sp-wpm';
+  // Reset play btn
+  document.getElementById('raPlayBtn').disabled = true;
+  raAudioUrl = null;
+  // Update progress
+  raUpdateProgress();
+}
+
+document.getElementById('raPrev').addEventListener('click', () => { raIdx--; raRender(); resetStars(); });
+document.getElementById('raNext').addEventListener('click', () => { raIdx++; raRender(); resetStars(); });
+
+document.getElementById('raTimerStart').addEventListener('click', () => {
+  if (raTimerId) { clearInterval(raTimerId); raTimerId = null; }
+  raTimerId = createTimer(
+    document.getElementById('raTimerFill'),
+    document.getElementById('raTimeVal'),
+    35, null, () => { raTimerId = null; }
+  );
+});
+
+// Record
+document.getElementById('raRecBtn').addEventListener('click', async () => {
+  const btn = document.getElementById('raRecBtn');
+  if (!isRecording) {
+    const item = raFiltered[raIdx];
+    await startRecording(document.getElementById('raWpm'), item ? item.wordCount : 0);
+    if (isRecording) btn.classList.add('recording');
+  } else {
+    btn.classList.remove('recording');
+    raAudioUrl = await stopRecording();
+    document.getElementById('raPlayBtn').disabled = false;
+    // Final WPM
+    if (raFiltered[raIdx]) {
+      const elapsed = (Date.now() - recordingStartTime) / 1000 / 60;
+      if (elapsed > 0.01) {
+        updateWpmDisplay(document.getElementById('raWpm'), Math.round(raFiltered[raIdx].wordCount / elapsed));
+      }
+    }
+  }
+});
+
+document.getElementById('raPlayBtn').addEventListener('click', () => playRecording(raAudioUrl));
+
+document.getElementById('raSaveScore').addEventListener('click', () => {
+  const content = assessScores['ra-content'] || 0;
+  const fluency = assessScores['ra-fluency'] || 0;
+  const pron = assessScores['ra-pronunciation'] || 0;
+  if (content === 0 && fluency === 0 && pron === 0) return;
+  const avg = (content + fluency + pron) / 3;
+  state.taskScores.ra.push({ content, fluency, pron, avg, id: raFiltered[raIdx]?.id, date: new Date().toISOString() });
+  recordSession();
+  raUpdateProgress();
+  resetStars();
+});
+
+function raUpdateProgress() {
+  const scores = state.taskScores.ra;
+  document.getElementById('raAttempted').textContent = scores.length;
+  if (scores.length) {
+    document.getElementById('raAvgContent').textContent = (scores.reduce((a,s) => a+s.content, 0) / scores.length).toFixed(1);
+    document.getElementById('raAvgFluency').textContent = (scores.reduce((a,s) => a+s.fluency, 0) / scores.length).toFixed(1);
+    document.getElementById('raAvgPron').textContent = (scores.reduce((a,s) => a+s.pron, 0) / scores.length).toFixed(1);
+  }
+}
+
+// Tips
+function renderTips(containerId, tips) {
+  const ul = document.getElementById(containerId);
+  ul.innerHTML = tips.map(t => '<li>' + t + '</li>').join('');
+}
+
+// ============================================================
+// TAB 2: REPEAT SENTENCE
+// ============================================================
+let rsFiltered = [...REPEAT_SENTENCES];
+let rsIdx = state.rsIndex || 0;
+let rsTimerId = null;
+let rsRevealed = false;
+let rsAudioUrl = null;
+
+// Build category filter
+function rsInitCatFilter() {
+  // RS items may have 'category' or 'difficulty' — support both
+  const fieldName = REPEAT_SENTENCES[0] && REPEAT_SENTENCES[0].category ? 'category' : 'difficulty';
+  const cats = ['All', ...new Set(REPEAT_SENTENCES.map(s => s[fieldName]).filter(Boolean))];
+  const container = document.getElementById('rsCatFilter');
+  container.innerHTML = cats.map((c, i) => {
+    const label = c === 'All' ? c : c.charAt(0).toUpperCase() + c.slice(1);
+    return '<button class="sp-diff-pill ' + (i === 0 ? 'active' : '') + '" data-cat="' + c + '">' + label + '</button>';
+  }).join('');
+  container.querySelectorAll('.sp-diff-pill').forEach(pill => {
+    pill.addEventListener('click', () => {
+      container.querySelectorAll('.sp-diff-pill').forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      rsFiltered = pill.dataset.cat === 'All' ? [...REPEAT_SENTENCES] : REPEAT_SENTENCES.filter(s => s[fieldName] === pill.dataset.cat);
+      rsIdx = 0;
+      rsRender();
+    });
+  });
+}
+
+function rsRender() {
+  if (rsFiltered.length === 0) return;
+  if (rsIdx >= rsFiltered.length) rsIdx = 0;
+  if (rsIdx < 0) rsIdx = rsFiltered.length - 1;
+  const item = rsFiltered[rsIdx];
+  document.getElementById('rsCounter').textContent = (rsIdx + 1) + ' / ' + rsFiltered.length;
+  // Hidden text
+  const el = document.getElementById('rsHiddenText');
+  el.classList.remove('revealed');
+  el.innerHTML = item.text + '<br><span class="sp-hidden-text__hint">Click to reveal after attempting (or press R)</span>';
+  rsRevealed = false;
+  // Reset timer
+  document.getElementById('rsTimerFill').style.width = '100%';
+  document.getElementById('rsTimerFill').style.background = 'var(--sp-green)';
+  document.getElementById('rsTimeVal').textContent = '15s';
+  if (rsTimerId) { clearInterval(rsTimerId); rsTimerId = null; }
+  document.getElementById('rsRecPlayBtn').disabled = true;
+  rsAudioUrl = null;
+  rsUpdateProgress();
+}
+
+window.revealRS = function() {
+  const el = document.getElementById('rsHiddenText');
+  el.classList.add('revealed');
+  rsRevealed = true;
+};
+
+document.getElementById('rsPrev').addEventListener('click', () => { rsIdx--; rsRender(); resetStars(); });
+document.getElementById('rsNext').addEventListener('click', () => { rsIdx++; rsRender(); resetStars(); });
+
+document.getElementById('rsPlayBtn').addEventListener('click', () => {
+  const item = rsFiltered[rsIdx];
+  if (!item) return;
+  speak(item.text, 0.95, () => {
+    // Start 15s timer after sentence finishes
+    if (rsTimerId) clearInterval(rsTimerId);
+    rsTimerId = createTimer(
+      document.getElementById('rsTimerFill'),
+      document.getElementById('rsTimeVal'),
+      15, null, () => { rsTimerId = null; }
+    );
+  });
+});
+
+document.getElementById('rsRecBtn').addEventListener('click', async () => {
+  const btn = document.getElementById('rsRecBtn');
+  if (!isRecording) {
+    await startRecording(null, 0);
+    if (isRecording) btn.classList.add('recording');
+  } else {
+    btn.classList.remove('recording');
+    rsAudioUrl = await stopRecording();
+    document.getElementById('rsRecPlayBtn').disabled = false;
+  }
+});
+
+document.getElementById('rsRecPlayBtn').addEventListener('click', () => playRecording(rsAudioUrl));
+
+// Accuracy slider
+document.getElementById('rsAccuracy').addEventListener('input', function() {
+  document.getElementById('rsAccuracyVal').textContent = this.value + '%';
+});
+
+document.getElementById('rsSaveScore').addEventListener('click', () => {
+  const accuracy = parseInt(document.getElementById('rsAccuracy').value);
+  const fluency = assessScores['rs-fluency'] || 0;
+  const avg = (accuracy / 20 + fluency) / 2; // normalise accuracy to 0-5 scale
+  state.taskScores.rs.push({ accuracy, fluency, avg, id: rsFiltered[rsIdx]?.id, date: new Date().toISOString() });
+  recordSession();
+  rsUpdateProgress();
+  resetStars();
+  document.getElementById('rsAccuracy').value = 50;
+  document.getElementById('rsAccuracyVal').textContent = '50%';
+});
+
+function rsUpdateProgress() {
+  const scores = state.taskScores.rs;
+  document.getElementById('rsAttempted').textContent = scores.length;
+  if (scores.length) {
+    document.getElementById('rsAvgAcc').textContent = Math.round(scores.reduce((a,s) => a+s.accuracy, 0) / scores.length) + '%';
+    document.getElementById('rsAvgFluency').textContent = (scores.reduce((a,s) => a+s.fluency, 0) / scores.length).toFixed(1);
+  }
+}
+
+// ============================================================
+// TAB 3: DESCRIBE IMAGE
+// ============================================================
+let diIdx = state.diIndex || 0;
+let diPrepTimerId = null;
+let diSpeakTimerId = null;
+let diAudioUrl = null;
+
+const DI_ICONS = { 'Bar Chart': '\uD83D\uDCCA', 'Line Graph': '\uD83D\uDCC8', 'Pie Chart': '\uD83E\uDD67', 'Table': '\uD83D\uDCCB', 'Process Diagram': '\u2699\uFE0F', 'Map': '\uD83D\uDDFA\uFE0F' };
+
+function diRender() {
+  if (diIdx >= DESCRIBE_IMAGE_ITEMS.length) diIdx = 0;
+  if (diIdx < 0) diIdx = DESCRIBE_IMAGE_ITEMS.length - 1;
+  const item = DESCRIBE_IMAGE_ITEMS[diIdx];
+  document.getElementById('diCounter').textContent = (diIdx + 1) + ' / ' + DESCRIBE_IMAGE_ITEMS.length;
+  document.getElementById('diIcon').textContent = DI_ICONS[item.type] || '\uD83D\uDCCA';
+  document.getElementById('diType').textContent = item.type;
+  document.getElementById('diTitle').textContent = item.title;
+  document.getElementById('diDesc').textContent = item.description;
+  // Checklist
+  document.getElementById('diChecklist').innerHTML = item.keyPoints.map((p, i) =>
+    '<li><input type="checkbox" id="diCk' + i + '"><label for="diCk' + i + '">' + p + '</label></li>'
+  ).join('');
+  // Sample response
+  document.getElementById('diSampleResp').textContent = item.sampleResponse;
+  document.getElementById('diSampleResp').classList.remove('open');
+  // Reset timers
+  resetDiTimers();
+  document.getElementById('diPlayBtn').disabled = true;
+  diAudioUrl = null;
+  diUpdateProgress();
+}
+
+function resetDiTimers() {
+  if (diPrepTimerId) { clearInterval(diPrepTimerId); diPrepTimerId = null; }
+  if (diSpeakTimerId) { clearInterval(diSpeakTimerId); diSpeakTimerId = null; }
+  document.getElementById('diPrepFill').style.width = '100%';
+  document.getElementById('diPrepFill').style.background = 'var(--sp-yellow)';
+  document.getElementById('diPrepVal').textContent = '25s';
+  document.getElementById('diSpeakFill').style.width = '100%';
+  document.getElementById('diSpeakFill').style.background = 'var(--sp-green)';
+  document.getElementById('diSpeakVal').textContent = '40s';
+}
+
+document.getElementById('diPrev').addEventListener('click', () => { diIdx--; diRender(); resetStars(); });
+document.getElementById('diNext').addEventListener('click', () => { diIdx++; diRender(); resetStars(); });
+
+document.getElementById('diTimerStart').addEventListener('click', () => {
+  resetDiTimers();
+  document.getElementById('diTimerStart').disabled = true;
+  diPrepTimerId = createTimer(
+    document.getElementById('diPrepFill'),
+    document.getElementById('diPrepVal'),
+    25, null, () => {
+      diPrepTimerId = null;
+      // Auto-start speak timer
+      diSpeakTimerId = createTimer(
+        document.getElementById('diSpeakFill'),
+        document.getElementById('diSpeakVal'),
+        40, null, () => { diSpeakTimerId = null; document.getElementById('diTimerStart').disabled = false; }
+      );
+    }
+  );
+});
+
+document.getElementById('diRecBtn').addEventListener('click', async () => {
+  const btn = document.getElementById('diRecBtn');
+  if (!isRecording) {
+    await startRecording(null, 0);
+    if (isRecording) btn.classList.add('recording');
+  } else {
+    btn.classList.remove('recording');
+    diAudioUrl = await stopRecording();
+    document.getElementById('diPlayBtn').disabled = false;
+  }
+});
+
+document.getElementById('diPlayBtn').addEventListener('click', () => playRecording(diAudioUrl));
+
+document.getElementById('diRevealToggle').addEventListener('click', () => {
+  const content = document.getElementById('diSampleResp');
+  content.classList.toggle('open');
+  document.getElementById('diRevealToggle').textContent = content.classList.contains('open') ? '\u25BC Hide Sample Response' : '\u25B6 Show Sample Response';
+});
+
+document.getElementById('diSaveScore').addEventListener('click', () => {
+  const content = assessScores['di-content'] || 0;
+  const fluency = assessScores['di-fluency'] || 0;
+  const pron = assessScores['di-pronunciation'] || 0;
+  if (content === 0 && fluency === 0 && pron === 0) return;
+  const avg = (content + fluency + pron) / 3;
+  state.taskScores.di.push({ content, fluency, pron, avg, date: new Date().toISOString() });
+  recordSession();
+  diUpdateProgress();
+  resetStars();
+});
+
+function diUpdateProgress() {
+  const scores = state.taskScores.di;
+  document.getElementById('diAttempted').textContent = scores.length;
+  if (scores.length) {
+    document.getElementById('diAvgContent').textContent = (scores.reduce((a,s) => a+s.content, 0) / scores.length).toFixed(1);
+    document.getElementById('diAvgFluency').textContent = (scores.reduce((a,s) => a+s.fluency, 0) / scores.length).toFixed(1);
+  }
+}
+
+// ============================================================
+// TAB 4: RE-TELL LECTURE
+// ============================================================
+let rlIdx = state.rlIndex || 0;
+let rlPrepTimerId = null;
+let rlSpeakTimerId = null;
+let rlAudioUrl = null;
+
+function rlRender() {
+  if (rlIdx >= RETELL_LECTURE_ITEMS.length) rlIdx = 0;
+  if (rlIdx < 0) rlIdx = RETELL_LECTURE_ITEMS.length - 1;
+  const item = RETELL_LECTURE_ITEMS[rlIdx];
+  document.getElementById('rlCounter').textContent = (rlIdx + 1) + ' / ' + RETELL_LECTURE_ITEMS.length;
+  document.getElementById('rlTitle').textContent = item.title;
+  document.getElementById('rlTranscript').textContent = item.transcript;
+  document.getElementById('rlTranscript').style.display = 'none';
+  // Checklist
+  document.getElementById('rlChecklist').innerHTML = item.keyPoints.map((p, i) =>
+    '<li><input type="checkbox" id="rlCk' + i + '"><label for="rlCk' + i + '">' + p + '</label></li>'
+  ).join('');
+  // Sample retelling
+  document.getElementById('rlSampleRetelling').textContent = item.sampleRetelling || item.sampleRetell || '';
+  document.getElementById('rlSampleRetelling').classList.remove('open');
+  // Reset
+  document.getElementById('rlNotes').value = '';
+  resetRlTimers();
+  document.getElementById('rlPlayRecBtn').disabled = true;
+  rlAudioUrl = null;
+  rlUpdateProgress();
+}
+
+function resetRlTimers() {
+  if (rlPrepTimerId) { clearInterval(rlPrepTimerId); rlPrepTimerId = null; }
+  if (rlSpeakTimerId) { clearInterval(rlSpeakTimerId); rlSpeakTimerId = null; }
+  document.getElementById('rlPrepFill').style.width = '100%';
+  document.getElementById('rlPrepFill').style.background = 'var(--sp-yellow)';
+  document.getElementById('rlPrepVal').textContent = '10s';
+  document.getElementById('rlSpeakFill').style.width = '100%';
+  document.getElementById('rlSpeakFill').style.background = 'var(--sp-green)';
+  document.getElementById('rlSpeakVal').textContent = '40s';
+}
+
+document.getElementById('rlPrev').addEventListener('click', () => { rlIdx--; rlRender(); resetStars(); });
+document.getElementById('rlNext').addEventListener('click', () => { rlIdx++; rlRender(); resetStars(); });
+
+document.getElementById('rlPlayBtn').addEventListener('click', () => {
+  const item = RETELL_LECTURE_ITEMS[rlIdx];
+  if (!item) return;
+  speak(item.transcript, 0.9);
+});
+
+document.getElementById('rlShowTranscript').addEventListener('click', () => {
+  const el = document.getElementById('rlTranscript');
+  const shown = el.style.display !== 'none';
+  el.style.display = shown ? 'none' : 'block';
+  document.getElementById('rlShowTranscript').textContent = shown ? 'Show Transcript' : 'Hide Transcript';
+});
+
+document.getElementById('rlTimerStart').addEventListener('click', () => {
+  resetRlTimers();
+  document.getElementById('rlTimerStart').disabled = true;
+  rlPrepTimerId = createTimer(
+    document.getElementById('rlPrepFill'),
+    document.getElementById('rlPrepVal'),
+    10, null, () => {
+      rlPrepTimerId = null;
+      rlSpeakTimerId = createTimer(
+        document.getElementById('rlSpeakFill'),
+        document.getElementById('rlSpeakVal'),
+        40, null, () => { rlSpeakTimerId = null; document.getElementById('rlTimerStart').disabled = false; }
+      );
+    }
+  );
+});
+
+document.getElementById('rlRecBtn').addEventListener('click', async () => {
+  const btn = document.getElementById('rlRecBtn');
+  if (!isRecording) {
+    await startRecording(null, 0);
+    if (isRecording) btn.classList.add('recording');
+  } else {
+    btn.classList.remove('recording');
+    rlAudioUrl = await stopRecording();
+    document.getElementById('rlPlayRecBtn').disabled = false;
+  }
+});
+
+document.getElementById('rlPlayRecBtn').addEventListener('click', () => playRecording(rlAudioUrl));
+
+document.getElementById('rlRevealToggle').addEventListener('click', () => {
+  const content = document.getElementById('rlSampleRetelling');
+  content.classList.toggle('open');
+  document.getElementById('rlRevealToggle').textContent = content.classList.contains('open') ? '\u25BC Hide Sample Retelling' : '\u25B6 Show Sample Retelling';
+});
+
+document.getElementById('rlSaveScore').addEventListener('click', () => {
+  const content = assessScores['rl-content'] || 0;
+  const fluency = assessScores['rl-fluency'] || 0;
+  const pron = assessScores['rl-pronunciation'] || 0;
+  if (content === 0 && fluency === 0 && pron === 0) return;
+  const avg = (content + fluency + pron) / 3;
+  state.taskScores.rl.push({ content, fluency, pron, avg, date: new Date().toISOString() });
+  recordSession();
+  rlUpdateProgress();
+  resetStars();
+});
+
+function rlUpdateProgress() {
+  const scores = state.taskScores.rl;
+  document.getElementById('rlAttempted').textContent = scores.length;
+  if (scores.length) {
+    document.getElementById('rlAvgContent').textContent = (scores.reduce((a,s) => a+s.content, 0) / scores.length).toFixed(1);
+    document.getElementById('rlAvgFluency').textContent = (scores.reduce((a,s) => a+s.fluency, 0) / scores.length).toFixed(1);
+  }
+}
+
+// ============================================================
+// TAB 5: ANSWER SHORT QUESTION
+// ============================================================
+let asqFiltered = [...ASQ_QUESTIONS];
+let asqIdx = state.asqIndex || 0;
+let asqTimerId = null;
+let asqCorrect = state.asqCorrect || 0;
+let asqTotal = state.asqTotal || 0;
+let asqStreakCount = state.asqStreak || 0;
+let asqSpeedMode = false;
+let asqAnswered = false;
+
+function asqInitCatFilter() {
+  const cats = ['All', ...new Set(ASQ_QUESTIONS.map(q => q.category).filter(Boolean))];
+  const container = document.getElementById('asqCatFilter');
+  container.innerHTML = cats.map((c, i) => {
+    const label = c === 'All' ? c : c.charAt(0).toUpperCase() + c.slice(1);
+    return '<button class="sp-diff-pill ' + (i === 0 ? 'active' : '') + '" data-cat="' + c + '">' + label + '</button>';
+  }).join('');
+  container.querySelectorAll('.sp-diff-pill').forEach(pill => {
+    pill.addEventListener('click', () => {
+      container.querySelectorAll('.sp-diff-pill').forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      asqFiltered = pill.dataset.cat === 'All' ? [...ASQ_QUESTIONS] : ASQ_QUESTIONS.filter(q => q.category === pill.dataset.cat);
+      asqIdx = 0;
+      asqRender();
+    });
+  });
+}
+
+function asqRender() {
+  if (asqFiltered.length === 0) return;
+  if (asqIdx >= asqFiltered.length) asqIdx = 0;
+  if (asqIdx < 0) asqIdx = asqFiltered.length - 1;
+  const item = asqFiltered[asqIdx];
+  document.getElementById('asqCounter').textContent = 'Question ' + (asqIdx + 1) + ' of ' + asqFiltered.length;
+  document.getElementById('asqQuestion').textContent = item.question;
+  document.getElementById('asqInput').value = '';
+  document.getElementById('asqFeedback').className = 'sp-asq-feedback';
+  document.getElementById('asqFeedback').style.display = 'none';
+  document.getElementById('asqStreak').textContent = 'Streak: ' + asqStreakCount;
+  document.getElementById('asqScore').textContent = 'Score: ' + asqCorrect + ' / ' + asqTotal;
+  asqAnswered = false;
+  // Reset timer
+  document.getElementById('asqTimerFill').style.width = '100%';
+  document.getElementById('asqTimerFill').style.background = 'var(--sp-green)';
+  document.getElementById('asqTimeVal').textContent = '10s';
+  if (asqTimerId) { clearInterval(asqTimerId); asqTimerId = null; }
+  // Auto-start timer in speed mode
+  if (asqSpeedMode) {
+    asqStartTimer();
+  }
+}
+
+function asqStartTimer() {
+  if (asqTimerId) clearInterval(asqTimerId);
+  asqTimerId = createTimer(
+    document.getElementById('asqTimerFill'),
+    document.getElementById('asqTimeVal'),
+    10, null, () => {
+      asqTimerId = null;
+      if (!asqAnswered) asqCheckAnswer('');
+    }
+  );
+}
+
+function asqCheckAnswer(userAnswer) {
+  if (asqAnswered) return;
+  asqAnswered = true;
+  if (asqTimerId) { clearInterval(asqTimerId); asqTimerId = null; }
+  const item = asqFiltered[asqIdx];
+  const correct = item.answer.toLowerCase().trim();
+  const user = userAnswer.toLowerCase().trim();
+  // Check if answer matches (allow partial match)
+  const isCorrect = user === correct || correct.includes(user) || user.includes(correct);
+  const fb = document.getElementById('asqFeedback');
+  asqTotal++;
+  if (isCorrect && user.length > 0) {
+    asqCorrect++;
+    asqStreakCount++;
+    fb.className = 'sp-asq-feedback correct';
+    fb.textContent = 'Correct! The answer is: ' + item.answer;
+  } else {
+    asqStreakCount = 0;
+    fb.className = 'sp-asq-feedback incorrect';
+    fb.textContent = 'Incorrect. The answer is: ' + item.answer;
+  }
+  fb.style.display = 'block';
+  document.getElementById('asqStreak').textContent = 'Streak: ' + asqStreakCount;
+  document.getElementById('asqScore').textContent = 'Score: ' + asqCorrect + ' / ' + asqTotal;
+  // Save to state
+  state.asqCorrect = asqCorrect;
+  state.asqTotal = asqTotal;
+  state.asqStreak = asqStreakCount;
+  state.taskScores.asq.push({ correct: isCorrect && user.length > 0, date: new Date().toISOString() });
+  saveState();
+  updateHeaderStats();
+  // Auto-advance in speed mode
+  if (asqSpeedMode) {
+    setTimeout(() => { asqIdx++; asqRender(); }, 2000);
+  }
+}
+
+document.getElementById('asqSubmit').addEventListener('click', () => {
+  if (asqAnswered) { asqIdx++; asqRender(); return; }
+  asqCheckAnswer(document.getElementById('asqInput').value);
+});
+
+document.getElementById('asqInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    if (asqAnswered) { asqIdx++; asqRender(); }
+    else asqCheckAnswer(document.getElementById('asqInput').value);
+  }
+});
+
+document.getElementById('asqPrev').addEventListener('click', () => { asqIdx--; asqRender(); });
+document.getElementById('asqNext').addEventListener('click', () => { asqIdx++; asqRender(); });
+document.getElementById('asqStartTimer').addEventListener('click', asqStartTimer);
+
+document.getElementById('asqReset').addEventListener('click', () => {
+  asqCorrect = 0; asqTotal = 0; asqStreakCount = 0;
+  state.asqCorrect = 0; state.asqTotal = 0; state.asqStreak = 0;
+  saveState();
+  asqRender();
+});
+
+document.getElementById('asqSpeedMode').addEventListener('change', function() {
+  asqSpeedMode = this.checked;
+  if (asqSpeedMode && !asqAnswered) asqStartTimer();
+});
+
+// ASQ voice record
+document.getElementById('asqRecBtn').addEventListener('click', async () => {
+  const btn = document.getElementById('asqRecBtn');
+  if (!isRecording) {
+    await startRecording(null, 0);
+    if (isRecording) btn.classList.add('recording');
+  } else {
+    btn.classList.remove('recording');
+    await stopRecording();
+    // Voice recorded — user still needs to type or we just note it
+  }
+});
+
+// ============================================================
+// TAB 6: 14-DAY PLAN
+// ============================================================
+function planRender() {
+  const grid = document.getElementById('planGrid');
+  // Determine current day (days since plan start — use first session date or today)
+  const today = new Date();
+  let totalMins = 0;
+  let daysComplete = 0;
+
+  grid.innerHTML = FOURTEEN_DAY_PLAN.map((day, i) => {
+    const dayMins = day.tasks.reduce((a, t) => a + (t.minutes || t.timeMin || 0), 0);
+    totalMins += dayMins;
+    const completed = state.planProgress[i];
+    if (completed) daysComplete++;
+    const isToday = (i === daysComplete && !completed) || (daysComplete === FOURTEEN_DAY_PLAN.length);
+    const dayTitle = day.title || day.focus || 'Day ' + day.day;
+    const tipText = Array.isArray(day.tips) ? day.tips[0] : (day.tip || '');
+
+    return '<div class="sp-plan-day ' + (completed ? 'completed' : '') + (isToday ? ' today' : '') + '">' +
+      '<div class="sp-plan-day__header">' +
+        '<div class="sp-plan-day__num">' + (completed ? '\u2713' : day.day) + '</div>' +
+        '<div class="sp-plan-day__title">' + dayTitle + '</div>' +
+      '</div>' +
+      (day.focus && day.title ? '<div class="sp-plan-day__focus">' + day.focus + '</div>' : '') +
+      day.tasks.map(t => {
+        const mins = t.minutes || t.timeMin || 0;
+        const taskLabel = t.task || (t.type + (t.count ? ' \u00D7' + t.count : ''));
+        return '<div class="sp-plan-task">' +
+          '<span class="sp-plan-task__time">' + (mins > 0 ? mins + 'm' : '--') + '</span>' +
+          '<span>' + taskLabel + '</span>' +
+        '</div>';
+      }).join('') +
+      '<div class="sp-plan-tip">' + tipText + '</div>' +
+      (completed ? '' : '<button class="sp-btn sp-btn--green sp-btn--sm sp-plan-complete-btn" data-day="' + i + '">Mark Complete</button>') +
+    '</div>';
+  }).join('');
+
+  document.getElementById('planDaysComplete').textContent = daysComplete;
+  document.getElementById('planTotalMins').textContent = totalMins;
+
+  // Motivation messages
+  const msgs = [
+    'Your 14-day mission to Speaking 88 starts now. Every session counts!',
+    'Great start! Consistency beats intensity every time.',
+    'Building momentum. Keep the streak alive!',
+    'Nearly a third through! Your mouth is getting used to English patterns.',
+    'Solid progress. Focus on your weak areas today.',
+    'Past the halfway point! The second week is where scores jump.',
+    'Rest day done right = better performance tomorrow.',
+    'Week 2 begins. Time to push harder!',
+    'Nine days in. Your fluency is noticeably improving.',
+    'Simulation time! Treat it like the real exam.',
+    'Attack those weaknesses. Discomfort means growth.',
+    'Second simulation! Compare with Day 10 to see improvement.',
+    'Final polish. You know your stuff — trust it.',
+    'Tomorrow is exam day. You are ready. Sleep well and believe in yourself!'
+  ];
+  document.getElementById('planMotivation').textContent = msgs[Math.min(daysComplete, msgs.length - 1)];
+
+  // Click handlers for complete buttons
+  grid.querySelectorAll('.sp-plan-complete-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const dayIndex = parseInt(btn.dataset.day);
+      state.planProgress[dayIndex] = true;
+      saveState();
+      planRender();
+      // Confetti!
+      launchConfetti();
+    });
+  });
+}
+
+// ---- Confetti ----
+function launchConfetti() {
+  const canvas = document.getElementById('confettiCanvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  canvas.style.display = 'block';
+
+  const particles = [];
+  const colors = ['#2563eb', '#27ae60', '#f39c12', '#e74c3c', '#8b5cf6', '#06b6d4'];
+  for (let i = 0; i < 150; i++) {
+    particles.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height - canvas.height,
+      w: Math.random() * 10 + 5,
+      h: Math.random() * 6 + 3,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      vx: (Math.random() - 0.5) * 4,
+      vy: Math.random() * 3 + 2,
+      rot: Math.random() * 360,
+      rotSpeed: (Math.random() - 0.5) * 10
+    });
+  }
+
+  let frame = 0;
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => {
+      p.x += p.vx;
+      p.y += p.vy;
+      p.rot += p.rotSpeed;
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rot * Math.PI / 180);
+      ctx.fillStyle = p.color;
+      ctx.fillRect(-p.w/2, -p.h/2, p.w, p.h);
+      ctx.restore();
+    });
+    frame++;
+    if (frame < 180) {
+      requestAnimationFrame(animate);
+    } else {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      canvas.style.display = 'none';
+    }
+  }
+  animate();
+}
+
+// ============================================================
+// KEYBOARD SHORTCUTS
+// ============================================================
+document.addEventListener('keydown', e => {
+  // Ignore if typing in input/textarea
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+    // But handle Enter for ASQ input
+    return;
+  }
+
+  if (e.code === 'Space') {
+    e.preventDefault();
+    // Toggle recording for current tab
+    const recBtns = {
+      ra: 'raRecBtn',
+      rs: 'rsRecBtn',
+      di: 'diRecBtn',
+      rl: 'rlRecBtn',
+      asq: 'asqRecBtn'
+    };
+    if (recBtns[activeTab]) {
+      document.getElementById(recBtns[activeTab]).click();
+    }
+  }
+
+  if (e.code === 'Enter') {
+    e.preventDefault();
+    const nextBtns = { ra: 'raNext', rs: 'rsNext', di: 'diNext', rl: 'rlNext', asq: 'asqNext' };
+    if (nextBtns[activeTab]) document.getElementById(nextBtns[activeTab]).click();
+  }
+
+  if (e.code === 'KeyR' && !e.ctrlKey && !e.metaKey) {
+    if (activeTab === 'rs') window.revealRS();
+  }
+
+  // Number keys to switch tabs
+  if (e.code >= 'Digit1' && e.code <= 'Digit6' && !e.ctrlKey && !e.metaKey && !e.altKey) {
+    const tabKeys = ['ra', 'rs', 'di', 'rl', 'asq', 'plan'];
+    const idx = parseInt(e.code.replace('Digit', '')) - 1;
+    if (idx < tabKeys.length) switchTab(tabKeys[idx]);
+  }
+});
+
+// ============================================================
+// INITIALISATION
+// ============================================================
+function init() {
+  initStars();
+  rsInitCatFilter();
+  asqInitCatFilter();
+
+  // Render all tabs
+  raRender();
+  rsRender();
+  diRender();
+  rlRender();
+  asqRender();
+  planRender();
+
+  // Tips
+  renderTips('raTips', SPEAKING_TIPS.readAloud);
+  renderTips('rsTips', SPEAKING_TIPS.repeatSentence);
+  renderTips('diTips', SPEAKING_TIPS.describeImage);
+  renderTips('rlTips', SPEAKING_TIPS.retellLecture);
+  renderTips('asqTips', SPEAKING_TIPS.answerShortQuestion);
+
+  updateHeaderStats();
+
+  // Load voices for TTS
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.getVoices();
+    window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
+  }
+}
+
+// Save indices periodically
+window.addEventListener('beforeunload', () => {
+  state.raIndex = raIdx;
+  state.rsIndex = rsIdx;
+  state.diIndex = diIdx;
+  state.rlIndex = rlIdx;
+  state.asqIndex = asqIdx;
+  saveState();
+});
+
+init();
+
+})();
+</script>
+</body>
+</html>
