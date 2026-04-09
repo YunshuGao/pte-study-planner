@@ -27,6 +27,7 @@ const CCL_DIALOGUES = [
         number: 1,
         speaker: 'ENGLISH',
         text: 'Hello. This is the animal protection society. I\'m Harry. How can I help you today?',
+        translation: '你好。这里是动物保护协会。我是哈利。今天我能帮您什么？',
         wordCount: 15,
         keyTerms: ['animal protection society', 'help']
       },
@@ -42,6 +43,7 @@ const CCL_DIALOGUES = [
         number: 3,
         speaker: 'ENGLISH',
         text: 'It\'s good that you have called us. Could you tell me why you think the dog is being mistreated?',
+        translation: '您打电话给我们做得很对。您能告诉我为什么觉得那条狗被虐待了吗？',
         wordCount: 19,
         keyTerms: ['mistreated', 'called']
       },
@@ -57,6 +59,7 @@ const CCL_DIALOGUES = [
         number: 5,
         speaker: 'ENGLISH',
         text: 'I see. That\'s not good. Dogs need to have drinking water available all the time. Have you noticed anything else wrong?',
+        translation: '我明白了。这不太好。狗需要随时有饮用水。您还注意到其他什么问题吗？',
         wordCount: 21,
         keyTerms: ['drinking water', 'noticed', 'wrong']
       },
@@ -72,6 +75,7 @@ const CCL_DIALOGUES = [
         number: 7,
         speaker: 'ENGLISH',
         text: 'You shouldn\'t be able to see its ribs. It doesn\'t sound like it is in good condition. You might be right.',
+        translation: '正常情况下不应该看到它的肋骨。听起来它的状况不太好。您可能是对的。',
         wordCount: 21,
         keyTerms: ['ribs', 'good condition']
       },
@@ -87,6 +91,7 @@ const CCL_DIALOGUES = [
         number: 9,
         speaker: 'ENGLISH',
         text: 'It\'s best not to approach your neighbours. I will write up a report on what you have told me, and our protection officers will visit them.',
+        translation: '您最好不要去找您的邻居。我会根据您告诉我的情况写一份报告，我们的保护工作人员会去拜访他们。',
         wordCount: 26,
         keyTerms: ['approach', 'report', 'protection officers']
       },
@@ -102,6 +107,7 @@ const CCL_DIALOGUES = [
         number: 11,
         speaker: 'ENGLISH',
         text: 'Don\'t worry. If they are not mistreating the dog, they won\'t get into trouble. We will help them if they need more information on how to take care of the dog.',
+        translation: '不用担心。如果他们没有虐待那条狗，就不会有麻烦。如果他们需要更多关于如何照顾狗的信息，我们会帮助他们。',
         wordCount: 31,
         keyTerms: ['mistreating', 'take care of']
       },
@@ -117,6 +123,7 @@ const CCL_DIALOGUES = [
         number: 13,
         speaker: 'ENGLISH',
         text: 'I\'m sure they will come in the next few days. If you notice the situation getting worse in the meantime, call us back.',
+        translation: '我相信他们几天内就会去的。如果在此期间您发现情况恶化，请再打电话给我们。',
         wordCount: 23,
         keyTerms: ['situation', 'getting worse', 'call us back']
       },
@@ -141,6 +148,7 @@ const CCL_DIALOGUES = [
         number: 1,
         speaker: 'ENGLISH',
         text: 'Good morning. This is Simon from the tree trimming company. How can I help you?',
+        translation: '早上好。我是修剪树木公司的西蒙。有什么可以帮您的？',
         wordCount: 15,
         keyTerms: ['tree trimming company']
       },
@@ -156,6 +164,7 @@ const CCL_DIALOGUES = [
         number: 3,
         speaker: 'ENGLISH',
         text: 'Yes, I remember cutting down those trees. That was a hard job because the trees were so close to the fence.',
+        translation: '是的，我记得砍了那些树。那是一项很难的工作，因为那些树离围墙太近了。',
         wordCount: 21,
         keyTerms: ['cutting down', 'fence']
       },
@@ -171,6 +180,7 @@ const CCL_DIALOGUES = [
         number: 5,
         speaker: 'ENGLISH',
         text: 'The job took much longer than I expected. I could only remove four trees.',
+        translation: '这项工作花的时间比我预想的要长得多。我只能移除四棵树。',
         wordCount: 14,
         keyTerms: ['remove', 'longer than expected']
       },
@@ -186,6 +196,7 @@ const CCL_DIALOGUES = [
         number: 7,
         speaker: 'ENGLISH',
         text: 'I\'m sorry that I didn\'t call you. We\'ve been very busy. Let me look at my diary. I can come to your house in four weeks.',
+        translation: '抱歉我没有给您打电话。我们一直很忙。让我看看我的日程安排。我可以四周后去您家。',
         wordCount: 26,
         keyTerms: ['diary', 'four weeks']
       },
@@ -201,6 +212,7 @@ const CCL_DIALOGUES = [
         number: 9,
         speaker: 'ENGLISH',
         text: 'Yes, I know. But the trees will be hard to remove because they are near the fence. It will take longer to do the work.',
+        translation: '是的，我知道。但这些树很难移除，因为它们靠近围墙。完成这项工作需要更长时间。',
         wordCount: 25,
         keyTerms: ['fence', 'longer to do']
       },
@@ -216,6 +228,7 @@ const CCL_DIALOGUES = [
         number: 11,
         speaker: 'ENGLISH',
         text: 'Storms are forecasted next week. If the trees are unsafe, I will remove them before then.',
+        translation: '下周预报有暴风雨。如果那些树不安全，我会在那之前把它们移除。',
         wordCount: 16,
         keyTerms: ['storms', 'forecasted', 'unsafe']
       },
@@ -231,6 +244,7 @@ const CCL_DIALOGUES = [
         number: 13,
         speaker: 'ENGLISH',
         text: 'I\'ll come on Saturday from 2 p.m. to 5 p.m. If I don\'t finish the work, I\'ll need to return early next week.',
+        translation: '我星期六下午2点到5点过来。如果工作没完成，我需要下周初再来。',
         wordCount: 25,
         keyTerms: ['Saturday', 'finish the work', 'return']
       },
@@ -246,6 +260,7 @@ const CCL_DIALOGUES = [
         number: 15,
         speaker: 'ENGLISH',
         text: 'That\'s a good idea! I apologise for the delay. I\'ll see you on Saturday at 2 p.m.',
+        translation: '这是个好主意！我为延迟道歉。星期六下午2点见。',
         wordCount: 18,
         keyTerms: ['apologise', 'delay', 'Saturday']
       }
@@ -262,6 +277,7 @@ const CCL_DIALOGUES = [
         number: 1,
         speaker: 'ENGLISH',
         text: 'Good afternoon. I am Karen Black, the Principal. Thank you for your interest in enrolling your daughter at our school.',
+        translation: '下午好。我是校长凯伦·布莱克。感谢您有兴趣让您的女儿在我们学校注册。',
         wordCount: 20,
         keyTerms: ['Principal', 'enrolling', 'school']
       },
@@ -277,6 +293,7 @@ const CCL_DIALOGUES = [
         number: 3,
         speaker: 'ENGLISH',
         text: 'We can help you with the enrolment. Firstly, does your child have any health or medical conditions, such as allergies, that we need to be aware of?',
+        translation: '我们可以帮助您办理注册。首先，您的孩子有没有任何健康或医疗状况，比如过敏，是我们需要了解的？',
         wordCount: 27,
         keyTerms: ['enrolment', 'health', 'allergies']
       },
@@ -292,6 +309,7 @@ const CCL_DIALOGUES = [
         number: 5,
         speaker: 'ENGLISH',
         text: 'That is great! She will need to do a proficiency test in English to assess whether she may need language support.',
+        translation: '太好了！她需要做一个英语能力测试，以评估她是否需要语言支持。',
         wordCount: 21,
         keyTerms: ['proficiency test', 'language support']
       },
@@ -307,6 +325,7 @@ const CCL_DIALOGUES = [
         number: 7,
         speaker: 'ENGLISH',
         text: 'Don\'t worry. The test is suitable for her age. It will assess her understanding of English and basic literacy skills according to the year she will be enrolled in.',
+        translation: '别担心。这个测试适合她的年龄。它会根据她将要就读的年级来评估她的英语理解能力和基本读写技能。',
         wordCount: 29,
         keyTerms: ['literacy skills', 'enrolled']
       },
@@ -322,6 +341,7 @@ const CCL_DIALOGUES = [
         number: 9,
         speaker: 'ENGLISH',
         text: 'We need proof of residential address, such as a utility bill, as well as the child\'s birth certificate and immunisation records. We will also need parents\' details, visa status and passport copies.',
+        translation: '我们需要居住地址证明，比如水电费账单，以及孩子的出生证明和免疫接种记录。我们还需要家长的详细信息、签证状态和护照复印件。',
         wordCount: 32,
         keyTerms: ['residential address', 'birth certificate', 'immunisation records', 'visa status']
       },
@@ -337,6 +357,7 @@ const CCL_DIALOGUES = [
         number: 11,
         speaker: 'ENGLISH',
         text: 'Is there anything else that you would like to know? Please feel free to contact us if you think of anything else later.',
+        translation: '还有其他您想了解的吗？如果您之后想到其他问题，请随时联系我们。',
         wordCount: 23,
         keyTerms: ['contact us', 'anything else']
       },
@@ -361,6 +382,7 @@ const CCL_DIALOGUES = [
         number: 1,
         speaker: 'ENGLISH',
         text: 'Welcome to the college. I\'m Tony. How can I help you this morning?',
+        translation: '欢迎来到学院。我是托尼。今天上午有什么可以帮您的？',
         wordCount: 13,
         keyTerms: ['college']
       },
@@ -376,6 +398,7 @@ const CCL_DIALOGUES = [
         number: 3,
         speaker: 'ENGLISH',
         text: 'Well done on being accepted! I\'m sure you will enjoy completing the course. What would you like to know?',
+        translation: '恭喜您被录取！我相信您会喜欢完成这门课程的。您想了解什么？',
         wordCount: 19,
         keyTerms: ['accepted', 'completing the course']
       },
@@ -391,6 +414,7 @@ const CCL_DIALOGUES = [
         number: 5,
         speaker: 'ENGLISH',
         text: 'If you tell me the name of the course, I can check the start date for you. You don\'t want to miss the first day!',
+        translation: '如果您告诉我课程名称，我可以帮您查一下开学日期。您可不想错过第一天！',
         wordCount: 25,
         keyTerms: ['start date', 'first day']
       },
@@ -406,6 +430,7 @@ const CCL_DIALOGUES = [
         number: 7,
         speaker: 'ENGLISH',
         text: 'There are two classes in that course, a full time class and a part time class. That\'s why there are different start dates.',
+        translation: '这门课有两个班，一个全日制班和一个非全日制班。所以才会有不同的开学日期。',
         wordCount: 23,
         keyTerms: ['full time class', 'part time class', 'start dates']
       },
@@ -421,6 +446,7 @@ const CCL_DIALOGUES = [
         number: 9,
         speaker: 'ENGLISH',
         text: 'You\'re very welcome. It\'s confusing when there are two classes on the form. Tell me what else you need to know.',
+        translation: '不客气。表格上有两个班确实容易混淆。告诉我您还需要了解什么。',
         wordCount: 21,
         keyTerms: ['confusing', 'two classes']
       },
@@ -436,6 +462,7 @@ const CCL_DIALOGUES = [
         number: 11,
         speaker: 'ENGLISH',
         text: 'Yes, you can. Once you have filled in the enrollment form, you can speak to our finance office to set up a payment plan.',
+        translation: '可以的。填好注册表格后，您可以联系我们的财务办公室来设置付款计划。',
         wordCount: 24,
         keyTerms: ['enrollment form', 'finance office', 'payment plan']
       },
@@ -451,6 +478,7 @@ const CCL_DIALOGUES = [
         number: 13,
         speaker: 'ENGLISH',
         text: 'When your enrollment is processed, you will have a student account. You can pay fees through the account and your course information will be listed there too.',
+        translation: '注册处理完成后，您会有一个学生账户。您可以通过该账户缴纳学费，您的课程信息也会列在上面。',
         wordCount: 27,
         keyTerms: ['student account', 'course information']
       },
@@ -475,6 +503,7 @@ const CCL_DIALOGUES = [
         number: 1,
         speaker: 'ENGLISH',
         text: 'Hello, I\'m Jack. Thank you for coming in.',
+        translation: '你好，我是杰克。感谢您的到来。',
         wordCount: 8,
         keyTerms: ['Jack', 'coming in']
       },
@@ -490,6 +519,7 @@ const CCL_DIALOGUES = [
         number: 3,
         speaker: 'ENGLISH',
         text: 'She\'s on holidays, but I have already looked at your file and just need to discuss a few things with you.',
+        translation: '她在休假，但我已经看过您的档案了，只需要跟您讨论几件事。',
         wordCount: 21,
         keyTerms: ['holidays', 'file', 'discuss']
       },
@@ -505,6 +535,7 @@ const CCL_DIALOGUES = [
         number: 5,
         speaker: 'ENGLISH',
         text: 'I understand. However, you need to look for 10 jobs a month to continue receiving Centrelink payments. Our network connects job seekers with employers, and we\'ll try to help you.',
+        translation: '我理解。但是，您每月需要找10份工作才能继续领取Centrelink的补贴。我们的网络将求职者与雇主联系起来，我们会尽力帮助您。',
         wordCount: 30,
         keyTerms: ['Centrelink payments', 'job seekers', 'employers']
       },
@@ -520,6 +551,7 @@ const CCL_DIALOGUES = [
         number: 7,
         speaker: 'ENGLISH',
         text: 'What work did you do before coming to Australia?',
+        translation: '您来澳洲之前做什么工作？',
         wordCount: 9,
         keyTerms: ['work', 'Australia']
       },
@@ -535,6 +567,7 @@ const CCL_DIALOGUES = [
         number: 9,
         speaker: 'ENGLISH',
         text: 'You should try other areas until you\'re stronger in English. Your previous experience may be useful. Some companies offer training in areas where you may not need 100% English fluency.',
+        translation: '在英语提高之前，您应该尝试其他领域。您以前的经验可能会有用。一些公司提供培训，在某些岗位上您可能不需要百分之百流利的英语。',
         wordCount: 32,
         keyTerms: ['English fluency', 'training', 'previous experience']
       },
@@ -550,6 +583,7 @@ const CCL_DIALOGUES = [
         number: 11,
         speaker: 'ENGLISH',
         text: 'We\'ll see. You must prepare a résumé. We can help you write one.',
+        translation: '我们看看吧。您必须准备一份简历。我们可以帮您写。',
         wordCount: 13,
         keyTerms: ['resume', 'write one']
       },
@@ -565,6 +599,7 @@ const CCL_DIALOGUES = [
         number: 13,
         speaker: 'ENGLISH',
         text: 'Definitely. You can also use the job search tools in the Centrelink computers. We\'ll schedule another interview for next week and finalise the finer points.',
+        translation: '当然可以。您还可以使用Centrelink电脑上的求职工具。我们会安排下周再面谈一次，确定细节。',
         wordCount: 25,
         keyTerms: ['Centrelink computers', 'job search tools', 'schedule']
       },
@@ -580,6 +615,7 @@ const CCL_DIALOGUES = [
         number: 15,
         speaker: 'ENGLISH',
         text: 'We\'ll select available jobs and next time we may have good news and you\'ll be able to wear your new shirt. Bye!',
+        translation: '我们会挑选合适的工作，下次也许会有好消息，您就能穿上新衬衫了。再见！',
         wordCount: 22,
         keyTerms: ['available jobs', 'good news', 'new shirt']
       }
@@ -596,6 +632,7 @@ const CCL_DIALOGUES = [
         number: 1,
         speaker: 'ENGLISH',
         text: 'Hi, welcome to the university student centre. My name is Mark. How can I help you today?',
+        translation: '你好，欢迎来到大学学生中心。我叫马克。今天有什么可以帮您的？',
         wordCount: 17,
         keyTerms: ['student centre', 'Mark']
       },
@@ -611,6 +648,7 @@ const CCL_DIALOGUES = [
         number: 3,
         speaker: 'ENGLISH',
         text: 'The university has an employment website which lists all job vacancies on campus. There are full time and part time jobs available.',
+        translation: '大学有一个就业网站，列出了校园内所有的职位空缺。有全职和兼职工作可供选择。',
         wordCount: 22,
         keyTerms: ['employment website', 'job vacancies', 'campus']
       },
@@ -626,6 +664,7 @@ const CCL_DIALOGUES = [
         number: 5,
         speaker: 'ENGLISH',
         text: 'I understand. I know it\'s very hard for students to work full time and study. That\'s why part time jobs on campus are so popular.',
+        translation: '我理解。我知道学生同时做全职工作和学习非常辛苦。所以校园内的兼职工作才这么受欢迎。',
         wordCount: 25,
         keyTerms: ['part time jobs', 'campus', 'popular']
       },
@@ -641,6 +680,7 @@ const CCL_DIALOGUES = [
         number: 7,
         speaker: 'ENGLISH',
         text: 'The university is currently taking applications for waiters and kitchen staff to work in the function centre. Have you had any experience working at cafes or restaurants?',
+        translation: '大学目前正在招聘活动中心的服务员和厨房工作人员。您有在咖啡厅或餐厅工作的经验吗？',
         wordCount: 27,
         keyTerms: ['waiters', 'kitchen staff', 'function centre']
       },
@@ -656,6 +696,7 @@ const CCL_DIALOGUES = [
         number: 9,
         speaker: 'ENGLISH',
         text: 'I can give you some information, but you will need to look at the website for all the details. You also apply for jobs on the website.',
+        translation: '我可以给您一些信息，但您需要在网站上查看所有详情。您也可以在网站上申请工作。',
         wordCount: 27,
         keyTerms: ['website', 'apply for jobs']
       },
@@ -671,6 +712,7 @@ const CCL_DIALOGUES = [
         number: 11,
         speaker: 'ENGLISH',
         text: 'Good luck. If you miss out on getting a job at the function centre this time, keep checking the website. New jobs are listed regularly.',
+        translation: '祝你好运。如果这次没能在活动中心找到工作，请继续关注网站。新的职位会定期发布。',
         wordCount: 25,
         keyTerms: ['function centre', 'keep checking', 'listed regularly']
       },
@@ -695,6 +737,7 @@ const CCL_DIALOGUES = [
         number: 1,
         speaker: 'ENGLISH',
         text: 'Hello, my name is Justin Wilson. I understand you are booked in with me today to discuss a loan, is that right?',
+        translation: '你好，我叫贾斯汀·威尔逊。我了解您今天预约了跟我讨论贷款的事，对吗？',
         wordCount: 22,
         keyTerms: ['loan', 'booked in']
       },
@@ -710,6 +753,7 @@ const CCL_DIALOGUES = [
         number: 3,
         speaker: 'ENGLISH',
         text: 'You\'ve come to the right place. How can I help?',
+        translation: '您来对地方了。我能怎么帮您？',
         wordCount: 10,
         keyTerms: ['right place']
       },
@@ -725,6 +769,7 @@ const CCL_DIALOGUES = [
         number: 5,
         speaker: 'ENGLISH',
         text: 'I can certainly assist you with all that. How about we start by talking about the property you are interested in?',
+        translation: '这些我都可以帮您。我们先从您感兴趣的房产说起怎么样？',
         wordCount: 21,
         keyTerms: ['assist', 'property']
       },
@@ -740,6 +785,7 @@ const CCL_DIALOGUES = [
         number: 7,
         speaker: 'ENGLISH',
         text: 'What caught your eye in this property? And how much is it valued at?',
+        translation: '这套房产有什么吸引您的地方？它的估价是多少？',
         wordCount: 14,
         keyTerms: ['property', 'valued at']
       },
@@ -755,6 +801,7 @@ const CCL_DIALOGUES = [
         number: 9,
         speaker: 'ENGLISH',
         text: 'Fantastic. Do you have the financial details for the property, such as the price and rates?',
+        translation: '太好了。您有这套房产的财务详情吗，比如价格和费率？',
         wordCount: 16,
         keyTerms: ['financial details', 'price', 'rates']
       },
@@ -770,6 +817,7 @@ const CCL_DIALOGUES = [
         number: 11,
         speaker: 'ENGLISH',
         text: 'Certainly. We need to work out if you have enough savings for the deposit and whether you can borrow the rest.',
+        translation: '当然。我们需要计算一下您是否有足够的存款来支付首付，以及您是否能借到剩余的部分。',
         wordCount: 21,
         keyTerms: ['savings', 'deposit', 'borrow']
       },
@@ -785,6 +833,7 @@ const CCL_DIALOGUES = [
         number: 13,
         speaker: 'ENGLISH',
         text: 'You need at least 10% of the total value, plus enough to cover other rates and expenses.',
+        translation: '您至少需要总价值的10%，再加上足够支付其他费用和杂费的资金。',
         wordCount: 18,
         keyTerms: ['10%', 'total value', 'rates and expenses']
       },
@@ -800,6 +849,7 @@ const CCL_DIALOGUES = [
         number: 15,
         speaker: 'ENGLISH',
         text: 'Let\'s use our loan calculator to work out how much you can borrow. I need to ask you some personal questions in order to assess your income.',
+        translation: '让我们用贷款计算器来算一下您能借多少。我需要问您一些个人问题来评估您的收入。',
         wordCount: 27,
         keyTerms: ['loan calculator', 'borrow', 'income']
       },
@@ -824,6 +874,7 @@ const CCL_DIALOGUES = [
         number: 1,
         speaker: 'ENGLISH',
         text: 'Hello, my name is Melinda, I\'m a social worker at Centrelink. Do you have a minute to talk about your son?',
+        translation: '你好，我叫梅琳达，是Centrelink的社会工作者。您有时间聊聊您儿子的事吗？',
         wordCount: 21,
         keyTerms: ['social worker', 'Centrelink', 'son']
       },
@@ -839,6 +890,7 @@ const CCL_DIALOGUES = [
         number: 3,
         speaker: 'ENGLISH',
         text: 'Everything is fine. Your son has applied for Youth Allowance and I need to speak to you about his circumstances. He said that you had an argument and you told him to leave the house.',
+        translation: '一切都好。您儿子申请了青年津贴，我需要跟您谈谈他的情况。他说你们吵了一架，您让他离开家。',
         wordCount: 35,
         keyTerms: ['Youth Allowance', 'argument', 'leave the house']
       },
@@ -854,6 +906,7 @@ const CCL_DIALOGUES = [
         number: 5,
         speaker: 'ENGLISH',
         text: 'Well, your son told me a slightly different story. He said that he wasn\'t allowed to return home, so I was considering granting him Youth Allowance at the Living Away from Home rate.',
+        translation: '嗯，您儿子跟我说的有些不同。他说他不被允许回家，所以我在考虑按离家生活的标准给他发放青年津贴。',
         wordCount: 33,
         keyTerms: ['Living Away from Home', 'Youth Allowance']
       },
@@ -869,6 +922,7 @@ const CCL_DIALOGUES = [
         number: 7,
         speaker: 'ENGLISH',
         text: 'It sounds like it\'s been hard for you bringing up 3 children on your own. Would you like to come into the office to discuss a few options on how we could help you?',
+        translation: '听起来您一个人抚养3个孩子很不容易。您愿意来办公室讨论一下我们怎么帮助您吗？',
         wordCount: 34,
         keyTerms: ['bringing up', 'children', 'options']
       },
@@ -884,6 +938,7 @@ const CCL_DIALOGUES = [
         number: 9,
         speaker: 'ENGLISH',
         text: 'How about over the phone? I can refer you to some services, like mediation, parent support groups and community organisations.',
+        translation: '电话沟通怎么样？我可以为您转介一些服务，比如调解、家长支持小组和社区组织。',
         wordCount: 20,
         keyTerms: ['mediation', 'parent support groups', 'community organisations']
       },
@@ -899,6 +954,7 @@ const CCL_DIALOGUES = [
         number: 11,
         speaker: 'ENGLISH',
         text: 'How does 3.30 sound?',
+        translation: '3点30分怎么样？',
         wordCount: 5,
         keyTerms: ['3.30']
       },
@@ -923,6 +979,7 @@ const CCL_DIALOGUES = [
         number: 1,
         speaker: 'ENGLISH',
         text: 'Good morning. I\'m Dr Smith. Please take a seat. What brings you in today?',
+        translation: '早上好。我是史密斯医生。请坐。您今天来看什么问题？',
         wordCount: 14,
         keyTerms: ['Dr Smith', 'take a seat']
       },
@@ -938,6 +995,7 @@ const CCL_DIALOGUES = [
         number: 3,
         speaker: 'ENGLISH',
         text: 'I\'m sorry to hear that. Can you tell me what you ate and roughly what time you had the meal?',
+        translation: '很遗憾听到这个情况。您能告诉我您吃了什么，大概什么时间吃的吗？',
         wordCount: 20,
         keyTerms: ['ate', 'time', 'meal']
       },
@@ -953,6 +1011,7 @@ const CCL_DIALOGUES = [
         number: 5,
         speaker: 'ENGLISH',
         text: 'That does sound like it could be food poisoning. Have you been able to keep any fluids down since then?',
+        translation: '听起来确实像食物中毒。从那以后您能喝进去水吗？',
         wordCount: 20,
         keyTerms: ['food poisoning', 'fluids']
       },
@@ -968,6 +1027,7 @@ const CCL_DIALOGUES = [
         number: 7,
         speaker: 'ENGLISH',
         text: 'It\'s important to stay hydrated. Do you have any allergies to medications that I should know about before I prescribe anything?',
+        translation: '保持水分摄入很重要。在我开药之前，您有对任何药物过敏的情况需要我了解的吗？',
         wordCount: 21,
         keyTerms: ['hydrated', 'allergies', 'medications']
       },
@@ -983,6 +1043,7 @@ const CCL_DIALOGUES = [
         number: 9,
         speaker: 'ENGLISH',
         text: 'Thank you for letting me know. I\'ll note that down. Have you noticed any blood in your vomit or stools? And do you have a fever?',
+        translation: '谢谢您告诉我。我记下来了。您有没有注意到呕吐物或大便中有血？您有发烧吗？',
         wordCount: 26,
         keyTerms: ['blood', 'vomit', 'stools', 'fever']
       },
@@ -998,6 +1059,7 @@ const CCL_DIALOGUES = [
         number: 11,
         speaker: 'ENGLISH',
         text: 'A mild fever is common with food poisoning. I\'ll prescribe an anti-nausea medication and oral rehydration sachets. Stick to bland foods like toast and crackers for a couple of days.',
+        translation: '轻微发烧在食物中毒中很常见。我给您开一些止吐药和口服补液盐。这几天请吃清淡的食物，比如吐司和饼干。',
         wordCount: 30,
         keyTerms: ['anti-nausea medication', 'rehydration sachets', 'bland foods']
       },
@@ -1013,6 +1075,7 @@ const CCL_DIALOGUES = [
         number: 13,
         speaker: 'ENGLISH',
         text: 'I\'d recommend at least two days off work. Most food poisoning clears up within three to five days. If symptoms worsen or you develop a high fever, come back or visit emergency.',
+        translation: '我建议您至少请两天假。大多数食物中毒在三到五天内就会好。如果症状加重或出现高烧，请回来或去急诊。',
         wordCount: 32,
         keyTerms: ['two days off', 'food poisoning', 'emergency']
       },
@@ -1037,6 +1100,7 @@ const CCL_DIALOGUES = [
         number: 1,
         speaker: 'ENGLISH',
         text: 'Good morning. I\'m Nurse Jennifer. I understand you\'ve brought your child in for their scheduled vaccinations today. Can you confirm the child\'s name and date of birth?',
+        translation: '早上好。我是护士珍妮弗。我了解您今天带孩子来打预定的疫苗。能确认一下孩子的姓名和出生日期吗？',
         wordCount: 27,
         keyTerms: ['Nurse', 'vaccinations', 'date of birth']
       },
@@ -1052,6 +1116,7 @@ const CCL_DIALOGUES = [
         number: 3,
         speaker: 'ENGLISH',
         text: 'Thank you. Today she\'ll be receiving two vaccines. The first is a combined vaccine for diphtheria, tetanus, whooping cough, and polio. The second is for measles, mumps, and rubella.',
+        translation: '谢谢。今天她要接种两种疫苗。第一种是白喉、破伤风、百日咳和小儿麻痹症的联合疫苗。第二种是麻疹、腮腺炎和风疹疫苗。',
         wordCount: 29,
         keyTerms: ['diphtheria', 'tetanus', 'whooping cough', 'measles']
       },
@@ -1067,6 +1132,7 @@ const CCL_DIALOGUES = [
         number: 5,
         speaker: 'ENGLISH',
         text: 'Some swelling and redness at the injection site is normal and usually goes away within a few days. She may also have a mild fever. You can give her children\'s paracetamol if needed.',
+        translation: '注射部位出现一些红肿是正常的，通常几天内就会消退。她也可能会轻微发烧。如果需要，您可以给她吃儿童扑热息痛。',
         wordCount: 33,
         keyTerms: ['swelling', 'redness', 'injection site', 'paracetamol']
       },
@@ -1082,6 +1148,7 @@ const CCL_DIALOGUES = [
         number: 7,
         speaker: 'ENGLISH',
         text: 'Serious reactions are very rare. However, if she develops a high fever, a rash all over her body, or has difficulty breathing, take her to the nearest emergency department immediately.',
+        translation: '严重的反应非常罕见。但是，如果她出现高烧、全身皮疹或呼吸困难，请立即带她去最近的急诊室。',
         wordCount: 30,
         keyTerms: ['serious reactions', 'rash', 'difficulty breathing', 'emergency department']
       },
@@ -1097,6 +1164,7 @@ const CCL_DIALOGUES = [
         number: 9,
         speaker: 'ENGLISH',
         text: 'Yes, we ask that you stay in the waiting area for fifteen minutes after the vaccination so we can monitor for any immediate reactions. Before we proceed, I need you to sign a consent form.',
+        translation: '是的，我们要求您在接种后在候诊区等待十五分钟，以便我们观察是否有即时反应。在开始之前，我需要您签一份同意书。',
         wordCount: 35,
         keyTerms: ['waiting area', 'fifteen minutes', 'consent form']
       },
@@ -1112,6 +1180,7 @@ const CCL_DIALOGUES = [
         number: 11,
         speaker: 'ENGLISH',
         text: 'All childhood vaccinations on the National Immunisation Program schedule are free. The record will be updated on the Australian Immunisation Register, and you can access it through your myGov account.',
+        translation: '国家免疫计划中所有儿童疫苗都是免费的。记录将更新到澳大利亚免疫登记册上，您可以通过myGov账户查看。',
         wordCount: 30,
         keyTerms: ['National Immunisation Program', 'Australian Immunisation Register', 'myGov']
       },
@@ -1136,6 +1205,7 @@ const CCL_DIALOGUES = [
         number: 1,
         speaker: 'ENGLISH',
         text: 'Good afternoon. I\'m David, a counsellor here at the community health centre. How are you feeling today?',
+        translation: '下午好。我是大卫，社区健康中心的心理咨询师。您今天感觉怎么样？',
         wordCount: 17,
         keyTerms: ['counsellor', 'community health centre']
       },
@@ -1151,6 +1221,7 @@ const CCL_DIALOGUES = [
         number: 3,
         speaker: 'ENGLISH',
         text: 'I appreciate you sharing that with me. Can you tell me a bit more about what\'s been happening at work?',
+        translation: '感谢您跟我分享。您能多告诉我一些工作上发生了什么吗？',
         wordCount: 20,
         keyTerms: ['sharing', 'happening at work']
       },
@@ -1166,6 +1237,7 @@ const CCL_DIALOGUES = [
         number: 5,
         speaker: 'ENGLISH',
         text: 'That sounds like a very stressful situation. How long has this been going on, and have you noticed any other symptoms besides trouble sleeping?',
+        translation: '听起来压力非常大。这种情况持续多久了？除了失眠，您还注意到其他症状吗？',
         wordCount: 24,
         keyTerms: ['stressful', 'symptoms', 'trouble sleeping']
       },
@@ -1181,6 +1253,7 @@ const CCL_DIALOGUES = [
         number: 7,
         speaker: 'ENGLISH',
         text: 'Those are common symptoms of anxiety. Have you spoken to your GP about how you\'ve been feeling? It might be helpful to get a medical assessment as well.',
+        translation: '这些都是焦虑的常见症状。您有跟您的家庭医生谈过您的感受吗？做一个医学评估可能也会有帮助。',
         wordCount: 28,
         keyTerms: ['anxiety', 'GP', 'medical assessment']
       },
@@ -1196,6 +1269,7 @@ const CCL_DIALOGUES = [
         number: 9,
         speaker: 'ENGLISH',
         text: 'There\'s absolutely no shame in seeking help. I\'d recommend seeing your GP and asking about a Mental Health Treatment Plan under Medicare. This gives you up to ten subsidised sessions with a psychologist each year.',
+        translation: '寻求帮助完全不丢人。我建议您去看家庭医生，咨询Medicare下的心理健康治疗计划。这样您每年最多可以享受十次有补贴的心理咨询。',
         wordCount: 35,
         keyTerms: ['Mental Health Treatment Plan', 'Medicare', 'psychologist']
       },
@@ -1211,6 +1285,7 @@ const CCL_DIALOGUES = [
         number: 11,
         speaker: 'ENGLISH',
         text: 'Medicare will cover part of the cost. Some psychologists bulk bill, which means there\'s no out-of-pocket cost for you. I can give you a list of bulk-billing psychologists in the area.',
+        translation: 'Medicare会承担部分费用。一些心理医生提供批量结算服务，这意味着您不需要自己掏钱。我可以给您一份本地区提供批量结算的心理医生名单。',
         wordCount: 31,
         keyTerms: ['bulk bill', 'out-of-pocket cost', 'psychologists']
       },
@@ -1226,6 +1301,7 @@ const CCL_DIALOGUES = [
         number: 13,
         speaker: 'ENGLISH',
         text: 'Yes, there are several things. Try deep breathing exercises, limit caffeine, and set a regular sleep routine. Even a short daily walk can help. I\'ll give you a brochure on relaxation techniques.',
+        translation: '有的，有几个方法。试试深呼吸练习，减少咖啡因摄入，建立规律的睡眠习惯。每天散一小会儿步也有帮助。我给您一本关于放松技巧的小册子。',
         wordCount: 32,
         keyTerms: ['deep breathing', 'caffeine', 'sleep routine', 'relaxation techniques']
       },
@@ -1250,6 +1326,7 @@ const CCL_DIALOGUES = [
         number: 1,
         speaker: 'ENGLISH',
         text: 'Good afternoon. I\'m Senior Constable Williams. I understand you\'d like to report a break-in. Can you tell me what happened?',
+        translation: '下午好。我是高级警员威廉姆斯。我了解您要报告一起入室盗窃案。您能告诉我发生了什么吗？',
         wordCount: 20,
         keyTerms: ['Senior Constable', 'break-in', 'report']
       },
@@ -1265,6 +1342,7 @@ const CCL_DIALOGUES = [
         number: 3,
         speaker: 'ENGLISH',
         text: 'I\'m sorry to hear that. Before we go further, can I confirm you haven\'t touched or moved anything inside? It\'s important to preserve the scene for forensics.',
+        translation: '很遗憾听到这件事。在继续之前，我能确认一下您没有触碰或移动屋内任何东西吗？保留现场对法医取证非常重要。',
         wordCount: 27,
         keyTerms: ['forensics', 'preserve the scene']
       },
@@ -1280,6 +1358,7 @@ const CCL_DIALOGUES = [
         number: 5,
         speaker: 'ENGLISH',
         text: 'That was the right thing to do. Can you tell me what items appear to be missing or stolen?',
+        translation: '您做得对。您能告诉我有哪些物品似乎丢失或被盗了吗？',
         wordCount: 19,
         keyTerms: ['missing', 'stolen']
       },
@@ -1295,6 +1374,7 @@ const CCL_DIALOGUES = [
         number: 7,
         speaker: 'ENGLISH',
         text: 'Do you have the serial number for the laptop or any receipts for the jewellery? That information would help us if the items are recovered.',
+        translation: '您有笔记本电脑的序列号或首饰的收据吗？如果物品被找回，这些信息会很有帮助。',
         wordCount: 25,
         keyTerms: ['serial number', 'receipts', 'recovered']
       },
@@ -1310,6 +1390,7 @@ const CCL_DIALOGUES = [
         number: 9,
         speaker: 'ENGLISH',
         text: 'That would be very helpful. Do you have any security cameras or know of any CCTV in the area that might have captured something?',
+        translation: '那会非常有帮助。您家有安装监控摄像头吗？或者您知道附近有没有可能拍到什么的闭路电视？',
         wordCount: 24,
         keyTerms: ['security cameras', 'CCTV']
       },
@@ -1325,6 +1406,7 @@ const CCL_DIALOGUES = [
         number: 11,
         speaker: 'ENGLISH',
         text: 'We\'ll speak to your neighbour about that. Did any of your neighbours see or hear anything unusual during the day?',
+        translation: '我们会跟您的邻居谈谈这件事。白天有邻居看到或听到什么异常情况吗？',
         wordCount: 20,
         keyTerms: ['neighbours', 'see or hear', 'unusual']
       },
@@ -1340,6 +1422,7 @@ const CCL_DIALOGUES = [
         number: 13,
         speaker: 'ENGLISH',
         text: 'We\'ll follow up with her too. I\'ll send a forensic team to check for fingerprints and evidence. I\'ll also prepare a report and give you an event number for your insurance claim.',
+        translation: '我们也会跟进她的情况。我会派法医团队去检查指纹和证据。我还会准备一份报告，给您一个事件编号用于保险理赔。',
         wordCount: 32,
         keyTerms: ['forensic team', 'fingerprints', 'insurance claim', 'event number']
       },
@@ -1364,6 +1447,7 @@ const CCL_DIALOGUES = [
         number: 1,
         speaker: 'ENGLISH',
         text: 'Good morning. I\'m Sarah, a solicitor with Legal Aid. Everything you tell me today is confidential. How can I help you?',
+        translation: '早上好。我是萨拉，法律援助的律师。您今天告诉我的一切都是保密的。我能怎么帮您？',
         wordCount: 21,
         keyTerms: ['solicitor', 'Legal Aid', 'confidential']
       },
@@ -1379,6 +1463,7 @@ const CCL_DIALOGUES = [
         number: 3,
         speaker: 'ENGLISH',
         text: 'I\'m very sorry you\'re going through this. You\'ve done the right thing by coming here. Your safety is the priority. Are you currently living with your husband?',
+        translation: '我很抱歉您正在经历这些。您来这里做得很对。您的安全是最重要的。您目前还和丈夫住在一起吗？',
         wordCount: 27,
         keyTerms: ['safety', 'priority', 'living with']
       },
@@ -1394,6 +1479,7 @@ const CCL_DIALOGUES = [
         number: 5,
         speaker: 'ENGLISH',
         text: 'There are safe options for you. We can help you apply for an Apprehended Violence Order, or AVO. This is a court order that prevents your husband from contacting or approaching you.',
+        translation: '有安全的选择可以帮到您。我们可以帮您申请暴力禁制令，也叫AVO。这是一项法院命令，禁止您的丈夫联系或接近您。',
         wordCount: 32,
         keyTerms: ['Apprehended Violence Order', 'AVO', 'court order']
       },
@@ -1409,6 +1495,7 @@ const CCL_DIALOGUES = [
         number: 7,
         speaker: 'ENGLISH',
         text: 'If you\'re in immediate danger, police can issue a provisional AVO on the spot, which takes effect straight away. We can also arrange emergency accommodation at a women\'s refuge.',
+        translation: '如果您面临紧急危险，警方可以当场发出临时暴力禁制令，立即生效。我们也可以为您安排妇女庇护所的紧急住所。',
         wordCount: 29,
         keyTerms: ['provisional AVO', 'emergency accommodation', 'women\'s refuge']
       },
@@ -1424,6 +1511,7 @@ const CCL_DIALOGUES = [
         number: 9,
         speaker: 'ENGLISH',
         text: 'Absolutely. Your daughter can stay with you at the refuge. The refuge also provides counselling and support services for both you and your child.',
+        translation: '当然可以。您的女儿可以和您一起住在庇护所。庇护所还为您和您的孩子提供心理咨询和支持服务。',
         wordCount: 24,
         keyTerms: ['refuge', 'counselling', 'support services']
       },
@@ -1439,6 +1527,7 @@ const CCL_DIALOGUES = [
         number: 11,
         speaker: 'ENGLISH',
         text: 'If you\'re on a partner visa, there are special provisions for family violence situations. You may still be eligible to stay in Australia. I can refer you to an immigration lawyer for help.',
+        translation: '如果您持的是配偶签证，针对家庭暴力情况有特殊条款。您可能仍然有资格留在澳洲。我可以为您转介一位移民律师来帮助您。',
         wordCount: 33,
         keyTerms: ['partner visa', 'family violence', 'immigration lawyer']
       },
@@ -1454,6 +1543,7 @@ const CCL_DIALOGUES = [
         number: 13,
         speaker: 'ENGLISH',
         text: 'Yes. I can connect you with a domestic violence support worker who speaks Mandarin. There\'s also a national helpline called 1800RESPECT that operates around the clock. They can help with safety planning and emotional support.',
+        translation: '有的。我可以为您联系一位会说普通话的家庭暴力支持工作者。还有一个全国热线叫1800RESPECT，全天候运作。他们可以帮助制定安全计划并提供情感支持。',
         wordCount: 35,
         keyTerms: ['domestic violence support worker', 'Mandarin', '1800RESPECT', 'safety planning']
       },
@@ -1478,6 +1568,7 @@ const CCL_DIALOGUES = [
         number: 1,
         speaker: 'ENGLISH',
         text: 'Good morning. I\'m James, a citizenship officer with the Department of Home Affairs. Thank you for attending your citizenship interview today. Can I see your identification, please?',
+        translation: '早上好。我是詹姆斯，内政部的公民身份官员。感谢您今天来参加公民身份面试。请出示您的身份证件。',
         wordCount: 27,
         keyTerms: ['citizenship officer', 'Department of Home Affairs', 'identification']
       },
@@ -1493,6 +1584,7 @@ const CCL_DIALOGUES = [
         number: 3,
         speaker: 'ENGLISH',
         text: 'Thank you. I can see from your records that you were granted permanent residency in January 2022. Can you confirm how long you have been living in Australia?',
+        translation: '谢谢。从您的记录中我可以看到您于2022年1月获得了永久居留权。您能确认一下您在澳洲居住了多长时间吗？',
         wordCount: 28,
         keyTerms: ['permanent residency', 'living in Australia']
       },
@@ -1508,6 +1600,7 @@ const CCL_DIALOGUES = [
         number: 5,
         speaker: 'ENGLISH',
         text: 'That\'s fine. The residency requirement is that you\'ve lived in Australia for at least four years, with at least one year as a permanent resident. You appear to meet that requirement.',
+        translation: '没问题。居住要求是您在澳洲至少居住了四年，其中至少一年是永久居民身份。您看起来符合这项要求。',
         wordCount: 31,
         keyTerms: ['residency requirement', 'permanent resident']
       },
@@ -1523,6 +1616,7 @@ const CCL_DIALOGUES = [
         number: 7,
         speaker: 'ENGLISH',
         text: 'That\'s wonderful. Now I need to ask about the character requirement. Have you had any criminal convictions or any issues with the law in Australia or overseas?',
+        translation: '很好。现在我需要问一下品格要求方面的问题。您在澳洲或海外有任何犯罪记录或法律问题吗？',
         wordCount: 27,
         keyTerms: ['character requirement', 'criminal convictions']
       },
@@ -1538,6 +1632,7 @@ const CCL_DIALOGUES = [
         number: 9,
         speaker: 'ENGLISH',
         text: 'Very good. I can see you\'ve already passed the citizenship test, which covers knowledge of Australia, including its democratic values, history, and national symbols. Congratulations on that.',
+        translation: '非常好。我看到您已经通过了公民考试，考试内容涵盖澳洲知识，包括民主价值观、历史和国家标志。恭喜您。',
         wordCount: 27,
         keyTerms: ['citizenship test', 'democratic values', 'national symbols']
       },
@@ -1553,6 +1648,7 @@ const CCL_DIALOGUES = [
         number: 11,
         speaker: 'ENGLISH',
         text: 'Your application will now go through a final assessment. If approved, you\'ll receive an invitation to attend a citizenship ceremony where you\'ll make the Australian citizenship pledge. This usually takes place within a few months.',
+        translation: '您的申请现在将进入最终审核。如果获批，您会收到参加入籍仪式的邀请，届时您将宣读澳大利亚公民宣誓。这通常在几个月内举行。',
         wordCount: 35,
         keyTerms: ['final assessment', 'citizenship ceremony', 'citizenship pledge']
       },
@@ -1577,6 +1673,7 @@ const CCL_DIALOGUES = [
         number: 1,
         speaker: 'ENGLISH',
         text: 'Good morning. This is Sarah from Migration Solutions. How can I assist you today?',
+        translation: '早上好。我是移民解决方案公司的萨拉。今天有什么可以帮您的？',
         wordCount: 14,
         keyTerms: ['Migration Solutions', 'assist']
       },
@@ -1592,6 +1689,7 @@ const CCL_DIALOGUES = [
         number: 3,
         speaker: 'ENGLISH',
         text: 'Of course. What course are you enrolled in and have you received a new Confirmation of Enrolment?',
+        translation: '当然。您在读什么课程？您收到新的注册确认书了吗？',
         wordCount: 17,
         keyTerms: ['Confirmation of Enrolment', 'course']
       },
@@ -1607,6 +1705,7 @@ const CCL_DIALOGUES = [
         number: 5,
         speaker: 'ENGLISH',
         text: 'Good. You need to lodge a new student visa application before your current visa expires. You must also show evidence of financial capacity.',
+        translation: '好的。您需要在现有签证到期前递交新的学生签证申请。您还必须提供经济能力的证明。',
         wordCount: 23,
         keyTerms: ['student visa application', 'visa expires', 'financial capacity']
       },
@@ -1622,6 +1721,7 @@ const CCL_DIALOGUES = [
         number: 7,
         speaker: 'ENGLISH',
         text: 'You need enough funds for tuition, living expenses, and a return airfare. For living costs, roughly twenty-one thousand dollars a year is required.',
+        translation: '您需要有足够的资金来支付学费、生活费和往返机票。生活费方面，每年大约需要两万一千澳元。',
         wordCount: 23,
         keyTerms: ['tuition', 'living expenses', 'return airfare']
       },
@@ -1637,6 +1737,7 @@ const CCL_DIALOGUES = [
         number: 9,
         speaker: 'ENGLISH',
         text: 'Yes. Your health insurance must cover the full duration of the new visa. You cannot lodge the application without valid cover.',
+        translation: '是的。您的健康保险必须覆盖新签证的整个有效期。没有有效保险您无法递交申请。',
         wordCount: 21,
         keyTerms: ['health insurance', 'valid cover', 'lodge']
       },
@@ -1652,6 +1753,7 @@ const CCL_DIALOGUES = [
         number: 11,
         speaker: 'ENGLISH',
         text: 'If you lodge the application before your visa expires, you will automatically receive a bridging visa. This lets you stay in Australia while the application is processed.',
+        translation: '如果您在签证到期前递交申请，您将自动获得一个过桥签证。这让您可以在申请处理期间继续留在澳洲。',
         wordCount: 27,
         keyTerms: ['bridging visa', 'lodge', 'application processed']
       },
@@ -1667,6 +1769,7 @@ const CCL_DIALOGUES = [
         number: 13,
         speaker: 'ENGLISH',
         text: 'Yes, the bridging visa usually has the same work conditions. I recommend you lodge the application as soon as possible to avoid complications.',
+        translation: '是的，过桥签证通常有相同的工作条件。我建议您尽快递交申请，以避免出现问题。',
         wordCount: 23,
         keyTerms: ['bridging visa', 'work conditions', 'lodge']
       },
@@ -1691,6 +1794,7 @@ const CCL_DIALOGUES = [
         number: 1,
         speaker: 'ENGLISH',
         text: 'Good afternoon. Welcome to Ray White real estate. Are you here for the apartment inspection?',
+        translation: '下午好。欢迎来到Ray White房地产。您是来看公寓的吗？',
         wordCount: 15,
         keyTerms: ['Ray White', 'real estate', 'apartment inspection']
       },
@@ -1706,6 +1810,7 @@ const CCL_DIALOGUES = [
         number: 3,
         speaker: 'ENGLISH',
         text: 'The rent is five hundred and fifty dollars per week, payable fortnightly. The lease is twelve months with an option to renew.',
+        translation: '租金是每周五百五十澳元，每两周支付一次。租约为十二个月，可以续签。',
         wordCount: 22,
         keyTerms: ['rent', 'fortnightly', 'lease', 'twelve months']
       },
@@ -1721,6 +1826,7 @@ const CCL_DIALOGUES = [
         number: 5,
         speaker: 'ENGLISH',
         text: 'Correct. The bond is four weeks of rent, which is two thousand two hundred dollars. It is lodged with NSW Fair Trading.',
+        translation: '没错。押金是四周租金，也就是两千两百澳元。押金由新州公平交易署保管。',
         wordCount: 22,
         keyTerms: ['bond', 'NSW Fair Trading']
       },
@@ -1736,6 +1842,7 @@ const CCL_DIALOGUES = [
         number: 7,
         speaker: 'ENGLISH',
         text: 'Yes. We provide a condition report with photos. You have seven days to check it and note any issues before returning it.',
+        translation: '是的。我们会提供带有照片的物业状况报告。您有七天时间检查并记录任何问题，然后交还给我们。',
         wordCount: 22,
         keyTerms: ['condition report', 'photos', 'seven days']
       },
@@ -1751,6 +1858,7 @@ const CCL_DIALOGUES = [
         number: 9,
         speaker: 'ENGLISH',
         text: 'Yes, the landlord is responsible for repairs. We will arrange a plumber and electrician before the lease starts.',
+        translation: '是的，房东负责维修。我们会在租约开始前安排水管工和电工来修理。',
         wordCount: 18,
         keyTerms: ['landlord', 'repairs', 'plumber', 'electrician']
       },
@@ -1766,6 +1874,7 @@ const CCL_DIALOGUES = [
         number: 11,
         speaker: 'ENGLISH',
         text: 'Contact our office to submit a maintenance request. For urgent issues like burst pipes or no hot water, we have a twenty-four-hour emergency line.',
+        translation: '请联系我们办公室提交维修申请。对于水管爆裂或没有热水等紧急情况，我们有二十四小时紧急联系电话。',
         wordCount: 24,
         keyTerms: ['maintenance request', 'emergency line', 'burst pipes']
       },
@@ -1781,6 +1890,7 @@ const CCL_DIALOGUES = [
         number: 13,
         speaker: 'ENGLISH',
         text: 'Yes, pets are allowed under the new legislation. However, you need written consent from the landlord before bringing an animal onto the property.',
+        translation: '是的，根据新的法律规定，允许养宠物。但是，在带动物入住前，您需要获得房东的书面同意。',
         wordCount: 23,
         keyTerms: ['pets', 'legislation', 'written consent']
       },
@@ -1805,6 +1915,7 @@ const CCL_DIALOGUES = [
         number: 1,
         speaker: 'ENGLISH',
         text: 'Thank you for calling Energy Australia. My name is Lisa. How may I help you today?',
+        translation: '感谢致电Energy Australia。我叫丽莎。今天有什么可以帮您的？',
         wordCount: 16,
         keyTerms: ['Energy Australia']
       },
@@ -1820,6 +1931,7 @@ const CCL_DIALOGUES = [
         number: 3,
         speaker: 'ENGLISH',
         text: 'I understand your concern. Could you please give me your account number so I can look into this for you?',
+        translation: '我理解您的担忧。请您提供一下账号，我帮您查一下。',
         wordCount: 20,
         keyTerms: ['account number', 'look into']
       },
@@ -1835,6 +1947,7 @@ const CCL_DIALOGUES = [
         number: 5,
         speaker: 'ENGLISH',
         text: 'I can see your account. Last quarter was based on an estimated reading, not an actual one. This quarter includes a catch-up adjustment.',
+        translation: '我能看到您的账户了。上个季度的账单是基于估算读数，不是实际读数。这个季度包含了一个补缴调整。',
         wordCount: 23,
         keyTerms: ['estimated reading', 'actual', 'catch-up adjustment']
       },
@@ -1850,6 +1963,7 @@ const CCL_DIALOGUES = [
         number: 7,
         speaker: 'ENGLISH',
         text: 'Sometimes meter readers cannot access the property if it is locked or there is a dog in the yard. We can arrange a special reading if you request one.',
+        translation: '有时候抄表员无法进入物业，可能是门锁着或者院子里有狗。如果您提出要求，我们可以安排一次专门的抄表。',
         wordCount: 29,
         keyTerms: ['meter readers', 'access', 'special reading']
       },
@@ -1865,6 +1979,7 @@ const CCL_DIALOGUES = [
         number: 9,
         speaker: 'ENGLISH',
         text: 'Yes, we offer payment plans. I can set up a plan where you pay a fixed amount each fortnight until the balance is cleared.',
+        translation: '是的，我们提供分期付款计划。我可以为您设置一个方案，每两周支付固定金额，直到余额付清。',
         wordCount: 24,
         keyTerms: ['payment plans', 'fixed amount', 'fortnightly']
       },
@@ -1880,6 +1995,7 @@ const CCL_DIALOGUES = [
         number: 11,
         speaker: 'ENGLISH',
         text: 'You could consider switching to a time-of-use tariff which charges less during off-peak hours. Running appliances like washing machines and dryers at night can reduce your costs significantly.',
+        translation: '您可以考虑转换到分时电价，在非高峰时段收费更低。在晚上使用洗衣机和烘干机等电器可以显著降低您的费用。',
         wordCount: 30,
         keyTerms: ['time-of-use tariff', 'off-peak hours', 'appliances']
       },
@@ -1904,6 +2020,7 @@ const CCL_DIALOGUES = [
         number: 1,
         speaker: 'ENGLISH',
         text: 'Good morning. NRMA Insurance claims department. My name is David. How can I help?',
+        translation: '早上好。NRMA保险理赔部。我叫大卫。有什么可以帮您的？',
         wordCount: 14,
         keyTerms: ['NRMA Insurance', 'claims department']
       },
@@ -1919,6 +2036,7 @@ const CCL_DIALOGUES = [
         number: 3,
         speaker: 'ENGLISH',
         text: 'I am sorry to hear that. Is anyone injured? Can you tell me what happened?',
+        translation: '很遗憾听到这件事。有人受伤吗？您能告诉我发生了什么吗？',
         wordCount: 15,
         keyTerms: ['injured', 'what happened']
       },
@@ -1934,6 +2052,7 @@ const CCL_DIALOGUES = [
         number: 5,
         speaker: 'ENGLISH',
         text: 'Did you exchange details with the other driver? I need their name, phone number, registration plate, and insurance details.',
+        translation: '您和对方司机交换了信息吗？我需要对方的姓名、电话号码、车牌号和保险信息。',
         wordCount: 19,
         keyTerms: ['exchange details', 'registration plate', 'insurance details']
       },
@@ -1949,6 +2068,7 @@ const CCL_DIALOGUES = [
         number: 7,
         speaker: 'ENGLISH',
         text: 'That is fine. We can still process your claim. Did you take photos of the damage and the accident scene?',
+        translation: '没关系。我们仍然可以处理您的理赔。您有拍损坏情况和事故现场的照片吗？',
         wordCount: 20,
         keyTerms: ['process your claim', 'photos', 'damage']
       },
@@ -1964,6 +2084,7 @@ const CCL_DIALOGUES = [
         number: 9,
         speaker: 'ENGLISH',
         text: 'Good, photos are very helpful. Did you report the accident to the police?',
+        translation: '好的，照片非常有帮助。您有向警方报告这起事故吗？',
         wordCount: 13,
         keyTerms: ['photos', 'police']
       },
@@ -1979,6 +2100,7 @@ const CCL_DIALOGUES = [
         number: 11,
         speaker: 'ENGLISH',
         text: 'For minor accidents with no injuries, a police report is not required. But I suggest you report it online for your records. Let me explain the claims process.',
+        translation: '对于没有人员受伤的轻微事故，不需要警方报告。但我建议您在网上报备以留存记录。让我来解释一下理赔流程。',
         wordCount: 28,
         keyTerms: ['minor accidents', 'police report', 'claims process']
       },
@@ -1994,6 +2116,7 @@ const CCL_DIALOGUES = [
         number: 13,
         speaker: 'ENGLISH',
         text: 'You need to pay the excess, which is your contribution towards the claim. Your policy has a basic excess of eight hundred dollars. We will send an assessor to inspect your car.',
+        translation: '您需要支付免赔额，这是您对理赔的自付部分。您的保单基本免赔额是八百澳元。我们会派一位评估员来检查您的车。',
         wordCount: 32,
         keyTerms: ['excess', 'contribution', 'assessor', 'inspect']
       },
@@ -2018,6 +2141,7 @@ const CCL_DIALOGUES = [
         number: 1,
         speaker: 'ENGLISH',
         text: 'Good morning. Welcome to Austrade. I am James, a trade officer. I understand you are interested in exporting to China.',
+        translation: '早上好。欢迎来到澳大利亚贸易投资委员会。我是詹姆斯，一名贸易官员。我了解您有兴趣向中国出口。',
         wordCount: 20,
         keyTerms: ['Austrade', 'trade officer', 'exporting']
       },
@@ -2033,6 +2157,7 @@ const CCL_DIALOGUES = [
         number: 3,
         speaker: 'ENGLISH',
         text: 'That is a great opportunity. Australian skincare products are highly regarded in China. However, exporting cosmetics requires meeting specific regulations in both countries.',
+        translation: '这是一个很好的机会。澳洲护肤品在中国享有很高的声誉。不过，出口化妆品需要满足两国的特定法规。',
         wordCount: 23,
         keyTerms: ['skincare products', 'regulations']
       },
@@ -2048,6 +2173,7 @@ const CCL_DIALOGUES = [
         number: 5,
         speaker: 'ENGLISH',
         text: 'Yes, cosmetics must be registered with the National Medical Products Administration in China. For ordinary cosmetics, the process takes three to six months.',
+        translation: '是的，化妆品必须在中国国家药品监督管理局注册。对于普通化妆品，这个过程需要三到六个月。',
         wordCount: 23,
         keyTerms: ['National Medical Products Administration', 'registered', 'cosmetics']
       },
@@ -2063,6 +2189,7 @@ const CCL_DIALOGUES = [
         number: 7,
         speaker: 'ENGLISH',
         text: 'Under the Free Trade Agreement, tariffs on many Australian goods have been reduced or eliminated. For cosmetics, the tariff may be as low as five per cent.',
+        translation: '根据自由贸易协定，许多澳洲商品的关税已经降低或取消。对于化妆品，关税可能低至百分之五。',
         wordCount: 27,
         keyTerms: ['Free Trade Agreement', 'tariffs', 'five per cent']
       },
@@ -2078,6 +2205,7 @@ const CCL_DIALOGUES = [
         number: 9,
         speaker: 'ENGLISH',
         text: 'All products need Chinese language labels showing ingredients, manufacturer details, expiry date, and the name of the Chinese importer. Labels must meet national standards.',
+        translation: '所有产品都需要中文标签，标明成分、生产商信息、保质期以及中国进口商的名称。标签必须符合国家标准。',
         wordCount: 24,
         keyTerms: ['Chinese language labels', 'ingredients', 'expiry date', 'national standards']
       },
@@ -2093,6 +2221,7 @@ const CCL_DIALOGUES = [
         number: 11,
         speaker: 'ENGLISH',
         text: 'Yes. The Export Market Development Grant reimburses up to fifty per cent of eligible export expenses. We also offer free workshops and can arrange trade missions to China.',
+        translation: '有的。出口市场开发补助金可以报销高达百分之五十的合格出口费用。我们还提供免费研讨会，也可以安排赴中国的贸易考察团。',
         wordCount: 28,
         keyTerms: ['Export Market Development Grant', 'workshops', 'trade missions']
       },

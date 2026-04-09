@@ -183,8 +183,20 @@ body {
   background: #f8fafc;
   border-radius: 8px;
   border-left: 4px solid var(--ccl-primary);
-  margin-bottom: 12px;
+  margin-bottom: 0;
 }
+.ccl-text-translation {
+  font-size: 0.975rem;
+  line-height: 1.7;
+  color: var(--ccl-muted);
+  padding: 12px 16px;
+  background: #f0f4f8;
+  border-radius: 0 0 8px 8px;
+  border-left: 4px solid #b2dfdb;
+  margin-bottom: 12px;
+  font-style: italic;
+}
+.ccl-text-display + .ccl-text-translation { margin-top: 0; }
 
 /* --- Segment context --- */
 .ccl-context {
@@ -768,8 +780,9 @@ body {
       <div id="segDirection"></div>
       <!-- Context -->
       <div class="ccl-context" id="segContext"></div>
-      <!-- Source text -->
+      <!-- Source text (bilingual) -->
       <div class="ccl-text-display" id="segSourceText"></div>
+      <div class="ccl-text-translation" id="segTransText" style="display:none;"></div>
 
       <!-- Play source TTS -->
       <div class="ccl-btn-group" style="margin-bottom:12px;">
@@ -867,6 +880,7 @@ body {
       <div class="ccl-card" id="dlgSegCard">
         <div id="dlgDirection"></div>
         <div class="ccl-text-display" id="dlgSegText"></div>
+        <div class="ccl-text-translation" id="dlgTransText" style="display:none;"></div>
 
         <div class="ccl-btn-group" style="margin-bottom:12px;">
           <button class="ccl-rec-btn ccl-rec-btn--speak" id="dlgPlayBtn" title="Play">&#9654;</button>
@@ -921,6 +935,7 @@ body {
       <div id="shaDirection"></div>
       <div class="ccl-context" id="shaContext"></div>
       <div class="ccl-text-display" id="shaSourceText"></div>
+      <div class="ccl-text-translation" id="shaTransText" style="display:none;"></div>
 
       <div class="ccl-btn-group" style="margin-bottom:12px;">
         <button class="ccl-rec-btn ccl-rec-btn--speak" id="shaPlayBtn" title="Play">&#9654;</button>
@@ -998,6 +1013,7 @@ body {
       <div class="ccl-card" id="mockSegCard">
         <div id="mockDirection"></div>
         <div class="ccl-text-display" id="mockSegText"></div>
+        <div class="ccl-text-translation" id="mockTransText" style="display:none;"></div>
 
         <div class="ccl-timer-wrap">
           <div class="ccl-timer-bar"><div class="ccl-timer-bar__fill" id="mockTimerFill"></div></div>
@@ -1426,8 +1442,15 @@ function segRender() {
   // Context
   document.getElementById('segContext').textContent = s.dialogueTitle + ' \u2014 ' + s.scenario;
 
-  // Source text
+  // Source text (bilingual)
   document.getElementById('segSourceText').textContent = s.text;
+  const transEl = document.getElementById('segTransText');
+  if (s.translation) {
+    transEl.textContent = s.translation;
+    transEl.style.display = 'block';
+  } else {
+    transEl.style.display = 'none';
+  }
 
   // Reset UI
   segResetRecording();
@@ -1706,6 +1729,9 @@ function dlgRenderSeg() {
   document.getElementById('dlgDirection').innerHTML = '<span class="ccl-direction ' + (isEn ? 'ccl-direction--en' : 'ccl-direction--zh') + '">' +
     (isEn ? 'EN \u2192 \u4e2d\u6587' : '\u4e2d\u6587 \u2192 EN') + '</span>';
   document.getElementById('dlgSegText').textContent = s.text;
+  const dlgTrans = document.getElementById('dlgTransText');
+  if (s.translation) { dlgTrans.textContent = s.translation; dlgTrans.style.display = 'block'; }
+  else { dlgTrans.style.display = 'none'; }
 
   // Reset
   document.getElementById('dlgTimerWrap').style.display = 'none';
@@ -1863,6 +1889,9 @@ function shaRender() {
     (isEn ? 'English' : '\u4e2d\u6587') + ' \u2014 Shadowing</span>';
   document.getElementById('shaContext').textContent = s.dialogueTitle;
   document.getElementById('shaSourceText').textContent = s.text;
+  const shaTrans = document.getElementById('shaTransText');
+  if (s.translation) { shaTrans.textContent = s.translation; shaTrans.style.display = 'block'; }
+  else { shaTrans.style.display = 'none'; }
 
   document.getElementById('shaAudioWrap').style.display = 'none';
   document.getElementById('shaScoreCard').style.display = 'none';
@@ -2186,6 +2215,9 @@ function mockRenderSeg() {
   document.getElementById('mockDirection').innerHTML = '<span class="ccl-direction ' + (isEn ? 'ccl-direction--en' : 'ccl-direction--zh') + '">' +
     (isEn ? 'EN \u2192 \u4e2d\u6587' : '\u4e2d\u6587 \u2192 EN') + '</span>';
   document.getElementById('mockSegText').textContent = s.text;
+  const mockTrans = document.getElementById('mockTransText');
+  if (s.translation) { mockTrans.textContent = s.translation; mockTrans.style.display = 'block'; }
+  else { mockTrans.style.display = 'none'; }
 
   document.getElementById('mockAudioWrap').style.display = 'none';
   document.getElementById('mockNextBtn').style.display = 'none';
