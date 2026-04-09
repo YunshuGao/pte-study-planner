@@ -878,6 +878,82 @@
   display: none;
 }
 .sp-mic-error.show { display: block; }
+
+/* --- Auto-score results --- */
+.sp-auto-score {
+  background: #f0fdf4;
+  border: 2px solid #86efac;
+  border-radius: var(--sp-radius);
+  padding: 16px;
+  margin: 12px 0;
+  display: none;
+  animation: spFadeIn 0.3s;
+}
+.sp-auto-score.show { display: block; }
+.sp-auto-score__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.sp-auto-score__title {
+  font-size: 0.875rem;
+  font-weight: 800;
+  color: #166534;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.sp-auto-score__pct {
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+.sp-auto-score__pct.good { color: var(--sp-green); }
+.sp-auto-score__pct.ok { color: var(--sp-yellow); }
+.sp-auto-score__pct.bad { color: var(--sp-red); }
+.sp-auto-score__detail {
+  font-size: 0.8125rem;
+  color: var(--sp-muted);
+  margin-bottom: 8px;
+}
+.sp-auto-score__words {
+  font-size: 0.8125rem;
+  line-height: 1.8;
+  padding: 10px;
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+.sp-auto-score__words .matched { color: var(--sp-green); font-weight: 700; }
+.sp-auto-score__words .missed { color: var(--sp-red); text-decoration: line-through; opacity: 0.7; }
+.sp-auto-score__words .extra { color: var(--sp-yellow); font-style: italic; }
+.sp-auto-score__legend {
+  display: flex;
+  gap: 16px;
+  margin-top: 8px;
+  font-size: 0.6875rem;
+  color: var(--sp-muted);
+}
+.sp-auto-score__legend span::before {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  margin-right: 4px;
+  content: '';
+  vertical-align: middle;
+}
+.sp-auto-score__legend .lg-matched::before { background: var(--sp-green); }
+.sp-auto-score__legend .lg-missed::before { background: var(--sp-red); }
+.sp-auto-score__legend .lg-extra::before { background: var(--sp-yellow); }
+.sp-recognising {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--sp-red);
+  animation: pulse 1s infinite;
+}
 </style>
 </head>
 <body>
@@ -983,7 +1059,22 @@
         <button class="sp-rec-btn sp-rec-btn--record" id="raRecBtn" title="Start/Stop Recording (Space)">&#x23FA;</button>
         <button class="sp-rec-btn sp-rec-btn--play" id="raPlayBtn" disabled title="Play Recording">&#x25B6;</button>
         <span class="sp-wpm" id="raWpm">-- WPM</span>
+        <span class="sp-recognising" id="raRecognising" style="display:none;">&#x1F3A4; Listening...</span>
         <button class="sp-btn sp-btn--outline sp-btn--sm" id="raTimerStart">Start Timer</button>
+      </div>
+
+      <div class="sp-auto-score" id="raAutoScore">
+        <div class="sp-auto-score__header">
+          <span class="sp-auto-score__title">Auto-Score (Content Accuracy)</span>
+          <span class="sp-auto-score__pct" id="raAutoPct">--</span>
+        </div>
+        <div class="sp-auto-score__detail" id="raAutoDetail"></div>
+        <div class="sp-auto-score__words" id="raAutoWords"></div>
+        <div class="sp-auto-score__legend">
+          <span class="lg-matched">Matched</span>
+          <span class="lg-missed">Missed</span>
+          <span class="lg-extra">Extra words you said</span>
+        </div>
       </div>
 
       <div class="sp-assess" id="raAssess">
@@ -1052,6 +1143,21 @@
       <div class="sp-rec-controls">
         <button class="sp-rec-btn sp-rec-btn--record" id="rsRecBtn" title="Start/Stop Recording (Space)">&#x23FA;</button>
         <button class="sp-rec-btn sp-rec-btn--play" id="rsRecPlayBtn" disabled title="Play Recording">&#x25B6;</button>
+        <span class="sp-recognising" id="rsRecognising" style="display:none;">&#x1F3A4; Listening...</span>
+      </div>
+
+      <div class="sp-auto-score" id="rsAutoScore">
+        <div class="sp-auto-score__header">
+          <span class="sp-auto-score__title">Auto-Score (Word Accuracy)</span>
+          <span class="sp-auto-score__pct" id="rsAutoPct">--</span>
+        </div>
+        <div class="sp-auto-score__detail" id="rsAutoDetail"></div>
+        <div class="sp-auto-score__words" id="rsAutoWords"></div>
+        <div class="sp-auto-score__legend">
+          <span class="lg-matched">Matched</span>
+          <span class="lg-missed">Missed</span>
+          <span class="lg-extra">Extra words you said</span>
+        </div>
       </div>
 
       <div class="sp-assess">
@@ -1137,7 +1243,10 @@
       <div class="sp-rec-controls">
         <button class="sp-rec-btn sp-rec-btn--record" id="diRecBtn" title="Start/Stop Recording (Space)">&#x23FA;</button>
         <button class="sp-rec-btn sp-rec-btn--play" id="diPlayBtn" disabled title="Play Recording">&#x25B6;</button>
+        <span class="sp-recognising" id="diRecognising" style="display:none;">&#x1F3A4; Listening...</span>
       </div>
+
+      <div class="sp-auto-score" id="diAutoScore" style="display:none;"></div>
 
       <div class="sp-assess" id="diAssess">
         <div class="sp-assess__item">
@@ -1226,7 +1335,10 @@
       <div class="sp-rec-controls">
         <button class="sp-rec-btn sp-rec-btn--record" id="rlRecBtn" title="Start/Stop Recording (Space)">&#x23FA;</button>
         <button class="sp-rec-btn sp-rec-btn--play" id="rlPlayRecBtn" disabled title="Play Recording">&#x25B6;</button>
+        <span class="sp-recognising" id="rlRecognising" style="display:none;">&#x1F3A4; Listening...</span>
       </div>
+
+      <div class="sp-auto-score" id="rlAutoScore" style="display:none;"></div>
 
       <div class="sp-assess" id="rlAssess">
         <div class="sp-assess__item">
@@ -1291,7 +1403,14 @@
       <div class="sp-streak-counter" id="asqStreak">Streak: 0</div>
       <div class="sp-score-tracker" id="asqScore">Score: 0 / 0</div>
 
-      <div class="sp-asq-question" id="asqQuestion">Loading...</div>
+      <div style="text-align:center;margin-bottom:12px;">
+        <button class="sp-btn sp-btn--primary" id="asqPlayQuestion" style="font-size:1rem;padding:10px 28px;">&#x1F50A; Play Question</button>
+      </div>
+
+      <div class="sp-asq-question" id="asqQuestion" style="filter:blur(5px);cursor:pointer;user-select:none;" title="Click to reveal text (or listen first)">Loading...</div>
+      <div style="text-align:center;margin-bottom:8px;">
+        <button class="sp-btn sp-btn--ghost sp-btn--sm" id="asqRevealText" style="font-size:0.75rem;">Show Question Text</button>
+      </div>
 
       <div class="sp-timer-wrap">
         <div class="sp-timer-bar"><div class="sp-timer-bar__fill" id="asqTimerFill"></div></div>
@@ -1305,6 +1424,7 @@
 
       <div class="sp-rec-controls" style="justify-content:center;">
         <button class="sp-rec-btn sp-rec-btn--record" id="asqRecBtn" title="Voice answer (Space)">&#x23FA;</button>
+        <span class="sp-recognising" id="asqRecognising" style="display:none;">&#x1F3A4; Listening...</span>
       </div>
 
       <div class="sp-asq-feedback" id="asqFeedback"></div>
@@ -1456,6 +1576,265 @@ function updateWpmDisplay(el, wpm) {
   if (wpm >= 120 && wpm <= 135) el.classList.add('good');
   else if ((wpm >= 100 && wpm < 120) || (wpm > 135 && wpm <= 150)) el.classList.add('warn');
   else el.classList.add('bad');
+}
+
+// ---- Speech Recognition (Auto-Scoring) ----
+let speechRecognition = null;
+let recognisedText = '';
+let isRecognising = false;
+
+function initSpeechRecognition() {
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SR) return null;
+  const sr = new SR();
+  sr.continuous = true;
+  sr.interimResults = false;
+  sr.lang = 'en-AU';
+  sr.maxAlternatives = 1;
+  return sr;
+}
+
+function startSpeechRecognition(indicatorEl) {
+  recognisedText = '';
+  speechRecognition = initSpeechRecognition();
+  if (!speechRecognition) return;
+  isRecognising = true;
+  if (indicatorEl) indicatorEl.style.display = 'inline-flex';
+  speechRecognition.onresult = (e) => {
+    for (let i = e.resultIndex; i < e.results.length; i++) {
+      if (e.results[i].isFinal) {
+        recognisedText += (recognisedText ? ' ' : '') + e.results[i][0].transcript;
+      }
+    }
+  };
+  speechRecognition.onerror = () => {};
+  speechRecognition.onend = () => {
+    // Restart if still recording (Chrome stops after silence)
+    if (isRecognising) {
+      try { speechRecognition.start(); } catch(e) {}
+    }
+  };
+  try { speechRecognition.start(); } catch(e) {}
+}
+
+function stopSpeechRecognition(indicatorEl) {
+  isRecognising = false;
+  if (indicatorEl) indicatorEl.style.display = 'none';
+  if (speechRecognition) {
+    try { speechRecognition.stop(); } catch(e) {}
+  }
+  return recognisedText.trim();
+}
+
+function normaliseText(t) {
+  return t.toLowerCase().replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, ' ').trim();
+}
+
+function compareTexts(original, spoken) {
+  const origWords = normaliseText(original).split(' ');
+  const spokenWords = normaliseText(spoken).split(' ');
+
+  // Use longest common subsequence to find matched words
+  const m = origWords.length, n = spokenWords.length;
+  const dp = Array.from({length: m+1}, () => Array(n+1).fill(0));
+  for (let i = 1; i <= m; i++) {
+    for (let j = 1; j <= n; j++) {
+      if (origWords[i-1] === spokenWords[j-1]) dp[i][j] = dp[i-1][j-1] + 1;
+      else dp[i][j] = Math.max(dp[i-1][j], dp[i][j-1]);
+    }
+  }
+
+  // Backtrack to find which words matched
+  const matchedOrig = new Set();
+  const matchedSpoken = new Set();
+  let i = m, j = n;
+  while (i > 0 && j > 0) {
+    if (origWords[i-1] === spokenWords[j-1]) {
+      matchedOrig.add(i-1);
+      matchedSpoken.add(j-1);
+      i--; j--;
+    } else if (dp[i-1][j] > dp[i][j-1]) { i--; }
+    else { j--; }
+  }
+
+  const matched = matchedOrig.size;
+  const missed = m - matched;
+  const extra = n - matchedSpoken.size;
+  const accuracy = m > 0 ? Math.round((matched / m) * 100) : 0;
+
+  return { origWords, spokenWords, matchedOrig, matchedSpoken, matched, missed, extra, accuracy };
+}
+
+function showAutoScore(prefix, originalText, spokenText) {
+  const panel = document.getElementById(prefix + 'AutoScore');
+  const result = compareTexts(originalText, spokenText);
+
+  // Build colour-coded word display
+  let origHtml = result.origWords.map((w, i) =>
+    '<span class="' + (result.matchedOrig.has(i) ? 'matched' : 'missed') + '">' + w + '</span>'
+  ).join(' ');
+
+  const extraWords = result.spokenWords.filter((w, i) => !result.matchedSpoken.has(i));
+  if (extraWords.length > 0) {
+    origHtml += ' <span class="extra">[+ ' + extraWords.join(', ') + ']</span>';
+  }
+
+  document.getElementById(prefix + 'AutoWords').innerHTML = origHtml;
+  document.getElementById(prefix + 'AutoDetail').textContent =
+    result.matched + ' matched, ' + result.missed + ' missed, ' + result.extra + ' extra \u2022 ' +
+    result.origWords.length + ' words in original';
+
+  const pctEl = document.getElementById(prefix + 'AutoPct');
+  pctEl.textContent = result.accuracy + '%';
+  pctEl.className = 'sp-auto-score__pct ' +
+    (result.accuracy >= 80 ? 'good' : result.accuracy >= 50 ? 'ok' : 'bad');
+
+  panel.classList.add('show');
+
+  // Auto-fill content stars based on accuracy
+  if (prefix === 'ra') {
+    const contentScore = result.accuracy >= 90 ? 5 : result.accuracy >= 75 ? 4 : result.accuracy >= 60 ? 3 : result.accuracy >= 40 ? 2 : result.accuracy >= 20 ? 1 : 0;
+    autoFillStars('ra-content', contentScore);
+  }
+  // Auto-fill RS accuracy slider
+  if (prefix === 'rs') {
+    document.getElementById('rsAccuracy').value = result.accuracy;
+    document.getElementById('rsAccuracyVal').textContent = result.accuracy + '%';
+  }
+
+  return result;
+}
+
+function autoFillStars(key, score) {
+  assessScores[key] = score;
+  const container = document.querySelector('[data-assess="' + key + '"]');
+  if (container) {
+    container.querySelectorAll('.sp-star').forEach((s, idx) => {
+      s.classList.toggle('filled', idx < score);
+    });
+  }
+}
+
+function hideAutoScore(prefix) {
+  document.getElementById(prefix + 'AutoScore').classList.remove('show');
+}
+
+// ---- DI / RL auto-scoring from speech recognition ----
+function scoreKeyPoints(spokenText, keyPoints) {
+  const spoken = spokenText.toLowerCase();
+  let matched = 0;
+  const results = keyPoints.map(kp => {
+    // Extract significant words (3+ chars) from each key point
+    const words = kp.toLowerCase().replace(/[^a-z0-9\s]/g, '').split(/\s+/).filter(w => w.length >= 3);
+    // A key point is "mentioned" if at least 40% of its significant words appear in the spoken text
+    const threshold = Math.max(1, Math.ceil(words.length * 0.4));
+    const hits = words.filter(w => spoken.includes(w)).length;
+    const mentioned = hits >= threshold;
+    if (mentioned) matched++;
+    return { point: kp, mentioned, hits, total: words.length };
+  });
+  const contentScore = keyPoints.length > 0 ? Math.round((matched / keyPoints.length) * 100) : 0;
+  return { results, matched, total: keyPoints.length, contentScore };
+}
+
+function calcFluencyFromText(spokenText, durationSec) {
+  const words = spokenText.trim().split(/\s+/).filter(w => w.length > 0).length;
+  const wpm = durationSec > 0 ? Math.round((words / durationSec) * 60) : 0;
+  // PTE fluency: 120-150 WPM is ideal, penalise below 100 or above 170
+  let fluencyPct;
+  if (wpm >= 120 && wpm <= 150) fluencyPct = 100;
+  else if (wpm >= 100 && wpm < 120) fluencyPct = 70 + ((wpm - 100) / 20) * 30;
+  else if (wpm > 150 && wpm <= 170) fluencyPct = 70 + ((170 - wpm) / 20) * 30;
+  else if (wpm >= 80 && wpm < 100) fluencyPct = 40 + ((wpm - 80) / 20) * 30;
+  else if (wpm > 0) fluencyPct = 30;
+  else fluencyPct = 0;
+  return { words, wpm, fluencyPct: Math.round(fluencyPct) };
+}
+
+function showDiAutoScore(spokenText) {
+  const item = DESCRIBE_IMAGE_ITEMS[diIdx];
+  if (!item) return;
+  const kpResult = scoreKeyPoints(spokenText, item.keyPoints);
+  const fluency = calcFluencyFromText(spokenText, 40); // assume ~40s speaking window
+
+  const panel = document.getElementById('diAutoScore');
+  panel.innerHTML =
+    '<div style="font-weight:700;margin-bottom:6px;">Auto-Score Analysis</div>' +
+    '<div style="margin-bottom:8px;">' +
+      '<span class="sp-auto-score__pct ' + (kpResult.contentScore >= 70 ? 'good' : kpResult.contentScore >= 40 ? 'ok' : 'bad') + '">' +
+        kpResult.contentScore + '% content' +
+      '</span> &nbsp; ' +
+      '<span class="sp-auto-score__pct ' + (fluency.fluencyPct >= 70 ? 'good' : fluency.fluencyPct >= 40 ? 'ok' : 'bad') + '">' +
+        fluency.fluencyPct + '% fluency' +
+      '</span> &nbsp; ' +
+      '<span style="font-size:0.8rem;color:#64748b;">' + fluency.words + ' words, ~' + fluency.wpm + ' WPM</span>' +
+    '</div>' +
+    '<div style="font-size:0.8rem;margin-bottom:4px;font-weight:600;">Key Points Coverage:</div>' +
+    '<ul style="list-style:none;padding:0;margin:0;font-size:0.8rem;">' +
+    kpResult.results.map(r =>
+      '<li style="padding:2px 0;">' +
+        (r.mentioned ? '<span style="color:var(--sp-green);">&#10003;</span>' : '<span style="color:var(--sp-red);">&#10007;</span>') +
+        ' ' + r.point +
+      '</li>'
+    ).join('') +
+    '</ul>' +
+    '<div style="margin-top:8px;font-size:0.75rem;color:#64748b;">Transcript: <em>' + spokenText + '</em></div>';
+  panel.style.display = 'block';
+
+  // Auto-fill stars: content based on key points, fluency based on WPM
+  const contentStars = kpResult.contentScore >= 90 ? 5 : kpResult.contentScore >= 70 ? 4 : kpResult.contentScore >= 50 ? 3 : kpResult.contentScore >= 30 ? 2 : kpResult.contentScore > 0 ? 1 : 0;
+  const fluencyStars = fluency.fluencyPct >= 90 ? 5 : fluency.fluencyPct >= 70 ? 4 : fluency.fluencyPct >= 50 ? 3 : fluency.fluencyPct >= 30 ? 2 : fluency.fluencyPct > 0 ? 1 : 0;
+  autoFillStars('di-content', contentStars);
+  autoFillStars('di-fluency', fluencyStars);
+
+  // Auto-tick checked key points in the checklist
+  kpResult.results.forEach((r, i) => {
+    const ck = document.getElementById('diCk' + i);
+    if (ck) ck.checked = r.mentioned;
+  });
+}
+
+function showRlAutoScore(spokenText) {
+  const item = RETELL_LECTURE_ITEMS[rlIdx];
+  if (!item) return;
+  const kpResult = scoreKeyPoints(spokenText, item.keyPoints);
+  const fluency = calcFluencyFromText(spokenText, 40);
+
+  const panel = document.getElementById('rlAutoScore');
+  panel.innerHTML =
+    '<div style="font-weight:700;margin-bottom:6px;">Auto-Score Analysis</div>' +
+    '<div style="margin-bottom:8px;">' +
+      '<span class="sp-auto-score__pct ' + (kpResult.contentScore >= 70 ? 'good' : kpResult.contentScore >= 40 ? 'ok' : 'bad') + '">' +
+        kpResult.contentScore + '% content' +
+      '</span> &nbsp; ' +
+      '<span class="sp-auto-score__pct ' + (fluency.fluencyPct >= 70 ? 'good' : fluency.fluencyPct >= 40 ? 'ok' : 'bad') + '">' +
+        fluency.fluencyPct + '% fluency' +
+      '</span> &nbsp; ' +
+      '<span style="font-size:0.8rem;color:#64748b;">' + fluency.words + ' words, ~' + fluency.wpm + ' WPM</span>' +
+    '</div>' +
+    '<div style="font-size:0.8rem;margin-bottom:4px;font-weight:600;">Key Points Coverage:</div>' +
+    '<ul style="list-style:none;padding:0;margin:0;font-size:0.8rem;">' +
+    kpResult.results.map(r =>
+      '<li style="padding:2px 0;">' +
+        (r.mentioned ? '<span style="color:var(--sp-green);">&#10003;</span>' : '<span style="color:var(--sp-red);">&#10007;</span>') +
+        ' ' + r.point +
+      '</li>'
+    ).join('') +
+    '</ul>' +
+    '<div style="margin-top:8px;font-size:0.75rem;color:#64748b;">Transcript: <em>' + spokenText + '</em></div>';
+  panel.style.display = 'block';
+
+  // Auto-fill stars
+  const contentStars = kpResult.contentScore >= 90 ? 5 : kpResult.contentScore >= 70 ? 4 : kpResult.contentScore >= 50 ? 3 : kpResult.contentScore >= 30 ? 2 : kpResult.contentScore > 0 ? 1 : 0;
+  const fluencyStars = fluency.fluencyPct >= 90 ? 5 : fluency.fluencyPct >= 70 ? 4 : fluency.fluencyPct >= 50 ? 3 : fluency.fluencyPct >= 30 ? 2 : fluency.fluencyPct > 0 ? 1 : 0;
+  autoFillStars('rl-content', contentStars);
+  autoFillStars('rl-fluency', fluencyStars);
+
+  // Auto-tick key points checklist
+  kpResult.results.forEach((r, i) => {
+    const ck = document.getElementById('rlCk' + i);
+    if (ck) ck.checked = r.mentioned;
+  });
 }
 
 // ---- TTS ----
@@ -1645,8 +2024,8 @@ function raRender() {
   raUpdateProgress();
 }
 
-document.getElementById('raPrev').addEventListener('click', () => { raIdx--; raRender(); resetStars(); });
-document.getElementById('raNext').addEventListener('click', () => { raIdx++; raRender(); resetStars(); });
+document.getElementById('raPrev').addEventListener('click', () => { raIdx--; raRender(); resetStars(); hideAutoScore('ra'); });
+document.getElementById('raNext').addEventListener('click', () => { raIdx++; raRender(); resetStars(); hideAutoScore('ra'); });
 
 document.getElementById('raTimerStart').addEventListener('click', () => {
   if (raTimerId) { clearInterval(raTimerId); raTimerId = null; }
@@ -1657,15 +2036,20 @@ document.getElementById('raTimerStart').addEventListener('click', () => {
   );
 });
 
-// Record
+// Record with Speech Recognition
 document.getElementById('raRecBtn').addEventListener('click', async () => {
   const btn = document.getElementById('raRecBtn');
   if (!isRecording) {
     const item = raFiltered[raIdx];
+    hideAutoScore('ra');
     await startRecording(document.getElementById('raWpm'), item ? item.wordCount : 0);
-    if (isRecording) btn.classList.add('recording');
+    if (isRecording) {
+      btn.classList.add('recording');
+      startSpeechRecognition(document.getElementById('raRecognising'));
+    }
   } else {
     btn.classList.remove('recording');
+    const spokenText = stopSpeechRecognition(document.getElementById('raRecognising'));
     raAudioUrl = await stopRecording();
     document.getElementById('raPlayBtn').disabled = false;
     // Final WPM
@@ -1674,6 +2058,10 @@ document.getElementById('raRecBtn').addEventListener('click', async () => {
       if (elapsed > 0.01) {
         updateWpmDisplay(document.getElementById('raWpm'), Math.round(raFiltered[raIdx].wordCount / elapsed));
       }
+    }
+    // Auto-score using speech recognition
+    if (spokenText && raFiltered[raIdx]) {
+      showAutoScore('ra', raFiltered[raIdx].text, spokenText);
     }
   }
 });
@@ -1765,8 +2153,8 @@ window.revealRS = function() {
   rsRevealed = true;
 };
 
-document.getElementById('rsPrev').addEventListener('click', () => { rsIdx--; rsRender(); resetStars(); });
-document.getElementById('rsNext').addEventListener('click', () => { rsIdx++; rsRender(); resetStars(); });
+document.getElementById('rsPrev').addEventListener('click', () => { rsIdx--; rsRender(); resetStars(); hideAutoScore('rs'); });
+document.getElementById('rsNext').addEventListener('click', () => { rsIdx++; rsRender(); resetStars(); hideAutoScore('rs'); });
 
 document.getElementById('rsPlayBtn').addEventListener('click', () => {
   const item = rsFiltered[rsIdx];
@@ -1785,12 +2173,23 @@ document.getElementById('rsPlayBtn').addEventListener('click', () => {
 document.getElementById('rsRecBtn').addEventListener('click', async () => {
   const btn = document.getElementById('rsRecBtn');
   if (!isRecording) {
+    hideAutoScore('rs');
     await startRecording(null, 0);
-    if (isRecording) btn.classList.add('recording');
+    if (isRecording) {
+      btn.classList.add('recording');
+      startSpeechRecognition(document.getElementById('rsRecognising'));
+    }
   } else {
     btn.classList.remove('recording');
+    const spokenText = stopSpeechRecognition(document.getElementById('rsRecognising'));
     rsAudioUrl = await stopRecording();
     document.getElementById('rsRecPlayBtn').disabled = false;
+    // Auto-score using speech recognition
+    if (spokenText && rsFiltered[rsIdx]) {
+      showAutoScore('rs', rsFiltered[rsIdx].text, spokenText);
+      // Also auto-reveal the sentence text
+      revealRS();
+    }
   }
 });
 
@@ -1830,7 +2229,112 @@ let diPrepTimerId = null;
 let diSpeakTimerId = null;
 let diAudioUrl = null;
 
-const DI_ICONS = { 'Bar Chart': '\uD83D\uDCCA', 'Line Graph': '\uD83D\uDCC8', 'Pie Chart': '\uD83E\uDD67', 'Table': '\uD83D\uDCCB', 'Process Diagram': '\u2699\uFE0F', 'Map': '\uD83D\uDDFA\uFE0F' };
+const DI_ICONS = { bar: '\uD83D\uDCCA', line: '\uD83D\uDCC8', pie: '\uD83E\uDD67', table: '\uD83D\uDCCB', process: '\u2699\uFE0F', map: '\uD83D\uDDFA\uFE0F', image: '\uD83D\uDDBC\uFE0F' };
+const DI_LABELS = { bar: 'Bar Chart', line: 'Line Graph', pie: 'Pie Chart', table: 'Table', process: 'Process Diagram', map: 'Map', image: 'Image' };
+const DI_COLORS = ['#2563eb','#dc2626','#16a34a','#f59e0b','#8b5cf6','#ec4899','#06b6d4','#f97316'];
+
+function generateChartSVG(item) {
+  const w = 480, h = 260, pad = 50;
+  if (!item.dataDetails) return '';
+
+  if (item.type === 'bar') {
+    // Parse "Label: v1→v2→v3; Label2: v1→v2→v3"
+    const series = item.dataDetails.split(';').map(s => s.trim()).filter(Boolean);
+    const groups = series.map(s => {
+      const [label, vals] = s.split(':').map(x => x.trim());
+      const nums = vals.replace(/[^\d.,→\-]/g, '').split('→').map(v => parseFloat(v.replace(/,/g, '')));
+      return { label, values: nums };
+    });
+    if (groups.length === 0) return '';
+    const maxVal = Math.max(...groups.flatMap(g => g.values));
+    const nBars = groups.length;
+    const nYears = groups[0].values.length;
+    const gw = (w - pad * 2) / nBars;
+    const bw = Math.min(gw / (nYears + 1), 20);
+
+    let svg = '<svg viewBox="0 0 ' + w + ' ' + h + '" style="width:100%;max-width:480px;">';
+    // Y-axis
+    svg += '<line x1="' + pad + '" y1="10" x2="' + pad + '" y2="' + (h-pad) + '" stroke="#cbd5e1" stroke-width="1"/>';
+    svg += '<line x1="' + pad + '" y1="' + (h-pad) + '" x2="' + (w-10) + '" y2="' + (h-pad) + '" stroke="#cbd5e1" stroke-width="1"/>';
+    // Gridlines
+    for (let g = 0; g <= 4; g++) {
+      const y = (h - pad) - (g / 4) * (h - pad - 10);
+      svg += '<line x1="' + pad + '" y1="' + y + '" x2="' + (w-10) + '" y2="' + y + '" stroke="#f1f5f9" stroke-width="1"/>';
+      svg += '<text x="' + (pad-5) + '" y="' + (y+4) + '" text-anchor="end" font-size="9" fill="#94a3b8">' + Math.round(maxVal * g / 4) + '</text>';
+    }
+    // Bars
+    groups.forEach((gr, gi) => {
+      const gx = pad + gi * gw + gw * 0.15;
+      gr.values.forEach((v, vi) => {
+        const bh = (v / maxVal) * (h - pad - 10);
+        const bx = gx + vi * (bw + 2);
+        const by = (h - pad) - bh;
+        svg += '<rect x="' + bx + '" y="' + by + '" width="' + bw + '" height="' + bh + '" fill="' + DI_COLORS[vi % DI_COLORS.length] + '" rx="2" opacity="0.85"/>';
+      });
+      svg += '<text x="' + (gx + (nYears * (bw + 2)) / 2) + '" y="' + (h - pad + 14) + '" text-anchor="middle" font-size="8" fill="#64748b">' + gr.label.substring(0, 10) + '</text>';
+    });
+    svg += '</svg>';
+    return svg;
+  }
+
+  if (item.type === 'line') {
+    const nums = item.dataDetails.match(/[\d.]+/g);
+    if (!nums || nums.length < 2) return '';
+    const vals = nums.map(Number).filter(n => !isNaN(n)).slice(0, 20);
+    const maxVal = Math.max(...vals);
+    const minVal = Math.min(...vals);
+    const range = maxVal - minVal || 1;
+    let svg = '<svg viewBox="0 0 ' + w + ' ' + h + '" style="width:100%;max-width:480px;">';
+    svg += '<line x1="' + pad + '" y1="10" x2="' + pad + '" y2="' + (h-pad) + '" stroke="#cbd5e1"/>';
+    svg += '<line x1="' + pad + '" y1="' + (h-pad) + '" x2="' + (w-10) + '" y2="' + (h-pad) + '" stroke="#cbd5e1"/>';
+    const step = (w - pad - 10) / (vals.length - 1);
+    let points = vals.map((v, i) => {
+      const x = pad + i * step;
+      const y = (h - pad) - ((v - minVal) / range) * (h - pad - 20);
+      return x + ',' + y;
+    }).join(' ');
+    svg += '<polyline points="' + points + '" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linejoin="round"/>';
+    vals.forEach((v, i) => {
+      const x = pad + i * step;
+      const y = (h - pad) - ((v - minVal) / range) * (h - pad - 20);
+      svg += '<circle cx="' + x + '" cy="' + y + '" r="3.5" fill="#2563eb"/>';
+    });
+    svg += '</svg>';
+    return svg;
+  }
+
+  if (item.type === 'pie') {
+    const parts = item.dataDetails.split(/[;,]/).map(s => s.trim()).filter(Boolean);
+    const slices = parts.map(p => {
+      const m = p.match(/([\w\s]+?)[\s:]+(\d+)/);
+      return m ? { label: m[1].trim(), val: parseFloat(m[2]) } : null;
+    }).filter(Boolean);
+    if (slices.length === 0) return '';
+    const total = slices.reduce((a, s) => a + s.val, 0);
+    const cx = w / 2, cy = h / 2, r = 90;
+    let svg = '<svg viewBox="0 0 ' + w + ' ' + h + '" style="width:100%;max-width:480px;">';
+    let angle = -90;
+    slices.forEach((s, i) => {
+      const sweep = (s.val / total) * 360;
+      const a1 = angle * Math.PI / 180;
+      const a2 = (angle + sweep) * Math.PI / 180;
+      const x1 = cx + r * Math.cos(a1), y1 = cy + r * Math.sin(a1);
+      const x2 = cx + r * Math.cos(a2), y2 = cy + r * Math.sin(a2);
+      const large = sweep > 180 ? 1 : 0;
+      svg += '<path d="M' + cx + ',' + cy + ' L' + x1 + ',' + y1 + ' A' + r + ',' + r + ' 0 ' + large + ',1 ' + x2 + ',' + y2 + ' Z" fill="' + DI_COLORS[i % DI_COLORS.length] + '" opacity="0.85" stroke="#fff" stroke-width="2"/>';
+      // Label
+      const mid = (angle + sweep / 2) * Math.PI / 180;
+      const lx = cx + (r + 25) * Math.cos(mid), ly = cy + (r + 25) * Math.sin(mid);
+      svg += '<text x="' + lx + '" y="' + ly + '" text-anchor="middle" font-size="8" fill="#334155">' + s.label.substring(0, 12) + ' ' + Math.round(s.val / total * 100) + '%</text>';
+      angle += sweep;
+    });
+    svg += '</svg>';
+    return svg;
+  }
+
+  // Fallback for table/process/map — no chart, just description
+  return '';
+}
 
 function diRender() {
   if (diIdx >= DESCRIBE_IMAGE_ITEMS.length) diIdx = 0;
@@ -1838,9 +2342,15 @@ function diRender() {
   const item = DESCRIBE_IMAGE_ITEMS[diIdx];
   document.getElementById('diCounter').textContent = (diIdx + 1) + ' / ' + DESCRIBE_IMAGE_ITEMS.length;
   document.getElementById('diIcon').textContent = DI_ICONS[item.type] || '\uD83D\uDCCA';
-  document.getElementById('diType').textContent = item.type;
+  document.getElementById('diType').textContent = DI_LABELS[item.type] || item.type;
   document.getElementById('diTitle').textContent = item.title;
-  document.getElementById('diDesc').textContent = item.description;
+  // Generate and show chart SVG if possible, otherwise show text description
+  const chartSvg = generateChartSVG(item);
+  if (chartSvg) {
+    document.getElementById('diDesc').innerHTML = chartSvg + '<p style="margin-top:8px;font-size:0.8rem;color:#64748b;">' + item.description + '</p>';
+  } else {
+    document.getElementById('diDesc').textContent = item.description;
+  }
   // Checklist
   document.getElementById('diChecklist').innerHTML = item.keyPoints.map((p, i) =>
     '<li><input type="checkbox" id="diCk' + i + '"><label for="diCk' + i + '">' + p + '</label></li>'
@@ -1891,11 +2401,16 @@ document.getElementById('diRecBtn').addEventListener('click', async () => {
   const btn = document.getElementById('diRecBtn');
   if (!isRecording) {
     await startRecording(null, 0);
+    startSpeechRecognition(document.getElementById('diRecognising'));
     if (isRecording) btn.classList.add('recording');
   } else {
     btn.classList.remove('recording');
     diAudioUrl = await stopRecording();
+    const spokenText = stopSpeechRecognition(document.getElementById('diRecognising'));
     document.getElementById('diPlayBtn').disabled = false;
+    if (spokenText) {
+      showDiAutoScore(spokenText);
+    }
   }
 });
 
@@ -2007,11 +2522,16 @@ document.getElementById('rlRecBtn').addEventListener('click', async () => {
   const btn = document.getElementById('rlRecBtn');
   if (!isRecording) {
     await startRecording(null, 0);
+    startSpeechRecognition(document.getElementById('rlRecognising'));
     if (isRecording) btn.classList.add('recording');
   } else {
     btn.classList.remove('recording');
     rlAudioUrl = await stopRecording();
+    const spokenText = stopSpeechRecognition(document.getElementById('rlRecognising'));
     document.getElementById('rlPlayRecBtn').disabled = false;
+    if (spokenText) {
+      showRlAutoScore(spokenText);
+    }
   }
 });
 
@@ -2081,11 +2601,15 @@ function asqRender() {
   const item = asqFiltered[asqIdx];
   document.getElementById('asqCounter').textContent = 'Question ' + (asqIdx + 1) + ' of ' + asqFiltered.length;
   document.getElementById('asqQuestion').textContent = item.question;
+  // Re-blur question text for audio-first mode
+  document.getElementById('asqQuestion').style.filter = 'blur(5px)';
+  document.getElementById('asqRevealText').textContent = 'Show Question Text';
   document.getElementById('asqInput').value = '';
   document.getElementById('asqFeedback').className = 'sp-asq-feedback';
   document.getElementById('asqFeedback').style.display = 'none';
   document.getElementById('asqStreak').textContent = 'Streak: ' + asqStreakCount;
   document.getElementById('asqScore').textContent = 'Score: ' + asqCorrect + ' / ' + asqTotal;
+  document.getElementById('asqRecognising').style.display = 'none';
   asqAnswered = false;
   // Reset timer
   document.getElementById('asqTimerFill').style.width = '100%';
@@ -2176,16 +2700,42 @@ document.getElementById('asqSpeedMode').addEventListener('change', function() {
   if (asqSpeedMode && !asqAnswered) asqStartTimer();
 });
 
-// ASQ voice record
+// ASQ — Play Question via TTS (audio-first, matching real PTE format)
+document.getElementById('asqPlayQuestion').addEventListener('click', () => {
+  const item = asqFiltered[asqIdx];
+  if (!item) return;
+  speak(item.question, 0.95);
+});
+
+// ASQ — Reveal/hide question text
+document.getElementById('asqRevealText').addEventListener('click', () => {
+  const qEl = document.getElementById('asqQuestion');
+  const btn = document.getElementById('asqRevealText');
+  if (qEl.style.filter && qEl.style.filter !== 'none') {
+    qEl.style.filter = 'none';
+    btn.textContent = 'Hide Question Text';
+  } else {
+    qEl.style.filter = 'blur(5px)';
+    btn.textContent = 'Show Question Text';
+  }
+});
+
+// ASQ voice answer with speech recognition + auto-check
 document.getElementById('asqRecBtn').addEventListener('click', async () => {
   const btn = document.getElementById('asqRecBtn');
+  const indicator = document.getElementById('asqRecognising');
   if (!isRecording) {
     await startRecording(null, 0);
+    startSpeechRecognition(indicator);
     if (isRecording) btn.classList.add('recording');
   } else {
     btn.classList.remove('recording');
     await stopRecording();
-    // Voice recorded — user still needs to type or we just note it
+    const spokenText = stopSpeechRecognition(indicator);
+    if (spokenText && !asqAnswered) {
+      document.getElementById('asqInput').value = spokenText;
+      asqCheckAnswer(spokenText);
+    }
   }
 });
 

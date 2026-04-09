@@ -4,7 +4,7 @@
 // =============================================================================
 
 // -----------------------------------------------------------------------------
-// 1. READ ALOUD TEXTS (40 items)
+// 1. READ ALOUD TEXTS (60 items)
 // -----------------------------------------------------------------------------
 const READ_ALOUD_TEXTS = [
   {
@@ -326,11 +326,171 @@ const READ_ALOUD_TEXTS = [
     wordCount: 51,
     difficulty: 'hard',
     topic: 'technology'
+  },
+  {
+    id: 'ra-041',
+    text: 'The regulation of artificial intelligence has become a pressing concern for governments worldwide. The European Union introduced the AI Act in 2024, establishing a comprehensive framework that classifies AI systems according to risk levels. Critics argue that excessive regulation could stifle innovation, while proponents maintain that safeguards are essential to protect citizens from algorithmic discrimination and surveillance.',
+    stressWords: ['regulation', 'artificial', 'comprehensive', 'classifies', 'innovation', 'safeguards', 'algorithmic', 'discrimination'],
+    wordCount: 55,
+    difficulty: 'hard',
+    topic: 'technology'
+  },
+  {
+    id: 'ra-042',
+    text: 'Climate adaptation strategies are gaining prominence as communities recognise that some degree of environmental change is now unavoidable. Coastal cities are investing in sea walls and flood barriers, while agricultural regions are developing drought-resistant crop varieties. These measures complement ongoing mitigation efforts and reflect a pragmatic approach to managing the consequences of a warming planet.',
+    stressWords: ['adaptation', 'prominence', 'unavoidable', 'investing', 'drought-resistant', 'complement', 'mitigation', 'pragmatic'],
+    wordCount: 52,
+    difficulty: 'hard',
+    topic: 'environment'
+  },
+  {
+    id: 'ra-043',
+    text: 'Space exploration has entered a new era characterised by increased private sector involvement. Companies such as SpaceX and Blue Origin have significantly reduced the cost of launching payloads into orbit. This commercial competition has accelerated technological development and renewed public interest in missions to the Moon, Mars, and beyond.',
+    stressWords: ['exploration', 'characterised', 'involvement', 'significantly', 'payloads', 'commercial', 'accelerated', 'missions'],
+    wordCount: 48,
+    difficulty: 'medium',
+    topic: 'science'
+  },
+  {
+    id: 'ra-044',
+    text: 'Digital health technologies are transforming the delivery of medical services in both developed and developing nations. Telemedicine platforms allow patients to consult with specialists remotely, reducing the need for travel and improving access in rural areas. Wearable devices that monitor heart rate, blood glucose, and sleep patterns provide clinicians with continuous data to inform treatment decisions.',
+    stressWords: ['transforming', 'delivery', 'telemedicine', 'specialists', 'remotely', 'wearable', 'continuous', 'clinicians'],
+    wordCount: 54,
+    difficulty: 'hard',
+    topic: 'health'
+  },
+  {
+    id: 'ra-045',
+    text: 'Demographic shifts in many industrialised countries present significant economic challenges. Ageing populations and declining birth rates are reducing the proportion of working-age citizens who support social welfare systems. Policymakers are exploring options such as immigration reform, retirement age adjustments, and automation to address potential labour shortages in critical sectors.',
+    stressWords: ['demographic', 'industrialised', 'proportion', 'welfare', 'policymakers', 'immigration', 'adjustments', 'automation'],
+    wordCount: 47,
+    difficulty: 'hard',
+    topic: 'sociology'
+  },
+  {
+    id: 'ra-046',
+    text: 'Urban planning in the twenty-first century increasingly prioritises the concept of the fifteen-minute city. This model proposes that all essential amenities, including workplaces, schools, healthcare facilities, and recreational spaces, should be accessible within a short walk or bicycle ride. Advocates argue that such designs reduce carbon emissions, improve public health, and strengthen community connections.',
+    stressWords: ['prioritises', 'concept', 'amenities', 'accessible', 'recreational', 'advocates', 'emissions', 'strengthen'],
+    wordCount: 53,
+    difficulty: 'medium',
+    topic: 'sociology'
+  },
+  {
+    id: 'ra-047',
+    text: 'The global transition from fossil fuels to renewable energy sources has accelerated dramatically following the energy crises of recent years. Governments are investing unprecedented sums in solar farms, offshore wind installations, and battery storage infrastructure. While the pace of adoption varies significantly between regions, the economic case for clean energy has become increasingly compelling.',
+    stressWords: ['transition', 'accelerated', 'dramatically', 'unprecedented', 'offshore', 'infrastructure', 'adoption', 'compelling'],
+    wordCount: 51,
+    difficulty: 'medium',
+    topic: 'environment'
+  },
+  {
+    id: 'ra-048',
+    text: 'Educational technology has undergone rapid evolution since the pandemic accelerated the adoption of online learning platforms. Artificial intelligence is now being integrated into classrooms to provide personalised learning pathways tailored to individual student needs. However, researchers caution that technology should supplement rather than replace effective human instruction and meaningful student-teacher interaction.',
+    stressWords: ['undergone', 'evolution', 'accelerated', 'integrated', 'personalised', 'tailored', 'supplement', 'meaningful'],
+    wordCount: 49,
+    difficulty: 'hard',
+    topic: 'education'
+  },
+  {
+    id: 'ra-049',
+    text: 'Biodiversity conservation efforts have intensified following the Kunming-Montreal Global Biodiversity Framework adopted in late 2022. The agreement commits participating nations to protecting thirty per cent of the planet\'s land and ocean areas by 2030. Scientists emphasise that preserving genetic diversity within ecosystems is crucial for maintaining resilience against disease, climate change, and other environmental pressures.',
+    stressWords: ['conservation', 'intensified', 'framework', 'commits', 'participating', 'genetic', 'resilience', 'environmental'],
+    wordCount: 53,
+    difficulty: 'hard',
+    topic: 'environment'
+  },
+  {
+    id: 'ra-050',
+    text: 'Post-pandemic economic recovery has been uneven across different sectors and regions of the global economy. While technology and healthcare industries have thrived, hospitality and traditional retail sectors continue to face significant challenges. Economists note that inflationary pressures, supply chain realignment, and changing consumer behaviour patterns are reshaping the fundamental structure of international commerce.',
+    stressWords: ['pandemic', 'recovery', 'thrived', 'hospitality', 'inflationary', 'realignment', 'fundamental', 'commerce'],
+    wordCount: 50,
+    difficulty: 'hard',
+    topic: 'economics'
+  },
+  {
+    id: 'ra-051',
+    text: 'Large language models have sparked widespread debate about the future of knowledge work and creative industries. These systems can generate text, translate languages, and summarise complex documents with impressive fluency. Nevertheless, concerns about accuracy, intellectual property, and the potential for misuse remain central to discussions around the responsible deployment of generative artificial intelligence.',
+    stressWords: ['widespread', 'creative', 'generate', 'summarise', 'fluency', 'intellectual', 'deployment', 'generative'],
+    wordCount: 51,
+    difficulty: 'hard',
+    topic: 'technology'
+  },
+  {
+    id: 'ra-052',
+    text: 'Water scarcity is emerging as one of the most critical resource challenges of the coming decades. Population growth, industrial demand, and changing rainfall patterns are placing enormous strain on freshwater supplies in many regions. Desalination technology and water recycling programmes offer partial solutions, but experts stress that conservation and efficient usage must remain the highest priorities.',
+    stressWords: ['scarcity', 'emerging', 'critical', 'enormous', 'freshwater', 'desalination', 'recycling', 'conservation'],
+    wordCount: 54,
+    difficulty: 'medium',
+    topic: 'environment'
+  },
+  {
+    id: 'ra-053',
+    text: 'The rise of remote and hybrid working arrangements has fundamentally altered the relationship between employees and their workplaces. Many organisations now offer flexible schedules that allow staff to divide their time between home and office environments. Research suggests that while remote work can enhance productivity and job satisfaction, it may also diminish opportunities for spontaneous collaboration and mentorship.',
+    stressWords: ['fundamentally', 'altered', 'organisations', 'flexible', 'environments', 'enhance', 'diminish', 'spontaneous'],
+    wordCount: 55,
+    difficulty: 'medium',
+    topic: 'sociology'
+  },
+  {
+    id: 'ra-054',
+    text: 'Nuclear fusion research has achieved several important milestones in recent years, raising hopes for a virtually limitless source of clean energy. Scientists at the National Ignition Facility demonstrated net energy gain from a fusion reaction for the first time in late 2022. Although commercial fusion power remains decades away, continued investment in this technology could ultimately transform the global energy landscape.',
+    stressWords: ['fusion', 'milestones', 'limitless', 'demonstrated', 'reaction', 'commercial', 'investment', 'transform'],
+    wordCount: 57,
+    difficulty: 'hard',
+    topic: 'science'
+  },
+  {
+    id: 'ra-055',
+    text: 'Mental health awareness has increased substantially across educational institutions and corporate environments. Employers are recognising that providing psychological support services contributes to improved staff retention, reduced absenteeism, and higher overall productivity. Schools are similarly implementing wellbeing programmes designed to build emotional resilience and equip young people with strategies for managing stress and anxiety.',
+    stressWords: ['substantially', 'institutions', 'psychological', 'retention', 'absenteeism', 'implementing', 'resilience', 'strategies'],
+    wordCount: 49,
+    difficulty: 'hard',
+    topic: 'health'
+  },
+  {
+    id: 'ra-056',
+    text: 'Autonomous vehicles represent a significant technological advancement that could reshape urban transportation systems within the next decade. Self-driving cars equipped with sensors, cameras, and artificial intelligence can navigate complex traffic conditions with increasing reliability. Proponents argue that widespread adoption would reduce road accidents, ease congestion, and improve mobility for elderly and disabled individuals.',
+    stressWords: ['autonomous', 'advancement', 'reshape', 'equipped', 'navigate', 'reliability', 'widespread', 'congestion'],
+    wordCount: 52,
+    difficulty: 'hard',
+    topic: 'technology'
+  },
+  {
+    id: 'ra-057',
+    text: 'The circular economy model challenges the traditional linear approach of producing, consuming, and discarding goods. Instead, it promotes designing products for longevity, reuse, and recyclability, thereby minimising waste and reducing demand for raw materials. Businesses that adopt circular principles often discover cost savings alongside environmental benefits, creating a compelling case for systemic change.',
+    stressWords: ['circular', 'challenges', 'consuming', 'discarding', 'longevity', 'recyclability', 'minimising', 'systemic'],
+    wordCount: 50,
+    difficulty: 'medium',
+    topic: 'economics'
+  },
+  {
+    id: 'ra-058',
+    text: 'Quantum computing has progressed from a theoretical curiosity to a technology with practical applications in cryptography, drug discovery, and materials science. Unlike classical computers that process information in binary bits, quantum computers use qubits that can exist in multiple states simultaneously. This fundamental difference enables them to solve certain complex problems exponentially faster than conventional machines.',
+    stressWords: ['quantum', 'progressed', 'theoretical', 'cryptography', 'binary', 'qubits', 'simultaneously', 'exponentially'],
+    wordCount: 52,
+    difficulty: 'hard',
+    topic: 'technology'
+  },
+  {
+    id: 'ra-059',
+    text: 'Indigenous knowledge systems are increasingly recognised as valuable sources of insight for addressing contemporary environmental challenges. Traditional ecological practices developed over thousands of years often align with principles of sustainability and biodiversity preservation. Collaborations between indigenous communities and scientific researchers have yielded innovative approaches to land management, water conservation, and climate resilience.',
+    stressWords: ['indigenous', 'recognised', 'contemporary', 'ecological', 'sustainability', 'preservation', 'collaborations', 'innovative'],
+    wordCount: 48,
+    difficulty: 'hard',
+    topic: 'environment'
+  },
+  {
+    id: 'ra-060',
+    text: 'The global food system faces mounting pressure to feed a growing population while reducing its environmental footprint. Agricultural innovations such as vertical farming, precision agriculture, and lab-grown proteins offer promising alternatives to conventional practices. Experts argue that a combination of technological solutions and dietary shifts will be necessary to achieve food security without further degrading natural ecosystems.',
+    stressWords: ['mounting', 'environmental', 'footprint', 'innovations', 'precision', 'alternatives', 'dietary', 'degrading'],
+    wordCount: 53,
+    difficulty: 'medium',
+    topic: 'science'
   }
 ];
 
 // -----------------------------------------------------------------------------
-// 2. REPEAT SENTENCES (80 items)
+// 2. REPEAT SENTENCES (120 items)
 // -----------------------------------------------------------------------------
 const REPEAT_SENTENCES = [
   // EASY (8-10 words) — 27 items
@@ -417,11 +577,54 @@ const REPEAT_SENTENCES = [
   { id: 'rs-077', text: 'The increasing prevalence of antibiotic-resistant bacteria poses a serious threat to global public health and modern medical practice.', wordCount: 16, difficulty: 'hard' },
   { id: 'rs-078', text: 'Globalisation has led to greater economic interdependence among nations, making international cooperation more important than ever before.', wordCount: 15, difficulty: 'hard' },
   { id: 'rs-079', text: 'The exploration of deep ocean environments has revealed previously unknown species and ecosystems with unique biological characteristics.', wordCount: 15, difficulty: 'hard' },
-  { id: 'rs-080', text: 'Effective leadership in organisations requires not only strategic vision but also the ability to inspire and motivate team members.', wordCount: 16, difficulty: 'hard' }
+  { id: 'rs-080', text: 'Effective leadership in organisations requires not only strategic vision but also the ability to inspire and motivate team members.', wordCount: 16, difficulty: 'hard' },
+  // EASY (8-10 words) — additional items
+  { id: 'rs-081', text: 'The assignment is due by the end of term.', wordCount: 10, difficulty: 'easy' },
+  { id: 'rs-082', text: 'Students should check the notice board for updates.', wordCount: 8, difficulty: 'easy' },
+  { id: 'rs-083', text: 'The workshop will take place in room twelve.', wordCount: 9, difficulty: 'easy' },
+  { id: 'rs-084', text: 'Online resources are available through the student portal.', wordCount: 8, difficulty: 'easy' },
+  { id: 'rs-085', text: 'The science laboratory opens at eight thirty each morning.', wordCount: 9, difficulty: 'easy' },
+  { id: 'rs-086', text: 'Please bring a calculator to the statistics tutorial.', wordCount: 8, difficulty: 'easy' },
+  { id: 'rs-087', text: 'The guest speaker will arrive at two o\'clock today.', wordCount: 9, difficulty: 'easy' },
+  { id: 'rs-088', text: 'Parking on campus is limited during peak hours.', wordCount: 8, difficulty: 'easy' },
+  { id: 'rs-089', text: 'The course outline was distributed at the first lecture.', wordCount: 9, difficulty: 'easy' },
+  { id: 'rs-090', text: 'Students can access free tutoring at the learning centre.', wordCount: 9, difficulty: 'easy' },
+  { id: 'rs-091', text: 'The field trip has been postponed until further notice.', wordCount: 9, difficulty: 'easy' },
+  { id: 'rs-092', text: 'Attendance records are kept for all practical sessions.', wordCount: 8, difficulty: 'easy' },
+  { id: 'rs-093', text: 'The new semester starts on the first of March.', wordCount: 9, difficulty: 'easy' },
+  // MEDIUM (11-13 words) — additional items
+  { id: 'rs-094', text: 'Renewable energy sources are becoming more affordable for developing countries around the world.', wordCount: 13, difficulty: 'medium' },
+  { id: 'rs-095', text: 'The government has announced new policies to reduce carbon emissions by twenty per cent.', wordCount: 13, difficulty: 'medium' },
+  { id: 'rs-096', text: 'Remote working has become a permanent feature of many modern organisations.', wordCount: 11, difficulty: 'medium' },
+  { id: 'rs-097', text: 'Artificial intelligence is being used to diagnose diseases earlier and more accurately.', wordCount: 12, difficulty: 'medium' },
+  { id: 'rs-098', text: 'The library database provides access to thousands of peer-reviewed academic journals.', wordCount: 11, difficulty: 'medium' },
+  { id: 'rs-099', text: 'Urban populations continue to grow as people move from rural areas to cities.', wordCount: 13, difficulty: 'medium' },
+  { id: 'rs-100', text: 'Electric vehicles are expected to dominate the automotive market within the next decade.', wordCount: 13, difficulty: 'medium' },
+  { id: 'rs-101', text: 'Climate scientists have warned that sea levels could rise significantly this century.', wordCount: 11, difficulty: 'medium' },
+  { id: 'rs-102', text: 'The research team published their findings in a leading international journal last month.', wordCount: 13, difficulty: 'medium' },
+  { id: 'rs-103', text: 'Mental health services in universities have expanded considerably over recent years.', wordCount: 11, difficulty: 'medium' },
+  { id: 'rs-104', text: 'Data privacy regulations require companies to obtain consent before collecting personal information.', wordCount: 12, difficulty: 'medium' },
+  { id: 'rs-105', text: 'The cost of solar panels has decreased by more than eighty per cent.', wordCount: 13, difficulty: 'medium' },
+  { id: 'rs-106', text: 'Biodiversity loss threatens the stability of ecosystems that humans depend upon for survival.', wordCount: 13, difficulty: 'medium' },
+  { id: 'rs-107', text: 'Online education platforms have made learning accessible to millions of people worldwide.', wordCount: 12, difficulty: 'medium' },
+  // HARD (14-16 words) — additional items
+  { id: 'rs-108', text: 'The implementation of large-scale renewable energy projects requires careful consideration of environmental and social impacts on local communities.', wordCount: 16, difficulty: 'hard' },
+  { id: 'rs-109', text: 'Demographic changes in industrialised nations are creating unprecedented challenges for pension systems and healthcare provision.', wordCount: 14, difficulty: 'hard' },
+  { id: 'rs-110', text: 'Advances in gene editing technology have raised important ethical questions about the boundaries of human intervention in nature.', wordCount: 16, difficulty: 'hard' },
+  { id: 'rs-111', text: 'The circular economy model aims to eliminate waste by designing products that can be reused, repaired, or recycled.', wordCount: 16, difficulty: 'hard' },
+  { id: 'rs-112', text: 'Space agencies around the world are collaborating on missions to establish a permanent human presence on the Moon.', wordCount: 16, difficulty: 'hard' },
+  { id: 'rs-113', text: 'Digital literacy has become an essential skill for students and professionals across virtually all fields of employment.', wordCount: 15, difficulty: 'hard' },
+  { id: 'rs-114', text: 'The development of autonomous vehicles could fundamentally transform urban transportation systems and reduce traffic-related fatalities significantly.', wordCount: 14, difficulty: 'hard' },
+  { id: 'rs-115', text: 'Quantum computing technology promises to solve complex problems that would take classical computers millions of years to process.', wordCount: 16, difficulty: 'hard' },
+  { id: 'rs-116', text: 'International cooperation is essential for addressing global challenges such as climate change, pandemic preparedness, and food security.', wordCount: 15, difficulty: 'hard' },
+  { id: 'rs-117', text: 'The growing influence of social media on political discourse has prompted calls for greater regulation of online platforms.', wordCount: 16, difficulty: 'hard' },
+  { id: 'rs-118', text: 'Sustainable agriculture practices can help to reduce greenhouse gas emissions while maintaining food production for growing populations.', wordCount: 15, difficulty: 'hard' },
+  { id: 'rs-119', text: 'Research into brain-computer interfaces has opened new possibilities for treating neurological conditions and restoring lost motor functions.', wordCount: 15, difficulty: 'hard' },
+  { id: 'rs-120', text: 'The rapid expansion of artificial intelligence raises fundamental questions about employment, privacy, and the distribution of economic benefits.', wordCount: 16, difficulty: 'hard' }
 ];
 
 // -----------------------------------------------------------------------------
-// 3. DESCRIBE IMAGE ITEMS (35 items)
+// 3. DESCRIBE IMAGE ITEMS (55 items)
 // -----------------------------------------------------------------------------
 const DESCRIBE_IMAGE_ITEMS = [
   {
@@ -948,11 +1151,311 @@ const DESCRIBE_IMAGE_ITEMS = [
     ],
     sampleResponse: 'This line graph tracks global electric vehicle sales from 2015 to 2023, revealing extraordinary exponential growth. Sales rose from just half a million units in 2015 to 14.2 million in 2023, a remarkable twenty-eight-fold increase over eight years. The secondary line shows the EV market share climbing from 0.7 per cent to 18 per cent of total global car sales over the same period. The growth trajectory has been particularly steep since 2020, with sales more than doubling from 6.6 million in 2021 to 14.2 million in 2023. This acceleration has been driven by improving battery technology, expanding charging infrastructure, government incentives, and growing consumer environmental awareness. Notably, China accounts for approximately 60 per cent of global EV sales, making it the dominant market. The trajectory suggests the automotive industry is undergoing a fundamental transition from internal combustion engines to electric powertrains.',
     dataDetails: '2015: 0.5M (0.7%); 2017: 1.2M (1.5%); 2019: 2.1M (2.5%); 2021: 6.6M (9%); 2022: 10.5M (14%); 2023: 14.2M (18%). China: ~60% of global sales.'
+  },
+  {
+    id: 'di-036',
+    type: 'bar',
+    title: 'Global AI Market Revenue by Sector (2020-2025)',
+    description: 'A grouped bar chart showing AI market revenue in billions of dollars across healthcare, finance, manufacturing, retail, and transportation for 2020, 2022, and 2025 (projected). Healthcare AI grows from $6B to $45B. Finance grows from $8B to $35B. Manufacturing from $5B to $28B. Retail from $4B to $25B. Transportation from $3B to $20B.',
+    keyPoints: [
+      'Healthcare AI experienced the largest revenue growth, reaching a projected $45 billion by 2025.',
+      'Finance was the second-largest AI market, growing from $8 billion to $35 billion.',
+      'All five sectors showed significant growth, with total AI revenue more than quadrupling.',
+      'The growth rate accelerated between 2022 and 2025 compared to 2020–2022.',
+      'Healthcare and finance together account for over half of all AI market revenue.'
+    ],
+    sampleResponse: 'This grouped bar chart presents global AI market revenue across five sectors from 2020 to 2025, with 2025 figures being projections. The most notable trend is the extraordinary growth across all sectors. Healthcare AI leads with the highest revenue, surging from approximately 6 billion dollars in 2020 to a projected 45 billion by 2025. The finance sector follows closely, growing from 8 billion to 35 billion. Manufacturing, retail, and transportation also show substantial increases. Overall, the data indicates that AI adoption is accelerating across all industries, with healthcare and finance driving the majority of revenue growth.',
+    dataDetails: 'Healthcare: $6B→$18B→$45B; Finance: $8B→$20B→$35B; Manufacturing: $5B→$14B→$28B; Retail: $4B→$12B→$25B; Transportation: $3B→$9B→$20B'
+  },
+  {
+    id: 'di-037',
+    type: 'pie',
+    title: 'Global Greenhouse Gas Emissions by Sector (2024)',
+    description: 'A pie chart showing the distribution of global greenhouse gas emissions. Energy production accounts for 35%, transportation 16%, industry 21%, agriculture 10%, buildings 6%, and other sources 12%.',
+    keyPoints: [
+      'Energy production is the single largest source of emissions at 35%.',
+      'Industry contributes 21%, making it the second-largest emitting sector.',
+      'Transportation accounts for 16% of total greenhouse gas emissions.',
+      'Agriculture generates 10% of emissions, primarily from livestock and land use.',
+      'Energy production and industry together account for over half of all emissions.'
+    ],
+    sampleResponse: 'This pie chart illustrates the breakdown of global greenhouse gas emissions by sector in 2024. Energy production is the dominant source, responsible for 35 per cent of total emissions. Industry is the second-largest contributor at 21 per cent, followed by transportation at 16 per cent. Agriculture accounts for 10 per cent, primarily from livestock and land-use changes. Buildings contribute 6 per cent, while other sources make up the remaining 12 per cent. The data clearly highlights that decarbonising the energy and industrial sectors must be the top priority for achieving meaningful emissions reductions.',
+    dataDetails: 'Energy production: 35%; Industry: 21%; Transportation: 16%; Agriculture: 10%; Buildings: 6%; Other: 12%'
+  },
+  {
+    id: 'di-038',
+    type: 'line',
+    title: 'Global Remote Work Adoption Rate (2019-2025)',
+    description: 'A line graph showing the percentage of workers engaged in remote or hybrid work globally. The line begins at 5% in 2019, jumps dramatically to 35% in 2020, stabilises at 28% in 2021, then gradually settles to 22% by 2023 and remains around 20% projected for 2025.',
+    keyPoints: [
+      'Remote work surged from 5% to 35% during the pandemic in 2020.',
+      'The rate declined after the peak but remained far above pre-pandemic levels.',
+      'By 2023, approximately 22% of the global workforce worked remotely or in hybrid arrangements.',
+      'The projected 2025 rate of 20% suggests remote work is now a permanent feature of employment.',
+      'The data indicates a structural shift rather than a temporary trend.'
+    ],
+    sampleResponse: 'This line graph tracks the global remote work adoption rate from 2019 to 2025. The most dramatic feature is the sharp spike from 5 per cent in 2019 to 35 per cent in 2020, driven by the pandemic. Following this peak, the rate gradually declined as offices reopened, settling at approximately 28 per cent in 2021 and 22 per cent by 2023. The projected rate for 2025 is around 20 per cent. Significantly, this remains four times higher than the pre-pandemic level, indicating that remote and hybrid work has become a permanent structural feature of the global labour market rather than a temporary response to extraordinary circumstances.',
+    dataDetails: '2019: 5%; 2020: 35%; 2021: 28%; 2022: 24%; 2023: 22%; 2024: 21%; 2025: 20% (projected)'
+  },
+  {
+    id: 'di-039',
+    type: 'bar',
+    title: 'Top 10 Countries by Renewable Energy Share of Electricity (2024)',
+    description: 'A horizontal bar chart ranking countries by the percentage of electricity generated from renewable sources. Iceland leads at 100%, Norway 98%, Costa Rica 95%, Uruguay 94%, Denmark 84%, Scotland 80%, Portugal 72%, New Zealand 65%, Sweden 62%, and Germany 55%.',
+    keyPoints: [
+      'Iceland achieves virtually 100% renewable electricity, primarily from geothermal and hydropower.',
+      'Nordic countries dominate the top positions due to abundant hydropower and wind resources.',
+      'Several developing nations like Costa Rica and Uruguay rank above major European economies.',
+      'Germany, despite being a leading investor in renewables, ranks tenth at 55%.',
+      'The top five countries all exceed 80% renewable electricity generation.'
+    ],
+    sampleResponse: 'This horizontal bar chart ranks the top ten countries by their share of renewable electricity generation in 2024. Iceland leads at 100 per cent, drawing almost entirely from geothermal and hydropower sources. Norway follows closely at 98 per cent, and Costa Rica achieves an impressive 95 per cent. An interesting observation is that several smaller or developing nations outperform major industrial economies. For example, Uruguay at 94 per cent and Denmark at 84 per cent both rank ahead of Germany, which sits at 55 per cent despite being a major investor in renewable technology. The data demonstrates that geography, natural resources, and political will all play important roles in the energy transition.',
+    dataDetails: 'Iceland: 100%; Norway: 98%; Costa Rica: 95%; Uruguay: 94%; Denmark: 84%; Scotland: 80%; Portugal: 72%; New Zealand: 65%; Sweden: 62%; Germany: 55%'
+  },
+  {
+    id: 'di-040',
+    type: 'line',
+    title: 'Global Biodiversity Index Score (1970-2024)',
+    description: 'A line graph showing the Living Planet Index declining steadily from a baseline of 1.0 in 1970 to approximately 0.31 in 2024, representing a 69% decline in monitored wildlife populations. The decline is steepest in freshwater species (83% decline) followed by terrestrial (69%) and marine (56%).',
+    keyPoints: [
+      'The overall Living Planet Index has declined by 69% since 1970.',
+      'Freshwater species have suffered the greatest losses at 83% decline.',
+      'The rate of decline has slowed slightly since 2010 but continues downward.',
+      'Latin America and the Caribbean experienced the steepest regional decline.',
+      'The data underscores the urgency of global conservation targets.'
+    ],
+    sampleResponse: 'This line graph presents the Living Planet Index from 1970 to 2024, tracking the health of global biodiversity. Starting from a baseline of 1.0 in 1970, the index has declined steadily to approximately 0.31 by 2024, representing a devastating 69 per cent reduction in monitored wildlife populations. The decline has been most severe among freshwater species, which have decreased by 83 per cent. Terrestrial species have declined by 69 per cent and marine species by 56 per cent. While the rate of decline has shown some moderation since 2010, the overall trajectory remains alarming. This data powerfully illustrates the biodiversity crisis facing the planet and supports the urgency of conservation frameworks such as the 30-by-30 target.',
+    dataDetails: '1970: 1.0; 1980: 0.82; 1990: 0.65; 2000: 0.52; 2010: 0.40; 2020: 0.33; 2024: 0.31. Freshwater: -83%; Terrestrial: -69%; Marine: -56%'
+  },
+  {
+    id: 'di-041',
+    type: 'pie',
+    title: 'Global Water Usage by Sector (2024)',
+    description: 'A pie chart showing global freshwater usage distribution. Agriculture accounts for 70%, industry 19%, and domestic use 11%. Within agriculture, irrigation represents 90% of agricultural water use.',
+    keyPoints: [
+      'Agriculture dominates global water usage at 70% of all freshwater consumption.',
+      'Industrial use accounts for 19%, including manufacturing and energy production.',
+      'Domestic household use represents only 11% of total freshwater consumption.',
+      'Irrigation makes up the vast majority of agricultural water use.',
+      'Water scarcity therefore requires primarily agricultural efficiency improvements.'
+    ],
+    sampleResponse: 'This pie chart displays the distribution of global freshwater usage by sector in 2024. The most striking finding is the overwhelming dominance of agriculture, which accounts for 70 per cent of all freshwater consumption, with irrigation representing 90 per cent of that agricultural use. Industry is the second-largest consumer at 19 per cent, while domestic household use constitutes just 11 per cent of the total. This distribution has important implications for water conservation policies, as it suggests that the most effective strategies for addressing water scarcity must focus on improving agricultural efficiency, particularly irrigation methods, rather than solely targeting household consumption.',
+    dataDetails: 'Agriculture: 70% (irrigation 90% of this); Industry: 19%; Domestic: 11%'
+  },
+  {
+    id: 'di-042',
+    type: 'bar',
+    title: 'Global Space Industry Revenue by Segment (2020 vs 2025)',
+    description: 'A grouped bar chart comparing space industry revenue in 2020 and 2025 (projected). Satellite services: $127B→$165B. Ground equipment: $134B→$160B. Launch services: $5.3B→$12B. Space manufacturing: $12B→$22B. Space tourism: $0.3B→$3B.',
+    keyPoints: [
+      'Satellite services remain the largest revenue segment at $165 billion projected for 2025.',
+      'Launch services showed the highest percentage growth, more than doubling to $12 billion.',
+      'Space tourism, while still small, grew tenfold from $0.3 billion to $3 billion.',
+      'The total space economy is projected to exceed $362 billion by 2025.',
+      'Private sector investment is driving growth across all segments.'
+    ],
+    sampleResponse: 'This grouped bar chart compares global space industry revenue across five segments between 2020 and 2025. Satellite services remain the dominant segment, projected to reach 165 billion dollars by 2025, up from 127 billion. Ground equipment follows at 160 billion. However, the most dynamic growth areas are launch services, which more than doubled to 12 billion, and space tourism, which grew tenfold from 0.3 to 3 billion dollars, albeit from a very small base. Space manufacturing also showed strong growth, reaching a projected 22 billion. Overall, the space economy is expanding rapidly across all segments, driven by increased private sector investment and declining launch costs.',
+    dataDetails: 'Satellite services: $127B→$165B; Ground equipment: $134B→$160B; Launch services: $5.3B→$12B; Manufacturing: $12B→$22B; Tourism: $0.3B→$3B'
+  },
+  {
+    id: 'di-043',
+    type: 'line',
+    title: 'Global Average Internet Speed (2015-2025)',
+    description: 'A line graph showing the increase in global average download speed from 5 Mbps in 2015 to 47 Mbps in 2023 and projected 55 Mbps in 2025. Mobile speeds increased from 2 Mbps to 32 Mbps. Fixed broadband increased from 24 Mbps to 85 Mbps over the same period.',
+    keyPoints: [
+      'Global average download speed has increased nearly tenfold since 2015.',
+      'Fixed broadband speeds grew from 24 Mbps to 85 Mbps.',
+      'Mobile internet speeds increased sixteenfold, from 2 Mbps to 32 Mbps.',
+      'The gap between fixed and mobile speeds has narrowed significantly.',
+      '5G deployment is accelerating mobile speed growth in developed countries.'
+    ],
+    sampleResponse: 'This line graph tracks the growth of global average internet speeds from 2015 to 2025 across three measures: overall average, fixed broadband, and mobile. All three show substantial upward trends. The overall average increased from 5 megabits per second in 2015 to 47 in 2023, with a projection of 55 by 2025. Fixed broadband speeds rose from 24 to 85 megabits per second, while mobile speeds showed the most dramatic relative increase, growing sixteenfold from 2 to 32 megabits per second. The narrowing gap between fixed and mobile speeds reflects the global rollout of 4G and 5G networks. This improvement in connectivity underpins the growth of cloud computing, streaming services, and remote work capabilities.',
+    dataDetails: 'Overall: 5→12→25→38→47→55 Mbps; Fixed: 24→35→52→70→85→95 Mbps; Mobile: 2→6→15→25→32→40 Mbps (2015-2025)'
+  },
+  {
+    id: 'di-044',
+    type: 'pie',
+    title: 'Causes of Global Deforestation (2020-2024)',
+    description: 'A pie chart showing the primary drivers of deforestation worldwide. Cattle ranching accounts for 41%, soy cultivation 13%, palm oil 8%, logging 13%, subsistence farming 11%, and other causes 14%.',
+    keyPoints: [
+      'Cattle ranching is the single largest driver of deforestation at 41%.',
+      'Agriculture-related activities collectively account for over 70% of deforestation.',
+      'Commercial crops (soy and palm oil) together contribute 21%.',
+      'Logging accounts for 13%, primarily in tropical and boreal forests.',
+      'South America and Southeast Asia are the most affected regions.'
+    ],
+    sampleResponse: 'This pie chart illustrates the primary causes of global deforestation between 2020 and 2024. Cattle ranching is by far the largest driver, responsible for 41 per cent of all deforestation, predominantly in the Amazon region. Soy cultivation and logging each contribute 13 per cent, while subsistence farming accounts for 11 per cent. Palm oil production, concentrated in Southeast Asia, drives 8 per cent of forest loss. Other causes make up the remaining 14 per cent. Collectively, agriculture-related activities are responsible for over 70 per cent of deforestation. This data suggests that addressing meat consumption and agricultural expansion practices must be central to any effective strategy for preserving the world\'s remaining forests.',
+    dataDetails: 'Cattle ranching: 41%; Soy: 13%; Logging: 13%; Subsistence farming: 11%; Palm oil: 8%; Other: 14%'
+  },
+  {
+    id: 'di-045',
+    type: 'bar',
+    title: 'Global Mental Health Spending per Capita by Region (2024)',
+    description: 'A bar chart comparing mental health expenditure per person across regions. North America: $250, Europe: $120, East Asia: $40, Latin America: $15, South Asia: $3, Sub-Saharan Africa: $0.50.',
+    keyPoints: [
+      'North America spends $250 per capita on mental health, the highest globally.',
+      'There is a 500-fold gap between the highest and lowest spending regions.',
+      'Sub-Saharan Africa spends just $0.50 per person despite high need.',
+      'Europe spends approximately half of North America per capita.',
+      'The data highlights extreme inequality in global mental health provision.'
+    ],
+    sampleResponse: 'This bar chart presents global mental health expenditure per capita across six regions in 2024. The disparities are stark. North America leads with approximately 250 dollars per person, followed by Europe at 120 dollars. East Asia spends 40 dollars per capita, while Latin America allocates just 15 dollars. The most alarming figures come from South Asia at 3 dollars and Sub-Saharan Africa at merely 50 cents per person. This represents a 500-fold gap between the highest and lowest spending regions. The data reveals profound inequality in mental health provision globally, with the regions that often face the greatest psychosocial stressors receiving the least investment in mental health services.',
+    dataDetails: 'North America: $250; Europe: $120; East Asia: $40; Latin America: $15; South Asia: $3; Sub-Saharan Africa: $0.50'
+  },
+  {
+    id: 'di-046',
+    type: 'line',
+    title: 'Global Plastic Waste Generation (2000-2025)',
+    description: 'A line graph showing plastic waste generation rising from 156 million tonnes in 2000 to 380 million tonnes in 2023 and projected 400 million tonnes in 2025. Only 9% is recycled, 12% incinerated, and 79% accumulates in landfills or the natural environment.',
+    keyPoints: [
+      'Plastic waste has more than doubled from 156 million to 380 million tonnes since 2000.',
+      'Only 9% of all plastic ever produced has been recycled.',
+      'The vast majority (79%) ends up in landfills or the natural environment.',
+      'Growth shows no sign of slowing, with 400 million tonnes projected for 2025.',
+      'Single-use plastics account for approximately 40% of all plastic production.'
+    ],
+    sampleResponse: 'This line graph tracks global plastic waste generation from 2000 to 2025. The trend is concerning, with waste more than doubling from 156 million tonnes in 2000 to 380 million tonnes in 2023, with a projected 400 million tonnes by 2025. The graph is accompanied by data showing that only 9 per cent of plastic waste is recycled, while 12 per cent is incinerated and a staggering 79 per cent accumulates in landfills or the natural environment. The continued upward trajectory, despite growing environmental awareness, highlights the failure of current waste management approaches. This data supports calls for a global plastics treaty and a fundamental shift from single-use to circular plastic economies.',
+    dataDetails: '2000: 156Mt; 2005: 200Mt; 2010: 245Mt; 2015: 300Mt; 2020: 340Mt; 2023: 380Mt; 2025: 400Mt (proj). Recycled: 9%; Incinerated: 12%; Landfill/environment: 79%'
+  },
+  {
+    id: 'di-047',
+    type: 'bar',
+    title: 'Student Enrolment in STEM vs Non-STEM Degrees (2015-2024)',
+    description: 'A grouped bar chart showing university enrolment trends. STEM enrolment grew from 22% to 34% of total enrolment. Non-STEM declined from 78% to 66%. Computer science saw the largest individual growth, tripling from 5% to 15% of total enrolment.',
+    keyPoints: [
+      'STEM enrolment increased from 22% to 34% of total university enrolment.',
+      'Computer science saw the most dramatic growth, tripling its share.',
+      'Non-STEM subjects declined proportionally but still represent the majority.',
+      'Engineering and health sciences also showed significant growth.',
+      'The shift reflects changing labour market demands and government incentives.'
+    ],
+    sampleResponse: 'This grouped bar chart compares university enrolment in STEM versus non-STEM degree programmes from 2015 to 2024. The data reveals a clear shift towards STEM fields, with their share of total enrolment growing from 22 to 34 per cent. Computer science experienced the most dramatic increase, tripling from 5 to 15 per cent of all enrolments. Engineering and health sciences also showed significant growth. Conversely, non-STEM enrolment declined proportionally from 78 to 66 per cent, though these fields still represent the majority. This trend reflects evolving labour market demands, particularly in technology and healthcare, as well as government incentives and scholarship programmes designed to address skills shortages in STEM industries.',
+    dataDetails: 'STEM total: 22%→26%→30%→34%; Computer Science: 5%→8%→12%→15%; Engineering: 8%→9%→10%→11%; Health Sci: 5%→6%→7%→8%; Non-STEM: 78%→74%→70%→66%'
+  },
+  {
+    id: 'di-048',
+    type: 'pie',
+    title: 'Global Energy Storage Capacity by Technology (2024)',
+    description: 'A pie chart showing the breakdown of grid-scale energy storage capacity. Lithium-ion batteries account for 58%, pumped hydro 32%, flow batteries 4%, compressed air 3%, and other technologies 3%.',
+    keyPoints: [
+      'Lithium-ion batteries dominate grid-scale storage at 58% of installed capacity.',
+      'Pumped hydro remains significant at 32%, being the oldest storage technology.',
+      'Emerging technologies like flow batteries and compressed air represent small but growing shares.',
+      'Lithium-ion share has increased rapidly from under 20% in 2018.',
+      'Battery storage is essential for integrating intermittent renewable energy sources.'
+    ],
+    sampleResponse: 'This pie chart shows the distribution of global grid-scale energy storage capacity by technology in 2024. Lithium-ion batteries have become the dominant technology, accounting for 58 per cent of total installed capacity, up from under 20 per cent just six years ago. Pumped hydroelectric storage, the oldest grid storage technology, maintains a significant 32 per cent share. Emerging technologies including flow batteries at 4 per cent and compressed air at 3 per cent represent small but growing segments. The rapid rise of lithium-ion technology reflects declining battery costs and the urgent need for storage solutions to support the integration of intermittent renewable energy sources like solar and wind into electricity grids.',
+    dataDetails: 'Lithium-ion: 58%; Pumped hydro: 32%; Flow batteries: 4%; Compressed air: 3%; Other: 3%'
+  },
+  {
+    id: 'di-049',
+    type: 'bar',
+    title: 'Global Telemedicine Usage Before and After the Pandemic (2019 vs 2024)',
+    description: 'A bar chart comparing telemedicine usage across specialties. General practice: 8%→42%. Mental health: 12%→58%. Dermatology: 5%→35%. Chronic disease management: 10%→48%. Paediatrics: 6%→30%. Overall: 7%→40%.',
+    keyPoints: [
+      'Overall telemedicine usage increased nearly sixfold from 7% to 40% of consultations.',
+      'Mental health services saw the highest adoption rate at 58%.',
+      'Chronic disease management reached 48% telehealth adoption.',
+      'Even traditionally in-person specialties like dermatology reached 35%.',
+      'The shift appears permanent, with usage stabilising well above pre-pandemic levels.'
+    ],
+    sampleResponse: 'This bar chart compares telemedicine usage rates across medical specialties between 2019 and 2024. The data reveals a dramatic and lasting shift in healthcare delivery. Overall, telehealth consultations increased nearly sixfold from 7 to 40 per cent. Mental health services saw the highest adoption at 58 per cent, reflecting the convenience and reduced stigma of remote psychological consultations. Chronic disease management reached 48 per cent, and general practice 42 per cent. Even dermatology, traditionally requiring physical examination, reached 35 per cent telehealth adoption. The uniformly high post-pandemic rates across all specialties suggest that telemedicine has become a permanent and fundamental feature of modern healthcare delivery.',
+    dataDetails: 'General practice: 8%→42%; Mental health: 12%→58%; Dermatology: 5%→35%; Chronic disease: 10%→48%; Paediatrics: 6%→30%; Overall: 7%→40%'
+  },
+  {
+    id: 'di-050',
+    type: 'line',
+    title: 'Global Carbon Dioxide Concentration in the Atmosphere (1960-2025)',
+    description: 'A line graph showing atmospheric CO2 levels rising from 317 ppm in 1960 to 425 ppm in 2024, with the rate of increase accelerating from about 0.9 ppm per year in the 1960s to over 2.5 ppm per year currently. The iconic Keeling Curve shows an unbroken upward trend.',
+    keyPoints: [
+      'CO2 levels have risen from 317 ppm to 425 ppm since 1960.',
+      'The rate of increase has nearly tripled over the period.',
+      'There has been no single year of decline despite climate agreements.',
+      'The 400 ppm threshold was crossed permanently in 2016.',
+      'Current levels are the highest in at least 800,000 years.'
+    ],
+    sampleResponse: 'This line graph presents the Keeling Curve, tracking atmospheric carbon dioxide concentration from 1960 to 2025. The data shows an unbroken upward trend, rising from 317 parts per million in 1960 to 425 ppm in 2024. Perhaps most alarming is the accelerating rate of increase, which has nearly tripled from approximately 0.9 ppm per year in the 1960s to over 2.5 ppm per year currently. The graph also reveals seasonal oscillations caused by vegetation cycles, but the underlying trend shows no reversal at any point. The 400 ppm threshold, considered symbolic by climate scientists, was permanently exceeded in 2016. Current levels are the highest in at least 800,000 years, underscoring the unprecedented nature of anthropogenic climate change.',
+    dataDetails: '1960: 317 ppm; 1970: 326; 1980: 339; 1990: 354; 2000: 369; 2010: 390; 2020: 414; 2024: 425 ppm. Rate: 0.9→1.2→1.5→1.8→2.0→2.4→2.5 ppm/year'
+  },
+  {
+    id: 'di-051',
+    type: 'bar',
+    title: 'Global Cybersecurity Spending by Category (2023)',
+    description: 'A bar chart showing cybersecurity spending in billions. Network security: $22B, cloud security: $18B, endpoint security: $15B, identity management: $14B, application security: $10B, data security: $9B, security services: $65B.',
+    keyPoints: [
+      'Security services is the largest category at $65 billion, reflecting outsourcing trends.',
+      'Network security and cloud security are the top product categories.',
+      'Cloud security grew fastest, at 28% year-over-year growth.',
+      'Total global cybersecurity spending exceeds $153 billion annually.',
+      'The rapid growth reflects increasing cyber threats and regulatory requirements.'
+    ],
+    sampleResponse: 'This bar chart presents global cybersecurity spending by category in 2023. Security services dominates at 65 billion dollars, reflecting the widespread trend of organisations outsourcing their cybersecurity operations. Among product categories, network security leads at 22 billion, followed by cloud security at 18 billion, and endpoint security at 15 billion. Identity management and application security contribute 14 and 10 billion respectively. Total global spending exceeds 153 billion dollars annually. Cloud security showed the fastest growth at 28 per cent year-over-year, driven by the ongoing migration of enterprise infrastructure to cloud platforms. The substantial and growing investment across all categories underscores the escalating sophistication of cyber threats and tightening regulatory requirements worldwide.',
+    dataDetails: 'Security services: $65B; Network security: $22B; Cloud security: $18B; Endpoint: $15B; Identity: $14B; Application: $10B; Data security: $9B. Total: $153B'
+  },
+  {
+    id: 'di-052',
+    type: 'pie',
+    title: 'World Population Distribution by Continent (2025)',
+    description: 'A pie chart showing the global population distribution. Asia: 59.4%, Africa: 18.2%, Europe: 9.3%, Latin America and Caribbean: 8.2%, Northern America: 4.6%, Oceania: 0.5%.',
+    keyPoints: [
+      'Asia contains nearly 60% of the world population with approximately 4.8 billion people.',
+      'Africa is the second most populous continent at 18.2% and growing fastest.',
+      'Europe\'s share has declined and now represents under 10%.',
+      'Africa is projected to account for over 25% by 2050.',
+      'Oceania has the smallest population share at 0.5%.'
+    ],
+    sampleResponse: 'This pie chart illustrates the distribution of the world\'s population across continents in 2025. Asia dominates overwhelmingly with 59.4 per cent of the global population, housing approximately 4.8 billion people. Africa is the second-largest at 18.2 per cent, and notably is the fastest-growing continent, projected to exceed 25 per cent by 2050. Europe accounts for 9.3 per cent, a share that continues to decline due to low birth rates and ageing populations. Latin America and the Caribbean represent 8.2 per cent, Northern America 4.6 per cent, and Oceania just 0.5 per cent. These figures highlight the demographic weight of Asia and the rapid rise of Africa as a population centre.',
+    dataDetails: 'Asia: 59.4% (4.8B); Africa: 18.2% (1.5B); Europe: 9.3% (750M); Latin America: 8.2% (660M); North America: 4.6% (375M); Oceania: 0.5% (46M)'
+  },
+  {
+    id: 'di-053',
+    type: 'line',
+    title: 'Global Smartphone Penetration Rate (2010-2025)',
+    description: 'A line graph showing smartphone adoption rising from 10% of the global population in 2010 to 55% in 2020 and 72% in 2025 (projected). Developed nations reached 85% by 2020, while developing nations moved from 20% to 62% by 2025.',
+    keyPoints: [
+      'Global smartphone penetration has grown from 10% to 72% in fifteen years.',
+      'Developed nations lead at 85% but growth has plateaued.',
+      'Developing nations show the fastest growth trajectory.',
+      'The digital divide is narrowing but remains significant in Sub-Saharan Africa and South Asia.',
+      'Over 6 billion people now own a smartphone globally.'
+    ],
+    sampleResponse: 'This line graph tracks global smartphone penetration from 2010 to 2025. The adoption curve shows remarkable growth, from just 10 per cent of the global population in 2010 to a projected 72 per cent by 2025. The graph separates developed and developing nations, revealing distinct patterns. Developed countries reached 85 per cent by 2020 but have since plateaued, while developing nations show continued rapid growth, rising from 20 per cent to a projected 62 per cent by 2025. This narrowing of the digital divide is significant, though notable gaps remain in Sub-Saharan Africa and South Asia. With over 6 billion smartphones now in use globally, mobile connectivity has become the primary gateway to the internet for most of the world\'s population.',
+    dataDetails: 'Global: 10%→25%→40%→55%→65%→72%; Developed: 30%→55%→75%→85%→87%→88%; Developing: 5%→15%→30%→45%→55%→62% (2010-2025)'
+  },
+  {
+    id: 'di-054',
+    type: 'bar',
+    title: 'Average Annual Teacher Salaries by Country (2024 USD)',
+    description: 'A bar chart comparing average secondary school teacher salaries. Luxembourg: $105,000, Germany: $73,000, Australia: $65,000, USA: $62,000, Japan: $55,000, UK: $48,000, South Korea: $52,000, Brazil: $18,000, India: $8,000, Indonesia: $6,000.',
+    keyPoints: [
+      'Luxembourg has the highest teacher salary at $105,000 USD.',
+      'There is a 17-fold gap between the highest and lowest paying countries.',
+      'Australian teachers earn approximately $65,000, above the OECD average.',
+      'Developing nations pay significantly less, with Indonesia at only $6,000.',
+      'Salary levels correlate broadly with national income but not perfectly.'
+    ],
+    sampleResponse: 'This bar chart compares average annual secondary school teacher salaries across ten countries in 2024 US dollars. Luxembourg leads significantly at 105,000 dollars, followed by Germany at 73,000 and Australia at 65,000. The United States and Japan are in the mid-range at 62,000 and 55,000 respectively. The most striking feature is the enormous gap between developed and developing nations. While the United Kingdom pays approximately 48,000 dollars, Brazil pays just 18,000, India 8,000, and Indonesia only 6,000 — a seventeen-fold difference from the highest to the lowest. These disparities have significant implications for teacher recruitment, retention, and ultimately educational quality across different nations.',
+    dataDetails: 'Luxembourg: $105K; Germany: $73K; Australia: $65K; USA: $62K; Japan: $55K; South Korea: $52K; UK: $48K; Brazil: $18K; India: $8K; Indonesia: $6K'
+  },
+  {
+    id: 'di-055',
+    type: 'pie',
+    title: 'Global Food Waste by Stage of Supply Chain (2024)',
+    description: 'A pie chart showing where food is wasted globally. Household consumption: 42%, food service and restaurants: 26%, retail: 13%, processing and packaging: 11%, production and harvest: 8%.',
+    keyPoints: [
+      'Household consumption is the largest source of food waste at 42%.',
+      'Food service and restaurants contribute 26% of total waste.',
+      'Post-consumer stages (households and restaurants) account for 68% combined.',
+      'Retail waste at 13% includes unsold perishable goods.',
+      'Approximately 1.3 billion tonnes of food is wasted globally each year.'
+    ],
+    sampleResponse: 'This pie chart presents the distribution of global food waste across the supply chain in 2024. Household consumption is the single largest contributor at 42 per cent, followed by food service and restaurants at 26 per cent. Together, these post-consumer stages account for 68 per cent of all food waste. Retail contributes 13 per cent, primarily from unsold perishable goods, while processing and packaging accounts for 11 per cent. Production and harvest losses represent 8 per cent. With approximately 1.3 billion tonnes of food wasted annually worldwide, the data clearly indicates that consumer behaviour and food service practices must be the primary focus of waste reduction strategies, alongside improved storage and distribution infrastructure.',
+    dataDetails: 'Household: 42%; Food service: 26%; Retail: 13%; Processing: 11%; Production/harvest: 8%. Total: ~1.3 billion tonnes/year'
   }
 ];
 
 // -----------------------------------------------------------------------------
-// 4. RETELL LECTURE ITEMS (25 items)
+// 4. RETELL LECTURE ITEMS (40 items)
 // -----------------------------------------------------------------------------
 const RETELL_LECTURE_ITEMS = [
   {
@@ -1329,11 +1832,236 @@ const RETELL_LECTURE_ITEMS = [
     ],
     sampleRetell: 'The lecture discussed biomimicry — the practice of using nature\'s designs to solve human engineering challenges. The speaker emphasised that nature has had nearly four billion years of evolution to optimise its solutions. Several examples were provided: Japan\'s bullet train was redesigned based on the kingfisher\'s beak to reduce tunnel noise, Velcro was inspired by burrs attaching to fur, and shark skin has influenced both swimsuit design and antimicrobial surfaces. The most impressive example was the Eastgate Centre in Zimbabwe, which uses a ventilation system modelled on termite mounds and consumes ninety per cent less energy than conventional buildings. These cases demonstrate that sustainable engineering solutions can often be found by studying the natural world.',
     wordCount: 116
+  },
+  {
+    id: 'rl-026',
+    title: 'The AI Regulation Landscape',
+    topic: 'technology',
+    transcript: 'The regulation of artificial intelligence is developing rapidly but unevenly across the globe. The European Union led with the AI Act in 2024, which classifies AI systems into risk categories — from minimal risk applications like spam filters to high-risk systems used in healthcare, law enforcement, and employment decisions. The United States has taken a more sector-specific approach, issuing executive orders rather than comprehensive legislation. China has implemented regulations targeting specific AI applications, particularly deepfakes and recommendation algorithms. Meanwhile, many developing nations lack the institutional capacity to regulate AI effectively. The challenge is finding the right balance: too much regulation stifles innovation and drives companies overseas, while too little leaves citizens vulnerable to algorithmic bias, privacy violations, and job displacement.',
+    keyPoints: [
+      'The EU AI Act classifies AI by risk level, from minimal to high-risk applications.',
+      'The US takes a sector-specific approach rather than comprehensive legislation.',
+      'China focuses regulations on specific applications like deepfakes.',
+      'Developing nations often lack capacity for effective AI regulation.',
+      'The core challenge is balancing innovation with citizen protection.'
+    ],
+    sampleRetell: 'The lecture examined the global landscape of AI regulation. The speaker explained that the European Union has taken the lead with the AI Act of 2024, which categorises AI systems according to risk levels. The United States has adopted a different approach, using executive orders and sector-specific guidelines rather than comprehensive legislation. China has focused on regulating specific applications like deepfakes and recommendation algorithms. The speaker noted that many developing nations lack the resources to regulate AI effectively. The central challenge discussed was finding the right balance between encouraging innovation and protecting citizens from risks such as algorithmic bias and privacy violations.',
+    wordCount: 118
+  },
+  {
+    id: 'rl-027',
+    title: 'Climate Adaptation in Coastal Cities',
+    topic: 'environment',
+    transcript: 'Coastal cities around the world are facing an existential threat from rising sea levels. By 2050, over 800 million people in more than 570 coastal cities could be exposed to flooding from sea level rise of at least half a metre. Cities are responding with a range of adaptation strategies. Rotterdam in the Netherlands uses an innovative system of water plazas and floating structures that can absorb floodwater during heavy rainfall. Miami is investing four billion dollars in raising roads and improving stormwater systems. Jakarta has undertaken an ambitious plan to build a giant sea wall. However, some experts argue that in the most vulnerable areas, managed retreat — the planned relocation of communities away from the coast — may ultimately be the only viable long-term solution, despite its enormous social and economic costs.',
+    keyPoints: [
+      'Over 800 million people in 570 coastal cities face flooding risks by 2050.',
+      'Rotterdam uses innovative water plazas and floating structures.',
+      'Miami is investing $4 billion in infrastructure adaptation.',
+      'Jakarta is building a giant sea wall to protect the city.',
+      'Managed retreat may be necessary in the most vulnerable areas despite high costs.'
+    ],
+    sampleRetell: 'The lecture focused on how coastal cities are adapting to rising sea levels. The speaker stated that over 800 million people in more than 570 cities could face serious flooding by 2050. Several adaptation strategies were discussed. Rotterdam uses innovative water plazas and floating structures, Miami is investing four billion dollars in raising roads and improving drainage, and Jakarta is building a massive sea wall. However, the speaker also raised the controversial concept of managed retreat, where communities are relocated away from coastlines. While socially and economically costly, this may be the only viable long-term solution for the most vulnerable areas.',
+    wordCount: 105
+  },
+  {
+    id: 'rl-028',
+    title: 'The Microbiome Revolution',
+    topic: 'science',
+    transcript: 'The human microbiome — the trillions of microorganisms living in and on our bodies — has become one of the most exciting frontiers in medical science. Research has shown that these microbial communities play crucial roles far beyond digestion. They influence our immune system, mental health, and even body weight. Studies have linked imbalances in gut bacteria to conditions ranging from depression and anxiety to autoimmune diseases and certain cancers. The concept of the gut-brain axis has revealed that microorganisms in the digestive system can communicate with the brain through the vagus nerve and chemical signalling. This has led to the development of psychobiotics — probiotics specifically designed to improve mental health. Faecal microbiota transplantation has proven remarkably effective for treating recurrent Clostridioides difficile infections, with cure rates exceeding ninety per cent.',
+    keyPoints: [
+      'The human microbiome consists of trillions of microorganisms with wide-ranging health effects.',
+      'Gut bacteria influence the immune system, mental health, and body weight.',
+      'The gut-brain axis allows communication between gut microbes and the brain.',
+      'Psychobiotics are probiotics designed specifically for mental health improvement.',
+      'Faecal transplantation has over 90% cure rates for C. difficile infections.'
+    ],
+    sampleRetell: 'The lecture explored the microbiome revolution in medical science. The speaker explained that trillions of microorganisms living in our bodies play crucial roles beyond digestion, influencing the immune system, mental health, and body weight. Research has linked gut bacteria imbalances to depression, autoimmune diseases, and certain cancers. The gut-brain axis was discussed as a key discovery, showing that gut microbes communicate with the brain through the vagus nerve. This has led to the development of psychobiotics, which are probiotics designed specifically for mental health benefits. The speaker also highlighted faecal microbiota transplantation, which achieves cure rates exceeding ninety per cent for recurrent C. difficile infections.',
+    wordCount: 110
+  },
+  {
+    id: 'rl-029',
+    title: 'The Future of Work and Automation',
+    topic: 'economics',
+    transcript: 'The relationship between automation and employment is more nuanced than popular narratives suggest. While it is true that machines and AI systems are replacing certain tasks, history shows that technological revolutions consistently create more jobs than they destroy. The key distinction is between task automation and job automation. Most jobs consist of many different tasks, and technology typically automates some tasks while leaving others — particularly those requiring creativity, empathy, and complex judgement — to humans. The World Economic Forum estimates that by 2025, automation will displace 85 million jobs globally but create 97 million new ones. However, the challenge lies in the transition: displaced workers often lack the skills needed for new roles. This skills mismatch could exacerbate inequality unless governments invest heavily in retraining programmes and education reform.',
+    keyPoints: [
+      'Automation replaces tasks within jobs, not necessarily entire jobs.',
+      'Historical evidence shows technology creates more jobs than it destroys.',
+      'The WEF estimates 85 million jobs displaced but 97 million created by 2025.',
+      'The main challenge is the skills mismatch during the transition period.',
+      'Government investment in retraining is essential to prevent increased inequality.'
+    ],
+    sampleRetell: 'The lecture addressed the relationship between automation and employment. The speaker argued that the impact is more nuanced than popular fears suggest, emphasising the important distinction between task automation and job automation. Most jobs involve multiple tasks, and technology typically automates only some while leaving creative and empathetic tasks to humans. The World Economic Forum estimates 85 million jobs will be displaced but 97 million new ones created. However, the critical challenge is the skills mismatch — displaced workers often cannot fill the new roles being created. The speaker concluded that government investment in retraining programmes and education reform is essential to prevent rising inequality during this transition.',
+    wordCount: 108
+  },
+  {
+    id: 'rl-030',
+    title: 'Space Debris and Orbital Sustainability',
+    topic: 'science',
+    transcript: 'The problem of space debris has reached a critical tipping point. There are currently over 36,000 objects larger than ten centimetres orbiting Earth, along with an estimated 130 million fragments smaller than one centimetre. These objects travel at speeds exceeding 28,000 kilometres per hour, meaning even a tiny fleck of paint can damage a spacecraft. The Kessler Syndrome, first proposed by NASA scientist Donald Kessler in 1978, describes a scenario where the density of objects in low Earth orbit becomes so high that collisions generate more debris, creating a cascading chain reaction. This could eventually render certain orbital zones unusable. With companies like SpaceX launching thousands of satellites for mega-constellations, the urgency has intensified. Proposed solutions include active debris removal using robotic arms, nets, and lasers, as well as international agreements requiring satellites to deorbit within twenty-five years of their mission ending.',
+    keyPoints: [
+      'Over 36,000 tracked objects and 130 million small fragments orbit Earth.',
+      'Debris travels at over 28,000 km/h, making tiny fragments dangerous.',
+      'The Kessler Syndrome describes a cascading collision chain reaction.',
+      'Mega-constellations of satellites are intensifying the debris problem.',
+      'Solutions include robotic removal, nets, lasers, and mandatory deorbit rules.'
+    ],
+    sampleRetell: 'The lecture discussed the growing crisis of space debris. The speaker explained that over 36,000 objects larger than ten centimetres and 130 million smaller fragments currently orbit Earth at speeds exceeding 28,000 kilometres per hour. The Kessler Syndrome was described as a scenario where collision debris creates a cascading chain reaction, potentially making orbital zones unusable. The problem has intensified with companies launching thousands of satellites for mega-constellations. Several solutions were proposed, including active debris removal using robotic arms, nets, and lasers, as well as international agreements requiring satellites to deorbit within twenty-five years of their mission completion.',
+    wordCount: 100
+  },
+  {
+    id: 'rl-031',
+    title: 'The Psychology of Misinformation',
+    topic: 'psychology',
+    transcript: 'Understanding why people believe and share misinformation has become one of the most important research questions in modern psychology. The phenomenon is driven by several cognitive biases. Confirmation bias leads people to accept information that aligns with their existing beliefs while dismissing contradictory evidence. The illusory truth effect means that repeated exposure to a false claim increases the likelihood of believing it — even when people initially knew it was wrong. Social identity plays a powerful role: people are far more likely to share information from their in-group without verifying its accuracy. Research by Gordon Pennycook at the University of Regina found that the primary reason people share misinformation is not that they believe it, but rather that social media platforms do not encourage them to think about accuracy before sharing. Simple interventions, such as asking users to rate the accuracy of a headline before sharing, have been shown to reduce the spread of false information by up to twenty-five per cent.',
+    keyPoints: [
+      'Confirmation bias causes people to accept information matching their existing beliefs.',
+      'The illusory truth effect means repetition increases perceived credibility of false claims.',
+      'In-group loyalty drives sharing of unverified information.',
+      'People often share misinformation not because they believe it but because platforms do not prompt accuracy thinking.',
+      'Simple accuracy prompts can reduce misinformation sharing by up to 25%.'
+    ],
+    sampleRetell: 'The lecture examined the psychology behind why people believe and share misinformation. The speaker identified several cognitive biases at work, including confirmation bias, which leads people to accept information matching their existing views, and the illusory truth effect, where repeated exposure to false claims increases their perceived credibility. Social identity was highlighted as a powerful factor, with people more likely to share unverified information from their in-group. Research by Gordon Pennycook found that people often share misinformation not because they believe it, but because social media does not prompt them to think about accuracy. The speaker noted that simple interventions, such as asking users to rate headline accuracy before sharing, can reduce misinformation spread by twenty-five per cent.',
+    wordCount: 118
+  },
+  {
+    id: 'rl-032',
+    title: 'Vertical Farming and Food Security',
+    topic: 'technology',
+    transcript: 'Vertical farming represents a radical reimagining of food production for an urbanising world. These indoor facilities grow crops in stacked layers using hydroponic or aeroponic systems that require no soil. LED lighting tuned to specific wavelengths provides optimal photosynthesis conditions, and climate-controlled environments allow year-round production regardless of external weather. The advantages are remarkable: vertical farms use up to ninety-five per cent less water than conventional agriculture, eliminate the need for pesticides, and can be located within or near cities, dramatically reducing transportation emissions and food miles. A single hectare of vertical farm space can produce the equivalent of ten to twenty hectares of conventional farmland. However, the technology faces significant challenges. Energy costs remain high, and the initial capital investment can exceed fifty million dollars for a large-scale facility. Currently, vertical farms are commercially viable mainly for leafy greens, herbs, and strawberries — not staple crops like wheat or rice.',
+    keyPoints: [
+      'Vertical farms grow crops in stacked layers using hydroponic or aeroponic systems.',
+      'They use 95% less water and eliminate the need for pesticides.',
+      'One hectare can produce the equivalent of 10-20 hectares of conventional farmland.',
+      'High energy costs and capital investment (over $50 million) are major challenges.',
+      'Currently viable mainly for leafy greens and herbs, not staple crops.'
+    ],
+    sampleRetell: 'The lecture explored vertical farming as a solution for food security in an urbanising world. These indoor facilities grow crops in stacked layers using hydroponic systems with LED lighting and climate control. The speaker highlighted impressive advantages: ninety-five per cent less water usage, no pesticides, and the ability to produce year-round near urban centres. A single hectare can match ten to twenty hectares of conventional farmland. However, significant challenges were noted, including high energy costs and initial capital investments exceeding fifty million dollars. The speaker concluded that vertical farming is currently commercially viable mainly for leafy greens and herbs, not staple crops like wheat or rice.',
+    wordCount: 105
+  },
+  {
+    id: 'rl-033',
+    title: 'The Demographic Dividend in Africa',
+    topic: 'sociology',
+    transcript: 'Africa stands at a demographic crossroads that could determine the continent\'s economic trajectory for decades to come. By 2050, Africa\'s working-age population will increase by roughly 740 million people — more than the current combined workforce of Europe and North America. If sufficient jobs, education, and healthcare are provided, this youth bulge could drive unprecedented economic growth, a phenomenon economists call the demographic dividend. East Asian countries experienced exactly this between 1965 and 1990, when declining fertility rates and a growing labour force contributed to annual GDP growth rates exceeding seven per cent. However, the dividend is not automatic. Without adequate investment in education and job creation, the same demographic trend could lead to mass unemployment, social instability, and increased migration pressures. Currently, Africa creates only three million formal jobs annually for the twelve million young people entering the labour market.',
+    keyPoints: [
+      'Africa\'s working-age population will grow by 740 million by 2050.',
+      'The demographic dividend could drive unprecedented economic growth if jobs are created.',
+      'East Asian nations achieved 7%+ GDP growth through a similar demographic transition.',
+      'The dividend requires investment in education, healthcare, and job creation.',
+      'Currently only 3 million formal jobs are created for 12 million new workers annually.'
+    ],
+    sampleRetell: 'The lecture discussed Africa\'s demographic crossroads. The speaker explained that by 2050, the continent\'s working-age population will grow by approximately 740 million people. If sufficient jobs and education are provided, this youth bulge could create a demographic dividend of unprecedented economic growth, similar to what East Asian countries experienced between 1965 and 1990 with GDP growth exceeding seven per cent annually. However, the speaker cautioned that this outcome is not automatic. Without adequate investment, the same demographic trend could result in mass unemployment and social instability. A concerning statistic was highlighted: Africa currently creates only three million formal jobs for twelve million young people entering the labour market each year.',
+    wordCount: 112
+  },
+  {
+    id: 'rl-034',
+    title: 'CRISPR and the Gene Editing Revolution',
+    topic: 'science',
+    transcript: 'The development of CRISPR-Cas9 gene editing technology has been described as one of the most significant scientific breakthroughs of the twenty-first century. This molecular tool, originally discovered as a bacterial defence mechanism against viruses, allows scientists to precisely cut and modify DNA sequences at specific locations. The implications are vast. In medicine, CRISPR is being used to develop treatments for genetic diseases such as sickle cell disease and beta-thalassemia. The first CRISPR-based therapy, Casgevy, was approved by regulators in the UK and US in late 2023. In agriculture, gene-edited crops that are drought-resistant or more nutritious could help address food security challenges. However, the technology raises profound ethical questions. The case of He Jiankui, who created gene-edited babies in China in 2018, highlighted the risks of applying the technology to human embryos. Most countries have banned germline editing, but the technology is advancing faster than regulatory frameworks can adapt.',
+    keyPoints: [
+      'CRISPR-Cas9 allows precise cutting and modification of DNA sequences.',
+      'Casgevy became the first approved CRISPR therapy in late 2023 for sickle cell disease.',
+      'Gene-edited crops could address food security through drought resistance and improved nutrition.',
+      'He Jiankui\'s creation of gene-edited babies in 2018 raised major ethical concerns.',
+      'Technology is advancing faster than regulatory frameworks can keep pace.'
+    ],
+    sampleRetell: 'The lecture examined the CRISPR-Cas9 gene editing revolution. The speaker described how this technology, originally discovered as a bacterial defence mechanism, allows scientists to precisely modify DNA sequences. In medicine, CRISPR is being used to treat genetic diseases, and the first approved therapy, Casgevy, received regulatory approval in the UK and US in late 2023 for sickle cell disease. In agriculture, gene-edited crops offer potential solutions to food security challenges. However, the speaker raised serious ethical concerns, citing the case of He Jiankui, who controversially created gene-edited babies in China in 2018. The lecture concluded that while most countries have banned germline editing, the technology is advancing faster than regulatory frameworks can adapt.',
+    wordCount: 112
+  },
+  {
+    id: 'rl-035',
+    title: 'The Economics of Renewable Energy Transition',
+    topic: 'economics',
+    transcript: 'The economics of energy have fundamentally shifted in favour of renewables. The cost of solar electricity has fallen by ninety per cent since 2010, making it the cheapest source of new electricity generation in most parts of the world. Wind power costs have dropped by seventy per cent over the same period. This transformation has been driven by manufacturing economies of scale, improved technology, and supportive government policies. However, the transition creates significant economic disruption. Communities dependent on fossil fuel industries face job losses and declining tax revenues. In the United States alone, approximately 80,000 coal jobs have disappeared since 2012. A concept known as the just transition has emerged, advocating for targeted support — including retraining programmes, economic diversification initiatives, and transitional income support — for workers and communities affected by the shift away from fossil fuels.',
+    keyPoints: [
+      'Solar costs have fallen 90% since 2010, making it the cheapest new electricity source.',
+      'Wind power costs decreased by 70% over the same period.',
+      'The transition is driven by economies of scale, technology, and government policy.',
+      'Fossil fuel communities face significant economic disruption and job losses.',
+      'The just transition concept advocates targeted support for affected workers and communities.'
+    ],
+    sampleRetell: 'The lecture focused on the economics of the renewable energy transition. The speaker highlighted that solar electricity costs have fallen by ninety per cent since 2010, making it the cheapest source of new power generation globally. Wind power costs have dropped by seventy per cent. These dramatic reductions have been driven by manufacturing scale, improved technology, and government support. However, the speaker also addressed the economic disruption caused by this transition. Approximately 80,000 coal jobs have disappeared in the United States since 2012. The concept of a just transition was introduced, which advocates for targeted support including retraining programmes and economic diversification for workers and communities affected by the decline of fossil fuel industries.',
+    wordCount: 110
+  },
+  {
+    id: 'rl-036',
+    title: 'Digital Currencies and Central Bank Innovation',
+    topic: 'economics',
+    transcript: 'Central banks around the world are exploring digital currencies as the next evolution of money. Over 130 countries, representing ninety-eight per cent of global GDP, are now investigating central bank digital currencies, known as CBDCs. China has already launched a digital yuan pilot programme involving over 260 million users. The motivations vary: some central banks want to improve financial inclusion for unbanked populations, others seek to modernise payment systems, and many are responding to the competitive threat posed by private cryptocurrencies and stablecoins. Unlike Bitcoin or Ethereum, CBDCs would be issued and backed by central banks, maintaining government control over monetary policy. However, privacy advocates worry about the surveillance potential of government-issued digital currencies that could track every transaction. There are also concerns about the impact on commercial banks, which could lose deposits if citizens hold digital currency directly with the central bank.',
+    keyPoints: [
+      'Over 130 countries are investigating central bank digital currencies.',
+      'China\'s digital yuan pilot has over 260 million users.',
+      'Motivations include financial inclusion, payment modernisation, and competition with crypto.',
+      'CBDCs differ from cryptocurrencies by being government-issued and centrally controlled.',
+      'Privacy concerns and potential disruption to commercial banks are major challenges.'
+    ],
+    sampleRetell: 'The lecture discussed central bank digital currencies, or CBDCs. The speaker noted that over 130 countries, representing ninety-eight per cent of global GDP, are exploring this technology. China has already launched a digital yuan pilot with over 260 million users. The motivations include improving financial inclusion, modernising payment systems, and responding to the competitive threat of private cryptocurrencies. Unlike Bitcoin, CBDCs would be government-issued and centrally controlled. However, the speaker raised two significant concerns: the surveillance potential of tracking every transaction, and the risk that commercial banks could lose deposits if citizens hold currency directly with central banks. The lecture highlighted the tension between innovation and privacy in monetary policy.',
+    wordCount: 112
+  },
+  {
+    id: 'rl-037',
+    title: 'Neuroplasticity and Adult Learning',
+    topic: 'psychology',
+    transcript: 'For much of the twentieth century, neuroscientists believed that the adult brain was essentially fixed — that neural connections established during childhood remained largely unchanged throughout life. This view has been comprehensively overturned by research into neuroplasticity, which demonstrates that the brain continues to form new neural pathways and reorganise existing ones well into old age. London taxi drivers, who spend years memorising the city\'s complex street network, show measurably larger hippocampi — the brain region associated with spatial memory — than bus drivers who follow fixed routes. Musicians who practise regularly develop enhanced connections between the auditory and motor cortices. The implications for education are profound. Adults can learn new skills and languages at any age, though the process may require more deliberate practice and different strategies compared to childhood learning. Techniques such as spaced repetition, interleaved practice, and retrieval practice have been shown to enhance adult learning by leveraging the brain\'s natural plasticity.',
+    keyPoints: [
+      'Neuroplasticity shows the adult brain continues forming new neural pathways.',
+      'London taxi drivers develop measurably larger hippocampi from memorising streets.',
+      'Musicians show enhanced auditory-motor cortex connections from regular practice.',
+      'Adults can learn new skills at any age with deliberate practice.',
+      'Spaced repetition, interleaving, and retrieval practice enhance adult learning.'
+    ],
+    sampleRetell: 'The lecture explored neuroplasticity and its implications for adult learning. The speaker explained that the longstanding belief that adult brains are fixed has been overturned by modern research. Studies of London taxi drivers showed measurably larger hippocampi from memorising complex street networks, while musicians develop enhanced neural connections through regular practice. The key message was that adults can learn new skills and languages at any age, although the process requires more deliberate strategies. The speaker recommended specific techniques including spaced repetition, interleaved practice, and retrieval practice, which leverage the brain\'s natural plasticity to enhance learning outcomes for adults.',
+    wordCount: 98
+  },
+  {
+    id: 'rl-038',
+    title: 'Ocean Acidification',
+    topic: 'environment',
+    transcript: 'While most climate discussions focus on atmospheric warming, the oceans are experiencing an equally alarming transformation. The ocean has absorbed approximately thirty per cent of the carbon dioxide emitted by human activities since the industrial revolution. This absorption has caused ocean pH to decrease by 0.1 units — a thirty per cent increase in acidity. This may sound small, but the pH scale is logarithmic, so the change is actually quite significant. The consequences for marine life are severe. Coral reefs, which support roughly twenty-five per cent of all marine species, are particularly vulnerable because acidification makes it harder for organisms to build calcium carbonate shells and skeletons. Pteropods — tiny sea snails that form the base of many marine food chains — are already showing shell dissolution in Antarctic waters. Scientists project that if current trends continue, ocean acidity could increase by one hundred and fifty per cent by 2100, threatening fisheries that provide protein for over three billion people worldwide.',
+    keyPoints: [
+      'The ocean has absorbed 30% of human-emitted CO2 since the industrial revolution.',
+      'Ocean pH has decreased by 0.1 units, representing a 30% increase in acidity.',
+      'Coral reefs supporting 25% of marine species are severely threatened.',
+      'Pteropod shells are already dissolving in Antarctic waters.',
+      'Ocean acidity could increase by 150% by 2100, threatening fisheries feeding 3 billion people.'
+    ],
+    sampleRetell: 'The lecture addressed the often-overlooked issue of ocean acidification. The speaker explained that the ocean has absorbed approximately thirty per cent of human carbon dioxide emissions, causing a thirty per cent increase in acidity. Coral reefs, which support twenty-five per cent of marine species, are particularly vulnerable because acidification impairs the formation of calcium carbonate shells. Pteropods, tiny sea snails at the base of food chains, are already showing shell dissolution in Antarctic waters. The speaker warned that if current trends continue, ocean acidity could increase by one hundred and fifty per cent by 2100, threatening fisheries that provide protein for over three billion people. This represents a major but underreported dimension of the climate crisis.',
+    wordCount: 112
+  },
+  {
+    id: 'rl-039',
+    title: 'Smart Cities and Urban Data',
+    topic: 'technology',
+    transcript: 'The concept of smart cities — urban areas that use sensors, data analytics, and connected devices to improve services and quality of life — is being implemented worldwide with varying degrees of success. Singapore is often cited as the leading example, using a comprehensive sensor network to manage traffic, monitor air quality, and optimise energy use. Barcelona has deployed twelve thousand smart sensors across the city, saving over seventy-five million euros annually in water management, lighting, and parking. Seoul uses real-time data to adjust bus routes dynamically based on demand. However, the smart city model raises important concerns about privacy and surveillance. The Sidewalk Labs project in Toronto was cancelled after residents objected to the extensive data collection planned for their neighbourhood. Critics argue that without strong governance frameworks and citizen consent, smart city technologies risk creating environments of pervasive surveillance rather than genuinely improving urban life.',
+    keyPoints: [
+      'Smart cities use sensors and data analytics to improve urban services.',
+      'Singapore leads with comprehensive sensor networks for traffic and energy.',
+      'Barcelona saves €75 million annually through 12,000 smart sensors.',
+      'The Toronto Sidewalk Labs project was cancelled over privacy concerns.',
+      'Strong governance frameworks are needed to prevent surveillance overreach.'
+    ],
+    sampleRetell: 'The lecture examined the implementation of smart cities around the world. The speaker described how urban areas are using sensors and data analytics to improve services. Singapore was highlighted as a leading example, with comprehensive networks managing traffic and energy. Barcelona has deployed twelve thousand smart sensors, saving over seventy-five million euros annually. Seoul dynamically adjusts bus routes using real-time data. However, the speaker also raised concerns about privacy and surveillance. The Toronto Sidewalk Labs project was cancelled after residents objected to extensive data collection plans. The lecture concluded that without strong governance frameworks and genuine citizen consent, smart city technologies risk creating surveillance environments rather than improving urban life.',
+    wordCount: 108
+  },
+  {
+    id: 'rl-040',
+    title: 'The Science of Sleep and Performance',
+    topic: 'health',
+    transcript: 'Sleep science has undergone a revolution in recent years, fundamentally changing our understanding of how rest affects cognitive performance, physical health, and emotional regulation. Research by Matthew Walker at the University of California, Berkeley, has demonstrated that even moderate sleep deprivation — getting six hours instead of eight — can reduce cognitive function by up to thirty per cent and impair decision-making abilities comparable to mild alcohol intoxication. During deep sleep, the brain activates its glymphatic system, essentially flushing out toxic waste products including beta-amyloid, a protein linked to Alzheimer\'s disease. Sleep is also critical for memory consolidation: information learned during the day is replayed and strengthened during specific sleep stages. Despite this evidence, modern society continues to undervalue sleep. One in three adults regularly gets fewer than seven hours, and the economic cost of sleep deprivation in the United States alone is estimated at over four hundred billion dollars annually in lost productivity, healthcare costs, and accidents.',
+    keyPoints: [
+      'Six hours of sleep instead of eight reduces cognitive function by up to 30%.',
+      'The glymphatic system flushes toxic waste including Alzheimer\'s-linked proteins during deep sleep.',
+      'Memory consolidation occurs during specific sleep stages.',
+      'One in three adults regularly sleeps fewer than seven hours.',
+      'Sleep deprivation costs the US over $400 billion annually.'
+    ],
+    sampleRetell: 'The lecture presented recent findings in sleep science. The speaker cited research by Matthew Walker showing that even moderate sleep deprivation, such as getting six instead of eight hours, reduces cognitive function by up to thirty per cent. During deep sleep, the brain\'s glymphatic system flushes out toxic waste products including beta-amyloid, which is linked to Alzheimer\'s disease. Sleep is also essential for memory consolidation, as information is replayed and strengthened during specific sleep stages. Despite this evidence, one in three adults regularly sleeps fewer than seven hours. The speaker noted that sleep deprivation costs the United States over four hundred billion dollars annually through lost productivity, healthcare costs, and accidents.',
+    wordCount: 108
   }
 ];
 
 // -----------------------------------------------------------------------------
-// 5. ASQ QUESTIONS (250 items)
+// 5. ASQ QUESTIONS (410 items)
 // -----------------------------------------------------------------------------
 const ASQ_QUESTIONS = [
   // SCIENCE (30)
@@ -1608,7 +2336,178 @@ const ASQ_QUESTIONS = [
   { id: 'asq-247', question: 'What do we call the exclusive right to produce and sell an invention?', answer: 'A patent', category: 'business' },
   { id: 'asq-248', question: 'What does ROI stand for in business?', answer: 'Return on Investment', category: 'business' },
   { id: 'asq-249', question: 'What do we call it when two companies combine to form one?', answer: 'A merger', category: 'business' },
-  { id: 'asq-250', question: 'What is the opposite of a surplus in economics?', answer: 'A deficit', category: 'business' }
+  { id: 'asq-250', question: 'What is the opposite of a surplus in economics?', answer: 'A deficit', category: 'business' },
+  // SCIENCE — additional (30)
+  { id: 'asq-251', question: 'What is the powerhouse of the cell?', answer: 'Mitochondria', category: 'science' },
+  { id: 'asq-252', question: 'What type of rock is formed from cooled lava or magma?', answer: 'Igneous', category: 'science' },
+  { id: 'asq-253', question: 'What do we call animals that eat both plants and meat?', answer: 'Omnivores', category: 'science' },
+  { id: 'asq-254', question: 'What is the study of fossils called?', answer: 'Palaeontology', category: 'science' },
+  { id: 'asq-255', question: 'What element does the symbol Fe represent?', answer: 'Iron', category: 'science' },
+  { id: 'asq-256', question: 'What type of energy is stored in a battery?', answer: 'Chemical energy', category: 'science' },
+  { id: 'asq-257', question: 'What is the name of the layer of gas that surrounds the Earth?', answer: 'The atmosphere', category: 'science' },
+  { id: 'asq-258', question: 'What instrument is used to measure atmospheric pressure?', answer: 'A barometer', category: 'science' },
+  { id: 'asq-259', question: 'What is the boiling point of water in degrees Celsius?', answer: 'One hundred', category: 'science' },
+  { id: 'asq-260', question: 'What do we call the change of state from solid to liquid?', answer: 'Melting', category: 'science' },
+  { id: 'asq-261', question: 'What is the largest organ of the human body?', answer: 'The skin', category: 'science' },
+  { id: 'asq-262', question: 'How many bones are in the adult human body?', answer: 'Two hundred and six', category: 'science' },
+  { id: 'asq-263', question: 'What planet has the most moons in our solar system?', answer: 'Saturn', category: 'science' },
+  { id: 'asq-264', question: 'What is the chemical symbol for sodium?', answer: 'Na', category: 'science' },
+  { id: 'asq-265', question: 'What do we call a scientist who studies weather?', answer: 'A meteorologist', category: 'science' },
+  { id: 'asq-266', question: 'What gas makes up the majority of Earth\'s atmosphere?', answer: 'Nitrogen', category: 'science' },
+  { id: 'asq-267', question: 'What is the process by which plants make food using sunlight?', answer: 'Photosynthesis', category: 'science' },
+  { id: 'asq-268', question: 'What is the smallest unit of matter?', answer: 'An atom', category: 'science' },
+  { id: 'asq-269', question: 'What type of blood vessel carries blood away from the heart?', answer: 'An artery', category: 'science' },
+  { id: 'asq-270', question: 'What do we call the study of the mind and behaviour?', answer: 'Psychology', category: 'science' },
+  // GEOGRAPHY — additional (20)
+  { id: 'asq-271', question: 'What is the capital city of Canada?', answer: 'Ottawa', category: 'geography' },
+  { id: 'asq-272', question: 'Which continent has the most countries?', answer: 'Africa', category: 'geography' },
+  { id: 'asq-273', question: 'What is the driest continent on Earth?', answer: 'Antarctica', category: 'geography' },
+  { id: 'asq-274', question: 'What is the largest desert in the world?', answer: 'The Sahara', category: 'geography' },
+  { id: 'asq-275', question: 'In which country is the Great Barrier Reef located?', answer: 'Australia', category: 'geography' },
+  { id: 'asq-276', question: 'What ocean lies between Africa and Australia?', answer: 'The Indian Ocean', category: 'geography' },
+  { id: 'asq-277', question: 'What is the capital of South Korea?', answer: 'Seoul', category: 'geography' },
+  { id: 'asq-278', question: 'Which river flows through London?', answer: 'The Thames', category: 'geography' },
+  { id: 'asq-279', question: 'What is the smallest country in the world by area?', answer: 'Vatican City', category: 'geography' },
+  { id: 'asq-280', question: 'On which continent is the Amazon Rainforest?', answer: 'South America', category: 'geography' },
+  { id: 'asq-281', question: 'What is the capital of New Zealand?', answer: 'Wellington', category: 'geography' },
+  { id: 'asq-282', question: 'Which mountain range separates Europe from Asia?', answer: 'The Ural Mountains', category: 'geography' },
+  { id: 'asq-283', question: 'What is the most populous country in Africa?', answer: 'Nigeria', category: 'geography' },
+  { id: 'asq-284', question: 'Which strait separates Asia from North America?', answer: 'The Bering Strait', category: 'geography' },
+  { id: 'asq-285', question: 'What is the capital of Brazil?', answer: 'Brasilia', category: 'geography' },
+  { id: 'asq-286', question: 'What is the largest lake in Africa?', answer: 'Lake Victoria', category: 'geography' },
+  { id: 'asq-287', question: 'Which country has the longest coastline in the world?', answer: 'Canada', category: 'geography' },
+  { id: 'asq-288', question: 'What is the capital of Turkey?', answer: 'Ankara', category: 'geography' },
+  { id: 'asq-289', question: 'Which ocean is the deepest?', answer: 'The Pacific Ocean', category: 'geography' },
+  { id: 'asq-290', question: 'What is the capital city of Switzerland?', answer: 'Bern', category: 'geography' },
+  // ACADEMIC — additional (20)
+  { id: 'asq-291', question: 'What is the list of books and sources at the end of an academic paper called?', answer: 'A bibliography', category: 'academic' },
+  { id: 'asq-292', question: 'What do we call a preliminary version of a piece of writing?', answer: 'A draft', category: 'academic' },
+  { id: 'asq-293', question: 'What is a short summary at the beginning of a research paper called?', answer: 'An abstract', category: 'academic' },
+  { id: 'asq-294', question: 'What do we call copying someone else\'s work and presenting it as your own?', answer: 'Plagiarism', category: 'academic' },
+  { id: 'asq-295', question: 'What is the person who supervises a PhD student called?', answer: 'A supervisor', category: 'academic' },
+  { id: 'asq-296', question: 'What do we call the academic qualification above a bachelor\'s degree?', answer: 'A master\'s degree', category: 'academic' },
+  { id: 'asq-297', question: 'What is a formal academic discussion between two opposing sides called?', answer: 'A debate', category: 'academic' },
+  { id: 'asq-298', question: 'What do we call the main argument or claim in an essay?', answer: 'A thesis', category: 'academic' },
+  { id: 'asq-299', question: 'What is a small group discussion led by a tutor at university called?', answer: 'A tutorial', category: 'academic' },
+  { id: 'asq-300', question: 'What do we call the notes at the bottom of a page in a book?', answer: 'Footnotes', category: 'academic' },
+  { id: 'asq-301', question: 'What is the oral examination for a doctoral degree called?', answer: 'A viva', category: 'academic' },
+  { id: 'asq-302', question: 'What do we call a long essay submitted for a university degree?', answer: 'A dissertation', category: 'academic' },
+  { id: 'asq-303', question: 'What is the period between academic terms called?', answer: 'A break or recess', category: 'academic' },
+  { id: 'asq-304', question: 'What do we call a table showing class times and locations?', answer: 'A timetable', category: 'academic' },
+  { id: 'asq-305', question: 'What is the process of enrolling in a university course called?', answer: 'Registration', category: 'academic' },
+  { id: 'asq-306', question: 'What do we call a published collection of academic papers on a topic?', answer: 'A journal', category: 'academic' },
+  { id: 'asq-307', question: 'What is the highest academic degree a university can award?', answer: 'A doctorate', category: 'academic' },
+  { id: 'asq-308', question: 'What do we call a grant given to a student to fund their education?', answer: 'A scholarship', category: 'academic' },
+  { id: 'asq-309', question: 'What is the introductory course for new university students called?', answer: 'Orientation', category: 'academic' },
+  { id: 'asq-310', question: 'What do we call the formal ceremony at which degrees are awarded?', answer: 'Graduation', category: 'academic' },
+  // EVERYDAY — additional (15)
+  { id: 'asq-311', question: 'What do we call the meal eaten in the middle of the day?', answer: 'Lunch', category: 'everyday' },
+  { id: 'asq-312', question: 'What is the person who delivers letters and packages called?', answer: 'A postman or mail carrier', category: 'everyday' },
+  { id: 'asq-313', question: 'What do you call the machine that washes dishes automatically?', answer: 'A dishwasher', category: 'everyday' },
+  { id: 'asq-314', question: 'What is the place where aeroplanes take off and land?', answer: 'An airport', category: 'everyday' },
+  { id: 'asq-315', question: 'What do we call the written instructions for preparing a meal?', answer: 'A recipe', category: 'everyday' },
+  { id: 'asq-316', question: 'What is the person who puts out fires called?', answer: 'A firefighter', category: 'everyday' },
+  { id: 'asq-317', question: 'What do we call the glass part of a window?', answer: 'A pane', category: 'everyday' },
+  { id: 'asq-318', question: 'What is the day after today called?', answer: 'Tomorrow', category: 'everyday' },
+  { id: 'asq-319', question: 'What do we call a person who serves food in a restaurant?', answer: 'A waiter', category: 'everyday' },
+  { id: 'asq-320', question: 'What is the machine that keeps food cold at home?', answer: 'A refrigerator', category: 'everyday' },
+  { id: 'asq-321', question: 'What do we call a building where people go to watch films?', answer: 'A cinema', category: 'everyday' },
+  { id: 'asq-322', question: 'What is the person who treats sick animals called?', answer: 'A veterinarian', category: 'everyday' },
+  { id: 'asq-323', question: 'What do we call the piece of furniture used for sleeping?', answer: 'A bed', category: 'everyday' },
+  { id: 'asq-324', question: 'What is the room in a house where food is prepared?', answer: 'A kitchen', category: 'everyday' },
+  { id: 'asq-325', question: 'What do we call the document needed to travel internationally?', answer: 'A passport', category: 'everyday' },
+  // MEASUREMENT — additional (15)
+  { id: 'asq-326', question: 'How many millilitres are in a litre?', answer: 'One thousand', category: 'measurement' },
+  { id: 'asq-327', question: 'What unit is used to measure the frequency of sound?', answer: 'Hertz', category: 'measurement' },
+  { id: 'asq-328', question: 'How many seconds are in an hour?', answer: 'Three thousand six hundred', category: 'measurement' },
+  { id: 'asq-329', question: 'What is the metric unit for measuring weight?', answer: 'Kilogram', category: 'measurement' },
+  { id: 'asq-330', question: 'How many days are in a leap year?', answer: 'Three hundred and sixty-six', category: 'measurement' },
+  { id: 'asq-331', question: 'What unit is used to measure electrical current?', answer: 'Ampere', category: 'measurement' },
+  { id: 'asq-332', question: 'How many metres are in a kilometre?', answer: 'One thousand', category: 'measurement' },
+  { id: 'asq-333', question: 'What unit is used to measure the intensity of sound?', answer: 'Decibel', category: 'measurement' },
+  { id: 'asq-334', question: 'How many weeks are in a year?', answer: 'Fifty-two', category: 'measurement' },
+  { id: 'asq-335', question: 'What is the unit of measurement for computer storage capacity?', answer: 'Byte', category: 'measurement' },
+  { id: 'asq-336', question: 'How many zeros are in one million?', answer: 'Six', category: 'measurement' },
+  { id: 'asq-337', question: 'What unit is used to measure the power of an engine?', answer: 'Horsepower', category: 'measurement' },
+  { id: 'asq-338', question: 'How many centimetres are in a metre?', answer: 'One hundred', category: 'measurement' },
+  { id: 'asq-339', question: 'What temperature scale is used in the United States?', answer: 'Fahrenheit', category: 'measurement' },
+  { id: 'asq-340', question: 'How many grams are in a kilogram?', answer: 'One thousand', category: 'measurement' },
+  // TIME & CALENDAR — additional (10)
+  { id: 'asq-341', question: 'What is the last month of the year?', answer: 'December', category: 'time' },
+  { id: 'asq-342', question: 'How many hours are in a day?', answer: 'Twenty-four', category: 'time' },
+  { id: 'asq-343', question: 'What do we call the period of one hundred years?', answer: 'A century', category: 'time' },
+  { id: 'asq-344', question: 'What day comes after Thursday?', answer: 'Friday', category: 'time' },
+  { id: 'asq-345', question: 'What do we call the period of ten years?', answer: 'A decade', category: 'time' },
+  { id: 'asq-346', question: 'What is the seventh month of the year?', answer: 'July', category: 'time' },
+  { id: 'asq-347', question: 'How many minutes are in half an hour?', answer: 'Thirty', category: 'time' },
+  { id: 'asq-348', question: 'What do we call the period of one thousand years?', answer: 'A millennium', category: 'time' },
+  { id: 'asq-349', question: 'What season comes after winter in the southern hemisphere?', answer: 'Spring', category: 'time' },
+  { id: 'asq-350', question: 'How many months have thirty-one days?', answer: 'Seven', category: 'time' },
+  // HEALTH — additional (15)
+  { id: 'asq-351', question: 'What is the medical term for high blood pressure?', answer: 'Hypertension', category: 'health' },
+  { id: 'asq-352', question: 'What organ pumps blood through the body?', answer: 'The heart', category: 'health' },
+  { id: 'asq-353', question: 'What do we call a doctor who specialises in children\'s health?', answer: 'A paediatrician', category: 'health' },
+  { id: 'asq-354', question: 'What vitamin is produced when skin is exposed to sunlight?', answer: 'Vitamin D', category: 'health' },
+  { id: 'asq-355', question: 'What do we call the inability to sleep?', answer: 'Insomnia', category: 'health' },
+  { id: 'asq-356', question: 'What is the medical term for sugar in the blood?', answer: 'Blood glucose', category: 'health' },
+  { id: 'asq-357', question: 'What do we call a healthcare professional who dispenses medication?', answer: 'A pharmacist', category: 'health' },
+  { id: 'asq-358', question: 'What is the recommended number of hours of sleep for adults?', answer: 'Seven to nine', category: 'health' },
+  { id: 'asq-359', question: 'What do we call the test that uses X-rays to check for broken bones?', answer: 'An X-ray', category: 'health' },
+  { id: 'asq-360', question: 'What is the disease caused by a deficiency of insulin?', answer: 'Diabetes', category: 'health' },
+  { id: 'asq-361', question: 'What do we call the study of disease outbreaks in populations?', answer: 'Epidemiology', category: 'health' },
+  { id: 'asq-362', question: 'What type of doctor performs operations?', answer: 'A surgeon', category: 'health' },
+  { id: 'asq-363', question: 'What organ is responsible for filtering blood and producing urine?', answer: 'The kidney', category: 'health' },
+  { id: 'asq-364', question: 'What is the most common blood type?', answer: 'O positive', category: 'health' },
+  { id: 'asq-365', question: 'What do we call the medical procedure that uses a needle to deliver medicine?', answer: 'An injection', category: 'health' },
+  // TECHNOLOGY — additional (15)
+  { id: 'asq-366', question: 'What does AI stand for?', answer: 'Artificial intelligence', category: 'technology' },
+  { id: 'asq-367', question: 'What do we call the unique address of a website?', answer: 'A URL', category: 'technology' },
+  { id: 'asq-368', question: 'What technology allows devices to connect to the internet without cables?', answer: 'Wi-Fi', category: 'technology' },
+  { id: 'asq-369', question: 'What do we call malicious software designed to harm computers?', answer: 'Malware', category: 'technology' },
+  { id: 'asq-370', question: 'What does GPS stand for?', answer: 'Global Positioning System', category: 'technology' },
+  { id: 'asq-371', question: 'What is the name for a self-contained application on a phone?', answer: 'An app', category: 'technology' },
+  { id: 'asq-372', question: 'What do we call the practice of storing data on remote servers accessed via the internet?', answer: 'Cloud computing', category: 'technology' },
+  { id: 'asq-373', question: 'What does USB stand for?', answer: 'Universal Serial Bus', category: 'technology' },
+  { id: 'asq-374', question: 'What is the small, portable device used to store digital files called?', answer: 'A USB drive', category: 'technology' },
+  { id: 'asq-375', question: 'What do we call a digital image of a printed document?', answer: 'A scan', category: 'technology' },
+  { id: 'asq-376', question: 'What is the technology behind Bitcoin and other cryptocurrencies?', answer: 'Blockchain', category: 'technology' },
+  { id: 'asq-377', question: 'What does PDF stand for?', answer: 'Portable Document Format', category: 'technology' },
+  { id: 'asq-378', question: 'What do we call a virtual meeting held over the internet?', answer: 'A video conference', category: 'technology' },
+  { id: 'asq-379', question: 'What is the process of converting data into a secret code for security?', answer: 'Encryption', category: 'technology' },
+  { id: 'asq-380', question: 'What does HTML stand for?', answer: 'Hypertext Markup Language', category: 'technology' },
+  // EDUCATION — additional (10)
+  { id: 'asq-381', question: 'What do we call a student who has completed their first degree and is studying further?', answer: 'A postgraduate', category: 'education' },
+  { id: 'asq-382', question: 'What is the educational approach where students learn at their own pace called?', answer: 'Self-paced learning', category: 'education' },
+  { id: 'asq-383', question: 'What do we call the subjects a student must complete to earn their degree?', answer: 'The curriculum', category: 'education' },
+  { id: 'asq-384', question: 'What is the study of teaching methods called?', answer: 'Pedagogy', category: 'education' },
+  { id: 'asq-385', question: 'What do we call a class conducted online in real time?', answer: 'A webinar or live class', category: 'education' },
+  { id: 'asq-386', question: 'What is the term for learning that takes place outside the classroom?', answer: 'Extracurricular', category: 'education' },
+  { id: 'asq-387', question: 'What do we call the official record of a student\'s academic performance?', answer: 'A transcript', category: 'education' },
+  { id: 'asq-388', question: 'What is a school for children aged three to five called?', answer: 'A kindergarten', category: 'education' },
+  { id: 'asq-389', question: 'What do we call an exam taken at the end of a semester?', answer: 'A final exam', category: 'education' },
+  { id: 'asq-390', question: 'What is the term for education delivered through television, radio, or the internet?', answer: 'Distance learning', category: 'education' },
+  // ARTS & CULTURE — additional (10)
+  { id: 'asq-391', question: 'What do we call a person who writes novels?', answer: 'A novelist', category: 'arts' },
+  { id: 'asq-392', question: 'What is a building where art is displayed for the public called?', answer: 'A gallery', category: 'arts' },
+  { id: 'asq-393', question: 'What do we call a musical composition for a full orchestra?', answer: 'A symphony', category: 'arts' },
+  { id: 'asq-394', question: 'What is the art of making pots and dishes from clay?', answer: 'Pottery or ceramics', category: 'arts' },
+  { id: 'asq-395', question: 'What do we call a play set to music in which most dialogue is sung?', answer: 'An opera', category: 'arts' },
+  { id: 'asq-396', question: 'What is the term for a painting of a person\'s face?', answer: 'A portrait', category: 'arts' },
+  { id: 'asq-397', question: 'What do we call the written text of a film?', answer: 'A screenplay', category: 'arts' },
+  { id: 'asq-398', question: 'What is the art of beautiful handwriting called?', answer: 'Calligraphy', category: 'arts' },
+  { id: 'asq-399', question: 'What do we call a collection of poems published together?', answer: 'An anthology', category: 'arts' },
+  { id: 'asq-400', question: 'What is the Italian term for singing without instrumental accompaniment?', answer: 'A cappella', category: 'arts' },
+  // BUSINESS — additional (10)
+  { id: 'asq-401', question: 'What do we call the total value of goods and services produced by a country?', answer: 'GDP', category: 'business' },
+  { id: 'asq-402', question: 'What is the term for a general increase in prices over time?', answer: 'Inflation', category: 'business' },
+  { id: 'asq-403', question: 'What do we call a person who starts a new business?', answer: 'An entrepreneur', category: 'business' },
+  { id: 'asq-404', question: 'What is the financial statement that shows a company\'s revenues and expenses?', answer: 'An income statement', category: 'business' },
+  { id: 'asq-405', question: 'What do we call the money a company receives from selling its products?', answer: 'Revenue', category: 'business' },
+  { id: 'asq-406', question: 'What is the term for spreading investments across different assets to reduce risk?', answer: 'Diversification', category: 'business' },
+  { id: 'asq-407', question: 'What do we call the difference between a company\'s revenue and its costs?', answer: 'Profit', category: 'business' },
+  { id: 'asq-408', question: 'What is the market where previously issued shares are bought and sold?', answer: 'The stock exchange', category: 'business' },
+  { id: 'asq-409', question: 'What does CEO stand for?', answer: 'Chief Executive Officer', category: 'business' },
+  { id: 'asq-410', question: 'What is the term for money owed by a company or individual?', answer: 'Debt', category: 'business' }
 ];
 
 // -----------------------------------------------------------------------------

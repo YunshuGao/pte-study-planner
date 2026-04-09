@@ -1,0 +1,1715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PTE Writing Trainer — Maintain 90 Score</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+/* ============================================================
+   Writing Trainer — Inline Styles (matches Speaking Trainer)
+   ============================================================ */
+:root {
+  --sp-bg: #f8f9fa;
+  --sp-card: #fff;
+  --sp-text: #1a1a2e;
+  --sp-muted: #6c757d;
+  --sp-primary: #2563eb;
+  --sp-green: #27ae60;
+  --sp-red: #e74c3c;
+  --sp-yellow: #f39c12;
+  --sp-radius: 12px;
+  --sp-orange: #e67e22;
+  --sp-purple: #8b5cf6;
+}
+
+.sp-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px 16px 60px;
+}
+
+/* --- Header --- */
+.sp-header { text-align: center; margin-bottom: 20px; }
+.sp-header__back {
+  display: inline-block; color: var(--sp-primary); font-size: 0.875rem;
+  font-weight: 600; margin-bottom: 8px; text-decoration: none; transition: color 0.2s;
+}
+.sp-header__back:hover { color: #1d4ed8; }
+.sp-header__title {
+  font-size: 1.75rem; font-weight: 800; color: var(--sp-text);
+  margin: 0 0 4px; letter-spacing: -0.02em;
+}
+.sp-header__title span { color: var(--sp-purple); }
+.sp-header__subtitle { font-size: 0.9375rem; color: var(--sp-muted); margin: 0 0 10px; }
+.sp-stats { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; margin-top: 8px; }
+.sp-stat {
+  display: inline-flex; align-items: center; gap: 6px; background: var(--sp-card);
+  border: 1px solid #e2e8f0; padding: 6px 14px; border-radius: 20px;
+  font-size: 0.8125rem; font-weight: 600; color: var(--sp-text);
+}
+.sp-stat__icon { font-size: 1rem; }
+
+/* --- Tabs --- */
+.sp-tabs {
+  display: flex; gap: 4px; overflow-x: auto; padding-bottom: 4px;
+  margin-bottom: 20px; -webkit-overflow-scrolling: touch;
+}
+.sp-tabs::-webkit-scrollbar { height: 3px; }
+.sp-tabs::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+.sp-tab {
+  flex-shrink: 0; padding: 10px 18px; border: none; background: var(--sp-card);
+  color: var(--sp-muted); font-size: 0.8125rem; font-weight: 700;
+  border-radius: var(--sp-radius); cursor: pointer; transition: all 0.2s;
+  border: 2px solid transparent; white-space: nowrap;
+}
+.sp-tab:hover { color: var(--sp-primary); background: #eff6ff; }
+.sp-tab.active { color: var(--sp-primary); background: #eff6ff; border-color: var(--sp-primary); }
+
+/* --- Panel --- */
+.sp-panel { display: none; animation: spFadeIn 0.3s ease; }
+.sp-panel.active { display: block; }
+@keyframes spFadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+/* --- Cards --- */
+.sp-card {
+  background: var(--sp-card); border-radius: var(--sp-radius); padding: 20px;
+  margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); border: 1px solid #e2e8f0;
+}
+.sp-card__title { font-size: 1rem; font-weight: 700; color: var(--sp-text); margin: 0 0 12px; }
+
+/* --- Difficulty pills --- */
+.sp-diff-pills { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+.sp-diff-pill {
+  padding: 4px 14px; border-radius: 20px; border: 2px solid #e2e8f0;
+  background: var(--sp-card); font-size: 0.75rem; font-weight: 700;
+  cursor: pointer; transition: all 0.2s; color: var(--sp-muted);
+}
+.sp-diff-pill.active { border-color: var(--sp-primary); color: var(--sp-primary); background: #eff6ff; }
+.sp-diff-pill:hover { border-color: var(--sp-primary); }
+
+/* --- Timer bar --- */
+.sp-timer-wrap { margin: 12px 0; }
+.sp-timer-bar { height: 8px; border-radius: 4px; background: #e2e8f0; overflow: hidden; margin-bottom: 4px; }
+.sp-timer-bar__fill {
+  height: 100%; border-radius: 4px; transition: width 0.3s linear, background 0.5s;
+  width: 100%; background: var(--sp-green);
+}
+.sp-timer-label { font-size: 0.8125rem; font-weight: 700; color: var(--sp-muted); text-align: center; }
+.sp-timer-label .time-val { color: var(--sp-text); font-size: 1.25rem; }
+
+/* --- Buttons --- */
+.sp-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 10px 20px; border: none; border-radius: 8px; font-size: 0.875rem;
+  font-weight: 700; cursor: pointer; transition: all 0.2s;
+}
+.sp-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.sp-btn--primary { background: var(--sp-primary); color: #fff; }
+.sp-btn--primary:hover:not(:disabled) { background: #1d4ed8; }
+.sp-btn--green { background: var(--sp-green); color: #fff; }
+.sp-btn--green:hover:not(:disabled) { background: #219a52; }
+.sp-btn--red { background: var(--sp-red); color: #fff; }
+.sp-btn--red:hover:not(:disabled) { background: #c0392b; }
+.sp-btn--yellow { background: var(--sp-yellow); color: #fff; }
+.sp-btn--yellow:hover:not(:disabled) { background: #d68910; }
+.sp-btn--outline { background: transparent; color: var(--sp-primary); border: 2px solid var(--sp-primary); }
+.sp-btn--outline:hover:not(:disabled) { background: #eff6ff; }
+.sp-btn--sm { padding: 6px 14px; font-size: 0.75rem; }
+.sp-btn--ghost { background: transparent; color: var(--sp-muted); border: 1px solid #e2e8f0; }
+.sp-btn--ghost:hover:not(:disabled) { background: #f1f5f9; color: var(--sp-text); }
+.sp-btn-group { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+
+/* --- Self Assessment stars --- */
+.sp-assess { display: flex; gap: 16px; flex-wrap: wrap; margin: 12px 0; }
+.sp-assess__item { flex: 1; min-width: 120px; }
+.sp-assess__label {
+  font-size: 0.75rem; font-weight: 700; color: var(--sp-muted);
+  text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px;
+}
+.sp-stars { display: flex; gap: 2px; }
+.sp-star {
+  width: 28px; height: 28px; border: none; background: transparent; cursor: pointer;
+  font-size: 1.25rem; color: #cbd5e1; transition: color 0.15s; padding: 0;
+}
+.sp-star.filled { color: var(--sp-yellow); }
+.sp-star:hover { color: var(--sp-yellow); }
+
+/* --- Nav counter --- */
+.sp-nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.sp-counter { font-size: 0.875rem; font-weight: 700; color: var(--sp-muted); }
+.sp-counter strong { color: var(--sp-text); }
+
+/* --- Toggle reveal --- */
+.sp-reveal {
+  background: #f8fafc; border-radius: 8px; overflow: hidden;
+  margin-bottom: 12px; border: 1px solid #e2e8f0;
+}
+.sp-reveal__toggle {
+  width: 100%; padding: 10px 16px; background: transparent; border: none;
+  text-align: left; font-size: 0.875rem; font-weight: 700; color: var(--sp-primary);
+  cursor: pointer; display: flex; align-items: center; gap: 6px;
+}
+.sp-reveal__toggle:hover { background: #eff6ff; }
+.sp-reveal__body { padding: 0 16px 12px; font-size: 0.875rem; line-height: 1.6; color: var(--sp-text); display: none; }
+.sp-reveal.open .sp-reveal__body { display: block; }
+
+/* --- Checklist --- */
+.sp-checklist { list-style: none; margin: 0 0 12px; padding: 0; }
+.sp-checklist li {
+  display: flex; align-items: flex-start; gap: 8px; padding: 6px 0;
+  font-size: 0.875rem; color: var(--sp-text);
+}
+.sp-checklist input[type="checkbox"] {
+  width: 18px; height: 18px; accent-color: var(--sp-green); flex-shrink: 0; margin-top: 2px;
+}
+
+/* --- Writing-specific styles --- */
+.wt-textarea {
+  width: 100%; border: 2px solid #e2e8f0; border-radius: 8px; padding: 14px;
+  font-size: 1rem; line-height: 1.8; font-family: 'Georgia', serif;
+  resize: vertical; outline: none; transition: border-color 0.2s;
+  color: var(--sp-text); background: #fefefe; box-sizing: border-box;
+}
+.wt-textarea:focus { border-color: var(--sp-primary); }
+.wt-textarea.swt-area { min-height: 120px; }
+.wt-textarea.essay-area { min-height: 300px; }
+.wt-textarea::placeholder { color: #94a3b8; }
+
+.wt-counters {
+  display: flex; gap: 12px; flex-wrap: wrap; margin: 8px 0; align-items: center;
+}
+.wt-counter-badge {
+  display: inline-flex; align-items: center; gap: 4px; padding: 4px 12px;
+  border-radius: 20px; font-size: 0.75rem; font-weight: 700;
+  background: #f1f5f9; color: var(--sp-text);
+}
+.wt-counter-badge.good { background: #d1fae5; color: #065f46; }
+.wt-counter-badge.warn { background: #fef3c7; color: #92400e; }
+.wt-counter-badge.bad { background: #fee2e2; color: #991b1b; }
+
+.wt-form-check {
+  display: inline-flex; align-items: center; gap: 4px; padding: 4px 12px;
+  border-radius: 20px; font-size: 0.75rem; font-weight: 700;
+}
+.wt-form-check.valid { background: #d1fae5; color: #065f46; }
+.wt-form-check.invalid { background: #fee2e2; color: #991b1b; }
+
+.wt-passage {
+  font-size: 1rem; line-height: 1.8; color: var(--sp-text); padding: 16px;
+  background: #f8fafc; border-radius: 8px; border-left: 4px solid var(--sp-purple);
+  margin-bottom: 12px;
+}
+
+.wt-results {
+  background: linear-gradient(135deg, #eff6ff, #e0f2fe); border-radius: var(--sp-radius);
+  padding: 20px; margin: 16px 0; border: 1px solid #bfdbfe;
+}
+.wt-results__title { font-size: 1rem; font-weight: 800; color: var(--sp-primary); margin: 0 0 12px; }
+.wt-score-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 10px; margin-bottom: 12px;
+}
+.wt-score-item {
+  text-align: center; padding: 10px; background: var(--sp-card); border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+.wt-score-item__label { font-size: 0.7rem; font-weight: 700; color: var(--sp-muted); text-transform: uppercase; }
+.wt-score-item__value { font-size: 1.5rem; font-weight: 800; color: var(--sp-primary); }
+.wt-score-item__max { font-size: 0.75rem; color: var(--sp-muted); }
+
+.wt-type-badge {
+  display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.7rem;
+  font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;
+  background: linear-gradient(135deg, #a855f7, #7c3aed); color: #fff; margin-bottom: 8px;
+}
+
+.wt-structure-guide {
+  display: grid; grid-template-columns: 1fr; gap: 8px; margin: 12px 0;
+}
+.wt-structure-item {
+  display: flex; align-items: flex-start; gap: 10px; padding: 10px 14px;
+  background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;
+}
+.wt-structure-item input[type="checkbox"] {
+  width: 18px; height: 18px; accent-color: var(--sp-green); flex-shrink: 0; margin-top: 2px;
+}
+.wt-structure-item__label { font-size: 0.8125rem; font-weight: 600; color: var(--sp-text); }
+.wt-structure-item__hint { font-size: 0.75rem; color: var(--sp-muted); margin-top: 2px; }
+
+/* --- Vocab flashcard --- */
+.wt-flashcard {
+  background: var(--sp-card); border-radius: var(--sp-radius); padding: 30px;
+  text-align: center; cursor: pointer; transition: all 0.3s; border: 2px solid #e2e8f0;
+  min-height: 200px; display: flex; flex-direction: column; justify-content: center;
+  user-select: none;
+}
+.wt-flashcard:hover { border-color: var(--sp-primary); box-shadow: 0 4px 12px rgba(37,99,235,0.15); }
+.wt-flashcard__word { font-size: 2rem; font-weight: 800; color: var(--sp-primary); margin-bottom: 8px; }
+.wt-flashcard__hint { font-size: 0.8125rem; color: var(--sp-muted); }
+.wt-flashcard__def { font-size: 1rem; color: var(--sp-text); margin-bottom: 8px; font-style: italic; }
+.wt-flashcard__example { font-size: 0.875rem; color: var(--sp-muted); line-height: 1.6; margin-bottom: 8px; }
+.wt-flashcard__synonyms {
+  display: flex; gap: 6px; justify-content: center; flex-wrap: wrap;
+}
+.wt-flashcard__syn {
+  padding: 3px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 600;
+  background: #eff6ff; color: var(--sp-primary);
+}
+
+/* --- Connector grid --- */
+.wt-connector-section { margin-bottom: 16px; }
+.wt-connector-section__title {
+  font-size: 0.875rem; font-weight: 700; color: var(--sp-purple);
+  text-transform: capitalize; margin-bottom: 8px; padding-bottom: 4px;
+  border-bottom: 2px solid #e2e8f0;
+}
+.wt-connector-chips { display: flex; gap: 6px; flex-wrap: wrap; }
+.wt-connector-chip {
+  padding: 6px 14px; border-radius: 20px; background: #f1f5f9; color: var(--sp-text);
+  font-size: 0.8125rem; font-weight: 600; cursor: pointer; transition: all 0.2s;
+  border: 1px solid #e2e8f0;
+}
+.wt-connector-chip:hover { background: var(--sp-primary); color: #fff; }
+.wt-connector-chip.copied { background: var(--sp-green); color: #fff; }
+
+/* --- Progress/Stats --- */
+.wt-stat-card {
+  text-align: center; padding: 20px; background: var(--sp-card); border-radius: var(--sp-radius);
+  border: 1px solid #e2e8f0;
+}
+.wt-stat-card__value { font-size: 2rem; font-weight: 800; color: var(--sp-primary); }
+.wt-stat-card__label { font-size: 0.8125rem; color: var(--sp-muted); font-weight: 600; }
+.wt-stats-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px; margin-bottom: 16px;
+}
+
+.wt-chart-bar-wrap { margin: 8px 0; }
+.wt-chart-label {
+  display: flex; justify-content: space-between; font-size: 0.75rem;
+  font-weight: 600; color: var(--sp-muted); margin-bottom: 4px;
+}
+.wt-chart-bar { height: 12px; background: #e2e8f0; border-radius: 6px; overflow: hidden; }
+.wt-chart-bar__fill { height: 100%; border-radius: 6px; transition: width 0.5s; }
+
+/* --- Search bar --- */
+.wt-search {
+  width: 100%; padding: 10px 14px; border: 2px solid #e2e8f0; border-radius: 8px;
+  font-size: 0.875rem; outline: none; transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+.wt-search:focus { border-color: var(--sp-primary); }
+
+/* --- Tips panel --- */
+.wt-tips { background: #fffbeb; border-radius: 8px; padding: 14px; margin: 12px 0; border: 1px solid #fde68a; }
+.wt-tips__title { font-size: 0.8125rem; font-weight: 700; color: #92400e; margin-bottom: 8px; }
+.wt-tips__list { margin: 0; padding-left: 18px; }
+.wt-tips__list li { font-size: 0.8125rem; color: #78350f; line-height: 1.6; margin-bottom: 4px; }
+
+/* --- Timer flash --- */
+.timer-flash { animation: timerFlash 0.5s infinite; }
+@keyframes timerFlash { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+/* --- Vocab progress badges --- */
+.wt-vocab-status { display: flex; gap: 6px; margin: 12px 0; }
+.wt-vocab-btn {
+  padding: 6px 14px; border-radius: 20px; border: 2px solid #e2e8f0;
+  background: var(--sp-card); font-size: 0.75rem; font-weight: 700;
+  cursor: pointer; transition: all 0.2s;
+}
+.wt-vocab-btn.active-new { border-color: var(--sp-red); color: var(--sp-red); background: #fee2e2; }
+.wt-vocab-btn.active-learning { border-color: var(--sp-yellow); color: #92400e; background: #fef3c7; }
+.wt-vocab-btn.active-known { border-color: var(--sp-green); color: #065f46; background: #d1fae5; }
+
+/* --- Quiz --- */
+.wt-quiz-input {
+  width: 100%; padding: 12px 14px; border: 2px solid #e2e8f0; border-radius: 8px;
+  font-size: 1.125rem; font-weight: 600; text-align: center; outline: none;
+  transition: border-color 0.2s; box-sizing: border-box;
+}
+.wt-quiz-input:focus { border-color: var(--sp-primary); }
+.wt-quiz-input.correct { border-color: var(--sp-green); background: #d1fae5; }
+.wt-quiz-input.incorrect { border-color: var(--sp-red); background: #fee2e2; }
+
+/* --- Grammar hint --- */
+.wt-grammar-hints { margin: 8px 0; }
+.wt-grammar-hint {
+  display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px;
+  border-radius: 12px; font-size: 0.75rem; font-weight: 600;
+  background: #fef3c7; color: #92400e; margin: 2px;
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+  .sp-header__title { font-size: 1.35rem; }
+  .sp-tab { padding: 8px 12px; font-size: 0.75rem; }
+  .wt-score-grid { grid-template-columns: repeat(3, 1fr); }
+  .wt-stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .wt-flashcard { min-height: 160px; padding: 20px; }
+  .wt-flashcard__word { font-size: 1.5rem; }
+}
+</style>
+</head>
+<body style="background:var(--sp-bg, #f8f9fa);">
+
+<div class="sp-page">
+  <!-- Header -->
+  <header class="sp-header">
+    <a href="index.html" class="sp-header__back">&larr; Back to Study Planner</a>
+    <h1 class="sp-header__title">PTE <span>Writing Trainer</span></h1>
+    <p class="sp-header__subtitle">Maintain your Writing 90 — Summarise Written Text & Write Essay</p>
+    <div class="sp-stats" id="headerStats"></div>
+  </header>
+
+  <!-- Tabs -->
+  <div class="sp-tabs" id="tabs">
+    <button class="sp-tab active" data-tab="swt">1. Summarise Written Text</button>
+    <button class="sp-tab" data-tab="essay">2. Write Essay</button>
+    <button class="sp-tab" data-tab="vocab">3. Academic Vocabulary</button>
+    <button class="sp-tab" data-tab="connectors">4. Connectors Reference</button>
+    <button class="sp-tab" data-tab="progress">5. Progress & Stats</button>
+  </div>
+
+  <!-- ============================================================
+       TAB 1: SUMMARISE WRITTEN TEXT
+       ============================================================ -->
+  <div class="sp-panel active" id="panel-swt">
+    <!-- Difficulty filter -->
+    <div class="sp-diff-pills" id="swtDiffPills">
+      <button class="sp-diff-pill active" data-diff="all">All</button>
+      <button class="sp-diff-pill" data-diff="medium">Medium</button>
+      <button class="sp-diff-pill" data-diff="hard">Hard</button>
+    </div>
+
+    <!-- Navigation -->
+    <div class="sp-nav">
+      <div class="sp-btn-group">
+        <button class="sp-btn sp-btn--ghost sp-btn--sm" id="swtPrev">&larr; Prev</button>
+        <button class="sp-btn sp-btn--ghost sp-btn--sm" id="swtNext">Next &rarr;</button>
+      </div>
+      <span class="sp-counter" id="swtCounter"><strong>1</strong> / 40</span>
+    </div>
+
+    <!-- Passage Card -->
+    <div class="sp-card">
+      <div class="sp-card__title" id="swtTitle"></div>
+      <div class="wt-passage" id="swtPassage"></div>
+    </div>
+
+    <!-- Timer -->
+    <div class="sp-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <span class="sp-card__title" style="margin:0;">Timer (10 minutes)</span>
+        <div class="sp-btn-group">
+          <button class="sp-btn sp-btn--green sp-btn--sm" id="swtTimerStart">Start</button>
+          <button class="sp-btn sp-btn--yellow sp-btn--sm" id="swtTimerPause" disabled>Pause</button>
+          <button class="sp-btn sp-btn--ghost sp-btn--sm" id="swtTimerReset">Reset</button>
+        </div>
+      </div>
+      <div class="sp-timer-wrap">
+        <div class="sp-timer-bar"><div class="sp-timer-bar__fill" id="swtTimerFill"></div></div>
+        <div class="sp-timer-label"><span class="time-val" id="swtTimerDisplay">10:00</span></div>
+      </div>
+    </div>
+
+    <!-- Writing Area -->
+    <div class="sp-card">
+      <div class="sp-card__title">Your Summary (one sentence, 5-75 words)</div>
+      <textarea class="wt-textarea swt-area" id="swtTextarea" placeholder="Write your one-sentence summary here..."></textarea>
+      <div class="wt-counters" id="swtCounters">
+        <span class="wt-counter-badge" id="swtWordCount">Words: 0</span>
+        <span class="wt-counter-badge" id="swtSentenceCount">Sentences: 0</span>
+        <span class="wt-counter-badge" id="swtCharCount">Characters: 0</span>
+        <span class="wt-form-check" id="swtFormCheck">Form: --</span>
+      </div>
+      <div class="wt-grammar-hints" id="swtGrammarHints"></div>
+    </div>
+
+    <!-- Key Points Checklist -->
+    <div class="sp-card">
+      <div class="sp-card__title">Key Points Checklist</div>
+      <ul class="sp-checklist" id="swtKeyPoints"></ul>
+    </div>
+
+    <!-- Check Button -->
+    <div class="sp-btn-group" style="margin-bottom:16px;">
+      <button class="sp-btn sp-btn--primary" id="swtCheckBtn">Check My Summary</button>
+    </div>
+
+    <!-- Results (hidden until checked) -->
+    <div class="wt-results" id="swtResults" style="display:none;">
+      <div class="wt-results__title">Estimated Score</div>
+      <div class="wt-score-grid" id="swtScoreGrid"></div>
+      <div id="swtFeedback" style="font-size:0.875rem;color:var(--sp-text);line-height:1.6;"></div>
+    </div>
+
+    <!-- Self Assessment -->
+    <div class="sp-card">
+      <div class="sp-card__title">Self-Assessment</div>
+      <div class="sp-assess" id="swtAssess">
+        <div class="sp-assess__item">
+          <div class="sp-assess__label">Grammar (0-2)</div>
+          <div class="sp-stars" data-assess="swt-grammar" data-max="2"></div>
+        </div>
+        <div class="sp-assess__item">
+          <div class="sp-assess__label">Vocabulary (0-2)</div>
+          <div class="sp-stars" data-assess="swt-vocab" data-max="2"></div>
+        </div>
+      </div>
+      <button class="sp-btn sp-btn--green sp-btn--sm" id="swtSaveScore" style="margin-top:8px;">Save Score</button>
+    </div>
+
+    <!-- Sample Summary Toggle -->
+    <div class="sp-reveal" id="swtSampleReveal">
+      <button class="sp-reveal__toggle" onclick="this.parentElement.classList.toggle('open')">
+        &#9660; Show Sample Summary
+      </button>
+      <div class="sp-reveal__body" id="swtSampleSummary"></div>
+    </div>
+
+    <!-- Tips -->
+    <div class="sp-reveal">
+      <button class="sp-reveal__toggle" onclick="this.parentElement.classList.toggle('open')">
+        &#9660; Tips for Summarise Written Text
+      </button>
+      <div class="sp-reveal__body">
+        <ul class="wt-tips__list" id="swtTipsList"></ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       TAB 2: WRITE ESSAY
+       ============================================================ -->
+  <div class="sp-panel" id="panel-essay">
+    <!-- Difficulty filter -->
+    <div class="sp-diff-pills" id="essayDiffPills">
+      <button class="sp-diff-pill active" data-diff="all">All</button>
+      <button class="sp-diff-pill" data-diff="medium">Medium</button>
+      <button class="sp-diff-pill" data-diff="hard">Hard</button>
+    </div>
+
+    <!-- Navigation -->
+    <div class="sp-nav">
+      <div class="sp-btn-group">
+        <button class="sp-btn sp-btn--ghost sp-btn--sm" id="essayPrev">&larr; Prev</button>
+        <button class="sp-btn sp-btn--ghost sp-btn--sm" id="essayNext">Next &rarr;</button>
+      </div>
+      <span class="sp-counter" id="essayCounter"><strong>1</strong> / 50</span>
+    </div>
+
+    <!-- Prompt Card -->
+    <div class="sp-card">
+      <span class="wt-type-badge" id="essayTypeBadge"></span>
+      <div class="sp-card__title" id="essayTitle"></div>
+      <div class="wt-passage" id="essayPrompt" style="border-left-color: var(--sp-orange);"></div>
+    </div>
+
+    <!-- Timer -->
+    <div class="sp-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <span class="sp-card__title" style="margin:0;">Timer (20 minutes)</span>
+        <div class="sp-btn-group">
+          <button class="sp-btn sp-btn--green sp-btn--sm" id="essayTimerStart">Start</button>
+          <button class="sp-btn sp-btn--yellow sp-btn--sm" id="essayTimerPause" disabled>Pause</button>
+          <button class="sp-btn sp-btn--ghost sp-btn--sm" id="essayTimerReset">Reset</button>
+        </div>
+      </div>
+      <div class="sp-timer-wrap">
+        <div class="sp-timer-bar"><div class="sp-timer-bar__fill" id="essayTimerFill"></div></div>
+        <div class="sp-timer-label"><span class="time-val" id="essayTimerDisplay">20:00</span></div>
+      </div>
+    </div>
+
+    <!-- Structure Guide -->
+    <div class="sp-card">
+      <div class="sp-card__title">Essay Structure Guide</div>
+      <div class="wt-structure-guide" id="essayStructureGuide">
+        <div class="wt-structure-item">
+          <input type="checkbox" id="structIntro">
+          <div>
+            <div class="wt-structure-item__label">Introduction</div>
+            <div class="wt-structure-item__hint">1 paragraph, 2-3 sentences. State the topic and your position.</div>
+          </div>
+        </div>
+        <div class="wt-structure-item">
+          <input type="checkbox" id="structBody1">
+          <div>
+            <div class="wt-structure-item__label">Body Paragraph 1</div>
+            <div class="wt-structure-item__hint">3-5 sentences. Main argument with supporting evidence and examples.</div>
+          </div>
+        </div>
+        <div class="wt-structure-item">
+          <input type="checkbox" id="structBody2">
+          <div>
+            <div class="wt-structure-item__label">Body Paragraph 2</div>
+            <div class="wt-structure-item__hint">3-5 sentences. Supporting or counter argument with evidence.</div>
+          </div>
+        </div>
+        <div class="wt-structure-item">
+          <input type="checkbox" id="structConclusion">
+          <div>
+            <div class="wt-structure-item__label">Conclusion</div>
+            <div class="wt-structure-item__hint">1 paragraph, 2-3 sentences. Restate position and summarise.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Writing Area -->
+    <div class="sp-card">
+      <div class="sp-card__title">Your Essay (200-300 words)</div>
+      <textarea class="wt-textarea essay-area" id="essayTextarea" placeholder="Write your essay here. Use Tab for indentation..."></textarea>
+      <div class="wt-counters" id="essayCounters">
+        <span class="wt-counter-badge" id="essayWordCount">Words: 0</span>
+        <span class="wt-counter-badge" id="essayParaCount">Paragraphs: 0</span>
+        <span class="wt-counter-badge" id="essaySentenceCount">Sentences: 0</span>
+      </div>
+      <div class="wt-grammar-hints" id="essayGrammarHints"></div>
+    </div>
+
+    <!-- Check Button -->
+    <div class="sp-btn-group" style="margin-bottom:16px;">
+      <button class="sp-btn sp-btn--primary" id="essayCheckBtn">Check My Essay</button>
+    </div>
+
+    <!-- Results -->
+    <div class="wt-results" id="essayResults" style="display:none;">
+      <div class="wt-results__title">Estimated Score & Feedback</div>
+      <div class="wt-score-grid" id="essayScoreGrid"></div>
+      <div id="essayFeedback" style="font-size:0.875rem;color:var(--sp-text);line-height:1.6;"></div>
+    </div>
+
+    <!-- Self Assessment -->
+    <div class="sp-card">
+      <div class="sp-card__title">Self-Assessment</div>
+      <div class="sp-assess" id="essayAssess">
+        <div class="sp-assess__item">
+          <div class="sp-assess__label">Content (0-3)</div>
+          <div class="sp-stars" data-assess="essay-content" data-max="3"></div>
+        </div>
+        <div class="sp-assess__item">
+          <div class="sp-assess__label">Grammar (0-2)</div>
+          <div class="sp-stars" data-assess="essay-grammar" data-max="2"></div>
+        </div>
+        <div class="sp-assess__item">
+          <div class="sp-assess__label">Vocabulary (0-2)</div>
+          <div class="sp-stars" data-assess="essay-vocab" data-max="2"></div>
+        </div>
+        <div class="sp-assess__item">
+          <div class="sp-assess__label">Spelling (0-2)</div>
+          <div class="sp-stars" data-assess="essay-spelling" data-max="2"></div>
+        </div>
+      </div>
+      <button class="sp-btn sp-btn--green sp-btn--sm" id="essaySaveScore" style="margin-top:8px;">Save Score</button>
+    </div>
+
+    <!-- Sample Outline Toggle -->
+    <div class="sp-reveal" id="essaySampleReveal">
+      <button class="sp-reveal__toggle" onclick="this.parentElement.classList.toggle('open')">
+        &#9660; Show Sample Outline
+      </button>
+      <div class="sp-reveal__body" id="essaySampleOutline"></div>
+    </div>
+
+    <!-- Vocabulary Panel -->
+    <div class="sp-reveal" id="essayVocabReveal">
+      <button class="sp-reveal__toggle" onclick="this.parentElement.classList.toggle('open')">
+        &#9660; Useful Vocabulary for This Topic
+      </button>
+      <div class="sp-reveal__body">
+        <div id="essayVocabChips" style="display:flex;gap:6px;flex-wrap:wrap;"></div>
+      </div>
+    </div>
+
+    <!-- Connectors Reference -->
+    <div class="sp-reveal">
+      <button class="sp-reveal__toggle" onclick="this.parentElement.classList.toggle('open')">
+        &#9660; Quick Connectors Reference
+      </button>
+      <div class="sp-reveal__body" id="essayConnectorsRef"></div>
+    </div>
+
+    <!-- Tips -->
+    <div class="sp-reveal">
+      <button class="sp-reveal__toggle" onclick="this.parentElement.classList.toggle('open')">
+        &#9660; Tips for Write Essay
+      </button>
+      <div class="sp-reveal__body">
+        <ul class="wt-tips__list" id="essayTipsList"></ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       TAB 3: ACADEMIC VOCABULARY
+       ============================================================ -->
+  <div class="sp-panel" id="panel-vocab">
+    <div class="sp-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px;">
+        <div class="sp-card__title" style="margin:0;">Academic Vocabulary Trainer</div>
+        <div class="sp-btn-group">
+          <button class="sp-btn sp-btn--outline sp-btn--sm" id="vocabFlashcardMode">Flashcard Mode</button>
+          <button class="sp-btn sp-btn--ghost sp-btn--sm" id="vocabQuizMode">Quiz Mode</button>
+        </div>
+      </div>
+      <div class="wt-vocab-status">
+        <button class="wt-vocab-btn active-new" id="vocabFilterNew">New (<span id="vocabNewCount">0</span>)</button>
+        <button class="wt-vocab-btn active-learning" id="vocabFilterLearning">Learning (<span id="vocabLearningCount">0</span>)</button>
+        <button class="wt-vocab-btn active-known" id="vocabFilterKnown">Known (<span id="vocabKnownCount">0</span>)</button>
+      </div>
+    </div>
+
+    <!-- Flashcard Mode -->
+    <div id="vocabFlashcardPanel">
+      <div class="sp-nav">
+        <div class="sp-btn-group">
+          <button class="sp-btn sp-btn--ghost sp-btn--sm" id="vocabPrev">&larr; Prev</button>
+          <button class="sp-btn sp-btn--ghost sp-btn--sm" id="vocabNext">Next &rarr;</button>
+        </div>
+        <span class="sp-counter" id="vocabCounter"><strong>1</strong> / 100</span>
+      </div>
+      <div class="wt-flashcard" id="vocabFlashcard">
+        <div class="wt-flashcard__word" id="vocabWord"></div>
+        <div class="wt-flashcard__hint" id="vocabHint">Click to reveal definition</div>
+        <div id="vocabDetails" style="display:none;">
+          <div class="wt-flashcard__def" id="vocabDef"></div>
+          <div class="wt-flashcard__example" id="vocabExample"></div>
+          <div class="wt-flashcard__synonyms" id="vocabSynonyms"></div>
+        </div>
+      </div>
+      <div class="sp-btn-group" style="justify-content:center;margin-top:12px;">
+        <button class="sp-btn sp-btn--red sp-btn--sm" id="vocabMarkNew">New</button>
+        <button class="sp-btn sp-btn--yellow sp-btn--sm" id="vocabMarkLearning">Learning</button>
+        <button class="sp-btn sp-btn--green sp-btn--sm" id="vocabMarkKnown">Known</button>
+      </div>
+    </div>
+
+    <!-- Quiz Mode -->
+    <div id="vocabQuizPanel" style="display:none;">
+      <div class="sp-card">
+        <div class="sp-card__title">Type the Word</div>
+        <div id="vocabQuizDef" style="font-size:1rem;font-style:italic;color:var(--sp-text);margin-bottom:12px;line-height:1.6;"></div>
+        <div id="vocabQuizExample" style="font-size:0.875rem;color:var(--sp-muted);margin-bottom:12px;line-height:1.6;"></div>
+        <input type="text" class="wt-quiz-input" id="vocabQuizInput" placeholder="Type the word..." autocomplete="off">
+        <div class="sp-btn-group" style="margin-top:12px;justify-content:center;">
+          <button class="sp-btn sp-btn--primary sp-btn--sm" id="vocabQuizCheck">Check</button>
+          <button class="sp-btn sp-btn--ghost sp-btn--sm" id="vocabQuizSkip">Skip</button>
+        </div>
+        <div id="vocabQuizFeedback" style="text-align:center;margin-top:12px;font-weight:700;font-size:0.875rem;"></div>
+      </div>
+      <div style="text-align:center;margin-top:8px;">
+        <span class="sp-counter" id="vocabQuizCounter">Score: <strong>0</strong> / 0</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       TAB 4: CONNECTORS REFERENCE
+       ============================================================ -->
+  <div class="sp-panel" id="panel-connectors">
+    <div class="sp-card">
+      <div class="sp-card__title">Connectors & Linking Words</div>
+      <p style="font-size:0.875rem;color:var(--sp-muted);margin-bottom:12px;">Click any connector to copy it to your clipboard.</p>
+      <input type="text" class="wt-search" id="connectorSearch" placeholder="Search connectors...">
+    </div>
+    <div id="connectorsGrid"></div>
+  </div>
+
+  <!-- ============================================================
+       TAB 5: PROGRESS & STATS
+       ============================================================ -->
+  <div class="sp-panel" id="panel-progress">
+    <div class="sp-card">
+      <div class="sp-card__title">Writing Practice Overview</div>
+      <div class="wt-stats-grid" id="progressStatsGrid"></div>
+    </div>
+
+    <div class="sp-card">
+      <div class="sp-card__title">SWT Score History</div>
+      <div id="swtScoreHistory"></div>
+    </div>
+
+    <div class="sp-card">
+      <div class="sp-card__title">Essay Score History</div>
+      <div id="essayScoreHistory"></div>
+    </div>
+
+    <div class="sp-card">
+      <div class="sp-card__title">Score Breakdown Averages</div>
+      <div id="scoreBreakdown"></div>
+    </div>
+
+    <div class="sp-btn-group" style="margin-top:12px;">
+      <button class="sp-btn sp-btn--red sp-btn--sm" id="resetProgressBtn">Reset All Progress</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/writing-trainer-data.js"></script>
+<script>
+// =============================================================================
+// PTE WRITING TRAINER — Application Logic
+// =============================================================================
+(function() {
+'use strict';
+
+const STORAGE_KEY = 'pte-writing-trainer';
+
+// --- State ---
+let state = loadState();
+
+function defaultState() {
+  return {
+    swtIndex: 0, swtDiff: 'all', swtDrafts: {},
+    essayIndex: 0, essayDiff: 'all', essayDrafts: {},
+    swtScores: [], essayScores: [],
+    vocabStatus: {}, vocabIndex: 0, vocabMode: 'flashcard',
+    quizScore: 0, quizTotal: 0, streak: 0, lastPractice: null
+  };
+}
+
+function loadState() {
+  try { const s = JSON.parse(localStorage.getItem(STORAGE_KEY)); return s ? Object.assign(defaultState(), s) : defaultState(); }
+  catch(e) { return defaultState(); }
+}
+
+function saveState() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+
+// --- Utility ---
+function $(sel) { return document.querySelector(sel); }
+function $$(sel) { return document.querySelectorAll(sel); }
+
+function countWords(text) {
+  const t = text.trim();
+  if (!t) return 0;
+  return t.split(/\s+/).filter(w => w.length > 0).length;
+}
+
+function countSentences(text) {
+  const t = text.trim();
+  if (!t) return 0;
+  const matches = t.match(/[.!?]+/g);
+  return matches ? matches.length : 0;
+}
+
+function countParagraphs(text) {
+  const t = text.trim();
+  if (!t) return 0;
+  return t.split(/\n\s*\n/).filter(p => p.trim().length > 0).length || 1;
+}
+
+function checkGrammarHints(text) {
+  const hints = [];
+  const lower = text.toLowerCase();
+  if (/\btheir\b/.test(lower) && /\bthere\b/.test(lower)) hints.push('Check: their vs there usage');
+  if (/\bthere\b/.test(lower) && /\bthey\'re\b/.test(lower)) hints.push('Check: there vs they\'re usage');
+  if (/\bits\b/.test(lower) && /\bit\'s\b/.test(lower)) hints.push('Check: its vs it\'s usage');
+  if (/\byour\b/.test(lower) && /\byou\'re\b/.test(lower)) hints.push('Check: your vs you\'re usage');
+  if (/\baffect\b/.test(lower) && /\beffect\b/.test(lower)) hints.push('Check: affect vs effect usage');
+  if (/\bthen\b/.test(lower) && /\bthan\b/.test(lower)) hints.push('Check: then vs than usage');
+  if (/\bwhich\b/.test(lower) && !/,\s*which/.test(lower) && /\bwhich\b/.test(text)) hints.push('Consider: use a comma before "which" for non-restrictive clauses');
+  if (/\bdon\'t\b|\bcan\'t\b|\bwon\'t\b|\bdoesn\'t\b|\bisn\'t\b|\baren\'t\b|\bdidn\'t\b/.test(lower)) hints.push('Avoid contractions in academic writing');
+  if (/\bi\b/.test(text) && !/\bI\b/.test(text)) hints.push('Capitalise "I" when used as a pronoun');
+  return hints;
+}
+
+// --- Filtered items ---
+function filteredSWT() {
+  if (state.swtDiff === 'all') return SWT_PASSAGES;
+  return SWT_PASSAGES.filter(p => p.difficulty === state.swtDiff);
+}
+
+function filteredEssays() {
+  if (state.essayDiff === 'all') return ESSAY_TOPICS;
+  return ESSAY_TOPICS.filter(e => e.difficulty === state.essayDiff);
+}
+
+// --- Tab management ---
+function initTabs() {
+  $$('.sp-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      $$('.sp-tab').forEach(t => t.classList.remove('active'));
+      $$('.sp-panel').forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      $(`#panel-${tab.dataset.tab}`).classList.add('active');
+    });
+  });
+}
+
+// --- Stars ---
+function initStars() {
+  $$('.sp-stars').forEach(container => {
+    const max = parseInt(container.dataset.max) || 2;
+    const key = container.dataset.assess;
+    container.innerHTML = '';
+    for (let i = 1; i <= max; i++) {
+      const btn = document.createElement('button');
+      btn.className = 'sp-star';
+      btn.textContent = '\u2605';
+      btn.dataset.val = i;
+      btn.addEventListener('click', () => {
+        container.querySelectorAll('.sp-star').forEach((s, idx) => {
+          s.classList.toggle('filled', idx < i);
+        });
+        container.dataset.value = i;
+      });
+      container.appendChild(btn);
+    }
+  });
+}
+
+// =============================================================================
+// SWT PANEL
+// =============================================================================
+let swtTimer = null, swtTimeLeft = 600;
+
+function renderSWT() {
+  const items = filteredSWT();
+  if (items.length === 0) { state.swtIndex = 0; return; }
+  if (state.swtIndex >= items.length) state.swtIndex = 0;
+  const item = items[state.swtIndex];
+
+  $('#swtTitle').textContent = item.title;
+  $('#swtPassage').textContent = item.text;
+  $('#swtCounter').innerHTML = `<strong>${state.swtIndex + 1}</strong> / ${items.length}`;
+
+  // Key points
+  const kpList = $('#swtKeyPoints');
+  kpList.innerHTML = '';
+  item.keyPoints.forEach((kp, i) => {
+    const li = document.createElement('li');
+    li.innerHTML = `<input type="checkbox" id="swtkp${i}"><span>${kp}</span>`;
+    kpList.appendChild(li);
+  });
+
+  // Sample
+  $('#swtSampleSummary').textContent = item.sampleSummary;
+  $('#swtSampleReveal').classList.remove('open');
+
+  // Restore draft
+  const draft = state.swtDrafts[item.id];
+  $('#swtTextarea').value = draft || '';
+  updateSWTCounters();
+
+  // Hide results
+  $('#swtResults').style.display = 'none';
+
+  // Reset stars
+  $$('#swtAssess .sp-stars').forEach(s => {
+    s.querySelectorAll('.sp-star').forEach(st => st.classList.remove('filled'));
+    s.dataset.value = '0';
+  });
+
+  // Reset timer
+  resetSWTTimer();
+}
+
+function updateSWTCounters() {
+  const text = $('#swtTextarea').value;
+  const words = countWords(text);
+  const sentences = countSentences(text);
+  const chars = text.length;
+
+  const wcBadge = $('#swtWordCount');
+  wcBadge.textContent = `Words: ${words}`;
+  wcBadge.className = 'wt-counter-badge ' + (words >= 5 && words <= 75 ? 'good' : words === 0 ? '' : 'bad');
+
+  const scBadge = $('#swtSentenceCount');
+  scBadge.textContent = `Sentences: ${sentences}`;
+  scBadge.className = 'wt-counter-badge ' + (sentences === 1 ? 'good' : sentences === 0 ? '' : 'bad');
+
+  $('#swtCharCount').textContent = `Characters: ${chars}`;
+
+  const formValid = words >= 5 && words <= 75 && sentences === 1;
+  const fc = $('#swtFormCheck');
+  fc.textContent = formValid ? '\u2713 Form OK' : '\u2717 Form Invalid';
+  fc.className = 'wt-form-check ' + (formValid ? 'valid' : (words === 0 ? '' : 'invalid'));
+
+  // Grammar hints
+  const hints = checkGrammarHints(text);
+  $('#swtGrammarHints').innerHTML = hints.map(h => `<span class="wt-grammar-hint">\u26A0 ${h}</span>`).join('');
+}
+
+function startSWTTimer() {
+  if (swtTimer) return;
+  $('#swtTimerStart').disabled = true;
+  $('#swtTimerPause').disabled = false;
+  swtTimer = setInterval(() => {
+    swtTimeLeft--;
+    if (swtTimeLeft <= 0) { clearInterval(swtTimer); swtTimer = null; swtTimeLeft = 0; }
+    updateSWTTimerDisplay();
+  }, 1000);
+}
+
+function pauseSWTTimer() {
+  clearInterval(swtTimer); swtTimer = null;
+  $('#swtTimerStart').disabled = false;
+  $('#swtTimerPause').disabled = true;
+}
+
+function resetSWTTimer() {
+  clearInterval(swtTimer); swtTimer = null;
+  swtTimeLeft = 600;
+  updateSWTTimerDisplay();
+  $('#swtTimerStart').disabled = false;
+  $('#swtTimerPause').disabled = true;
+}
+
+function updateSWTTimerDisplay() {
+  const mins = Math.floor(swtTimeLeft / 60);
+  const secs = swtTimeLeft % 60;
+  $('#swtTimerDisplay').textContent = `${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}`;
+  const pct = (swtTimeLeft / 600) * 100;
+  const fill = $('#swtTimerFill');
+  fill.style.width = pct + '%';
+  fill.style.background = pct > 33 ? 'var(--sp-green)' : pct > 10 ? 'var(--sp-yellow)' : 'var(--sp-red)';
+  const label = $('#swtTimerDisplay');
+  if (swtTimeLeft <= 120 && swtTimeLeft > 0) {
+    label.parentElement.classList.add('timer-flash');
+  } else {
+    label.parentElement.classList.remove('timer-flash');
+  }
+}
+
+function checkSWT() {
+  const items = filteredSWT();
+  const item = items[state.swtIndex];
+  const text = $('#swtTextarea').value.trim();
+  const words = countWords(text);
+  const sentences = countSentences(text);
+
+  // Form score
+  let formScore = 0;
+  if (words >= 5 && words <= 75 && sentences === 1) formScore = 1;
+
+  // Content score based on checked key points
+  const checked = $$('#swtKeyPoints input:checked').length;
+  const total = item.keyPoints.length;
+  let contentScore = 0;
+  if (checked >= total * 0.7) contentScore = 2;
+  else if (checked >= total * 0.4) contentScore = 1;
+
+  // Self-assess scores
+  const grammarScore = parseInt($('[data-assess="swt-grammar"]').dataset.value || '0');
+  const vocabScore = parseInt($('[data-assess="swt-vocab"]').dataset.value || '0');
+
+  const totalScore = contentScore + formScore + grammarScore + vocabScore;
+
+  // Show results
+  const grid = $('#swtScoreGrid');
+  grid.innerHTML = [
+    { label: 'Content', value: contentScore, max: 2 },
+    { label: 'Form', value: formScore, max: 1 },
+    { label: 'Grammar', value: grammarScore, max: 2 },
+    { label: 'Vocabulary', value: vocabScore, max: 2 },
+    { label: 'TOTAL', value: totalScore, max: 7 }
+  ].map(s => `
+    <div class="wt-score-item">
+      <div class="wt-score-item__label">${s.label}</div>
+      <div class="wt-score-item__value">${s.value}</div>
+      <div class="wt-score-item__max">/ ${s.max}</div>
+    </div>
+  `).join('');
+
+  let feedback = '';
+  if (formScore === 0) feedback += '<p><strong>Form:</strong> Your summary must be exactly one sentence with 5-75 words. Check your sentence count and word count.</p>';
+  if (contentScore < 2) feedback += '<p><strong>Content:</strong> Try to capture more key points from the passage. Review the key points checklist.</p>';
+  if (words > 60) feedback += '<p><strong>Tip:</strong> Your summary is getting long. Try to be more concise while keeping key information.</p>';
+  if (words < 30 && words > 0) feedback += '<p><strong>Tip:</strong> Your summary is quite short. Make sure you have included enough key points.</p>';
+
+  $('#swtFeedback').innerHTML = feedback;
+  $('#swtResults').style.display = 'block';
+  $('#swtResults').scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+  return { contentScore, formScore, grammarScore, vocabScore, totalScore };
+}
+
+function saveSWTScore() {
+  const scores = checkSWT();
+  const items = filteredSWT();
+  const item = items[state.swtIndex];
+  state.swtScores.push({
+    id: item.id,
+    title: item.title,
+    date: new Date().toISOString(),
+    ...scores
+  });
+  state.lastPractice = new Date().toISOString();
+  state.streak = updateStreak();
+  saveState();
+  updateHeaderStats();
+  alert('Score saved successfully!');
+}
+
+// =============================================================================
+// ESSAY PANEL
+// =============================================================================
+let essayTimer = null, essayTimeLeft = 1200;
+
+function renderEssay() {
+  const items = filteredEssays();
+  if (items.length === 0) { state.essayIndex = 0; return; }
+  if (state.essayIndex >= items.length) state.essayIndex = 0;
+  const item = items[state.essayIndex];
+
+  const typeLabels = {
+    'agree-disagree': 'Agree / Disagree',
+    'discuss-both': 'Discuss Both Views',
+    'advantages-disadvantages': 'Advantages / Disadvantages',
+    'problem-solution': 'Problem / Solution',
+    'opinion': 'Opinion'
+  };
+  $('#essayTypeBadge').textContent = typeLabels[item.type] || item.type;
+  $('#essayTitle').textContent = item.title;
+  $('#essayPrompt').textContent = item.prompt;
+  $('#essayCounter').innerHTML = `<strong>${state.essayIndex + 1}</strong> / ${items.length}`;
+
+  // Sample outline
+  const outline = item.sampleOutline;
+  $('#essaySampleOutline').innerHTML = `
+    <p><strong>Introduction:</strong> ${outline.intro}</p>
+    <p><strong>Body 1:</strong> ${outline.body1}</p>
+    <p><strong>Body 2:</strong> ${outline.body2}</p>
+    <p><strong>Conclusion:</strong> ${outline.conclusion}</p>
+  `;
+  $('#essaySampleReveal').classList.remove('open');
+
+  // Vocabulary chips
+  $('#essayVocabChips').innerHTML = item.keyVocabulary.map(w =>
+    `<span class="wt-connector-chip" onclick="navigator.clipboard.writeText('${w}');this.classList.add('copied');setTimeout(()=>this.classList.remove('copied'),800)">${w}</span>`
+  ).join('');
+
+  // Quick connectors
+  const connRef = $('#essayConnectorsRef');
+  let html = '';
+  for (const [cat, phrases] of Object.entries(CONNECTORS)) {
+    html += `<div style="margin-bottom:8px;"><strong style="color:var(--sp-purple);text-transform:capitalize;">${cat}:</strong> ${phrases.slice(0,5).join(', ')}</div>`;
+  }
+  connRef.innerHTML = html;
+
+  // Restore draft
+  const draft = state.essayDrafts[item.id];
+  $('#essayTextarea').value = draft || '';
+  updateEssayCounters();
+
+  // Hide results
+  $('#essayResults').style.display = 'none';
+
+  // Reset structure checkboxes
+  ['structIntro','structBody1','structBody2','structConclusion'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.checked = false;
+  });
+
+  // Reset stars
+  $$('#essayAssess .sp-stars').forEach(s => {
+    s.querySelectorAll('.sp-star').forEach(st => st.classList.remove('filled'));
+    s.dataset.value = '0';
+  });
+
+  // Reset timer
+  resetEssayTimer();
+}
+
+function updateEssayCounters() {
+  const text = $('#essayTextarea').value;
+  const words = countWords(text);
+  const paras = countParagraphs(text);
+  const sentences = countSentences(text);
+
+  const wcBadge = $('#essayWordCount');
+  wcBadge.textContent = `Words: ${words}`;
+  if (words === 0) wcBadge.className = 'wt-counter-badge';
+  else if (words >= 200 && words <= 300) wcBadge.className = 'wt-counter-badge good';
+  else if ((words >= 150 && words < 200) || (words > 300 && words <= 350)) wcBadge.className = 'wt-counter-badge warn';
+  else wcBadge.className = 'wt-counter-badge bad';
+
+  const pcBadge = $('#essayParaCount');
+  pcBadge.textContent = `Paragraphs: ${paras}`;
+  pcBadge.className = 'wt-counter-badge ' + (paras >= 3 && paras <= 5 ? 'good' : paras === 0 ? '' : 'warn');
+
+  const scBadge = $('#essaySentenceCount');
+  scBadge.textContent = `Sentences: ${sentences}`;
+  scBadge.className = 'wt-counter-badge ' + (sentences >= 8 ? 'good' : sentences === 0 ? '' : 'warn');
+
+  const hints = checkGrammarHints(text);
+  $('#essayGrammarHints').innerHTML = hints.map(h => `<span class="wt-grammar-hint">\u26A0 ${h}</span>`).join('');
+}
+
+function startEssayTimer() {
+  if (essayTimer) return;
+  $('#essayTimerStart').disabled = true;
+  $('#essayTimerPause').disabled = false;
+  essayTimer = setInterval(() => {
+    essayTimeLeft--;
+    if (essayTimeLeft <= 0) { clearInterval(essayTimer); essayTimer = null; essayTimeLeft = 0; }
+    updateEssayTimerDisplay();
+  }, 1000);
+}
+
+function pauseEssayTimer() {
+  clearInterval(essayTimer); essayTimer = null;
+  $('#essayTimerStart').disabled = false;
+  $('#essayTimerPause').disabled = true;
+}
+
+function resetEssayTimer() {
+  clearInterval(essayTimer); essayTimer = null;
+  essayTimeLeft = 1200;
+  updateEssayTimerDisplay();
+  $('#essayTimerStart').disabled = false;
+  $('#essayTimerPause').disabled = true;
+}
+
+function updateEssayTimerDisplay() {
+  const mins = Math.floor(essayTimeLeft / 60);
+  const secs = essayTimeLeft % 60;
+  $('#essayTimerDisplay').textContent = `${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}`;
+  const pct = (essayTimeLeft / 1200) * 100;
+  const fill = $('#essayTimerFill');
+  fill.style.width = pct + '%';
+  fill.style.background = pct > 33 ? 'var(--sp-green)' : pct > 10 ? 'var(--sp-yellow)' : 'var(--sp-red)';
+  const label = $('#essayTimerDisplay');
+  if (essayTimeLeft <= 120 && essayTimeLeft > 0) {
+    label.parentElement.classList.add('timer-flash');
+  } else {
+    label.parentElement.classList.remove('timer-flash');
+  }
+}
+
+function checkEssay() {
+  const text = $('#essayTextarea').value.trim();
+  const words = countWords(text);
+  const paras = countParagraphs(text);
+  const sentences = countSentences(text);
+
+  // Form score (0-2)
+  let formScore = 0;
+  if (words >= 200 && words <= 300) formScore = 2;
+  else if (words >= 120 && words <= 380) formScore = 1;
+
+  // Structure feedback
+  let structFeedback = [];
+  if (paras < 3) structFeedback.push('Your essay has too few paragraphs. Aim for 4 paragraphs (intro, 2 body, conclusion).');
+  if (paras > 5) structFeedback.push('Your essay has many paragraphs. Consider consolidating to 4 main paragraphs.');
+  if (paras >= 3 && paras <= 5) structFeedback.push('Good paragraph structure!');
+  if (sentences < 8) structFeedback.push('Your essay may need more developed arguments. Aim for 10-15 sentences.');
+  if (words < 200) structFeedback.push('Your essay is below the 200-word minimum. This will affect your Form score.');
+  if (words > 300) structFeedback.push('Your essay exceeds the 300-word limit. Try to be more concise.');
+
+  // Self-assess scores
+  const contentScore = parseInt($('[data-assess="essay-content"]').dataset.value || '0');
+  const grammarScore = parseInt($('[data-assess="essay-grammar"]').dataset.value || '0');
+  const vocabScore = parseInt($('[data-assess="essay-vocab"]').dataset.value || '0');
+  const spellingScore = parseInt($('[data-assess="essay-spelling"]').dataset.value || '0');
+
+  const totalScore = contentScore + formScore + grammarScore + vocabScore + spellingScore;
+
+  const grid = $('#essayScoreGrid');
+  grid.innerHTML = [
+    { label: 'Content', value: contentScore, max: 3 },
+    { label: 'Form', value: formScore, max: 2 },
+    { label: 'Grammar', value: grammarScore, max: 2 },
+    { label: 'Vocabulary', value: vocabScore, max: 2 },
+    { label: 'Spelling', value: spellingScore, max: 2 },
+    { label: 'TOTAL', value: totalScore, max: 11 }
+  ].map(s => `
+    <div class="wt-score-item">
+      <div class="wt-score-item__label">${s.label}</div>
+      <div class="wt-score-item__value">${s.value}</div>
+      <div class="wt-score-item__max">/ ${s.max}</div>
+    </div>
+  `).join('');
+
+  $('#essayFeedback').innerHTML = structFeedback.map(f => `<p>${f}</p>`).join('');
+  $('#essayResults').style.display = 'block';
+  $('#essayResults').scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+  return { contentScore, formScore, grammarScore, vocabScore, spellingScore, totalScore };
+}
+
+function saveEssayScore() {
+  const scores = checkEssay();
+  const items = filteredEssays();
+  const item = items[state.essayIndex];
+  state.essayScores.push({
+    id: item.id,
+    title: item.title,
+    date: new Date().toISOString(),
+    ...scores
+  });
+  state.lastPractice = new Date().toISOString();
+  state.streak = updateStreak();
+  saveState();
+  updateHeaderStats();
+  alert('Score saved successfully!');
+}
+
+// =============================================================================
+// VOCABULARY PANEL
+// =============================================================================
+let vocabRevealed = false;
+
+function renderVocab() {
+  if (state.vocabIndex >= ACADEMIC_VOCABULARY.length) state.vocabIndex = 0;
+  const item = ACADEMIC_VOCABULARY[state.vocabIndex];
+  vocabRevealed = false;
+  $('#vocabWord').textContent = item.word;
+  $('#vocabHint').style.display = 'block';
+  $('#vocabDetails').style.display = 'none';
+  $('#vocabDef').textContent = item.definition;
+  $('#vocabExample').textContent = `"${item.example}"`;
+  $('#vocabSynonyms').innerHTML = item.synonyms.map(s => `<span class="wt-flashcard__syn">${s}</span>`).join('');
+  $('#vocabCounter').innerHTML = `<strong>${state.vocabIndex + 1}</strong> / ${ACADEMIC_VOCABULARY.length}`;
+  updateVocabCounts();
+}
+
+function toggleVocabReveal() {
+  vocabRevealed = !vocabRevealed;
+  $('#vocabHint').style.display = vocabRevealed ? 'none' : 'block';
+  $('#vocabDetails').style.display = vocabRevealed ? 'block' : 'none';
+}
+
+function markVocab(status) {
+  const item = ACADEMIC_VOCABULARY[state.vocabIndex];
+  state.vocabStatus[item.word] = status;
+  saveState();
+  updateVocabCounts();
+  // Auto-advance
+  state.vocabIndex = (state.vocabIndex + 1) % ACADEMIC_VOCABULARY.length;
+  renderVocab();
+}
+
+function updateVocabCounts() {
+  let newC = 0, learning = 0, known = 0;
+  ACADEMIC_VOCABULARY.forEach(v => {
+    const s = state.vocabStatus[v.word];
+    if (s === 'learning') learning++;
+    else if (s === 'known') known++;
+    else newC++;
+  });
+  $('#vocabNewCount').textContent = newC;
+  $('#vocabLearningCount').textContent = learning;
+  $('#vocabKnownCount').textContent = known;
+}
+
+// --- Quiz mode ---
+let quizWord = null;
+
+function startQuiz() {
+  // Pick a random word, prefer non-known
+  const candidates = ACADEMIC_VOCABULARY.filter(v => state.vocabStatus[v.word] !== 'known');
+  const pool = candidates.length > 0 ? candidates : ACADEMIC_VOCABULARY;
+  quizWord = pool[Math.floor(Math.random() * pool.length)];
+  $('#vocabQuizDef').textContent = quizWord.definition;
+  $('#vocabQuizExample').textContent = `Example: "${quizWord.example.replace(new RegExp(quizWord.word, 'gi'), '______')}"`;
+  $('#vocabQuizInput').value = '';
+  $('#vocabQuizInput').className = 'wt-quiz-input';
+  $('#vocabQuizFeedback').textContent = '';
+  $('#vocabQuizInput').focus();
+}
+
+function checkQuiz() {
+  if (!quizWord) return;
+  const answer = $('#vocabQuizInput').value.trim().toLowerCase();
+  const correct = quizWord.word.toLowerCase();
+  state.quizTotal++;
+  if (answer === correct) {
+    state.quizScore++;
+    $('#vocabQuizInput').className = 'wt-quiz-input correct';
+    $('#vocabQuizFeedback').innerHTML = `<span style="color:var(--sp-green);">Correct! The word is "${quizWord.word}".</span>`;
+    state.vocabStatus[quizWord.word] = 'known';
+  } else {
+    $('#vocabQuizInput').className = 'wt-quiz-input incorrect';
+    $('#vocabQuizFeedback').innerHTML = `<span style="color:var(--sp-red);">The word was "${quizWord.word}". You typed "${answer || '(empty)'}".</span>`;
+  }
+  $('#vocabQuizCounter').innerHTML = `Score: <strong>${state.quizScore}</strong> / ${state.quizTotal}`;
+  saveState();
+  updateVocabCounts();
+  setTimeout(startQuiz, 2000);
+}
+
+// =============================================================================
+// CONNECTORS PANEL
+// =============================================================================
+function renderConnectors(filter) {
+  const grid = $('#connectorsGrid');
+  let html = '';
+  for (const [cat, phrases] of Object.entries(CONNECTORS)) {
+    const filtered = filter ? phrases.filter(p => p.toLowerCase().includes(filter.toLowerCase())) : phrases;
+    if (filtered.length === 0) continue;
+    html += `<div class="sp-card wt-connector-section">
+      <div class="wt-connector-section__title">${cat}</div>
+      <div class="wt-connector-chips">${filtered.map(p =>
+        `<span class="wt-connector-chip" data-phrase="${p}">${p}</span>`
+      ).join('')}</div>
+    </div>`;
+  }
+  grid.innerHTML = html || '<div class="sp-card"><p style="color:var(--sp-muted);">No connectors match your search.</p></div>';
+
+  // Attach click-to-copy
+  grid.querySelectorAll('.wt-connector-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      navigator.clipboard.writeText(chip.dataset.phrase).then(() => {
+        chip.classList.add('copied');
+        setTimeout(() => chip.classList.remove('copied'), 800);
+      });
+    });
+  });
+}
+
+// =============================================================================
+// PROGRESS PANEL
+// =============================================================================
+function renderProgress() {
+  const totalSWT = state.swtScores.length;
+  const totalEssay = state.essayScores.length;
+  const totalVocabKnown = Object.values(state.vocabStatus).filter(s => s === 'known').length;
+  const avgSWT = totalSWT > 0 ? (state.swtScores.reduce((a, s) => a + s.totalScore, 0) / totalSWT).toFixed(1) : '--';
+  const avgEssay = totalEssay > 0 ? (state.essayScores.reduce((a, s) => a + s.totalScore, 0) / totalEssay).toFixed(1) : '--';
+
+  $('#progressStatsGrid').innerHTML = `
+    <div class="wt-stat-card"><div class="wt-stat-card__value">${totalSWT}</div><div class="wt-stat-card__label">SWT Attempted</div></div>
+    <div class="wt-stat-card"><div class="wt-stat-card__value">${totalEssay}</div><div class="wt-stat-card__label">Essays Attempted</div></div>
+    <div class="wt-stat-card"><div class="wt-stat-card__value">${avgSWT}</div><div class="wt-stat-card__label">Avg SWT Score /7</div></div>
+    <div class="wt-stat-card"><div class="wt-stat-card__value">${avgEssay}</div><div class="wt-stat-card__label">Avg Essay Score /11</div></div>
+    <div class="wt-stat-card"><div class="wt-stat-card__value">${totalVocabKnown}</div><div class="wt-stat-card__label">Vocab Known /100</div></div>
+    <div class="wt-stat-card"><div class="wt-stat-card__value">${state.streak}</div><div class="wt-stat-card__label">Day Streak</div></div>
+  `;
+
+  // SWT score history
+  const swtHist = $('#swtScoreHistory');
+  if (totalSWT === 0) {
+    swtHist.innerHTML = '<p style="color:var(--sp-muted);font-size:0.875rem;">No SWT scores yet. Complete your first practice to see history.</p>';
+  } else {
+    swtHist.innerHTML = state.swtScores.slice(-10).reverse().map(s => {
+      const pct = (s.totalScore / 7) * 100;
+      const color = pct >= 70 ? 'var(--sp-green)' : pct >= 40 ? 'var(--sp-yellow)' : 'var(--sp-red)';
+      return `<div class="wt-chart-bar-wrap">
+        <div class="wt-chart-label"><span>${s.title}</span><span>${s.totalScore}/7</span></div>
+        <div class="wt-chart-bar"><div class="wt-chart-bar__fill" style="width:${pct}%;background:${color};"></div></div>
+      </div>`;
+    }).join('');
+  }
+
+  // Essay score history
+  const essayHist = $('#essayScoreHistory');
+  if (totalEssay === 0) {
+    essayHist.innerHTML = '<p style="color:var(--sp-muted);font-size:0.875rem;">No essay scores yet. Complete your first practice to see history.</p>';
+  } else {
+    essayHist.innerHTML = state.essayScores.slice(-10).reverse().map(s => {
+      const pct = (s.totalScore / 11) * 100;
+      const color = pct >= 70 ? 'var(--sp-green)' : pct >= 40 ? 'var(--sp-yellow)' : 'var(--sp-red)';
+      return `<div class="wt-chart-bar-wrap">
+        <div class="wt-chart-label"><span>${s.title}</span><span>${s.totalScore}/11</span></div>
+        <div class="wt-chart-bar"><div class="wt-chart-bar__fill" style="width:${pct}%;background:${color};"></div></div>
+      </div>`;
+    }).join('');
+  }
+
+  // Score breakdown
+  const breakdown = $('#scoreBreakdown');
+  if (totalSWT + totalEssay === 0) {
+    breakdown.innerHTML = '<p style="color:var(--sp-muted);font-size:0.875rem;">Complete some practices to see score breakdowns.</p>';
+  } else {
+    let html = '';
+    if (totalSWT > 0) {
+      const avgContent = (state.swtScores.reduce((a,s) => a + s.contentScore, 0) / totalSWT).toFixed(1);
+      const avgForm = (state.swtScores.reduce((a,s) => a + s.formScore, 0) / totalSWT).toFixed(1);
+      const avgGram = (state.swtScores.reduce((a,s) => a + s.grammarScore, 0) / totalSWT).toFixed(1);
+      const avgVoc = (state.swtScores.reduce((a,s) => a + s.vocabScore, 0) / totalSWT).toFixed(1);
+      html += '<h4 style="margin:8px 0;color:var(--sp-purple);">SWT Averages</h4>';
+      html += renderBreakdownBar('Content', avgContent, 2);
+      html += renderBreakdownBar('Form', avgForm, 1);
+      html += renderBreakdownBar('Grammar', avgGram, 2);
+      html += renderBreakdownBar('Vocabulary', avgVoc, 2);
+    }
+    if (totalEssay > 0) {
+      const avgC = (state.essayScores.reduce((a,s) => a + s.contentScore, 0) / totalEssay).toFixed(1);
+      const avgF = (state.essayScores.reduce((a,s) => a + s.formScore, 0) / totalEssay).toFixed(1);
+      const avgG = (state.essayScores.reduce((a,s) => a + s.grammarScore, 0) / totalEssay).toFixed(1);
+      const avgV = (state.essayScores.reduce((a,s) => a + s.vocabScore, 0) / totalEssay).toFixed(1);
+      const avgS = (state.essayScores.reduce((a,s) => a + s.spellingScore, 0) / totalEssay).toFixed(1);
+      html += '<h4 style="margin:16px 0 8px;color:var(--sp-orange);">Essay Averages</h4>';
+      html += renderBreakdownBar('Content', avgC, 3);
+      html += renderBreakdownBar('Form', avgF, 2);
+      html += renderBreakdownBar('Grammar', avgG, 2);
+      html += renderBreakdownBar('Vocabulary', avgV, 2);
+      html += renderBreakdownBar('Spelling', avgS, 2);
+    }
+    breakdown.innerHTML = html;
+  }
+}
+
+function renderBreakdownBar(label, value, max) {
+  const pct = (value / max) * 100;
+  const color = pct >= 70 ? 'var(--sp-green)' : pct >= 40 ? 'var(--sp-yellow)' : 'var(--sp-red)';
+  return `<div class="wt-chart-bar-wrap">
+    <div class="wt-chart-label"><span>${label}</span><span>${value}/${max}</span></div>
+    <div class="wt-chart-bar"><div class="wt-chart-bar__fill" style="width:${pct}%;background:${color};"></div></div>
+  </div>`;
+}
+
+// =============================================================================
+// HEADER STATS
+// =============================================================================
+function updateHeaderStats() {
+  const totalPracticed = state.swtScores.length + state.essayScores.length;
+  const vocabKnown = Object.values(state.vocabStatus).filter(s => s === 'known').length;
+  $('#headerStats').innerHTML = `
+    <span class="sp-stat"><span class="sp-stat__icon">&#9997;</span> ${totalPracticed} practised</span>
+    <span class="sp-stat"><span class="sp-stat__icon">&#128218;</span> ${vocabKnown}/100 vocab</span>
+    <span class="sp-stat"><span class="sp-stat__icon">&#128293;</span> ${state.streak} day streak</span>
+  `;
+}
+
+function updateStreak() {
+  const today = new Date().toDateString();
+  const last = state.lastPractice ? new Date(state.lastPractice).toDateString() : null;
+  if (!last) return 1;
+  if (last === today) return state.streak || 1;
+  const yesterday = new Date(Date.now() - 86400000).toDateString();
+  if (last === yesterday) return (state.streak || 0) + 1;
+  return 1;
+}
+
+// =============================================================================
+// TIPS
+// =============================================================================
+function renderTips() {
+  $('#swtTipsList').innerHTML = WRITING_TIPS.summarizeWrittenText.map(t => `<li>${t}</li>`).join('');
+  $('#essayTipsList').innerHTML = WRITING_TIPS.writeEssay.map(t => `<li>${t}</li>`).join('');
+}
+
+// =============================================================================
+// AUTO-SAVE DRAFTS
+// =============================================================================
+function autoSaveDrafts() {
+  // SWT
+  const swtItems = filteredSWT();
+  if (swtItems.length > 0) {
+    const item = swtItems[state.swtIndex];
+    const val = $('#swtTextarea').value;
+    if (val) state.swtDrafts[item.id] = val;
+    else delete state.swtDrafts[item.id];
+  }
+  // Essay
+  const essayItems = filteredEssays();
+  if (essayItems.length > 0) {
+    const item = essayItems[state.essayIndex];
+    const val = $('#essayTextarea').value;
+    if (val) state.essayDrafts[item.id] = val;
+    else delete state.essayDrafts[item.id];
+  }
+  saveState();
+}
+
+// =============================================================================
+// KEYBOARD SHORTCUTS
+// =============================================================================
+function initKeyboardShortcuts() {
+  document.addEventListener('keydown', e => {
+    // Tab key in textarea for indentation
+    if (e.key === 'Tab' && (e.target === $('#swtTextarea') || e.target === $('#essayTextarea'))) {
+      e.preventDefault();
+      const ta = e.target;
+      const start = ta.selectionStart;
+      const end = ta.selectionEnd;
+      ta.value = ta.value.substring(0, start) + '    ' + ta.value.substring(end);
+      ta.selectionStart = ta.selectionEnd = start + 4;
+      return;
+    }
+
+    // Ctrl+Enter: Check
+    if (e.ctrlKey && e.key === 'Enter') {
+      e.preventDefault();
+      const activeTab = document.querySelector('.sp-tab.active');
+      if (activeTab.dataset.tab === 'swt') checkSWT();
+      else if (activeTab.dataset.tab === 'essay') checkEssay();
+    }
+
+    // Ctrl+S: Save draft
+    if (e.ctrlKey && e.key === 's') {
+      e.preventDefault();
+      autoSaveDrafts();
+    }
+
+    // Alt+1-5: Switch tabs
+    if (e.altKey && e.key >= '1' && e.key <= '5') {
+      e.preventDefault();
+      const tabs = ['swt', 'essay', 'vocab', 'connectors', 'progress'];
+      const idx = parseInt(e.key) - 1;
+      if (idx < tabs.length) {
+        $$('.sp-tab').forEach(t => t.classList.remove('active'));
+        $$('.sp-panel').forEach(p => p.classList.remove('active'));
+        const tab = document.querySelector(`.sp-tab[data-tab="${tabs[idx]}"]`);
+        tab.classList.add('active');
+        $(`#panel-${tabs[idx]}`).classList.add('active');
+        if (tabs[idx] === 'progress') renderProgress();
+        if (tabs[idx] === 'connectors') renderConnectors('');
+      }
+    }
+  });
+}
+
+// =============================================================================
+// EVENT LISTENERS
+// =============================================================================
+function initEvents() {
+  // SWT navigation
+  $('#swtPrev').addEventListener('click', () => {
+    autoSaveDrafts();
+    const items = filteredSWT();
+    state.swtIndex = (state.swtIndex - 1 + items.length) % items.length;
+    saveState(); renderSWT();
+  });
+  $('#swtNext').addEventListener('click', () => {
+    autoSaveDrafts();
+    const items = filteredSWT();
+    state.swtIndex = (state.swtIndex + 1) % items.length;
+    saveState(); renderSWT();
+  });
+
+  // SWT difficulty
+  $$('#swtDiffPills .sp-diff-pill').forEach(pill => {
+    pill.addEventListener('click', () => {
+      autoSaveDrafts();
+      $$('#swtDiffPills .sp-diff-pill').forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      state.swtDiff = pill.dataset.diff;
+      state.swtIndex = 0;
+      saveState(); renderSWT();
+    });
+  });
+
+  // SWT textarea
+  $('#swtTextarea').addEventListener('input', updateSWTCounters);
+
+  // SWT timer
+  $('#swtTimerStart').addEventListener('click', startSWTTimer);
+  $('#swtTimerPause').addEventListener('click', pauseSWTTimer);
+  $('#swtTimerReset').addEventListener('click', resetSWTTimer);
+
+  // SWT check & save
+  $('#swtCheckBtn').addEventListener('click', checkSWT);
+  $('#swtSaveScore').addEventListener('click', saveSWTScore);
+
+  // Essay navigation
+  $('#essayPrev').addEventListener('click', () => {
+    autoSaveDrafts();
+    const items = filteredEssays();
+    state.essayIndex = (state.essayIndex - 1 + items.length) % items.length;
+    saveState(); renderEssay();
+  });
+  $('#essayNext').addEventListener('click', () => {
+    autoSaveDrafts();
+    const items = filteredEssays();
+    state.essayIndex = (state.essayIndex + 1) % items.length;
+    saveState(); renderEssay();
+  });
+
+  // Essay difficulty
+  $$('#essayDiffPills .sp-diff-pill').forEach(pill => {
+    pill.addEventListener('click', () => {
+      autoSaveDrafts();
+      $$('#essayDiffPills .sp-diff-pill').forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      state.essayDiff = pill.dataset.diff;
+      state.essayIndex = 0;
+      saveState(); renderEssay();
+    });
+  });
+
+  // Essay textarea
+  $('#essayTextarea').addEventListener('input', updateEssayCounters);
+
+  // Essay timer
+  $('#essayTimerStart').addEventListener('click', startEssayTimer);
+  $('#essayTimerPause').addEventListener('click', pauseEssayTimer);
+  $('#essayTimerReset').addEventListener('click', resetEssayTimer);
+
+  // Essay check & save
+  $('#essayCheckBtn').addEventListener('click', checkEssay);
+  $('#essaySaveScore').addEventListener('click', saveEssayScore);
+
+  // Vocab flashcard
+  $('#vocabFlashcard').addEventListener('click', toggleVocabReveal);
+  $('#vocabPrev').addEventListener('click', () => {
+    state.vocabIndex = (state.vocabIndex - 1 + ACADEMIC_VOCABULARY.length) % ACADEMIC_VOCABULARY.length;
+    saveState(); renderVocab();
+  });
+  $('#vocabNext').addEventListener('click', () => {
+    state.vocabIndex = (state.vocabIndex + 1) % ACADEMIC_VOCABULARY.length;
+    saveState(); renderVocab();
+  });
+  $('#vocabMarkNew').addEventListener('click', () => markVocab('new'));
+  $('#vocabMarkLearning').addEventListener('click', () => markVocab('learning'));
+  $('#vocabMarkKnown').addEventListener('click', () => markVocab('known'));
+
+  // Vocab mode toggle
+  $('#vocabFlashcardMode').addEventListener('click', () => {
+    $('#vocabFlashcardPanel').style.display = 'block';
+    $('#vocabQuizPanel').style.display = 'none';
+    $('#vocabFlashcardMode').className = 'sp-btn sp-btn--outline sp-btn--sm';
+    $('#vocabQuizMode').className = 'sp-btn sp-btn--ghost sp-btn--sm';
+  });
+  $('#vocabQuizMode').addEventListener('click', () => {
+    $('#vocabFlashcardPanel').style.display = 'none';
+    $('#vocabQuizPanel').style.display = 'block';
+    $('#vocabFlashcardMode').className = 'sp-btn sp-btn--ghost sp-btn--sm';
+    $('#vocabQuizMode').className = 'sp-btn sp-btn--outline sp-btn--sm';
+    startQuiz();
+  });
+
+  // Quiz
+  $('#vocabQuizCheck').addEventListener('click', checkQuiz);
+  $('#vocabQuizSkip').addEventListener('click', () => { state.quizTotal++; startQuiz(); });
+  $('#vocabQuizInput').addEventListener('keydown', e => { if (e.key === 'Enter') checkQuiz(); });
+
+  // Connectors search
+  $('#connectorSearch').addEventListener('input', e => renderConnectors(e.target.value));
+
+  // Progress tab render
+  document.querySelector('.sp-tab[data-tab="progress"]').addEventListener('click', renderProgress);
+
+  // Reset progress
+  $('#resetProgressBtn').addEventListener('click', () => {
+    if (confirm('Are you sure you want to reset all progress? This cannot be undone.')) {
+      state = defaultState();
+      saveState();
+      updateHeaderStats();
+      renderSWT(); renderEssay(); renderVocab(); renderConnectors(''); renderProgress();
+      alert('Progress has been reset.');
+    }
+  });
+
+  // Auto-save every 10 seconds
+  setInterval(autoSaveDrafts, 10000);
+}
+
+// =============================================================================
+// INIT
+// =============================================================================
+function init() {
+  initTabs();
+  initStars();
+  renderTips();
+  renderSWT();
+  renderEssay();
+  renderVocab();
+  renderConnectors('');
+  updateHeaderStats();
+  initEvents();
+  initKeyboardShortcuts();
+}
+
+document.addEventListener('DOMContentLoaded', init);
+
+})();
+</script>
+</body>
+</html>

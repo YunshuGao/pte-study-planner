@@ -1,0 +1,1648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PTE Academic — Mock Test</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+/* =============================================================
+   PTE Mock Test — Full Exam Simulation Interface
+   Closely replicates real Pearson PTE Academic test UI
+   ============================================================= */
+
+/* --- CSS Variables --- */
+:root {
+  --pte-navy: #1a237e;
+  --pte-navy-light: #283593;
+  --pte-blue: #1565c0;
+  --pte-blue-hover: #0d47a1;
+  --pte-blue-light: #42a5f5;
+  --pte-green: #2e7d32;
+  --pte-red: #c62828;
+  --pte-orange: #e65100;
+  --pte-yellow: #f9a825;
+  --pte-grey: #f5f5f5;
+  --pte-grey-dark: #616161;
+  --pte-white: #ffffff;
+  --pte-text: #212121;
+  --pte-text-muted: #757575;
+  --pte-border: #e0e0e0;
+  --pte-font: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* --- Global Reset for Mock Test --- */
+.mock-test-page * { box-sizing: border-box; }
+.mock-test-page {
+  font-family: var(--pte-font);
+  color: var(--pte-text);
+  background: var(--pte-grey);
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* =============================================================
+   TEST SELECTOR SCREEN
+   ============================================================= */
+.test-selector {
+  max-width: 800px;
+  margin: 60px auto;
+  padding: 0 20px;
+  text-align: center;
+}
+.test-selector__back {
+  display: inline-block;
+  color: var(--pte-blue);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  margin-bottom: 16px;
+}
+.test-selector__back:hover { color: var(--pte-blue-hover); }
+.test-selector__logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.test-selector__logo-icon {
+  width: 48px;
+  height: 48px;
+  background: var(--pte-navy);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 900;
+  font-size: 1.25rem;
+}
+.test-selector h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--pte-navy);
+  margin: 0 0 4px;
+}
+.test-selector__subtitle {
+  color: var(--pte-text-muted);
+  font-size: 1rem;
+  margin-bottom: 32px;
+}
+.test-card {
+  background: var(--pte-white);
+  border-radius: 12px;
+  padding: 28px 32px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+  text-align: left;
+}
+.test-card:hover {
+  border-color: var(--pte-blue);
+  box-shadow: 0 4px 16px rgba(21,101,192,0.12);
+  transform: translateY(-2px);
+}
+.test-card h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--pte-navy);
+  margin: 0 0 8px;
+}
+.test-card__meta {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  font-size: 0.8125rem;
+  color: var(--pte-text-muted);
+}
+.test-card__meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.test-card__sections {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+.test-card__tag {
+  font-size: 0.75rem;
+  padding: 3px 10px;
+  border-radius: 12px;
+  background: #e3f2fd;
+  color: var(--pte-blue);
+  font-weight: 600;
+}
+.test-card__best {
+  margin-top: 12px;
+  font-size: 0.8125rem;
+  color: var(--pte-green);
+  font-weight: 600;
+}
+
+/* =============================================================
+   EXAM HEADER BAR
+   ============================================================= */
+.exam-header {
+  background: var(--pte-navy);
+  color: var(--pte-white);
+  padding: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+.exam-header__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 24px;
+  min-height: 52px;
+}
+.exam-header__brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: 0.01em;
+}
+.exam-header__brand-icon {
+  width: 32px;
+  height: 32px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 900;
+}
+.exam-header__center {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  font-size: 0.875rem;
+}
+.exam-header__item-counter {
+  font-weight: 600;
+  opacity: 0.9;
+}
+.exam-header__section-label {
+  background: rgba(255,255,255,0.12);
+  padding: 4px 14px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.8125rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+.exam-header__right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.exam-header__timer {
+  font-size: 1.3rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+  min-width: 60px;
+  text-align: right;
+}
+.exam-header__timer--warning { color: var(--pte-yellow); }
+.exam-header__timer--danger { color: #ef5350; animation: pulse-timer 0.8s infinite; }
+@keyframes pulse-timer {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+.exam-header__pause-btn {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #fff;
+  padding: 5px 14px;
+  border-radius: 4px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.exam-header__pause-btn:hover { background: rgba(255,255,255,0.22); }
+
+/* Progress bar */
+.exam-progress {
+  height: 4px;
+  background: rgba(255,255,255,0.1);
+  position: relative;
+}
+.exam-progress__fill {
+  height: 100%;
+  background: var(--pte-blue-light);
+  transition: width 0.4s ease;
+  border-radius: 0 2px 2px 0;
+}
+
+/* =============================================================
+   EXAM BODY (single item view)
+   ============================================================= */
+.exam-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 80px 24px 100px;
+  min-height: 100vh;
+}
+.exam-item {
+  background: var(--pte-white);
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  width: 100%;
+  max-width: 820px;
+  padding: 40px 48px;
+  position: relative;
+}
+.exam-item__type {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--pte-blue);
+  margin-bottom: 6px;
+}
+.exam-item__instruction {
+  font-size: 0.9375rem;
+  color: var(--pte-text-muted);
+  line-height: 1.5;
+  margin-bottom: 28px;
+  border-bottom: 1px solid var(--pte-border);
+  padding-bottom: 20px;
+}
+
+/* Read Aloud text */
+.exam-item__text {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: var(--pte-text);
+  padding: 20px 0;
+  word-spacing: 0.05em;
+}
+
+/* Describe Image */
+.exam-item__image-area {
+  text-align: center;
+  padding: 16px 0;
+}
+.exam-item__image-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--pte-navy);
+  margin-bottom: 12px;
+}
+.exam-item__image-desc {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--pte-text);
+  text-align: left;
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid var(--pte-border);
+}
+.exam-item__image-data {
+  font-size: 0.8125rem;
+  color: var(--pte-text-muted);
+  margin-top: 12px;
+  font-style: italic;
+  text-align: left;
+}
+
+/* ASQ question display */
+.exam-item__question {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--pte-text);
+  text-align: center;
+  padding: 30px 0;
+}
+
+/* Retell Lecture */
+.exam-item__lecture-info {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid var(--pte-border);
+  margin-bottom: 16px;
+}
+.exam-item__lecture-title {
+  font-weight: 700;
+  color: var(--pte-navy);
+  font-size: 1rem;
+  margin-bottom: 6px;
+}
+.exam-item__lecture-topic {
+  font-size: 0.8125rem;
+  color: var(--pte-text-muted);
+  text-transform: capitalize;
+}
+
+/* =============================================================
+   RECORDING STATUS BAR
+   ============================================================= */
+.recording-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 16px 0;
+  margin-top: 20px;
+  border-top: 1px solid var(--pte-border);
+}
+.recording-status__indicator {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #bdbdbd;
+  transition: background 0.3s;
+}
+.recording-status__indicator--preparing {
+  background: var(--pte-yellow);
+  animation: pulse-dot 1.2s infinite;
+}
+.recording-status__indicator--recording {
+  background: var(--pte-red);
+  animation: pulse-dot 0.8s infinite;
+}
+.recording-status__indicator--completed {
+  background: var(--pte-green);
+}
+.recording-status__indicator--listening {
+  background: var(--pte-blue);
+  animation: pulse-dot 1s infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.35); opacity: 0.6; }
+}
+.recording-status__label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--pte-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.recording-status__label--preparing { color: var(--pte-orange); }
+.recording-status__label--recording { color: var(--pte-red); }
+.recording-status__label--completed { color: var(--pte-green); }
+.recording-status__label--listening { color: var(--pte-blue); }
+
+.recording-status__timer {
+  font-size: 1.1rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--pte-text);
+  min-width: 40px;
+}
+
+/* Microphone visual */
+.mic-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+.mic-icon {
+  font-size: 1.5rem;
+  color: #bdbdbd;
+  transition: color 0.3s;
+}
+.mic-icon--active { color: var(--pte-red); }
+.mic-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 24px;
+}
+.mic-bars__bar {
+  width: 3px;
+  background: #bdbdbd;
+  border-radius: 2px;
+  transition: height 0.1s, background 0.3s;
+}
+.mic-bars__bar--active { background: var(--pte-red); }
+
+/* =============================================================
+   EXAM FOOTER
+   ============================================================= */
+.exam-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--pte-white);
+  border-top: 1px solid var(--pte-border);
+  padding: 12px 24px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+  z-index: 999;
+  box-shadow: 0 -2px 8px rgba(0,0,0,0.04);
+}
+.exam-footer__btn {
+  padding: 10px 32px;
+  border-radius: 6px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: background 0.2s, opacity 0.2s;
+}
+.exam-footer__btn--next {
+  background: var(--pte-blue);
+  color: #fff;
+}
+.exam-footer__btn--next:hover { background: var(--pte-blue-hover); }
+.exam-footer__btn--next:disabled {
+  background: #b0bec5;
+  cursor: not-allowed;
+}
+.exam-footer__btn--skip {
+  background: transparent;
+  color: var(--pte-text-muted);
+  border: 1px solid var(--pte-border);
+}
+.exam-footer__btn--skip:hover { background: #f5f5f5; }
+
+/* =============================================================
+   MODAL OVERLAYS
+   ============================================================= */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+.modal-overlay.hidden { display: none; }
+.modal-box {
+  background: var(--pte-white);
+  border-radius: 14px;
+  padding: 40px 48px;
+  max-width: 480px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+}
+.modal-box h2 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--pte-navy);
+  margin: 0 0 12px;
+}
+.modal-box p {
+  font-size: 0.95rem;
+  color: var(--pte-text-muted);
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+.modal-box__btn {
+  padding: 12px 40px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.modal-box__btn--primary {
+  background: var(--pte-blue);
+  color: #fff;
+}
+.modal-box__btn--primary:hover { background: var(--pte-blue-hover); }
+.modal-box__btn--secondary {
+  background: transparent;
+  color: var(--pte-text-muted);
+  margin-right: 12px;
+}
+.modal-box__btn--secondary:hover { background: #f5f5f5; }
+
+/* Pause overlay */
+.pause-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(26,35,126,0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  flex-direction: column;
+  color: #fff;
+}
+.pause-overlay.hidden { display: none; }
+.pause-overlay h2 {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+.pause-overlay p {
+  opacity: 0.7;
+  margin-bottom: 28px;
+}
+.pause-overlay__btn {
+  padding: 14px 48px;
+  border-radius: 8px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  border: 2px solid rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.pause-overlay__btn:hover { background: rgba(255,255,255,0.25); }
+
+/* =============================================================
+   RESULTS SCREEN
+   ============================================================= */
+.results-screen {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 0 20px 60px;
+}
+.results-screen__header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+.results-screen__header h1 {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--pte-navy);
+  margin: 0 0 6px;
+}
+.results-screen__header p {
+  color: var(--pte-text-muted);
+  font-size: 0.95rem;
+}
+
+.results-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+  margin-bottom: 28px;
+}
+.results-summary__card {
+  background: var(--pte-white);
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+.results-summary__value {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--pte-navy);
+  margin-bottom: 4px;
+}
+.results-summary__label {
+  font-size: 0.8125rem;
+  color: var(--pte-text-muted);
+  font-weight: 600;
+}
+
+.results-section {
+  background: var(--pte-white);
+  border-radius: 10px;
+  padding: 24px 28px;
+  margin-bottom: 16px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+.results-section h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--pte-navy);
+  margin: 0 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.results-section__score-badge {
+  font-size: 0.8125rem;
+  padding: 2px 10px;
+  border-radius: 10px;
+  font-weight: 700;
+}
+.results-section__score-badge--good { background: #e8f5e9; color: var(--pte-green); }
+.results-section__score-badge--ok { background: #fff3e0; color: var(--pte-orange); }
+.results-section__score-badge--poor { background: #ffebee; color: var(--pte-red); }
+
+.results-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid #f5f5f5;
+  font-size: 0.875rem;
+}
+.results-item:last-child { border-bottom: none; }
+.results-item__num {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--pte-text-muted);
+  flex-shrink: 0;
+}
+.results-item__text {
+  flex: 1;
+  color: var(--pte-text);
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.results-item__score {
+  font-weight: 700;
+  font-size: 0.8125rem;
+  padding: 2px 8px;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+.results-item__score--good { background: #e8f5e9; color: var(--pte-green); }
+.results-item__score--ok { background: #fff3e0; color: var(--pte-orange); }
+.results-item__score--poor { background: #ffebee; color: var(--pte-red); }
+.results-item__score--skip { background: #f5f5f5; color: var(--pte-text-muted); }
+
+.results-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 28px;
+  flex-wrap: wrap;
+}
+.results-actions__btn {
+  padding: 12px 32px;
+  border-radius: 8px;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.results-actions__btn--primary {
+  background: var(--pte-blue);
+  color: #fff;
+}
+.results-actions__btn--primary:hover { background: var(--pte-blue-hover); }
+.results-actions__btn--secondary {
+  background: var(--pte-white);
+  color: var(--pte-text);
+  border: 1px solid var(--pte-border);
+}
+.results-actions__btn--secondary:hover { background: #f5f5f5; }
+
+/* Tips */
+.results-tips {
+  background: #fff8e1;
+  border-radius: 10px;
+  padding: 20px 24px;
+  margin-top: 20px;
+  border-left: 4px solid var(--pte-yellow);
+}
+.results-tips h4 {
+  margin: 0 0 8px;
+  color: var(--pte-orange);
+  font-size: 0.95rem;
+}
+.results-tips ul {
+  margin: 0;
+  padding-left: 20px;
+  font-size: 0.875rem;
+  line-height: 1.8;
+  color: var(--pte-text);
+}
+
+/* =============================================================
+   RESPONSIVE
+   ============================================================= */
+@media (max-width: 640px) {
+  .exam-header__top { padding: 8px 12px; }
+  .exam-header__brand { font-size: 0.9rem; }
+  .exam-header__center { gap: 12px; font-size: 0.8rem; }
+  .exam-header__timer { font-size: 1.1rem; }
+  .exam-item { padding: 24px 20px; }
+  .exam-item__text { font-size: 1.05rem; }
+  .exam-footer { padding: 10px 16px; }
+  .modal-box { padding: 28px 24px; }
+  .test-selector h1 { font-size: 1.5rem; }
+}
+</style>
+</head>
+<body class="mock-test-page">
+
+<!-- ============================================================
+     SCREEN 1: TEST SELECTOR
+     ============================================================ -->
+<div id="selectorScreen" class="test-selector">
+  <a href="index.html" class="test-selector__back">&larr; Back to Study Planner</a>
+  <div class="test-selector__logo">
+    <div class="test-selector__logo-icon">PTE</div>
+  </div>
+  <h1>PTE Academic Mock Test</h1>
+  <p class="test-selector__subtitle">Speaking Section — Full Exam Simulation (&#20840;&#30495;&#32771;&#35797;&#30028;&#38754;)</p>
+  <div id="testCards"></div>
+</div>
+
+<!-- ============================================================
+     SCREEN 2: EXAM INTERFACE
+     ============================================================ -->
+<div id="examScreen" style="display:none;">
+  <!-- Header -->
+  <header class="exam-header">
+    <div class="exam-header__top">
+      <div class="exam-header__brand">
+        <div class="exam-header__brand-icon">PTE</div>
+        <span>PTE Academic</span>
+      </div>
+      <div class="exam-header__center">
+        <span class="exam-header__item-counter" id="itemCounter">Item 1 of 35</span>
+        <span class="exam-header__section-label" id="sectionLabel">Read Aloud</span>
+      </div>
+      <div class="exam-header__right">
+        <div class="exam-header__timer" id="headerTimer">0:35</div>
+        <button class="exam-header__pause-btn" id="pauseBtn" title="Pause test">&#10074;&#10074; Pause</button>
+      </div>
+    </div>
+    <div class="exam-progress">
+      <div class="exam-progress__fill" id="progressFill" style="width:0%"></div>
+    </div>
+  </header>
+
+  <!-- Body -->
+  <main class="exam-body">
+    <div class="exam-item" id="examItem">
+      <div class="exam-item__type" id="itemType">Read Aloud</div>
+      <div class="exam-item__instruction" id="itemInstruction"></div>
+      <div id="itemContent"></div>
+      <div class="recording-status" id="recordingStatus">
+        <div class="recording-status__indicator" id="statusIndicator"></div>
+        <span class="recording-status__label" id="statusLabel">Preparing</span>
+        <span class="recording-status__timer" id="statusTimer">0:35</span>
+      </div>
+      <div class="mic-visual" id="micVisual">
+        <span class="mic-icon" id="micIcon">&#127908;</span>
+        <div class="mic-bars" id="micBars">
+          <div class="mic-bars__bar" style="height:6px"></div>
+          <div class="mic-bars__bar" style="height:10px"></div>
+          <div class="mic-bars__bar" style="height:14px"></div>
+          <div class="mic-bars__bar" style="height:18px"></div>
+          <div class="mic-bars__bar" style="height:14px"></div>
+          <div class="mic-bars__bar" style="height:10px"></div>
+          <div class="mic-bars__bar" style="height:6px"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="exam-footer">
+    <button class="exam-footer__btn exam-footer__btn--skip" id="skipBtn" onclick="skipItem()">Skip</button>
+    <button class="exam-footer__btn exam-footer__btn--next" id="nextBtn" onclick="nextItem()" disabled>Next &rarr;</button>
+  </footer>
+</div>
+
+<!-- ============================================================
+     SCREEN 3: RESULTS
+     ============================================================ -->
+<div id="resultsScreen" style="display:none;" class="results-screen"></div>
+
+<!-- ============================================================
+     MODALS
+     ============================================================ -->
+<!-- Ready confirmation -->
+<div class="modal-overlay hidden" id="readyModal">
+  <div class="modal-box">
+    <h2>Are you ready to begin?</h2>
+    <p>This mock test simulates a full PTE Speaking section.<br>
+       Make sure your microphone is working and you are in a quiet environment.<br>
+       The test contains <strong id="readyItemCount">35</strong> items and will take approximately <strong>25&ndash;30 minutes</strong>.</p>
+    <button class="modal-box__btn modal-box__btn--secondary" onclick="cancelTest()">Cancel</button>
+    <button class="modal-box__btn modal-box__btn--primary" id="startTestBtn" onclick="startTest()">Start Test</button>
+  </div>
+</div>
+
+<!-- Pause overlay -->
+<div class="pause-overlay hidden" id="pauseOverlay">
+  <h2>Test Paused</h2>
+  <p>Click Resume to continue your mock test.</p>
+  <button class="pause-overlay__btn" onclick="resumeTest()">&#9654; Resume</button>
+</div>
+
+<!-- ============================================================
+     SCRIPTS
+     ============================================================ -->
+<script src="js/speaking-data.js"></script>
+<script src="js/mock-test-data.js"></script>
+<script>
+// =============================================================
+// PTE Mock Test Engine
+// =============================================================
+
+// --- State ---
+let currentTest = null;
+let flatItems = [];       // flattened list of all items in order
+let currentItemIndex = 0;
+let itemTimer = null;
+let phaseTimer = null;
+let isPaused = false;
+let testStartTime = null;
+let itemResults = [];     // { id, type, sectionType, score, transcript, skipped }
+let mediaRecorder = null;
+let audioChunks = [];
+let recognition = null;
+let recognisedText = '';
+let currentPhase = 'idle'; // idle | preparing | listening | recording | completed
+
+// --- Data lookups ---
+const DATA_MAP = {
+  'read-aloud': READ_ALOUD_TEXTS,
+  'repeat-sentence': REPEAT_SENTENCES,
+  'describe-image': DESCRIBE_IMAGE_ITEMS,
+  'retell-lecture': RETELL_LECTURE_ITEMS,
+  'answer-short-question': ASQ_QUESTIONS
+};
+
+function findItem(type, id) {
+  const arr = DATA_MAP[type];
+  if (!arr) return null;
+  return arr.find(i => i.id === id) || null;
+}
+
+// =============================================================
+// TEST SELECTOR
+// =============================================================
+function renderSelector() {
+  const container = document.getElementById('testCards');
+  container.innerHTML = '';
+  MOCK_TESTS.forEach(test => {
+    const totalItems = test.sections.reduce((sum, s) => sum + s.itemIds.length, 0);
+    const best = getBestScore(test.id);
+    const card = document.createElement('div');
+    card.className = 'test-card';
+    card.onclick = () => selectTest(test.id);
+    card.innerHTML = `
+      <h3>${test.name}</h3>
+      <div class="test-card__meta">
+        <span>&#128221; ${totalItems} items</span>
+        <span>&#9201; ~25-30 min</span>
+        <span>&#127908; Speaking section</span>
+      </div>
+      <div class="test-card__sections">
+        ${test.sections.map(s => `<span class="test-card__tag">${s.label} (${s.itemIds.length})</span>`).join('')}
+      </div>
+      ${best !== null ? `<div class="test-card__best">Best score: ${best}%</div>` : ''}
+    `;
+    container.appendChild(card);
+  });
+}
+
+function getBestScore(testId) {
+  try {
+    const results = JSON.parse(localStorage.getItem('pte-mock-results') || '[]');
+    const testResults = results.filter(r => r.testId === testId);
+    if (!testResults.length) return null;
+    return Math.max(...testResults.map(r => r.overallScore));
+  } catch { return null; }
+}
+
+function selectTest(testId) {
+  currentTest = MOCK_TESTS.find(t => t.id === testId);
+  if (!currentTest) return;
+  buildFlatItems();
+  document.getElementById('readyItemCount').textContent = flatItems.length;
+  document.getElementById('readyModal').classList.remove('hidden');
+}
+
+function cancelTest() {
+  document.getElementById('readyModal').classList.add('hidden');
+  currentTest = null;
+}
+
+// =============================================================
+// BUILD FLAT ITEM LIST
+// =============================================================
+function buildFlatItems() {
+  flatItems = [];
+  currentTest.sections.forEach(section => {
+    section.itemIds.forEach(id => {
+      const data = findItem(section.type, id);
+      if (!data) return;
+      flatItems.push({
+        id: id,
+        sectionType: section.type,
+        label: section.label,
+        instruction: section.instruction,
+        prepTime: section.prepTime || 0,
+        recordTime: section.recordTime || section.answerTime || 15,
+        data: data
+      });
+    });
+  });
+}
+
+// =============================================================
+// START TEST
+// =============================================================
+async function startTest() {
+  document.getElementById('readyModal').classList.add('hidden');
+  document.getElementById('selectorScreen').style.display = 'none';
+  document.getElementById('examScreen').style.display = '';
+  testStartTime = Date.now();
+  currentItemIndex = 0;
+  itemResults = [];
+
+  // Request mic permission early
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    stream.getTracks().forEach(t => t.stop());
+  } catch (e) {
+    console.warn('Microphone access denied:', e);
+  }
+
+  showItem(0);
+}
+
+// =============================================================
+// SHOW ITEM
+// =============================================================
+function showItem(index) {
+  if (index >= flatItems.length) {
+    finishTest();
+    return;
+  }
+  currentItemIndex = index;
+  const item = flatItems[index];
+  recognisedText = '';
+
+  // Update header
+  document.getElementById('itemCounter').textContent = `Item ${index + 1} of ${flatItems.length}`;
+  document.getElementById('sectionLabel').textContent = item.label;
+  document.getElementById('progressFill').style.width = `${((index) / flatItems.length) * 100}%`;
+
+  // Update item card
+  document.getElementById('itemType').textContent = item.label;
+  document.getElementById('itemInstruction').textContent = item.instruction;
+
+  // Render content based on type
+  const contentEl = document.getElementById('itemContent');
+  contentEl.innerHTML = '';
+
+  switch (item.sectionType) {
+    case 'read-aloud':
+      contentEl.innerHTML = `<div class="exam-item__text">${item.data.text}</div>`;
+      startPrepPhase(item);
+      break;
+
+    case 'repeat-sentence':
+      contentEl.innerHTML = `<div class="exam-item__question" style="font-size:1.1rem;color:var(--pte-text-muted);">Listen carefully and repeat the sentence...</div>`;
+      startListenPhase(item);
+      break;
+
+    case 'describe-image':
+      contentEl.innerHTML = `
+        <div class="exam-item__image-area">
+          <div class="exam-item__image-title">${item.data.title}</div>
+          <div class="exam-item__image-desc">${item.data.description}</div>
+          ${item.data.dataDetails ? `<div class="exam-item__image-data">${item.data.dataDetails}</div>` : ''}
+        </div>`;
+      startPrepPhase(item);
+      break;
+
+    case 'retell-lecture':
+      contentEl.innerHTML = `
+        <div class="exam-item__lecture-info">
+          <div class="exam-item__lecture-title">${item.data.title}</div>
+          <div class="exam-item__lecture-topic">Topic: ${item.data.topic}</div>
+        </div>
+        <div class="exam-item__question" style="font-size:1rem;color:var(--pte-text-muted);">Listening to lecture...</div>`;
+      startLectureListenPhase(item);
+      break;
+
+    case 'answer-short-question':
+      contentEl.innerHTML = `<div class="exam-item__question" style="font-size:1.1rem;color:var(--pte-text-muted);">Listen to the question...</div>`;
+      startASQPhase(item);
+      break;
+  }
+
+  // Reset buttons
+  document.getElementById('nextBtn').disabled = true;
+  document.getElementById('skipBtn').style.display = '';
+}
+
+// =============================================================
+// PHASE MANAGEMENT
+// =============================================================
+
+// --- Prep phase (RA, DI) ---
+function startPrepPhase(item) {
+  currentPhase = 'preparing';
+  updateStatus('preparing', 'Preparing', item.prepTime);
+  updateMic(false);
+
+  let remaining = item.prepTime;
+  updateTimerDisplay(remaining);
+  itemTimer = setInterval(() => {
+    if (isPaused) return;
+    remaining--;
+    updateTimerDisplay(remaining);
+    updateStatus('preparing', 'Preparing', remaining);
+    if (remaining <= 0) {
+      clearInterval(itemTimer);
+      startRecordPhase(item);
+    }
+  }, 1000);
+}
+
+// --- Record phase ---
+function startRecordPhase(item) {
+  currentPhase = 'recording';
+  updateStatus('recording', 'Recording', item.recordTime);
+  updateMic(true);
+  startRecording();
+  startSpeechRecognition();
+
+  let remaining = item.recordTime;
+  updateTimerDisplay(remaining);
+  itemTimer = setInterval(() => {
+    if (isPaused) return;
+    remaining--;
+    updateTimerDisplay(remaining);
+    updateStatus('recording', 'Recording', remaining);
+    animateMicBars();
+    if (remaining <= 0) {
+      clearInterval(itemTimer);
+      completeItem(item);
+    }
+  }, 1000);
+}
+
+// --- Listen phase (RS) — play TTS then record ---
+function startListenPhase(item) {
+  currentPhase = 'listening';
+  updateStatus('listening', 'Listening', '--');
+  updateMic(false);
+  updateTimerDisplay('--');
+
+  speakText(item.data.text, () => {
+    // After TTS finishes, start recording
+    startRecordPhase(item);
+  });
+}
+
+// --- Lecture listen phase (RL) — play TTS of transcript then prep then record ---
+function startLectureListenPhase(item) {
+  currentPhase = 'listening';
+  updateStatus('listening', 'Listening to lecture', '--');
+  updateMic(false);
+  updateTimerDisplay('--');
+
+  speakText(item.data.transcript, () => {
+    // Update content to show "Now retell in your own words"
+    const contentEl = document.getElementById('itemContent');
+    contentEl.innerHTML = `
+      <div class="exam-item__lecture-info">
+        <div class="exam-item__lecture-title">${item.data.title}</div>
+        <div class="exam-item__lecture-topic">Topic: ${item.data.topic}</div>
+      </div>
+      <div class="exam-item__question" style="font-size:1rem;color:var(--pte-text);">Now retell the lecture in your own words.</div>`;
+    startPrepThenRecord(item);
+  });
+}
+
+// --- Prep then record (for RL after listening) ---
+function startPrepThenRecord(item) {
+  currentPhase = 'preparing';
+  updateStatus('preparing', 'Preparing', item.prepTime);
+  updateMic(false);
+
+  let remaining = item.prepTime;
+  updateTimerDisplay(remaining);
+  itemTimer = setInterval(() => {
+    if (isPaused) return;
+    remaining--;
+    updateTimerDisplay(remaining);
+    updateStatus('preparing', 'Preparing', remaining);
+    if (remaining <= 0) {
+      clearInterval(itemTimer);
+      startRecordPhase(item);
+    }
+  }, 1000);
+}
+
+// --- ASQ phase: play question then record ---
+function startASQPhase(item) {
+  currentPhase = 'listening';
+  updateStatus('listening', 'Listening', '--');
+  updateMic(false);
+  updateTimerDisplay('--');
+
+  speakText(item.data.question, () => {
+    // Show question text after audio
+    const contentEl = document.getElementById('itemContent');
+    contentEl.innerHTML = `<div class="exam-item__question">${item.data.question}</div>`;
+    startRecordPhase(item);
+  });
+}
+
+// --- Complete item ---
+function completeItem(item) {
+  currentPhase = 'completed';
+  stopRecording();
+  stopSpeechRecognition();
+  updateStatus('completed', 'Completed', '');
+  updateMic(false);
+
+  const score = calculateScore(item);
+  itemResults.push({
+    id: item.id,
+    sectionType: item.sectionType,
+    label: item.label,
+    score: score,
+    transcript: recognisedText,
+    skipped: false,
+    data: item.data
+  });
+
+  document.getElementById('nextBtn').disabled = false;
+}
+
+// =============================================================
+// UI HELPERS
+// =============================================================
+function updateStatus(state, label, time) {
+  const indicator = document.getElementById('statusIndicator');
+  const labelEl = document.getElementById('statusLabel');
+  const timerEl = document.getElementById('statusTimer');
+
+  indicator.className = 'recording-status__indicator';
+  labelEl.className = 'recording-status__label';
+
+  if (state) {
+    indicator.classList.add(`recording-status__indicator--${state}`);
+    labelEl.classList.add(`recording-status__label--${state}`);
+  }
+  labelEl.textContent = label;
+  timerEl.textContent = typeof time === 'number' ? formatTime(time) : (time || '');
+}
+
+function updateTimerDisplay(seconds) {
+  const timerEl = document.getElementById('headerTimer');
+  if (typeof seconds === 'number') {
+    timerEl.textContent = formatTime(seconds);
+    timerEl.className = 'exam-header__timer';
+    if (seconds <= 5 && seconds > 0) timerEl.classList.add('exam-header__timer--danger');
+    else if (seconds <= 10) timerEl.classList.add('exam-header__timer--warning');
+  } else {
+    timerEl.textContent = seconds;
+    timerEl.className = 'exam-header__timer';
+  }
+}
+
+function formatTime(s) {
+  if (typeof s !== 'number' || s < 0) return '0:00';
+  const m = Math.floor(s / 60);
+  const sec = s % 60;
+  return `${m}:${sec.toString().padStart(2, '0')}`;
+}
+
+function updateMic(active) {
+  document.getElementById('micIcon').className = active ? 'mic-icon mic-icon--active' : 'mic-icon';
+  document.querySelectorAll('.mic-bars__bar').forEach(bar => {
+    bar.classList.toggle('mic-bars__bar--active', active);
+    if (!active) bar.style.height = bar.dataset.defaultHeight || '6px';
+  });
+  // Store default heights
+  if (!active) {
+    const heights = [6, 10, 14, 18, 14, 10, 6];
+    document.querySelectorAll('.mic-bars__bar').forEach((bar, i) => {
+      bar.style.height = heights[i] + 'px';
+      bar.dataset.defaultHeight = heights[i] + 'px';
+    });
+  }
+}
+
+function animateMicBars() {
+  document.querySelectorAll('.mic-bars__bar').forEach(bar => {
+    const h = 4 + Math.random() * 20;
+    bar.style.height = h + 'px';
+  });
+}
+
+// =============================================================
+// TTS (Text-to-Speech)
+// =============================================================
+function speakText(text, onEnd) {
+  if (!window.speechSynthesis) {
+    setTimeout(onEnd, 2000);
+    return;
+  }
+  window.speechSynthesis.cancel();
+  const utter = new SpeechSynthesisUtterance(text);
+  utter.rate = 0.95;
+  utter.pitch = 1;
+  utter.lang = 'en-AU';
+  // Try to pick an English voice
+  const voices = window.speechSynthesis.getVoices();
+  const enVoice = voices.find(v => v.lang.startsWith('en-AU'))
+    || voices.find(v => v.lang.startsWith('en-GB'))
+    || voices.find(v => v.lang.startsWith('en-US'))
+    || voices.find(v => v.lang.startsWith('en'));
+  if (enVoice) utter.voice = enVoice;
+  utter.onend = () => { if (onEnd) onEnd(); };
+  utter.onerror = () => { if (onEnd) onEnd(); };
+  window.speechSynthesis.speak(utter);
+}
+
+// Pre-load voices
+if (window.speechSynthesis) {
+  window.speechSynthesis.onvoiceschanged = () => { window.speechSynthesis.getVoices(); };
+  window.speechSynthesis.getVoices();
+}
+
+// =============================================================
+// MEDIA RECORDER (Microphone)
+// =============================================================
+async function startRecording() {
+  audioChunks = [];
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    mediaRecorder = new MediaRecorder(stream, { mimeType: MediaRecorder.isTypeSupported('audio/webm;codecs=opus') ? 'audio/webm;codecs=opus' : 'audio/webm' });
+    mediaRecorder.ondataavailable = e => { if (e.data.size > 0) audioChunks.push(e.data); };
+    mediaRecorder.start(250);
+  } catch (err) {
+    console.warn('Recording failed:', err);
+  }
+}
+
+function stopRecording() {
+  if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+    mediaRecorder.stop();
+    mediaRecorder.stream.getTracks().forEach(t => t.stop());
+  }
+  mediaRecorder = null;
+}
+
+// =============================================================
+// SPEECH RECOGNITION
+// =============================================================
+function startSpeechRecognition() {
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRecognition) return;
+  recognition = new SpeechRecognition();
+  recognition.continuous = true;
+  recognition.interimResults = true;
+  recognition.lang = 'en-AU';
+  recognisedText = '';
+  recognition.onresult = (event) => {
+    let final = '';
+    let interim = '';
+    for (let i = 0; i < event.results.length; i++) {
+      if (event.results[i].isFinal) {
+        final += event.results[i][0].transcript;
+      } else {
+        interim += event.results[i][0].transcript;
+      }
+    }
+    recognisedText = (final + ' ' + interim).trim();
+  };
+  recognition.onerror = () => {};
+  try { recognition.start(); } catch {}
+}
+
+function stopSpeechRecognition() {
+  if (recognition) {
+    try { recognition.stop(); } catch {}
+    recognition = null;
+  }
+}
+
+// =============================================================
+// SCORING
+// =============================================================
+function calculateScore(item) {
+  if (!recognisedText || recognisedText.trim().length === 0) return 0;
+  const spoken = recognisedText.toLowerCase().replace(/[^a-z0-9\s]/g, '').trim();
+
+  switch (item.sectionType) {
+    case 'read-aloud': {
+      const original = item.data.text.toLowerCase().replace(/[^a-z0-9\s]/g, '');
+      const origWords = original.split(/\s+/);
+      const spokenWords = spoken.split(/\s+/);
+      let matches = 0;
+      origWords.forEach(w => { if (spokenWords.includes(w)) matches++; });
+      return Math.round((matches / origWords.length) * 100);
+    }
+    case 'repeat-sentence': {
+      const original = item.data.text.toLowerCase().replace(/[^a-z0-9\s]/g, '');
+      const origWords = original.split(/\s+/);
+      const spokenWords = spoken.split(/\s+/);
+      let matches = 0;
+      origWords.forEach(w => { if (spokenWords.includes(w)) matches++; });
+      return Math.round((matches / origWords.length) * 100);
+    }
+    case 'describe-image': {
+      const keyWords = item.data.keyPoints.join(' ').toLowerCase().replace(/[^a-z0-9\s]/g, '').split(/\s+/);
+      const spokenWords = spoken.split(/\s+/);
+      const uniqueKey = [...new Set(keyWords.filter(w => w.length > 3))];
+      let matches = 0;
+      uniqueKey.forEach(w => { if (spokenWords.some(sw => sw.includes(w) || w.includes(sw))) matches++; });
+      const coverage = uniqueKey.length > 0 ? matches / uniqueKey.length : 0;
+      const lengthScore = Math.min(spokenWords.length / 30, 1);
+      return Math.round(((coverage * 0.6) + (lengthScore * 0.4)) * 100);
+    }
+    case 'retell-lecture': {
+      const keyWords = item.data.keyPoints.join(' ').toLowerCase().replace(/[^a-z0-9\s]/g, '').split(/\s+/);
+      const spokenWords = spoken.split(/\s+/);
+      const uniqueKey = [...new Set(keyWords.filter(w => w.length > 3))];
+      let matches = 0;
+      uniqueKey.forEach(w => { if (spokenWords.some(sw => sw.includes(w) || w.includes(sw))) matches++; });
+      const coverage = uniqueKey.length > 0 ? matches / uniqueKey.length : 0;
+      const lengthScore = Math.min(spokenWords.length / 25, 1);
+      return Math.round(((coverage * 0.6) + (lengthScore * 0.4)) * 100);
+    }
+    case 'answer-short-question': {
+      const answer = item.data.answer.toLowerCase().replace(/[^a-z0-9\s]/g, '');
+      const answerWords = answer.split(/\s+/).filter(w => w.length > 1);
+      const matchCount = answerWords.filter(w => spoken.includes(w)).length;
+      return matchCount >= Math.ceil(answerWords.length * 0.5) ? 100 : 0;
+    }
+    default:
+      return 0;
+  }
+}
+
+// =============================================================
+// NAVIGATION
+// =============================================================
+function nextItem() {
+  clearInterval(itemTimer);
+  window.speechSynthesis && window.speechSynthesis.cancel();
+  stopRecording();
+  stopSpeechRecognition();
+
+  // If item wasn't completed yet, save as completed with current score
+  if (currentPhase !== 'completed' && currentPhase !== 'idle') {
+    const item = flatItems[currentItemIndex];
+    const score = calculateScore(item);
+    // Check if already saved
+    if (!itemResults.find(r => r.id === item.id)) {
+      itemResults.push({
+        id: item.id, sectionType: item.sectionType, label: item.label,
+        score: score, transcript: recognisedText, skipped: false, data: item.data
+      });
+    }
+  }
+
+  showItem(currentItemIndex + 1);
+}
+
+function skipItem() {
+  clearInterval(itemTimer);
+  window.speechSynthesis && window.speechSynthesis.cancel();
+  stopRecording();
+  stopSpeechRecognition();
+
+  const item = flatItems[currentItemIndex];
+  if (!itemResults.find(r => r.id === item.id)) {
+    itemResults.push({
+      id: item.id, sectionType: item.sectionType, label: item.label,
+      score: 0, transcript: '', skipped: true, data: item.data
+    });
+  }
+  showItem(currentItemIndex + 1);
+}
+
+// =============================================================
+// PAUSE / RESUME
+// =============================================================
+document.getElementById('pauseBtn').addEventListener('click', () => {
+  isPaused = true;
+  window.speechSynthesis && window.speechSynthesis.pause();
+  document.getElementById('pauseOverlay').classList.remove('hidden');
+});
+
+function resumeTest() {
+  isPaused = false;
+  window.speechSynthesis && window.speechSynthesis.resume();
+  document.getElementById('pauseOverlay').classList.add('hidden');
+}
+
+// =============================================================
+// FINISH TEST & RESULTS
+// =============================================================
+function finishTest() {
+  document.getElementById('examScreen').style.display = 'none';
+  document.getElementById('resultsScreen').style.display = '';
+
+  const totalTime = Math.round((Date.now() - testStartTime) / 1000);
+  const overallScore = itemResults.length > 0
+    ? Math.round(itemResults.reduce((s, r) => s + r.score, 0) / itemResults.length)
+    : 0;
+
+  // Save to localStorage
+  saveResults(overallScore, totalTime);
+
+  // Group by section
+  const sections = {};
+  itemResults.forEach(r => {
+    if (!sections[r.sectionType]) sections[r.sectionType] = { label: r.label, items: [] };
+    sections[r.sectionType].items.push(r);
+  });
+
+  // Calculate section averages
+  const sectionScores = {};
+  Object.keys(sections).forEach(type => {
+    const items = sections[type].items;
+    sectionScores[type] = {
+      label: sections[type].label,
+      avg: Math.round(items.reduce((s, i) => s + i.score, 0) / items.length),
+      count: items.length,
+      items: items
+    };
+  });
+
+  // Find weakest section
+  let weakest = null;
+  let weakestScore = 101;
+  Object.keys(sectionScores).forEach(type => {
+    if (sectionScores[type].avg < weakestScore) {
+      weakestScore = sectionScores[type].avg;
+      weakest = sectionScores[type].label;
+    }
+  });
+
+  // Render results
+  const el = document.getElementById('resultsScreen');
+  el.innerHTML = `
+    <div class="results-screen__header">
+      <h1>Mock Test Complete</h1>
+      <p>${currentTest.name} &mdash; ${formatTimeMinSec(totalTime)}</p>
+    </div>
+    <div class="results-summary">
+      <div class="results-summary__card">
+        <div class="results-summary__value">${overallScore}%</div>
+        <div class="results-summary__label">Overall Score</div>
+      </div>
+      <div class="results-summary__card">
+        <div class="results-summary__value">${itemResults.length}</div>
+        <div class="results-summary__label">Items Attempted</div>
+      </div>
+      <div class="results-summary__card">
+        <div class="results-summary__value">${itemResults.filter(r => r.skipped).length}</div>
+        <div class="results-summary__label">Skipped</div>
+      </div>
+      <div class="results-summary__card">
+        <div class="results-summary__value">${formatTimeMinSec(totalTime)}</div>
+        <div class="results-summary__label">Total Time</div>
+      </div>
+    </div>
+
+    ${Object.keys(sectionScores).map(type => {
+      const sec = sectionScores[type];
+      const badge = sec.avg >= 70 ? 'good' : sec.avg >= 40 ? 'ok' : 'poor';
+      return `
+        <div class="results-section">
+          <h3>${sec.label}
+            <span class="results-section__score-badge results-section__score-badge--${badge}">${sec.avg}%</span>
+          </h3>
+          ${sec.items.map((item, i) => {
+            const scoreBadge = item.skipped ? 'skip' : item.score >= 70 ? 'good' : item.score >= 40 ? 'ok' : 'poor';
+            const preview = getItemPreview(item);
+            return `<div class="results-item">
+              <div class="results-item__num">${i + 1}</div>
+              <div class="results-item__text" title="${escapeHtml(preview)}">${escapeHtml(preview)}</div>
+              <div class="results-item__score results-item__score--${scoreBadge}">
+                ${item.skipped ? 'Skipped' : item.score + '%'}
+              </div>
+            </div>`;
+          }).join('')}
+        </div>`;
+    }).join('')}
+
+    <div class="results-tips">
+      <h4>Areas to Improve</h4>
+      <ul>
+        ${weakest ? `<li><strong>${weakest}</strong> was your weakest section (${weakestScore}%). Focus extra practice here.</li>` : ''}
+        ${overallScore < 70 ? '<li>Aim to speak clearly and at a natural pace. Avoid rushing through sentences.</li>' : ''}
+        ${sectionScores['repeat-sentence'] && sectionScores['repeat-sentence'].avg < 60 ? '<li>For Repeat Sentence, focus on catching the structure of the sentence rather than every single word.</li>' : ''}
+        ${sectionScores['describe-image'] && sectionScores['describe-image'].avg < 60 ? '<li>For Describe Image, use a structured template: introduction, key data points, trends, conclusion.</li>' : ''}
+        ${sectionScores['read-aloud'] && sectionScores['read-aloud'].avg < 70 ? '<li>For Read Aloud, use the preparation time to silently read through stress words and plan pauses.</li>' : ''}
+        ${overallScore >= 70 ? '<li>Good performance! Keep practising to maintain consistency under exam pressure.</li>' : ''}
+        <li>Record yourself and listen back to identify pronunciation patterns to improve.</li>
+      </ul>
+    </div>
+
+    <div class="results-actions">
+      <button class="results-actions__btn results-actions__btn--primary" onclick="backToSelector()">Try Another Test</button>
+      <a href="index.html" class="results-actions__btn results-actions__btn--secondary">Back to Study Planner</a>
+    </div>
+  `;
+
+  // Scroll to top
+  window.scrollTo(0, 0);
+}
+
+function getItemPreview(item) {
+  switch (item.sectionType) {
+    case 'read-aloud':
+      return item.data.text.substring(0, 80) + '...';
+    case 'repeat-sentence':
+      return item.data.text;
+    case 'describe-image':
+      return item.data.title;
+    case 'retell-lecture':
+      return item.data.title;
+    case 'answer-short-question':
+      return item.data.question;
+    default:
+      return item.id;
+  }
+}
+
+function escapeHtml(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+function formatTimeMinSec(totalSec) {
+  const m = Math.floor(totalSec / 60);
+  const s = totalSec % 60;
+  return `${m}m ${s}s`;
+}
+
+function saveResults(overallScore, totalTime) {
+  try {
+    const results = JSON.parse(localStorage.getItem('pte-mock-results') || '[]');
+    results.push({
+      testId: currentTest.id,
+      testName: currentTest.name,
+      date: new Date().toISOString(),
+      overallScore: overallScore,
+      totalTime: totalTime,
+      itemCount: itemResults.length,
+      sectionBreakdown: getSectionBreakdown()
+    });
+    localStorage.setItem('pte-mock-results', JSON.stringify(results));
+  } catch {}
+}
+
+function getSectionBreakdown() {
+  const breakdown = {};
+  itemResults.forEach(r => {
+    if (!breakdown[r.sectionType]) breakdown[r.sectionType] = { total: 0, count: 0 };
+    breakdown[r.sectionType].total += r.score;
+    breakdown[r.sectionType].count++;
+  });
+  const result = {};
+  Object.keys(breakdown).forEach(type => {
+    result[type] = Math.round(breakdown[type].total / breakdown[type].count);
+  });
+  return result;
+}
+
+function backToSelector() {
+  document.getElementById('resultsScreen').style.display = 'none';
+  document.getElementById('selectorScreen').style.display = '';
+  document.getElementById('resultsScreen').innerHTML = '';
+  currentTest = null;
+  flatItems = [];
+  itemResults = [];
+  renderSelector();
+}
+
+// =============================================================
+// INIT
+// =============================================================
+renderSelector();
+</script>
+</body>
+</html>
