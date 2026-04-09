@@ -1,0 +1,2533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CCL Interpretation Practice — NAATI CCL 口译练习</title>
+<style>
+/* ============================================================
+   CCL Interpretation Trainer — Inline Styles
+   ============================================================ */
+:root {
+  --ccl-bg: #f5f7fa;
+  --ccl-card: #fff;
+  --ccl-text: #1a1a2e;
+  --ccl-muted: #6c757d;
+  --ccl-primary: #00897b;
+  --ccl-dark: #1a237e;
+  --ccl-green: #27ae60;
+  --ccl-red: #e74c3c;
+  --ccl-yellow: #f39c12;
+  --ccl-orange: #e67e22;
+  --ccl-purple: #8b5cf6;
+  --ccl-radius: 12px;
+  --ccl-teal-light: #e0f2f1;
+  --ccl-navy-light: #e8eaf6;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--ccl-bg);
+  color: var(--ccl-text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.ccl-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 16px 60px;
+}
+
+/* --- Header --- */
+.ccl-header {
+  background: linear-gradient(135deg, var(--ccl-dark), var(--ccl-primary));
+  color: #fff;
+  text-align: center;
+  padding: 24px 16px 20px;
+  margin-bottom: 20px;
+  border-radius: 0 0 20px 20px;
+}
+.ccl-header__back {
+  display: inline-block;
+  color: rgba(255,255,255,0.8);
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.ccl-header__back:hover { color: #fff; }
+.ccl-header__title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  margin: 0 0 4px;
+  letter-spacing: -0.02em;
+}
+.ccl-header__subtitle {
+  font-size: 1rem;
+  opacity: 0.85;
+  margin: 0 0 12px;
+}
+.ccl-stats {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.ccl-stat {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(4px);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+/* --- Tabs --- */
+.ccl-tabs {
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  margin-bottom: 20px;
+  -webkit-overflow-scrolling: touch;
+}
+.ccl-tabs::-webkit-scrollbar { height: 3px; }
+.ccl-tabs::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+.ccl-tab {
+  flex-shrink: 0;
+  padding: 10px 18px;
+  border: 2px solid transparent;
+  background: var(--ccl-card);
+  color: var(--ccl-muted);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  border-radius: var(--ccl-radius);
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.ccl-tab:hover { color: var(--ccl-primary); background: var(--ccl-teal-light); }
+.ccl-tab.active {
+  color: var(--ccl-primary);
+  background: var(--ccl-teal-light);
+  border-color: var(--ccl-primary);
+}
+
+/* --- Panel --- */
+.ccl-panel { display: none; animation: cclFadeIn 0.3s ease; }
+.ccl-panel.active { display: block; }
+@keyframes cclFadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+/* --- Cards --- */
+.ccl-card {
+  background: var(--ccl-card);
+  border-radius: var(--ccl-radius);
+  padding: 20px;
+  margin-bottom: 16px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  border: 1px solid #e2e8f0;
+}
+.ccl-card__title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ccl-text);
+  margin: 0 0 12px;
+}
+
+/* --- Domain pills --- */
+.ccl-domain-pills {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.ccl-domain-pill {
+  padding: 4px 14px;
+  border-radius: 20px;
+  border: 2px solid #e2e8f0;
+  background: var(--ccl-card);
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: var(--ccl-muted);
+}
+.ccl-domain-pill.active { border-color: var(--ccl-primary); color: var(--ccl-primary); background: var(--ccl-teal-light); }
+.ccl-domain-pill:hover { border-color: var(--ccl-primary); }
+
+/* --- Direction badge --- */
+.ccl-direction {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.ccl-direction--en { background: #e3f2fd; color: #1565c0; }
+.ccl-direction--zh { background: #fce4ec; color: #c62828; }
+
+/* --- Text Display --- */
+.ccl-text-display {
+  font-size: 1.125rem;
+  line-height: 1.8;
+  color: var(--ccl-text);
+  padding: 16px;
+  background: #f8fafc;
+  border-radius: 8px;
+  border-left: 4px solid var(--ccl-primary);
+  margin-bottom: 12px;
+}
+
+/* --- Segment context --- */
+.ccl-context {
+  font-size: 0.8125rem;
+  color: var(--ccl-muted);
+  margin-bottom: 8px;
+  font-style: italic;
+}
+
+/* --- Navigation --- */
+.ccl-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.ccl-counter {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--ccl-muted);
+}
+.ccl-counter strong { color: var(--ccl-text); }
+
+/* --- Timer --- */
+.ccl-timer-wrap { margin: 12px 0; }
+.ccl-timer-bar {
+  height: 8px;
+  border-radius: 4px;
+  background: #e2e8f0;
+  overflow: hidden;
+  margin-bottom: 4px;
+}
+.ccl-timer-bar__fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 1s linear, background 0.5s;
+  width: 100%;
+  background: var(--ccl-green);
+}
+.ccl-timer-bar__fill.warn { background: var(--ccl-yellow); }
+.ccl-timer-bar__fill.danger { background: var(--ccl-red); }
+.ccl-timer-label {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--ccl-muted);
+  text-align: center;
+}
+.ccl-timer-label .time-val { color: var(--ccl-text); font-size: 1.25rem; }
+
+/* --- Buttons --- */
+.ccl-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.ccl-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.ccl-btn--primary { background: var(--ccl-primary); color: #fff; }
+.ccl-btn--primary:hover:not(:disabled) { background: #00695c; }
+.ccl-btn--green { background: var(--ccl-green); color: #fff; }
+.ccl-btn--green:hover:not(:disabled) { background: #219a52; }
+.ccl-btn--red { background: var(--ccl-red); color: #fff; }
+.ccl-btn--red:hover:not(:disabled) { background: #c0392b; }
+.ccl-btn--yellow { background: var(--ccl-yellow); color: #fff; }
+.ccl-btn--yellow:hover:not(:disabled) { background: #d68910; }
+.ccl-btn--outline {
+  background: transparent;
+  color: var(--ccl-primary);
+  border: 2px solid var(--ccl-primary);
+}
+.ccl-btn--outline:hover:not(:disabled) { background: var(--ccl-teal-light); }
+.ccl-btn--ghost {
+  background: transparent;
+  color: var(--ccl-muted);
+  border: 1px solid #e2e8f0;
+}
+.ccl-btn--ghost:hover:not(:disabled) { background: #f1f5f9; color: var(--ccl-text); }
+.ccl-btn--sm { padding: 6px 14px; font-size: 0.75rem; }
+.ccl-btn--dark { background: var(--ccl-dark); color: #fff; }
+.ccl-btn--dark:hover:not(:disabled) { background: #283593; }
+
+.ccl-btn-group {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* --- Recording controls --- */
+.ccl-rec-controls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 12px 0;
+}
+.ccl-rec-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  transition: all 0.2s;
+  min-width: 48px;
+  min-height: 48px;
+}
+.ccl-rec-btn--record { background: var(--ccl-red); color: #fff; }
+.ccl-rec-btn--record.recording { animation: cclPulse 1s infinite; }
+.ccl-rec-btn--play { background: var(--ccl-primary); color: #fff; }
+.ccl-rec-btn--play:disabled { background: #cbd5e1; }
+.ccl-rec-btn--speak { background: var(--ccl-dark); color: #fff; }
+.ccl-rec-btn--speak:disabled { background: #cbd5e1; }
+
+@keyframes cclPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(231,76,60,0.5); }
+  50% { box-shadow: 0 0 0 12px rgba(231,76,60,0); }
+}
+
+/* --- Self Assessment --- */
+.ccl-assess {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin: 12px 0;
+}
+.ccl-assess__item { flex: 1; min-width: 120px; }
+.ccl-assess__label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--ccl-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
+}
+.ccl-stars { display: flex; gap: 2px; }
+.ccl-star {
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 1.25rem;
+  color: #cbd5e1;
+  transition: color 0.15s;
+  padding: 0;
+}
+.ccl-star.filled { color: var(--ccl-yellow); }
+.ccl-star:hover { color: var(--ccl-yellow); }
+
+/* --- Score display --- */
+.ccl-score-panel {
+  padding: 16px;
+  background: #f8fafc;
+  border-radius: 8px;
+  margin: 12px 0;
+  border: 1px solid #e2e8f0;
+}
+.ccl-score-panel h4 {
+  font-size: 0.875rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--ccl-text);
+}
+.ccl-score-text {
+  font-size: 1rem;
+  line-height: 1.8;
+  word-break: break-word;
+}
+.ccl-score-text .matched { color: var(--ccl-green); font-weight: 700; }
+.ccl-score-text .missed { color: var(--ccl-red); text-decoration: line-through; opacity: 0.7; }
+.ccl-score-pct {
+  font-size: 1.5rem;
+  font-weight: 800;
+  text-align: center;
+  margin: 8px 0;
+}
+.ccl-score-pct.good { color: var(--ccl-green); }
+.ccl-score-pct.ok { color: var(--ccl-yellow); }
+.ccl-score-pct.poor { color: var(--ccl-red); }
+
+.ccl-keyterms {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+.ccl-keyterm {
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.ccl-keyterm.hit { background: #d1fae5; color: #065f46; }
+.ccl-keyterm.miss { background: #fee2e2; color: #991b1b; }
+
+/* --- Reference answer toggle --- */
+.ccl-reference {
+  margin-top: 12px;
+}
+.ccl-reference__toggle {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--ccl-primary);
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 4px 0;
+}
+.ccl-reference__toggle:hover { text-decoration: underline; }
+.ccl-reference__body {
+  display: none;
+  margin-top: 8px;
+  padding: 12px;
+  background: var(--ccl-teal-light);
+  border-radius: 8px;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+.ccl-reference__body.show { display: block; }
+
+/* --- Progress dots --- */
+.ccl-progress-dots {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 12px 0;
+}
+.ccl-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #e2e8f0;
+  transition: all 0.3s;
+}
+.ccl-dot.done { background: var(--ccl-green); }
+.ccl-dot.current { background: var(--ccl-primary); box-shadow: 0 0 0 3px rgba(0,137,123,0.3); }
+.ccl-dot.pending { background: #e2e8f0; }
+
+/* --- Bar chart --- */
+.ccl-bar-chart { margin: 12px 0; }
+.ccl-bar-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  gap: 8px;
+}
+.ccl-bar-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--ccl-muted);
+  min-width: 100px;
+  text-align: right;
+}
+.ccl-bar-track {
+  flex: 1;
+  height: 20px;
+  background: #e2e8f0;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.ccl-bar-fill {
+  height: 100%;
+  border-radius: 10px;
+  transition: width 0.5s;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 8px;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: #fff;
+  min-width: 30px;
+}
+
+/* --- Ring chart --- */
+.ccl-ring-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin: 16px 0;
+}
+.ccl-ring-svg { width: 140px; height: 140px; }
+.ccl-ring-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.ccl-ring-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+.ccl-ring-legend-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+/* --- Mock exam --- */
+.ccl-exam-start {
+  text-align: center;
+  padding: 40px 20px;
+}
+.ccl-exam-start h3 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+.ccl-exam-start p {
+  font-size: 0.9375rem;
+  color: var(--ccl-muted);
+  margin-bottom: 8px;
+}
+.ccl-exam-result {
+  text-align: center;
+  padding: 24px;
+}
+.ccl-exam-result .total-score {
+  font-size: 3rem;
+  font-weight: 900;
+  margin: 12px 0;
+}
+.ccl-exam-result .pass { color: var(--ccl-green); }
+.ccl-exam-result .fail { color: var(--ccl-red); }
+.ccl-exam-result .pass-label {
+  display: inline-block;
+  padding: 6px 20px;
+  border-radius: 20px;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+.ccl-exam-result .pass-label.pass-bg { background: #d1fae5; color: #065f46; }
+.ccl-exam-result .pass-label.fail-bg { background: #fee2e2; color: #991b1b; }
+
+/* --- Mock history table --- */
+.ccl-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8125rem;
+}
+.ccl-table th, .ccl-table td {
+  padding: 8px 12px;
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0;
+}
+.ccl-table th {
+  font-weight: 700;
+  color: var(--ccl-muted);
+  text-transform: uppercase;
+  font-size: 0.6875rem;
+  letter-spacing: 0.05em;
+}
+.ccl-table .pass-cell { color: var(--ccl-green); font-weight: 700; }
+.ccl-table .fail-cell { color: var(--ccl-red); font-weight: 700; }
+
+/* --- Vocab drill --- */
+.ccl-vocab-item {
+  padding: 16px;
+  background: #f8fafc;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  border: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.ccl-vocab-term {
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+.ccl-vocab-result {
+  font-size: 0.875rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 12px;
+}
+.ccl-vocab-result.correct { background: #d1fae5; color: #065f46; }
+.ccl-vocab-result.incorrect { background: #fee2e2; color: #991b1b; }
+.ccl-vocab-srs {
+  display: flex;
+  gap: 12px;
+  margin: 12px 0;
+  flex-wrap: wrap;
+}
+.ccl-vocab-srs-item {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+
+/* --- Confetti --- */
+.confetti-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  overflow: hidden;
+}
+.confetti-piece {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  top: -10px;
+  animation: confettiFall 3s linear forwards;
+}
+@keyframes confettiFall {
+  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+
+/* --- Weak segments --- */
+.ccl-weak-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #e2e8f0;
+  gap: 12px;
+}
+.ccl-weak-item:last-child { border-bottom: none; }
+.ccl-weak-info { flex: 1; }
+.ccl-weak-info .title { font-size: 0.875rem; font-weight: 700; }
+.ccl-weak-info .detail { font-size: 0.75rem; color: var(--ccl-muted); }
+.ccl-weak-score {
+  font-size: 0.875rem;
+  font-weight: 800;
+  color: var(--ccl-red);
+}
+
+/* --- Session stats --- */
+.ccl-session-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 12px;
+  margin: 12px 0;
+}
+.ccl-session-stat {
+  text-align: center;
+  padding: 16px;
+  background: #f8fafc;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+.ccl-session-stat .val {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--ccl-primary);
+}
+.ccl-session-stat .lbl {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: var(--ccl-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 4px;
+}
+
+/* --- Audio playback --- */
+.ccl-audio-wrap {
+  margin: 8px 0;
+}
+.ccl-audio-wrap audio {
+  width: 100%;
+  height: 36px;
+}
+
+/* --- Dropdown --- */
+.ccl-select {
+  padding: 10px 16px;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  background: var(--ccl-card);
+  color: var(--ccl-text);
+  width: 100%;
+  max-width: 400px;
+  cursor: pointer;
+}
+.ccl-select:focus { border-color: var(--ccl-primary); outline: none; }
+
+/* --- No data message --- */
+.ccl-empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--ccl-muted);
+  font-size: 0.9375rem;
+}
+
+/* --- SR unavailable banner --- */
+.ccl-sr-warn {
+  background: #fef3c7;
+  color: #92400e;
+  padding: 10px 16px;
+  border-radius: var(--ccl-radius);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+/* --- Responsive --- */
+@media (max-width: 600px) {
+  .ccl-header__title { font-size: 1.375rem; }
+  .ccl-card { padding: 14px; }
+  .ccl-assess { flex-direction: column; }
+  .ccl-bar-label { min-width: 70px; font-size: 0.6875rem; }
+  .ccl-session-stats { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="ccl-header">
+  <a href="index.html" class="ccl-header__back">&#8592; Back to Dashboard</a>
+  <h1 class="ccl-header__title">CCL Interpretation Practice</h1>
+  <p class="ccl-header__subtitle">NAATI CCL 口译练习</p>
+  <div class="ccl-stats">
+    <span class="ccl-stat" id="statSessions">Sessions: 0</span>
+    <span class="ccl-stat" id="statStreak">Streak: 0 days</span>
+    <span class="ccl-stat" id="statSegments">Segments: 0</span>
+  </div>
+</div>
+
+<!-- SR Warning (shown if unavailable) -->
+<div class="ccl-page">
+  <div class="ccl-sr-warn" id="srWarn" style="display:none;">
+    Speech recognition is not available in your browser. Recording and auto-scoring features will be limited. For best results, use Chrome or Edge.
+  </div>
+
+  <!-- Tabs -->
+  <div class="ccl-tabs" id="tabBar">
+    <button class="ccl-tab active" data-tab="segment">Segment Drill</button>
+    <button class="ccl-tab" data-tab="dialogue">Full Dialogue</button>
+    <button class="ccl-tab" data-tab="shadowing">Shadowing</button>
+    <button class="ccl-tab" data-tab="vocab">Vocabulary Drill</button>
+    <button class="ccl-tab" data-tab="mock">Mock CCL Exam</button>
+    <button class="ccl-tab" data-tab="progress">Progress</button>
+  </div>
+
+  <!-- ============================================================
+       TAB 1: SEGMENT DRILL
+       ============================================================ -->
+  <div class="ccl-panel active" id="panel-segment">
+    <!-- Domain filter -->
+    <div class="ccl-domain-pills" id="segDomainPills"></div>
+
+    <!-- Navigation -->
+    <div class="ccl-nav">
+      <button class="ccl-btn ccl-btn--ghost ccl-btn--sm" id="segPrev">&#8592; Previous</button>
+      <span class="ccl-counter" id="segCounter">Segment 1 of 0</span>
+      <button class="ccl-btn ccl-btn--ghost ccl-btn--sm" id="segNext">Next &#8594;</button>
+    </div>
+
+    <div class="ccl-card">
+      <!-- Direction badge -->
+      <div id="segDirection"></div>
+      <!-- Context -->
+      <div class="ccl-context" id="segContext"></div>
+      <!-- Source text -->
+      <div class="ccl-text-display" id="segSourceText"></div>
+
+      <!-- Play source TTS -->
+      <div class="ccl-btn-group" style="margin-bottom:12px;">
+        <button class="ccl-rec-btn ccl-rec-btn--speak" id="segPlayBtn" title="Play segment audio">&#9654;</button>
+        <span style="font-size:0.8125rem;color:var(--ccl-muted);font-weight:600;" id="segPlayLabel">Play segment</span>
+      </div>
+
+      <!-- Timer -->
+      <div class="ccl-timer-wrap" id="segTimerWrap" style="display:none;">
+        <div class="ccl-timer-bar"><div class="ccl-timer-bar__fill" id="segTimerFill"></div></div>
+        <div class="ccl-timer-label"><span class="time-val" id="segTimerVal">60</span>s remaining</div>
+      </div>
+
+      <!-- Recording controls -->
+      <div class="ccl-rec-controls">
+        <button class="ccl-rec-btn ccl-rec-btn--record" id="segRecordBtn" title="Record interpretation">&#9899;</button>
+        <span style="font-size:0.8125rem;color:var(--ccl-muted);font-weight:600;" id="segRecLabel">Click to record</span>
+      </div>
+
+      <!-- Audio playback -->
+      <div class="ccl-audio-wrap" id="segAudioWrap" style="display:none;">
+        <audio id="segAudio" controls></audio>
+      </div>
+    </div>
+
+    <!-- Auto-score panel -->
+    <div class="ccl-card" id="segScoreCard" style="display:none;">
+      <h3 class="ccl-card__title">Auto-Score</h3>
+      <div class="ccl-score-panel">
+        <h4>Your interpretation (recognised):</h4>
+        <div class="ccl-score-text" id="segRecognised"></div>
+      </div>
+      <div class="ccl-score-pct" id="segScorePct"></div>
+      <div class="ccl-score-panel">
+        <h4>Comparison with reference:</h4>
+        <div class="ccl-score-text" id="segComparison"></div>
+      </div>
+      <div class="ccl-score-panel">
+        <h4>Key Term Coverage:</h4>
+        <div class="ccl-keyterms" id="segKeyTerms"></div>
+      </div>
+    </div>
+
+    <!-- Self assessment -->
+    <div class="ccl-card" id="segAssessCard" style="display:none;">
+      <h3 class="ccl-card__title">Self-Assessment</h3>
+      <div class="ccl-assess" id="segAssess">
+        <div class="ccl-assess__item">
+          <div class="ccl-assess__label">Accuracy</div>
+          <div class="ccl-stars" data-category="accuracy"></div>
+        </div>
+        <div class="ccl-assess__item">
+          <div class="ccl-assess__label">Completeness</div>
+          <div class="ccl-stars" data-category="completeness"></div>
+        </div>
+        <div class="ccl-assess__item">
+          <div class="ccl-assess__label">Fluency</div>
+          <div class="ccl-stars" data-category="fluency"></div>
+        </div>
+        <div class="ccl-assess__item">
+          <div class="ccl-assess__label">Terminology</div>
+          <div class="ccl-stars" data-category="terminology"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reference answer -->
+    <div class="ccl-card" id="segRefCard" style="display:none;">
+      <div class="ccl-reference">
+        <button class="ccl-reference__toggle" id="segRefToggle">Show Reference Answer</button>
+        <div class="ccl-reference__body" id="segRefBody"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       TAB 2: FULL DIALOGUE PRACTICE
+       ============================================================ -->
+  <div class="ccl-panel" id="panel-dialogue">
+    <div class="ccl-card">
+      <h3 class="ccl-card__title">Select a Dialogue</h3>
+      <select class="ccl-select" id="dlgSelect">
+        <option value="">-- Choose a dialogue --</option>
+      </select>
+    </div>
+
+    <div id="dlgArea" style="display:none;">
+      <div class="ccl-card">
+        <h3 class="ccl-card__title" id="dlgTitle"></h3>
+        <div class="ccl-context" id="dlgScenario"></div>
+        <div class="ccl-progress-dots" id="dlgDots"></div>
+      </div>
+
+      <!-- Current segment area -->
+      <div class="ccl-card" id="dlgSegCard">
+        <div id="dlgDirection"></div>
+        <div class="ccl-text-display" id="dlgSegText"></div>
+
+        <div class="ccl-btn-group" style="margin-bottom:12px;">
+          <button class="ccl-rec-btn ccl-rec-btn--speak" id="dlgPlayBtn" title="Play">&#9654;</button>
+          <span style="font-size:0.8125rem;color:var(--ccl-muted);font-weight:600;">Play segment</span>
+        </div>
+
+        <div class="ccl-timer-wrap" id="dlgTimerWrap" style="display:none;">
+          <div class="ccl-timer-bar"><div class="ccl-timer-bar__fill" id="dlgTimerFill"></div></div>
+          <div class="ccl-timer-label"><span class="time-val" id="dlgTimerVal">60</span>s remaining</div>
+        </div>
+
+        <div class="ccl-rec-controls">
+          <button class="ccl-rec-btn ccl-rec-btn--record" id="dlgRecordBtn">&#9899;</button>
+          <span style="font-size:0.8125rem;color:var(--ccl-muted);font-weight:600;" id="dlgRecLabel">Click to record</span>
+        </div>
+
+        <div class="ccl-audio-wrap" id="dlgAudioWrap" style="display:none;">
+          <audio id="dlgAudio" controls></audio>
+        </div>
+
+        <div class="ccl-score-panel" id="dlgScorePanel" style="display:none;">
+          <h4>Score:</h4>
+          <div class="ccl-score-pct" id="dlgSegScore"></div>
+        </div>
+
+        <div style="text-align:center;margin-top:12px;" id="dlgNextWrap" style="display:none;">
+          <button class="ccl-btn ccl-btn--primary" id="dlgNextBtn">Next Segment &#8594;</button>
+        </div>
+      </div>
+
+      <!-- Results summary -->
+      <div class="ccl-card" id="dlgResults" style="display:none;">
+        <h3 class="ccl-card__title">Dialogue Complete!</h3>
+        <div id="dlgResultsBody"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       TAB 3: SHADOWING MODE
+       ============================================================ -->
+  <div class="ccl-panel" id="panel-shadowing">
+    <div class="ccl-domain-pills" id="shaDomainPills"></div>
+
+    <div class="ccl-nav">
+      <button class="ccl-btn ccl-btn--ghost ccl-btn--sm" id="shaPrev">&#8592; Previous</button>
+      <span class="ccl-counter" id="shaCounter">Segment 1 of 0</span>
+      <button class="ccl-btn ccl-btn--ghost ccl-btn--sm" id="shaNext">Next &#8594;</button>
+    </div>
+
+    <div class="ccl-card">
+      <div id="shaDirection"></div>
+      <div class="ccl-context" id="shaContext"></div>
+      <div class="ccl-text-display" id="shaSourceText"></div>
+
+      <div class="ccl-btn-group" style="margin-bottom:12px;">
+        <button class="ccl-rec-btn ccl-rec-btn--speak" id="shaPlayBtn" title="Play">&#9654;</button>
+        <span style="font-size:0.8125rem;color:var(--ccl-muted);font-weight:600;">Listen first</span>
+      </div>
+
+      <div class="ccl-rec-controls">
+        <button class="ccl-rec-btn ccl-rec-btn--record" id="shaRecordBtn">&#9899;</button>
+        <span style="font-size:0.8125rem;color:var(--ccl-muted);font-weight:600;" id="shaRecLabel">Repeat in same language</span>
+      </div>
+
+      <div class="ccl-audio-wrap" id="shaAudioWrap" style="display:none;">
+        <audio id="shaAudio" controls></audio>
+      </div>
+    </div>
+
+    <div class="ccl-card" id="shaScoreCard" style="display:none;">
+      <h3 class="ccl-card__title">Shadowing Accuracy</h3>
+      <div class="ccl-score-pct" id="shaScorePct"></div>
+      <div class="ccl-score-panel">
+        <h4>Comparison:</h4>
+        <div class="ccl-score-text" id="shaComparison"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       TAB 4: VOCABULARY DRILL
+       ============================================================ -->
+  <div class="ccl-panel" id="panel-vocab">
+    <div class="ccl-domain-pills" id="vocDomainPills"></div>
+
+    <div class="ccl-vocab-srs" id="vocSrsStats"></div>
+
+    <div class="ccl-card">
+      <div class="ccl-btn-group" style="justify-content:space-between;">
+        <h3 class="ccl-card__title" style="margin:0;">Vocabulary Round</h3>
+        <button class="ccl-btn ccl-btn--primary ccl-btn--sm" id="vocNewRound">New Round</button>
+      </div>
+    </div>
+
+    <div id="vocItems"></div>
+
+    <div class="ccl-card" id="vocScoreCard" style="display:none;">
+      <h3 class="ccl-card__title">Round Score</h3>
+      <div class="ccl-score-pct" id="vocRoundScore"></div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       TAB 5: MOCK CCL EXAM
+       ============================================================ -->
+  <div class="ccl-panel" id="panel-mock">
+    <!-- Start screen -->
+    <div class="ccl-card" id="mockStart">
+      <div class="ccl-exam-start">
+        <h3>Mock CCL Exam</h3>
+        <p>You will interpret <strong>2 dialogues</strong> from different domains.</p>
+        <p>Each segment has <strong>60 seconds</strong>. No replays allowed.</p>
+        <p>Pass mark: <strong>63/90</strong> (minimum 29 per dialogue).</p>
+        <div style="margin-top:20px;">
+          <button class="ccl-btn ccl-btn--dark" id="mockStartBtn" style="padding:14px 32px;font-size:1rem;">Start Exam</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exam in progress -->
+    <div id="mockExam" style="display:none;">
+      <div class="ccl-card">
+        <h3 class="ccl-card__title" id="mockDialogueLabel"></h3>
+        <div class="ccl-context" id="mockScenario"></div>
+        <div class="ccl-progress-dots" id="mockDots"></div>
+      </div>
+
+      <div class="ccl-card" id="mockSegCard">
+        <div id="mockDirection"></div>
+        <div class="ccl-text-display" id="mockSegText"></div>
+
+        <div class="ccl-timer-wrap">
+          <div class="ccl-timer-bar"><div class="ccl-timer-bar__fill" id="mockTimerFill"></div></div>
+          <div class="ccl-timer-label"><span class="time-val" id="mockTimerVal">60</span>s remaining</div>
+        </div>
+
+        <div class="ccl-rec-controls">
+          <button class="ccl-rec-btn ccl-rec-btn--record" id="mockRecordBtn">&#9899;</button>
+          <span style="font-size:0.8125rem;color:var(--ccl-muted);font-weight:600;" id="mockRecLabel">Recording starts with timer</span>
+        </div>
+
+        <div class="ccl-audio-wrap" id="mockAudioWrap" style="display:none;">
+          <audio id="mockAudio" controls></audio>
+        </div>
+
+        <div style="text-align:center;margin-top:12px;">
+          <button class="ccl-btn ccl-btn--primary" id="mockNextBtn" style="display:none;">Next &#8594;</button>
+        </div>
+      </div>
+
+      <!-- Between dialogues -->
+      <div class="ccl-card" id="mockBetween" style="display:none;">
+        <div class="ccl-exam-start">
+          <h3>Dialogue 1 Complete</h3>
+          <p>Ready for Dialogue 2?</p>
+          <div style="margin-top:16px;">
+            <button class="ccl-btn ccl-btn--dark" id="mockContinueBtn">Continue</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exam results -->
+    <div class="ccl-card" id="mockResults" style="display:none;">
+      <div class="ccl-exam-result">
+        <h3>Exam Complete!</h3>
+        <div class="total-score" id="mockTotalScore"></div>
+        <div id="mockPassLabel"></div>
+        <div id="mockResultsBody" style="text-align:left;margin-top:16px;"></div>
+      </div>
+    </div>
+
+    <!-- History -->
+    <div class="ccl-card" id="mockHistoryCard">
+      <h3 class="ccl-card__title">Recent Attempts</h3>
+      <div id="mockHistoryBody">
+        <p class="ccl-empty">No mock exams attempted yet.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       TAB 6: PROGRESS DASHBOARD
+       ============================================================ -->
+  <div class="ccl-panel" id="panel-progress">
+    <div class="ccl-card">
+      <h3 class="ccl-card__title">Session Statistics</h3>
+      <div class="ccl-session-stats" id="progStats"></div>
+    </div>
+
+    <div class="ccl-card">
+      <h3 class="ccl-card__title">Per-Domain Accuracy</h3>
+      <div class="ccl-bar-chart" id="progDomainBars"></div>
+    </div>
+
+    <div class="ccl-card">
+      <h3 class="ccl-card__title">Vocabulary Mastery</h3>
+      <div class="ccl-ring-wrap" id="progVocabRing"></div>
+    </div>
+
+    <div class="ccl-card">
+      <h3 class="ccl-card__title">Weakest Segments</h3>
+      <div id="progWeakList"></div>
+    </div>
+
+    <div class="ccl-card">
+      <h3 class="ccl-card__title">Mock Exam History</h3>
+      <div id="progMockTable"></div>
+    </div>
+  </div>
+
+</div><!-- .ccl-page -->
+
+<script src="js/ccl-data.js"></script>
+<script>
+/* ============================================================
+   CCL Interpretation Trainer — Application Logic
+   ============================================================ */
+(function() {
+'use strict';
+
+// ---- Feature Detection ----
+const SRAvailable = !!(window.SpeechRecognition || window.webkitSpeechRecognition);
+if (!SRAvailable) {
+  document.getElementById('srWarn').style.display = 'block';
+}
+
+// ---- localStorage helpers ----
+function lsGet(key, fallback) {
+  try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : fallback; }
+  catch(e) { return fallback; }
+}
+function lsSet(key, val) {
+  try { localStorage.setItem(key, JSON.stringify(val)); } catch(e) {}
+}
+
+// ---- State stores ----
+let segmentScores = lsGet('ccl_segment_scores', {});
+let vocabLevels = lsGet('ccl_vocab_levels', {});
+let mockHistory = lsGet('ccl_mock_history', []);
+let sessionCount = lsGet('ccl_session_count', 0);
+let streakData = lsGet('ccl_streak', { count: 0, lastDate: null });
+
+function saveScores() { lsSet('ccl_segment_scores', segmentScores); }
+function saveVocab() { lsSet('ccl_vocab_levels', vocabLevels); }
+function saveMock() { lsSet('ccl_mock_history', mockHistory); }
+function saveSession() { lsSet('ccl_session_count', sessionCount); }
+function saveStreak() { lsSet('ccl_streak', streakData); }
+
+function updateStreak() {
+  const today = new Date().toISOString().slice(0, 10);
+  if (streakData.lastDate === today) return;
+  const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+  if (streakData.lastDate === yesterday) {
+    streakData.count++;
+  } else {
+    streakData.count = 1;
+  }
+  streakData.lastDate = today;
+  saveStreak();
+}
+
+function bumpSession() {
+  sessionCount++;
+  saveSession();
+  updateStreak();
+  updateHeaderStats();
+}
+
+// ---- Flatten all segments ----
+function getAllSegments() {
+  const segs = [];
+  CCL_DIALOGUES.forEach(d => {
+    d.segments.forEach(s => {
+      segs.push({ ...s, dialogueId: d.id, dialogueTitle: d.title, domain: d.domain, scenario: d.scenario });
+    });
+  });
+  return segs;
+}
+const ALL_SEGMENTS = getAllSegments();
+
+// ---- Tab switching ----
+const tabs = document.querySelectorAll('.ccl-tab');
+const panels = document.querySelectorAll('.ccl-panel');
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    tabs.forEach(t => t.classList.remove('active'));
+    panels.forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('panel-' + tab.dataset.tab).classList.add('active');
+    if (tab.dataset.tab === 'progress') renderProgress();
+    if (tab.dataset.tab === 'mock') renderMockHistory();
+  });
+});
+
+// ---- Header stats ----
+function updateHeaderStats() {
+  document.getElementById('statSessions').textContent = 'Sessions: ' + sessionCount;
+  document.getElementById('statStreak').textContent = 'Streak: ' + streakData.count + ' days';
+  const totalPractised = Object.keys(segmentScores).length;
+  document.getElementById('statSegments').textContent = 'Segments: ' + totalPractised;
+}
+updateHeaderStats();
+
+// ---- TTS ----
+let ttsVoicesLoaded = false;
+function loadVoices() {
+  return new Promise(resolve => {
+    const voices = speechSynthesis.getVoices();
+    if (voices.length) { ttsVoicesLoaded = true; resolve(voices); return; }
+    speechSynthesis.onvoiceschanged = () => {
+      ttsVoicesLoaded = true;
+      resolve(speechSynthesis.getVoices());
+    };
+    setTimeout(() => resolve(speechSynthesis.getVoices()), 1000);
+  });
+}
+loadVoices();
+
+function speakText(text, lang, rate) {
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = lang;
+  u.rate = rate || 0.9;
+  const voices = speechSynthesis.getVoices();
+  const exact = voices.find(v => v.lang === lang);
+  const prefix = voices.find(v => v.lang.startsWith(lang.split('-')[0]));
+  if (exact) u.voice = exact;
+  else if (prefix) u.voice = prefix;
+  speechSynthesis.speak(u);
+  return u;
+}
+
+// ---- Speech Recognition ----
+function startRecognition(lang, onResult, onEnd) {
+  if (!SRAvailable) { if (onEnd) onEnd(); return null; }
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const sr = new SR();
+  sr.lang = lang;
+  sr.continuous = true;
+  sr.interimResults = true;
+  let finalText = '';
+  sr.onresult = (e) => {
+    let interim = '';
+    for (let i = e.resultIndex; i < e.results.length; i++) {
+      if (e.results[i].isFinal) {
+        finalText += e.results[i][0].transcript;
+      } else {
+        interim += e.results[i][0].transcript;
+      }
+    }
+    if (onResult) onResult(finalText + interim, finalText);
+  };
+  sr.onerror = () => {};
+  sr.onend = () => { if (onEnd) onEnd(finalText); };
+  try { sr.start(); } catch(e) {}
+  return sr;
+}
+
+// ---- MediaRecorder ----
+function createRecorder() {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const mediaRecorder = new MediaRecorder(stream);
+      const chunks = [];
+      mediaRecorder.ondataavailable = e => chunks.push(e.data);
+      mediaRecorder.onstop = () => {
+        const blob = new Blob(chunks, { type: 'audio/webm' });
+        const url = URL.createObjectURL(blob);
+        stream.getTracks().forEach(t => t.stop());
+        resolve({ blob, url });
+      };
+      mediaRecorder.onerror = (e) => reject(e);
+      resolve({ mediaRecorder, chunks, stream });
+    } catch(e) {
+      reject(e);
+    }
+  });
+}
+
+// ---- Timer ----
+function startTimer(seconds, fillEl, valEl, onEnd) {
+  let remaining = seconds;
+  fillEl.style.width = '100%';
+  fillEl.className = 'ccl-timer-bar__fill';
+  valEl.textContent = remaining;
+  const interval = setInterval(() => {
+    remaining--;
+    valEl.textContent = remaining;
+    fillEl.style.width = ((remaining / seconds) * 100) + '%';
+    if (remaining <= 5) {
+      fillEl.className = 'ccl-timer-bar__fill danger';
+    } else if (remaining <= 15) {
+      fillEl.className = 'ccl-timer-bar__fill warn';
+    }
+    if (remaining <= 0) {
+      clearInterval(interval);
+      if (onEnd) onEnd();
+    }
+  }, 1000);
+  return interval;
+}
+
+// ---- LCS algorithms ----
+function lcsWords(a, b) {
+  const wa = a.toLowerCase().replace(/[^\w\s]/g, '').split(/\s+/).filter(Boolean);
+  const wb = b.toLowerCase().replace(/[^\w\s]/g, '').split(/\s+/).filter(Boolean);
+  if (!wa.length || !wb.length) return { matched: [], refAnnotated: wb, score: 0 };
+  const m = wa.length, n = wb.length;
+  const dp = Array.from({ length: m + 1 }, () => new Array(n + 1).fill(0));
+  for (let i = 1; i <= m; i++) {
+    for (let j = 1; j <= n; j++) {
+      if (wa[i-1] === wb[j-1]) dp[i][j] = dp[i-1][j-1] + 1;
+      else dp[i][j] = Math.max(dp[i-1][j], dp[i][j-1]);
+    }
+  }
+  // Backtrack to find matched indices in b
+  const matchedB = new Set();
+  let i = m, j = n;
+  while (i > 0 && j > 0) {
+    if (wa[i-1] === wb[j-1]) { matchedB.add(j-1); i--; j--; }
+    else if (dp[i-1][j] > dp[i][j-1]) i--;
+    else j--;
+  }
+  const score = wb.length > 0 ? Math.round((dp[m][n] / wb.length) * 100) : 0;
+  return { matched: matchedB, refWords: wb, score, lcsLen: dp[m][n] };
+}
+
+function lcsChars(a, b) {
+  const strip = s => s.replace(/[\s，。！？、；：""''（）\.\,\!\?\;\:\(\)\"\'\n\r]/g, '');
+  const ca = strip(a).split('');
+  const cb = strip(b).split('');
+  if (!ca.length || !cb.length) return { matched: new Set(), refChars: cb, score: 0 };
+  const m = ca.length, n = cb.length;
+  const dp = Array.from({ length: m + 1 }, () => new Array(n + 1).fill(0));
+  for (let i = 1; i <= m; i++) {
+    for (let j = 1; j <= n; j++) {
+      if (ca[i-1] === cb[j-1]) dp[i][j] = dp[i-1][j-1] + 1;
+      else dp[i][j] = Math.max(dp[i-1][j], dp[i][j-1]);
+    }
+  }
+  const matchedB = new Set();
+  let i = m, j = n;
+  while (i > 0 && j > 0) {
+    if (ca[i-1] === cb[j-1]) { matchedB.add(j-1); i--; j--; }
+    else if (dp[i-1][j] > dp[i][j-1]) i--;
+    else j--;
+  }
+  const score = cb.length > 0 ? Math.round((dp[m][n] / cb.length) * 100) : 0;
+  return { matched: matchedB, refChars: cb, score, lcsLen: dp[m][n] };
+}
+
+// ---- Check key terms ----
+function checkKeyTerms(recognised, keyTerms) {
+  const lower = recognised.toLowerCase();
+  return keyTerms.map(term => ({
+    term,
+    hit: lower.includes(term.toLowerCase())
+  }));
+}
+
+// ---- Build star ratings ----
+function buildStars(container) {
+  const groups = container.querySelectorAll('.ccl-stars');
+  groups.forEach(g => {
+    g.innerHTML = '';
+    for (let i = 1; i <= 5; i++) {
+      const btn = document.createElement('button');
+      btn.className = 'ccl-star';
+      btn.textContent = '\u2605';
+      btn.dataset.val = i;
+      btn.addEventListener('click', () => {
+        g.querySelectorAll('.ccl-star').forEach(s => {
+          s.classList.toggle('filled', parseInt(s.dataset.val) <= i);
+        });
+        g.dataset.value = i;
+      });
+      g.appendChild(btn);
+    }
+  });
+}
+
+// ---- Build domain pills ----
+function buildDomainPills(container, onChange) {
+  container.innerHTML = '';
+  const allPill = document.createElement('button');
+  allPill.className = 'ccl-domain-pill active';
+  allPill.textContent = 'All';
+  allPill.dataset.domain = 'all';
+  allPill.addEventListener('click', () => {
+    container.querySelectorAll('.ccl-domain-pill').forEach(p => p.classList.remove('active'));
+    allPill.classList.add('active');
+    onChange('all');
+  });
+  container.appendChild(allPill);
+
+  Object.keys(CCL_DOMAINS).forEach(key => {
+    const pill = document.createElement('button');
+    pill.className = 'ccl-domain-pill';
+    pill.textContent = CCL_DOMAINS[key].label;
+    pill.dataset.domain = key;
+    pill.addEventListener('click', () => {
+      container.querySelectorAll('.ccl-domain-pill').forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      onChange(key);
+    });
+    container.appendChild(pill);
+  });
+}
+
+// ---- Score colour class ----
+function scoreClass(pct) {
+  if (pct >= 70) return 'good';
+  if (pct >= 40) return 'ok';
+  return 'poor';
+}
+
+// ================================================================
+// TAB 1: SEGMENT DRILL
+// ================================================================
+const seg = {
+  domain: 'all',
+  filtered: [...ALL_SEGMENTS],
+  idx: 0,
+  recording: false,
+  mediaRecorder: null,
+  mediaStream: null,
+  sr: null,
+  timer: null,
+  recognised: ''
+};
+
+function segFilterAndRender(domain) {
+  seg.domain = domain;
+  seg.filtered = domain === 'all' ? [...ALL_SEGMENTS] : ALL_SEGMENTS.filter(s => s.domain === domain);
+  seg.idx = 0;
+  segRender();
+}
+
+function segRender() {
+  const s = seg.filtered[seg.idx];
+  if (!s) {
+    document.getElementById('segCounter').textContent = 'No segments found';
+    document.getElementById('segSourceText').textContent = 'Select a domain with dialogues.';
+    return;
+  }
+  document.getElementById('segCounter').innerHTML = 'Segment <strong>' + (seg.idx + 1) + '</strong> of ' + seg.filtered.length;
+
+  // Direction
+  const isEnglish = s.speaker === 'ENGLISH';
+  const dirEl = document.getElementById('segDirection');
+  dirEl.innerHTML = '<span class="ccl-direction ' + (isEnglish ? 'ccl-direction--en' : 'ccl-direction--zh') + '">' +
+    (isEnglish ? 'EN \u2192 \u4e2d\u6587' : '\u4e2d\u6587 \u2192 EN') + '</span>';
+
+  // Context
+  document.getElementById('segContext').textContent = s.dialogueTitle + ' \u2014 ' + s.scenario;
+
+  // Source text
+  document.getElementById('segSourceText').textContent = s.text;
+
+  // Reset UI
+  segResetRecording();
+}
+
+function segResetRecording() {
+  document.getElementById('segTimerWrap').style.display = 'none';
+  document.getElementById('segAudioWrap').style.display = 'none';
+  document.getElementById('segScoreCard').style.display = 'none';
+  document.getElementById('segAssessCard').style.display = 'none';
+  document.getElementById('segRefCard').style.display = 'none';
+  document.getElementById('segRecLabel').textContent = 'Click to record';
+  document.getElementById('segRecordBtn').classList.remove('recording');
+  const refBody = document.getElementById('segRefBody');
+  if (refBody) refBody.classList.remove('show');
+  seg.recording = false;
+  seg.recognised = '';
+  if (seg.timer) { clearInterval(seg.timer); seg.timer = null; }
+  if (seg.sr) { try { seg.sr.stop(); } catch(e) {} seg.sr = null; }
+  if (seg.mediaRecorder && seg.mediaRecorder.state !== 'inactive') {
+    try { seg.mediaRecorder.stop(); } catch(e) {}
+  }
+  if (seg.mediaStream) {
+    seg.mediaStream.getTracks().forEach(t => t.stop());
+    seg.mediaStream = null;
+  }
+}
+
+// Play segment TTS
+document.getElementById('segPlayBtn').addEventListener('click', () => {
+  const s = seg.filtered[seg.idx];
+  if (!s) return;
+  const lang = s.speaker === 'ENGLISH' ? 'en-AU' : 'zh-CN';
+  speakText(s.text, lang);
+});
+
+// Record
+document.getElementById('segRecordBtn').addEventListener('click', async () => {
+  const s = seg.filtered[seg.idx];
+  if (!s) return;
+
+  if (seg.recording) {
+    // Stop recording
+    seg.recording = false;
+    document.getElementById('segRecordBtn').classList.remove('recording');
+    document.getElementById('segRecLabel').textContent = 'Recording stopped';
+    if (seg.timer) { clearInterval(seg.timer); seg.timer = null; }
+    if (seg.sr) { try { seg.sr.stop(); } catch(e) {} }
+    if (seg.mediaRecorder && seg.mediaRecorder.state !== 'inactive') {
+      seg.mediaRecorder.stop();
+    }
+    return;
+  }
+
+  // Start recording
+  seg.recording = true;
+  document.getElementById('segRecordBtn').classList.add('recording');
+  document.getElementById('segRecLabel').textContent = 'Recording... click to stop';
+  document.getElementById('segTimerWrap').style.display = 'block';
+  document.getElementById('segScoreCard').style.display = 'none';
+  document.getElementById('segAssessCard').style.display = 'none';
+  document.getElementById('segRefCard').style.display = 'none';
+
+  // Determine target language for recognition
+  const isEnglish = s.speaker === 'ENGLISH';
+  const targetLang = isEnglish ? 'zh-CN' : 'en-AU';
+
+  // Start speech recognition
+  seg.recognised = '';
+  seg.sr = startRecognition(targetLang, (interim, final) => {
+    seg.recognised = interim || final || '';
+  }, (finalText) => {
+    seg.recognised = finalText || seg.recognised;
+  });
+
+  // Start MediaRecorder
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    seg.mediaStream = stream;
+    const mr = new MediaRecorder(stream);
+    seg.mediaRecorder = mr;
+    const chunks = [];
+    mr.ondataavailable = e => chunks.push(e.data);
+    mr.onstop = () => {
+      const blob = new Blob(chunks, { type: 'audio/webm' });
+      const url = URL.createObjectURL(blob);
+      const audioEl = document.getElementById('segAudio');
+      audioEl.src = url;
+      document.getElementById('segAudioWrap').style.display = 'block';
+      // Show score
+      segShowScore(s);
+    };
+    mr.start();
+  } catch(e) {
+    document.getElementById('segRecLabel').textContent = 'Microphone access denied';
+    seg.recording = false;
+    document.getElementById('segRecordBtn').classList.remove('recording');
+    return;
+  }
+
+  // Start timer
+  seg.timer = startTimer(60,
+    document.getElementById('segTimerFill'),
+    document.getElementById('segTimerVal'),
+    () => {
+      // Timer ended
+      if (seg.recording) {
+        seg.recording = false;
+        document.getElementById('segRecordBtn').classList.remove('recording');
+        document.getElementById('segRecLabel').textContent = 'Time\'s up!';
+        if (seg.sr) { try { seg.sr.stop(); } catch(e) {} }
+        if (seg.mediaRecorder && seg.mediaRecorder.state !== 'inactive') {
+          seg.mediaRecorder.stop();
+        }
+      }
+    }
+  );
+});
+
+function segShowScore(s) {
+  const isEnglish = s.speaker === 'ENGLISH';
+  const recognised = seg.recognised || '';
+
+  document.getElementById('segRecognised').textContent = recognised || '(No speech recognised)';
+
+  let score = 0;
+  let compHtml = '';
+
+  if (recognised) {
+    if (isEnglish) {
+      // Target is Mandarin (Chinese). Compare against s.translation (which is the Chinese text)
+      // Actually, for EN speaker: user interprets to Mandarin.
+      // The reference Mandarin is the segment's `translation` field.
+      // Wait - looking at the data: ENGLISH speaker text is English, translation is Chinese.
+      // So when source is ENGLISH, user interprets to Chinese. Reference = s.translation (Chinese).
+      // We do character-level LCS.
+      const ref = s.translation || '';
+      const result = lcsChars(recognised, ref);
+      score = result.score;
+      compHtml = result.refChars.map((ch, idx) => {
+        return '<span class="' + (result.matched.has(idx) ? 'matched' : 'missed') + '">' + ch + '</span>';
+      }).join('');
+    } else {
+      // Source is MANDARIN, user interprets to English. Reference = s.translation (English).
+      const ref = s.translation || '';
+      const result = lcsWords(recognised, ref);
+      score = result.score;
+      compHtml = result.refWords.map((w, idx) => {
+        return '<span class="' + (result.matched.has(idx) ? 'matched' : 'missed') + '">' + w + '</span> ';
+      }).join('');
+    }
+  }
+
+  document.getElementById('segComparison').innerHTML = compHtml || '(No comparison available)';
+
+  const pctEl = document.getElementById('segScorePct');
+  pctEl.textContent = score + '%';
+  pctEl.className = 'ccl-score-pct ' + scoreClass(score);
+
+  // Key terms
+  const terms = checkKeyTerms(recognised, s.keyTerms || []);
+  const ktEl = document.getElementById('segKeyTerms');
+  ktEl.innerHTML = terms.map(t =>
+    '<span class="ccl-keyterm ' + (t.hit ? 'hit' : 'miss') + '">' + t.term + '</span>'
+  ).join('');
+
+  document.getElementById('segScoreCard').style.display = 'block';
+
+  // Self assessment
+  document.getElementById('segAssessCard').style.display = 'block';
+  buildStars(document.getElementById('segAssess'));
+
+  // Reference answer
+  const refCard = document.getElementById('segRefCard');
+  refCard.style.display = 'block';
+  const refBody = document.getElementById('segRefBody');
+  if (isEnglish) {
+    refBody.textContent = s.translation || '';
+  } else {
+    refBody.textContent = s.translation || '';
+  }
+  refBody.classList.remove('show');
+
+  // Save score
+  const segId = s.dialogueId + '-s' + s.number;
+  if (!segmentScores[segId]) segmentScores[segId] = [];
+  segmentScores[segId].push({ score, date: new Date().toISOString() });
+  saveScores();
+  bumpSession();
+}
+
+// Reference toggle
+document.getElementById('segRefToggle').addEventListener('click', () => {
+  document.getElementById('segRefBody').classList.toggle('show');
+  const btn = document.getElementById('segRefToggle');
+  btn.textContent = document.getElementById('segRefBody').classList.contains('show') ? 'Hide Reference Answer' : 'Show Reference Answer';
+});
+
+// Navigation
+document.getElementById('segPrev').addEventListener('click', () => {
+  if (seg.idx > 0) { seg.idx--; segResetRecording(); segRender(); }
+});
+document.getElementById('segNext').addEventListener('click', () => {
+  if (seg.idx < seg.filtered.length - 1) { seg.idx++; segResetRecording(); segRender(); }
+});
+
+// Domain pills
+buildDomainPills(document.getElementById('segDomainPills'), segFilterAndRender);
+segRender();
+
+// ================================================================
+// TAB 2: FULL DIALOGUE PRACTICE
+// ================================================================
+const dlg = {
+  dialogue: null,
+  segIdx: 0,
+  recording: false,
+  mediaRecorder: null,
+  mediaStream: null,
+  sr: null,
+  timer: null,
+  recognised: '',
+  scores: []
+};
+
+// Populate dialogue dropdown
+(function() {
+  const sel = document.getElementById('dlgSelect');
+  const byDomain = {};
+  CCL_DIALOGUES.forEach(d => {
+    if (!byDomain[d.domain]) byDomain[d.domain] = [];
+    byDomain[d.domain].push(d);
+  });
+  Object.keys(byDomain).forEach(domain => {
+    const grp = document.createElement('optgroup');
+    grp.label = CCL_DOMAINS[domain].label;
+    byDomain[domain].forEach(d => {
+      const opt = document.createElement('option');
+      opt.value = d.id;
+      opt.textContent = d.title;
+      grp.appendChild(opt);
+    });
+    sel.appendChild(grp);
+  });
+})();
+
+document.getElementById('dlgSelect').addEventListener('change', function() {
+  const id = this.value;
+  if (!id) { document.getElementById('dlgArea').style.display = 'none'; return; }
+  dlg.dialogue = CCL_DIALOGUES.find(d => d.id === id);
+  dlg.segIdx = 0;
+  dlg.scores = [];
+  document.getElementById('dlgArea').style.display = 'block';
+  document.getElementById('dlgResults').style.display = 'none';
+  dlgRenderSeg();
+});
+
+function dlgRenderDots() {
+  const dotsEl = document.getElementById('dlgDots');
+  dotsEl.innerHTML = '';
+  dlg.dialogue.segments.forEach((s, i) => {
+    const dot = document.createElement('span');
+    dot.className = 'ccl-dot ' + (i < dlg.segIdx ? 'done' : i === dlg.segIdx ? 'current' : 'pending');
+    dotsEl.appendChild(dot);
+  });
+}
+
+function dlgRenderSeg() {
+  const d = dlg.dialogue;
+  document.getElementById('dlgTitle').textContent = d.title;
+  document.getElementById('dlgScenario').textContent = d.scenario;
+  dlgRenderDots();
+
+  const s = d.segments[dlg.segIdx];
+  const isEn = s.speaker === 'ENGLISH';
+  document.getElementById('dlgDirection').innerHTML = '<span class="ccl-direction ' + (isEn ? 'ccl-direction--en' : 'ccl-direction--zh') + '">' +
+    (isEn ? 'EN \u2192 \u4e2d\u6587' : '\u4e2d\u6587 \u2192 EN') + '</span>';
+  document.getElementById('dlgSegText').textContent = s.text;
+
+  // Reset
+  document.getElementById('dlgTimerWrap').style.display = 'none';
+  document.getElementById('dlgAudioWrap').style.display = 'none';
+  document.getElementById('dlgScorePanel').style.display = 'none';
+  document.getElementById('dlgNextBtn').style.display = 'none';
+  document.getElementById('dlgRecLabel').textContent = 'Click to record';
+  document.getElementById('dlgRecordBtn').classList.remove('recording');
+  document.getElementById('dlgSegCard').style.display = 'block';
+  dlg.recording = false;
+  dlg.recognised = '';
+}
+
+document.getElementById('dlgPlayBtn').addEventListener('click', () => {
+  if (!dlg.dialogue) return;
+  const s = dlg.dialogue.segments[dlg.segIdx];
+  speakText(s.text, s.speaker === 'ENGLISH' ? 'en-AU' : 'zh-CN');
+});
+
+document.getElementById('dlgRecordBtn').addEventListener('click', async () => {
+  if (!dlg.dialogue) return;
+  const s = dlg.dialogue.segments[dlg.segIdx];
+
+  if (dlg.recording) {
+    dlg.recording = false;
+    document.getElementById('dlgRecordBtn').classList.remove('recording');
+    document.getElementById('dlgRecLabel').textContent = 'Stopped';
+    if (dlg.timer) { clearInterval(dlg.timer); dlg.timer = null; }
+    if (dlg.sr) { try { dlg.sr.stop(); } catch(e) {} }
+    if (dlg.mediaRecorder && dlg.mediaRecorder.state !== 'inactive') dlg.mediaRecorder.stop();
+    return;
+  }
+
+  dlg.recording = true;
+  document.getElementById('dlgRecordBtn').classList.add('recording');
+  document.getElementById('dlgRecLabel').textContent = 'Recording...';
+  document.getElementById('dlgTimerWrap').style.display = 'block';
+
+  const isEn = s.speaker === 'ENGLISH';
+  const targetLang = isEn ? 'zh-CN' : 'en-AU';
+  dlg.recognised = '';
+  dlg.sr = startRecognition(targetLang, (interim) => { dlg.recognised = interim; }, (final) => { dlg.recognised = final || dlg.recognised; });
+
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    dlg.mediaStream = stream;
+    const mr = new MediaRecorder(stream);
+    dlg.mediaRecorder = mr;
+    const chunks = [];
+    mr.ondataavailable = e => chunks.push(e.data);
+    mr.onstop = () => {
+      const blob = new Blob(chunks, { type: 'audio/webm' });
+      document.getElementById('dlgAudio').src = URL.createObjectURL(blob);
+      document.getElementById('dlgAudioWrap').style.display = 'block';
+      stream.getTracks().forEach(t => t.stop());
+      dlgScoreSeg(s);
+    };
+    mr.start();
+  } catch(e) {
+    dlg.recording = false;
+    document.getElementById('dlgRecordBtn').classList.remove('recording');
+    document.getElementById('dlgRecLabel').textContent = 'Mic access denied';
+    return;
+  }
+
+  dlg.timer = startTimer(60,
+    document.getElementById('dlgTimerFill'),
+    document.getElementById('dlgTimerVal'),
+    () => {
+      dlg.recording = false;
+      document.getElementById('dlgRecordBtn').classList.remove('recording');
+      if (dlg.sr) try { dlg.sr.stop(); } catch(e) {}
+      if (dlg.mediaRecorder && dlg.mediaRecorder.state !== 'inactive') dlg.mediaRecorder.stop();
+    }
+  );
+});
+
+function dlgScoreSeg(s) {
+  const isEn = s.speaker === 'ENGLISH';
+  const ref = s.translation || '';
+  let score = 0;
+  if (dlg.recognised) {
+    if (isEn) {
+      score = lcsChars(dlg.recognised, ref).score;
+    } else {
+      score = lcsWords(dlg.recognised, ref).score;
+    }
+  }
+  dlg.scores.push(score);
+
+  const scoreEl = document.getElementById('dlgSegScore');
+  scoreEl.textContent = score + '%';
+  scoreEl.className = 'ccl-score-pct ' + scoreClass(score);
+  document.getElementById('dlgScorePanel').style.display = 'block';
+  document.getElementById('dlgNextBtn').style.display = 'inline-flex';
+
+  const segId = dlg.dialogue.id + '-s' + s.number;
+  if (!segmentScores[segId]) segmentScores[segId] = [];
+  segmentScores[segId].push({ score, date: new Date().toISOString() });
+  saveScores();
+}
+
+document.getElementById('dlgNextBtn').addEventListener('click', () => {
+  dlg.segIdx++;
+  if (dlg.segIdx >= dlg.dialogue.segments.length) {
+    dlgShowResults();
+  } else {
+    dlgRenderSeg();
+  }
+});
+
+function dlgShowResults() {
+  document.getElementById('dlgSegCard').style.display = 'none';
+  document.getElementById('dlgResults').style.display = 'block';
+  const avg = dlg.scores.length ? Math.round(dlg.scores.reduce((a,b) => a+b, 0) / dlg.scores.length) : 0;
+  let html = '<div class="ccl-score-pct ' + scoreClass(avg) + '">' + avg + '% average</div>';
+  html += '<div style="margin-top:12px;">';
+  dlg.scores.forEach((sc, i) => {
+    html += '<div class="ccl-weak-item"><div class="ccl-weak-info"><span class="title">Segment ' + (i+1) + '</span></div>';
+    html += '<span class="ccl-weak-score" style="color:' + (sc >= 70 ? 'var(--ccl-green)' : sc >= 40 ? 'var(--ccl-yellow)' : 'var(--ccl-red)') + '">' + sc + '%</span></div>';
+  });
+  html += '</div>';
+  document.getElementById('dlgResultsBody').innerHTML = html;
+  dlgRenderDots();
+  bumpSession();
+}
+
+// ================================================================
+// TAB 3: SHADOWING MODE
+// ================================================================
+const sha = {
+  domain: 'all',
+  filtered: [...ALL_SEGMENTS],
+  idx: 0,
+  recording: false,
+  mediaRecorder: null,
+  mediaStream: null,
+  sr: null,
+  recognised: ''
+};
+
+function shaFilterAndRender(domain) {
+  sha.domain = domain;
+  sha.filtered = domain === 'all' ? [...ALL_SEGMENTS] : ALL_SEGMENTS.filter(s => s.domain === domain);
+  sha.idx = 0;
+  shaRender();
+}
+
+function shaRender() {
+  const s = sha.filtered[sha.idx];
+  if (!s) return;
+  document.getElementById('shaCounter').innerHTML = 'Segment <strong>' + (sha.idx + 1) + '</strong> of ' + sha.filtered.length;
+  const isEn = s.speaker === 'ENGLISH';
+  document.getElementById('shaDirection').innerHTML = '<span class="ccl-direction ' + (isEn ? 'ccl-direction--en' : 'ccl-direction--zh') + '">' +
+    (isEn ? 'English' : '\u4e2d\u6587') + ' \u2014 Shadowing</span>';
+  document.getElementById('shaContext').textContent = s.dialogueTitle;
+  document.getElementById('shaSourceText').textContent = s.text;
+
+  document.getElementById('shaAudioWrap').style.display = 'none';
+  document.getElementById('shaScoreCard').style.display = 'none';
+  document.getElementById('shaRecLabel').textContent = 'Repeat in same language';
+  document.getElementById('shaRecordBtn').classList.remove('recording');
+  sha.recording = false;
+  sha.recognised = '';
+}
+
+document.getElementById('shaPlayBtn').addEventListener('click', () => {
+  const s = sha.filtered[sha.idx];
+  if (!s) return;
+  speakText(s.text, s.speaker === 'ENGLISH' ? 'en-AU' : 'zh-CN');
+});
+
+document.getElementById('shaRecordBtn').addEventListener('click', async () => {
+  const s = sha.filtered[sha.idx];
+  if (!s) return;
+
+  if (sha.recording) {
+    sha.recording = false;
+    document.getElementById('shaRecordBtn').classList.remove('recording');
+    document.getElementById('shaRecLabel').textContent = 'Stopped';
+    if (sha.sr) try { sha.sr.stop(); } catch(e) {}
+    if (sha.mediaRecorder && sha.mediaRecorder.state !== 'inactive') sha.mediaRecorder.stop();
+    return;
+  }
+
+  sha.recording = true;
+  document.getElementById('shaRecordBtn').classList.add('recording');
+  document.getElementById('shaRecLabel').textContent = 'Recording...';
+
+  const sourceLang = s.speaker === 'ENGLISH' ? 'en-AU' : 'zh-CN';
+  sha.recognised = '';
+  sha.sr = startRecognition(sourceLang, (interim) => { sha.recognised = interim; }, (final) => { sha.recognised = final || sha.recognised; });
+
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    sha.mediaStream = stream;
+    const mr = new MediaRecorder(stream);
+    sha.mediaRecorder = mr;
+    const chunks = [];
+    mr.ondataavailable = e => chunks.push(e.data);
+    mr.onstop = () => {
+      const blob = new Blob(chunks, { type: 'audio/webm' });
+      document.getElementById('shaAudio').src = URL.createObjectURL(blob);
+      document.getElementById('shaAudioWrap').style.display = 'block';
+      stream.getTracks().forEach(t => t.stop());
+      shaShowScore(s);
+    };
+    mr.start();
+  } catch(e) {
+    sha.recording = false;
+    document.getElementById('shaRecordBtn').classList.remove('recording');
+    document.getElementById('shaRecLabel').textContent = 'Mic access denied';
+  }
+});
+
+function shaShowScore(s) {
+  const isEn = s.speaker === 'ENGLISH';
+  let score = 0, compHtml = '';
+  if (sha.recognised) {
+    if (isEn) {
+      const result = lcsWords(sha.recognised, s.text);
+      score = result.score;
+      compHtml = result.refWords.map((w, idx) =>
+        '<span class="' + (result.matched.has(idx) ? 'matched' : 'missed') + '">' + w + '</span> '
+      ).join('');
+    } else {
+      const result = lcsChars(sha.recognised, s.text);
+      score = result.score;
+      compHtml = result.refChars.map((ch, idx) =>
+        '<span class="' + (result.matched.has(idx) ? 'matched' : 'missed') + '">' + ch + '</span>'
+      ).join('');
+    }
+  }
+
+  document.getElementById('shaScorePct').textContent = score + '%';
+  document.getElementById('shaScorePct').className = 'ccl-score-pct ' + scoreClass(score);
+  document.getElementById('shaComparison').innerHTML = compHtml || '(No speech recognised)';
+  document.getElementById('shaScoreCard').style.display = 'block';
+  bumpSession();
+}
+
+document.getElementById('shaPrev').addEventListener('click', () => { if (sha.idx > 0) { sha.idx--; shaRender(); } });
+document.getElementById('shaNext').addEventListener('click', () => { if (sha.idx < sha.filtered.length - 1) { sha.idx++; shaRender(); } });
+buildDomainPills(document.getElementById('shaDomainPills'), shaFilterAndRender);
+shaRender();
+
+// ================================================================
+// TAB 4: VOCABULARY DRILL
+// ================================================================
+const voc = {
+  domain: 'all',
+  round: [],
+  roundIdx: 0,
+  roundScores: [],
+  recording: false,
+  sr: null,
+  mediaRecorder: null,
+  mediaStream: null,
+  recognised: ''
+};
+
+function vocGetFiltered() {
+  return voc.domain === 'all' ? [...CCL_VOCABULARY] : CCL_VOCABULARY.filter(v => v.domain === voc.domain);
+}
+
+function vocUpdateSrs() {
+  const stats = { new: 0, learning: 0, mastered: 0 };
+  CCL_VOCABULARY.forEach(v => {
+    const level = vocabLevels[v.id] || 'new';
+    stats[level]++;
+  });
+  const el = document.getElementById('vocSrsStats');
+  el.innerHTML =
+    '<span class="ccl-vocab-srs-item" style="background:#e3f2fd;color:#1565c0;">New: ' + stats.new + '</span>' +
+    '<span class="ccl-vocab-srs-item" style="background:#fff3e0;color:#e65100;">Learning: ' + stats.learning + '</span>' +
+    '<span class="ccl-vocab-srs-item" style="background:#e8f5e9;color:#2e7d32;">Mastered: ' + stats.mastered + '</span>';
+}
+
+function vocNewRound() {
+  const pool = vocGetFiltered();
+  // Shuffle and pick 10
+  const shuffled = pool.sort(() => Math.random() - 0.5).slice(0, 10);
+  voc.round = shuffled.map(item => ({
+    ...item,
+    direction: Math.random() < 0.5 ? 'en2zh' : 'zh2en',
+    result: null,
+    userAnswer: ''
+  }));
+  voc.roundIdx = 0;
+  voc.roundScores = [];
+  vocRenderRound();
+}
+
+function vocRenderRound() {
+  const container = document.getElementById('vocItems');
+  if (!voc.round.length) {
+    container.innerHTML = '<div class="ccl-empty">Click "New Round" to start a vocabulary drill.</div>';
+    document.getElementById('vocScoreCard').style.display = 'none';
+    return;
+  }
+
+  let html = '';
+  voc.round.forEach((item, idx) => {
+    const sourceTerm = item.direction === 'en2zh' ? item.english : item.mandarin;
+    const dirLabel = item.direction === 'en2zh' ? 'EN \u2192 \u4e2d\u6587' : '\u4e2d\u6587 \u2192 EN';
+    const resultTag = item.result === null ? '' :
+      item.result ? '<span class="ccl-vocab-result correct">Correct</span>' :
+      '<span class="ccl-vocab-result incorrect">Incorrect</span>';
+    const answer = item.result !== null ?
+      '<div style="font-size:0.8125rem;color:var(--ccl-muted);margin-top:4px;">Your answer: ' + (item.userAnswer || '(none)') +
+      ' | Correct: ' + (item.direction === 'en2zh' ? item.mandarin : item.english) + '</div>' : '';
+
+    html += '<div class="ccl-vocab-item" data-idx="' + idx + '">' +
+      '<div>' +
+        '<div class="ccl-direction ' + (item.direction === 'en2zh' ? 'ccl-direction--en' : 'ccl-direction--zh') + '" style="margin-bottom:4px;font-size:0.6875rem;">' + dirLabel + '</div>' +
+        '<div class="ccl-vocab-term">' + sourceTerm + '</div>' +
+        answer +
+      '</div>' +
+      '<div style="display:flex;gap:6px;align-items:center;">' +
+        resultTag +
+        (item.result === null ?
+          '<button class="ccl-rec-btn ccl-rec-btn--speak" style="width:36px;height:36px;font-size:1rem;" onclick="vocPlayItem(' + idx + ')" title="Play">\u25b6</button>' +
+          '<button class="ccl-rec-btn ccl-rec-btn--record" style="width:36px;height:36px;font-size:1rem;" onclick="vocRecordItem(' + idx + ')" title="Record">\u26ab</button>'
+        : '') +
+      '</div>' +
+    '</div>';
+  });
+  container.innerHTML = html;
+
+  // Show round score if all done
+  const done = voc.round.filter(i => i.result !== null).length;
+  if (done === voc.round.length && voc.round.length > 0) {
+    const correct = voc.round.filter(i => i.result).length;
+    document.getElementById('vocRoundScore').textContent = correct + ' / ' + voc.round.length;
+    document.getElementById('vocRoundScore').className = 'ccl-score-pct ' + (correct >= 7 ? 'good' : correct >= 4 ? 'ok' : 'poor');
+    document.getElementById('vocScoreCard').style.display = 'block';
+    bumpSession();
+  } else {
+    document.getElementById('vocScoreCard').style.display = 'none';
+  }
+}
+
+// Make functions global for onclick
+window.vocPlayItem = function(idx) {
+  const item = voc.round[idx];
+  if (!item) return;
+  const sourceLang = item.direction === 'en2zh' ? 'en-AU' : 'zh-CN';
+  speakText(item.direction === 'en2zh' ? item.english : item.mandarin, sourceLang);
+};
+
+window.vocRecordItem = async function(idx) {
+  const item = voc.round[idx];
+  if (!item || item.result !== null) return;
+
+  const targetLang = item.direction === 'en2zh' ? 'zh-CN' : 'en-AU';
+  const targetText = item.direction === 'en2zh' ? item.mandarin : item.english;
+
+  let recognised = '';
+  const sr = startRecognition(targetLang, (interim) => { recognised = interim; }, (final) => {
+    recognised = final || recognised;
+    // Check answer
+    let isCorrect = false;
+    if (item.direction === 'en2zh') {
+      // Character match
+      const stripped1 = recognised.replace(/\s/g, '');
+      const stripped2 = targetText.replace(/\s/g, '');
+      const result = lcsChars(stripped1, stripped2);
+      isCorrect = result.score >= 50;
+    } else {
+      const result = lcsWords(recognised, targetText);
+      isCorrect = result.score >= 50;
+    }
+
+    item.result = isCorrect;
+    item.userAnswer = recognised;
+
+    // Update SRS
+    const level = vocabLevels[item.id] || 'new';
+    if (isCorrect) {
+      vocabLevels[item.id] = level === 'new' ? 'learning' : 'mastered';
+    } else {
+      vocabLevels[item.id] = level === 'mastered' ? 'learning' : 'new';
+    }
+    saveVocab();
+    vocUpdateSrs();
+    vocRenderRound();
+  });
+
+  // Auto-stop after 5 seconds
+  setTimeout(() => {
+    if (sr) try { sr.stop(); } catch(e) {}
+  }, 5000);
+};
+
+buildDomainPills(document.getElementById('vocDomainPills'), (domain) => {
+  voc.domain = domain;
+  voc.round = [];
+  vocRenderRound();
+});
+document.getElementById('vocNewRound').addEventListener('click', vocNewRound);
+vocUpdateSrs();
+vocRenderRound();
+
+// ================================================================
+// TAB 5: MOCK CCL EXAM
+// ================================================================
+const mock = {
+  dialogues: [],
+  dlgIdx: 0,
+  segIdx: 0,
+  recording: false,
+  mediaRecorder: null,
+  mediaStream: null,
+  sr: null,
+  timer: null,
+  recognised: '',
+  results: { dialogues: [] },
+  currentDlgScores: [],
+  started: false
+};
+
+function mockSelectDialogues() {
+  // Pick 2 dialogues from different domains
+  const shuffled = [...CCL_DIALOGUES].sort(() => Math.random() - 0.5);
+  const picked = [];
+  const usedDomains = new Set();
+  for (const d of shuffled) {
+    if (!usedDomains.has(d.domain) && picked.length < 2) {
+      picked.push(d);
+      usedDomains.add(d.domain);
+    }
+  }
+  // If not enough different domains, just pick 2
+  while (picked.length < 2 && shuffled.length >= 2) {
+    const next = shuffled.find(d => !picked.includes(d));
+    if (next) picked.push(next);
+    else break;
+  }
+  return picked;
+}
+
+document.getElementById('mockStartBtn').addEventListener('click', () => {
+  mock.dialogues = mockSelectDialogues();
+  mock.dlgIdx = 0;
+  mock.segIdx = 0;
+  mock.results = { dialogues: [] };
+  mock.currentDlgScores = [];
+  mock.started = true;
+
+  document.getElementById('mockStart').style.display = 'none';
+  document.getElementById('mockExam').style.display = 'block';
+  document.getElementById('mockResults').style.display = 'none';
+  document.getElementById('mockBetween').style.display = 'none';
+  document.getElementById('mockSegCard').style.display = 'block';
+
+  mockRenderSeg();
+});
+
+function mockRenderDots() {
+  const d = mock.dialogues[mock.dlgIdx];
+  const dotsEl = document.getElementById('mockDots');
+  dotsEl.innerHTML = '';
+  d.segments.forEach((s, i) => {
+    const dot = document.createElement('span');
+    dot.className = 'ccl-dot ' + (i < mock.segIdx ? 'done' : i === mock.segIdx ? 'current' : 'pending');
+    dotsEl.appendChild(dot);
+  });
+}
+
+function mockRenderSeg() {
+  const d = mock.dialogues[mock.dlgIdx];
+  document.getElementById('mockDialogueLabel').textContent = 'Dialogue ' + (mock.dlgIdx + 1) + ': ' + d.title;
+  document.getElementById('mockScenario').textContent = d.scenario;
+  mockRenderDots();
+
+  const s = d.segments[mock.segIdx];
+  const isEn = s.speaker === 'ENGLISH';
+  document.getElementById('mockDirection').innerHTML = '<span class="ccl-direction ' + (isEn ? 'ccl-direction--en' : 'ccl-direction--zh') + '">' +
+    (isEn ? 'EN \u2192 \u4e2d\u6587' : '\u4e2d\u6587 \u2192 EN') + '</span>';
+  document.getElementById('mockSegText').textContent = s.text;
+
+  document.getElementById('mockAudioWrap').style.display = 'none';
+  document.getElementById('mockNextBtn').style.display = 'none';
+  document.getElementById('mockRecordBtn').classList.remove('recording');
+  document.getElementById('mockRecLabel').textContent = 'Will auto-start after TTS plays';
+  mock.recording = false;
+  mock.recognised = '';
+
+  // Play TTS first, then auto-start recording + timer
+  const lang = isEn ? 'en-AU' : 'zh-CN';
+  const u = speakText(s.text, lang);
+
+  // Wait for TTS to finish, then start recording
+  const startAfterTTS = () => {
+    mockStartRecording(s);
+  };
+  if (u) {
+    u.onend = startAfterTTS;
+    // Fallback if onend doesn't fire
+    setTimeout(startAfterTTS, (s.text.length * 80) + 2000);
+  } else {
+    setTimeout(startAfterTTS, 1000);
+  }
+}
+
+let mockTTSFired = false;
+async function mockStartRecording(s) {
+  if (mock.recording) return; // Prevent double-start
+  mock.recording = true;
+  mockTTSFired = true;
+  document.getElementById('mockRecordBtn').classList.add('recording');
+  document.getElementById('mockRecLabel').textContent = 'Recording...';
+
+  const isEn = s.speaker === 'ENGLISH';
+  const targetLang = isEn ? 'zh-CN' : 'en-AU';
+  mock.recognised = '';
+  mock.sr = startRecognition(targetLang, (interim) => { mock.recognised = interim; }, (final) => { mock.recognised = final || mock.recognised; });
+
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    mock.mediaStream = stream;
+    const mr = new MediaRecorder(stream);
+    mock.mediaRecorder = mr;
+    const chunks = [];
+    mr.ondataavailable = e => chunks.push(e.data);
+    mr.onstop = () => {
+      const blob = new Blob(chunks, { type: 'audio/webm' });
+      document.getElementById('mockAudio').src = URL.createObjectURL(blob);
+      document.getElementById('mockAudioWrap').style.display = 'block';
+      stream.getTracks().forEach(t => t.stop());
+      mockScoreSeg(s);
+    };
+    mr.start();
+  } catch(e) {
+    mock.recording = false;
+    document.getElementById('mockRecordBtn').classList.remove('recording');
+    document.getElementById('mockRecLabel').textContent = 'Mic access denied';
+    return;
+  }
+
+  mock.timer = startTimer(60,
+    document.getElementById('mockTimerFill'),
+    document.getElementById('mockTimerVal'),
+    () => {
+      mock.recording = false;
+      document.getElementById('mockRecordBtn').classList.remove('recording');
+      if (mock.sr) try { mock.sr.stop(); } catch(e) {}
+      if (mock.mediaRecorder && mock.mediaRecorder.state !== 'inactive') mock.mediaRecorder.stop();
+    }
+  );
+}
+
+document.getElementById('mockRecordBtn').addEventListener('click', () => {
+  if (mock.recording) {
+    mock.recording = false;
+    document.getElementById('mockRecordBtn').classList.remove('recording');
+    if (mock.timer) { clearInterval(mock.timer); mock.timer = null; }
+    if (mock.sr) try { mock.sr.stop(); } catch(e) {}
+    if (mock.mediaRecorder && mock.mediaRecorder.state !== 'inactive') mock.mediaRecorder.stop();
+  }
+});
+
+function mockScoreSeg(s) {
+  const isEn = s.speaker === 'ENGLISH';
+  const ref = s.translation || '';
+  let score = 0;
+  if (mock.recognised) {
+    if (isEn) {
+      score = lcsChars(mock.recognised, ref).score;
+    } else {
+      score = lcsWords(mock.recognised, ref).score;
+    }
+  }
+  mock.currentDlgScores.push(score);
+  document.getElementById('mockNextBtn').style.display = 'inline-flex';
+}
+
+document.getElementById('mockNextBtn').addEventListener('click', () => {
+  mock.segIdx++;
+  const d = mock.dialogues[mock.dlgIdx];
+  if (mock.segIdx >= d.segments.length) {
+    // Dialogue complete
+    mock.results.dialogues.push({
+      title: d.title,
+      domain: d.domain,
+      scores: [...mock.currentDlgScores]
+    });
+    mock.currentDlgScores = [];
+    mock.dlgIdx++;
+    mock.segIdx = 0;
+
+    if (mock.dlgIdx < mock.dialogues.length) {
+      // Show between screen
+      document.getElementById('mockSegCard').style.display = 'none';
+      document.getElementById('mockBetween').style.display = 'block';
+    } else {
+      // Exam complete
+      mockShowResults();
+    }
+  } else {
+    mockRenderSeg();
+  }
+});
+
+document.getElementById('mockContinueBtn').addEventListener('click', () => {
+  document.getElementById('mockBetween').style.display = 'none';
+  document.getElementById('mockSegCard').style.display = 'block';
+  mockRenderSeg();
+});
+
+function mockShowResults() {
+  document.getElementById('mockExam').style.display = 'none';
+  document.getElementById('mockResults').style.display = 'block';
+
+  let totalScore = 0;
+  let html = '';
+  mock.results.dialogues.forEach((dlgResult, di) => {
+    const avgPct = dlgResult.scores.length ? dlgResult.scores.reduce((a,b) => a+b, 0) / dlgResult.scores.length : 0;
+    const dlgMarks = Math.round(avgPct / 100 * 45);
+    totalScore += dlgMarks;
+
+    html += '<div class="ccl-card" style="margin-bottom:12px;">';
+    html += '<h4 class="ccl-card__title">Dialogue ' + (di+1) + ': ' + dlgResult.title + ' (' + dlgMarks + '/45)</h4>';
+    dlgResult.scores.forEach((sc, si) => {
+      const segMarks = Math.round(sc / 100 * (45 / dlgResult.scores.length));
+      html += '<div class="ccl-weak-item"><div class="ccl-weak-info"><span class="title">Segment ' + (si+1) + '</span></div>';
+      html += '<span style="font-weight:700;color:' + (sc >= 70 ? 'var(--ccl-green)' : sc >= 40 ? 'var(--ccl-yellow)' : 'var(--ccl-red)') + '">' + sc + '% (' + segMarks + ' marks)</span></div>';
+    });
+    html += '</div>';
+  });
+
+  const totalEl = document.getElementById('mockTotalScore');
+  totalEl.textContent = totalScore + ' / 90';
+  const passed = totalScore >= 63;
+  totalEl.className = 'total-score ' + (passed ? 'pass' : 'fail');
+
+  const passLabel = document.getElementById('mockPassLabel');
+  passLabel.innerHTML = '<span class="pass-label ' + (passed ? 'pass-bg' : 'fail-bg') + '">' + (passed ? 'PASSED' : 'NOT YET') + '</span>';
+
+  document.getElementById('mockResultsBody').innerHTML = html;
+
+  // Save to history
+  mockHistory.unshift({
+    date: new Date().toISOString(),
+    score: totalScore,
+    passed,
+    dialogues: mock.results.dialogues.map(d => ({ title: d.title, domain: d.domain }))
+  });
+  if (mockHistory.length > 10) mockHistory = mockHistory.slice(0, 10);
+  saveMock();
+  bumpSession();
+
+  // Confetti on pass
+  if (passed) launchConfetti();
+}
+
+function renderMockHistory() {
+  const card = document.getElementById('mockHistoryBody');
+  if (!mockHistory.length) {
+    card.innerHTML = '<p class="ccl-empty">No mock exams attempted yet.</p>';
+    return;
+  }
+  let html = '<table class="ccl-table"><thead><tr><th>Date</th><th>Score</th><th>Result</th></tr></thead><tbody>';
+  mockHistory.slice(0, 5).forEach(h => {
+    const d = new Date(h.date);
+    html += '<tr><td>' + d.toLocaleDateString() + '</td>';
+    html += '<td>' + h.score + '/90</td>';
+    html += '<td class="' + (h.passed ? 'pass-cell' : 'fail-cell') + '">' + (h.passed ? 'PASS' : 'FAIL') + '</td></tr>';
+  });
+  html += '</tbody></table>';
+  card.innerHTML = html;
+}
+renderMockHistory();
+
+// ---- Confetti ----
+function launchConfetti() {
+  const container = document.createElement('div');
+  container.className = 'confetti-container';
+  document.body.appendChild(container);
+  const colours = ['#e53935', '#43a047', '#1e88e5', '#fdd835', '#8e24aa', '#f4511e', '#00897b'];
+  for (let i = 0; i < 80; i++) {
+    const piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    piece.style.left = Math.random() * 100 + '%';
+    piece.style.background = colours[Math.floor(Math.random() * colours.length)];
+    piece.style.animationDelay = Math.random() * 2 + 's';
+    piece.style.animationDuration = (2 + Math.random() * 2) + 's';
+    piece.style.width = (6 + Math.random() * 8) + 'px';
+    piece.style.height = (6 + Math.random() * 8) + 'px';
+    piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+    container.appendChild(piece);
+  }
+  setTimeout(() => container.remove(), 5000);
+}
+
+// ================================================================
+// TAB 6: PROGRESS DASHBOARD
+// ================================================================
+function renderProgress() {
+  // Session stats
+  const statsEl = document.getElementById('progStats');
+  statsEl.innerHTML =
+    '<div class="ccl-session-stat"><div class="val">' + sessionCount + '</div><div class="lbl">Total Sessions</div></div>' +
+    '<div class="ccl-session-stat"><div class="val">' + streakData.count + '</div><div class="lbl">Day Streak</div></div>' +
+    '<div class="ccl-session-stat"><div class="val">' + Object.keys(segmentScores).length + '</div><div class="lbl">Segments Practised</div></div>' +
+    '<div class="ccl-session-stat"><div class="val">' + mockHistory.length + '</div><div class="lbl">Mock Exams</div></div>';
+
+  // Per-domain accuracy bars
+  const domainAvgs = {};
+  Object.keys(CCL_DOMAINS).forEach(d => { domainAvgs[d] = { total: 0, count: 0 }; });
+  Object.entries(segmentScores).forEach(([segId, scores]) => {
+    // Find domain from segId (format: dialogueId-sN)
+    const dlgId = segId.replace(/-s\d+$/, '');
+    const dlg = CCL_DIALOGUES.find(d => d.id === dlgId);
+    if (dlg && domainAvgs[dlg.domain]) {
+      scores.forEach(s => {
+        domainAvgs[dlg.domain].total += s.score;
+        domainAvgs[dlg.domain].count++;
+      });
+    }
+  });
+
+  const barsEl = document.getElementById('progDomainBars');
+  let barsHtml = '';
+  Object.entries(domainAvgs).forEach(([domain, data]) => {
+    const avg = data.count > 0 ? Math.round(data.total / data.count) : 0;
+    const colour = CCL_DOMAINS[domain].color;
+    barsHtml += '<div class="ccl-bar-row">' +
+      '<div class="ccl-bar-label">' + CCL_DOMAINS[domain].label + '</div>' +
+      '<div class="ccl-bar-track"><div class="ccl-bar-fill" style="width:' + Math.max(avg, 5) + '%;background:' + colour + ';">' + (avg > 10 ? avg + '%' : '') + '</div></div>' +
+    '</div>';
+  });
+  barsEl.innerHTML = barsHtml || '<p class="ccl-empty">No data yet.</p>';
+
+  // Vocabulary mastery ring
+  const vocStats = { new: 0, learning: 0, mastered: 0 };
+  CCL_VOCABULARY.forEach(v => {
+    const level = vocabLevels[v.id] || 'new';
+    vocStats[level]++;
+  });
+  const total = CCL_VOCABULARY.length;
+  const ringEl = document.getElementById('progVocabRing');
+
+  const newPct = total > 0 ? (vocStats.new / total) * 100 : 100;
+  const learnPct = total > 0 ? (vocStats.learning / total) * 100 : 0;
+  const masterPct = total > 0 ? (vocStats.mastered / total) * 100 : 0;
+
+  // SVG donut
+  const radius = 52, cx = 70, cy = 70, circumference = 2 * Math.PI * radius;
+  const masterOffset = 0;
+  const masterLen = (masterPct / 100) * circumference;
+  const learnOffset = masterLen;
+  const learnLen = (learnPct / 100) * circumference;
+  const newOffset = masterLen + learnLen;
+  const newLen = (newPct / 100) * circumference;
+
+  ringEl.innerHTML = '<svg class="ccl-ring-svg" viewBox="0 0 140 140">' +
+    '<circle cx="' + cx + '" cy="' + cy + '" r="' + radius + '" fill="none" stroke="#e2e8f0" stroke-width="16"/>' +
+    '<circle cx="' + cx + '" cy="' + cy + '" r="' + radius + '" fill="none" stroke="#2e7d32" stroke-width="16" ' +
+      'stroke-dasharray="' + masterLen + ' ' + (circumference - masterLen) + '" stroke-dashoffset="0" transform="rotate(-90 ' + cx + ' ' + cy + ')"/>' +
+    '<circle cx="' + cx + '" cy="' + cy + '" r="' + radius + '" fill="none" stroke="#e65100" stroke-width="16" ' +
+      'stroke-dasharray="' + learnLen + ' ' + (circumference - learnLen) + '" stroke-dashoffset="-' + masterLen + '" transform="rotate(-90 ' + cx + ' ' + cy + ')"/>' +
+    '<text x="' + cx + '" y="' + cy + '" text-anchor="middle" dominant-baseline="middle" font-size="16" font-weight="800" fill="var(--ccl-text)">' + total + '</text>' +
+    '<text x="' + cx + '" y="' + (cy + 16) + '" text-anchor="middle" font-size="9" fill="var(--ccl-muted)">total</text>' +
+  '</svg>' +
+  '<div class="ccl-ring-legend">' +
+    '<div class="ccl-ring-legend-item"><span class="ccl-ring-legend-dot" style="background:#1565c0;"></span> New: ' + vocStats.new + '</div>' +
+    '<div class="ccl-ring-legend-item"><span class="ccl-ring-legend-dot" style="background:#e65100;"></span> Learning: ' + vocStats.learning + '</div>' +
+    '<div class="ccl-ring-legend-item"><span class="ccl-ring-legend-dot" style="background:#2e7d32;"></span> Mastered: ' + vocStats.mastered + '</div>' +
+  '</div>';
+
+  // Weakest segments
+  const weakEl = document.getElementById('progWeakList');
+  const weakSegs = [];
+  Object.entries(segmentScores).forEach(([segId, scores]) => {
+    const lastScore = scores[scores.length - 1].score;
+    const dlgId = segId.replace(/-s\d+$/, '');
+    const segNum = parseInt(segId.split('-s').pop());
+    const dlg = CCL_DIALOGUES.find(d => d.id === dlgId);
+    if (dlg) {
+      weakSegs.push({ segId, score: lastScore, title: dlg.title, segNum, domain: dlg.domain });
+    }
+  });
+  weakSegs.sort((a, b) => a.score - b.score);
+
+  if (weakSegs.length === 0) {
+    weakEl.innerHTML = '<p class="ccl-empty">No segments scored yet.</p>';
+  } else {
+    let weakHtml = '';
+    weakSegs.slice(0, 8).forEach(ws => {
+      weakHtml += '<div class="ccl-weak-item">' +
+        '<div class="ccl-weak-info"><span class="title">' + ws.title + ' - Seg ' + ws.segNum + '</span>' +
+        '<span class="detail">' + CCL_DOMAINS[ws.domain].label + '</span></div>' +
+        '<span class="ccl-weak-score">' + ws.score + '%</span>' +
+      '</div>';
+    });
+    weakEl.innerHTML = weakHtml;
+  }
+
+  // Mock exam history
+  const mockTableEl = document.getElementById('progMockTable');
+  if (!mockHistory.length) {
+    mockTableEl.innerHTML = '<p class="ccl-empty">No mock exams yet.</p>';
+  } else {
+    let thtml = '<table class="ccl-table"><thead><tr><th>Date</th><th>Score</th><th>Result</th><th>Domains</th></tr></thead><tbody>';
+    mockHistory.forEach(h => {
+      const d = new Date(h.date);
+      const domains = (h.dialogues || []).map(dd => CCL_DOMAINS[dd.domain] ? CCL_DOMAINS[dd.domain].label : dd.domain).join(', ');
+      thtml += '<tr><td>' + d.toLocaleDateString() + '</td>';
+      thtml += '<td>' + h.score + '/90</td>';
+      thtml += '<td class="' + (h.passed ? 'pass-cell' : 'fail-cell') + '">' + (h.passed ? 'PASS' : 'FAIL') + '</td>';
+      thtml += '<td style="font-size:0.75rem;">' + domains + '</td></tr>';
+    });
+    thtml += '</tbody></table>';
+    mockTableEl.innerHTML = thtml;
+  }
+}
+
+// ---- Initial render ----
+updateHeaderStats();
+
+})();
+</script>
+</body>
+</html>
