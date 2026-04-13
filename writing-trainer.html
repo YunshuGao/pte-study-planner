@@ -349,6 +349,59 @@
   .wt-flashcard { min-height: 160px; padding: 20px; }
   .wt-flashcard__word { font-size: 1.5rem; }
 }
+
+/* ── Corpus UI ──────────────────────────────── */
+.corpus-cat-bar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;padding-bottom:8px;overflow-x:auto}
+.corpus-cat{padding:6px 14px;border-radius:20px;border:2px solid #e2e8f0;background:var(--sp-card);font-size:.78rem;font-weight:700;cursor:pointer;transition:all .2s;white-space:nowrap}
+.corpus-cat:hover{border-color:var(--sp-primary);color:var(--sp-primary)}
+.corpus-cat--active{background:var(--sp-primary);color:#fff;border-color:var(--sp-primary)}
+.corpus-mode-bar{display:flex;gap:4px;margin-bottom:16px}
+.corpus-mode{flex:1;padding:10px 8px;border:2px solid #e2e8f0;border-radius:var(--sp-radius);background:var(--sp-card);font-size:.8rem;font-weight:700;cursor:pointer;transition:all .2s;text-align:center}
+.corpus-mode:hover{border-color:var(--sp-purple);color:var(--sp-purple)}
+.corpus-mode--active{background:var(--sp-purple);color:#fff;border-color:var(--sp-purple)}
+.corpus-topic-q{font-size:1.05rem;font-weight:700;color:var(--sp-text);line-height:1.5;margin-bottom:8px}
+.corpus-topic-cats{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:4px}
+.corpus-kw{display:inline-block;padding:3px 10px;border-radius:12px;font-size:.72rem;font-weight:600;background:#eff6ff;color:var(--sp-primary)}
+.corpus-arg-card{background:var(--sp-card);border-radius:var(--sp-radius);padding:16px;margin-bottom:12px;border:1px solid #e2e8f0;border-left:4px solid var(--sp-green)}
+.corpus-arg-card--against{border-left-color:var(--sp-red)}
+.corpus-arg-card--balanced{border-left-color:var(--sp-purple)}
+.corpus-arg-card__side{display:inline-block;padding:2px 10px;border-radius:10px;font-size:.72rem;font-weight:700;margin-bottom:8px}
+.corpus-arg-card__side--for{background:#d1fae5;color:#065f46}
+.corpus-arg-card__side--against{background:#fee2e2;color:#991b1b}
+.corpus-arg-card__side--balanced{background:#ede9fe;color:#5b21b6}
+.corpus-arg-card__point{font-size:.92rem;font-weight:700;color:var(--sp-text);margin-bottom:6px;line-height:1.5}
+.corpus-arg-card__evidence{font-size:.84rem;color:var(--sp-muted);line-height:1.5;margin-bottom:4px;padding-left:12px;border-left:2px solid #e2e8f0}
+.corpus-arg-card__example{font-size:.84rem;color:#92400e;background:#fffbeb;padding:8px 12px;border-radius:8px;margin:6px 0;line-height:1.5}
+.corpus-arg-card__sentences{margin-top:8px}
+.corpus-arg-card__sentence{font-size:.82rem;color:var(--sp-text);padding:4px 0;line-height:1.5}
+.corpus-arg-card__sentence b{color:var(--sp-purple);font-weight:700;font-size:.72rem}
+.corpus-arg-card__vocab{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}
+.corpus-arg-card__vocab-chip{padding:2px 8px;border-radius:10px;font-size:.72rem;font-weight:600;background:#f0fdf4;color:#166534}
+.corpus-conclusion-card{background:#faf5ff;border-radius:var(--sp-radius);padding:14px;margin:12px 0;border:1px solid #e9d5ff}
+.corpus-conclusion-card__title{font-size:.78rem;font-weight:700;color:#7c3aed;margin-bottom:4px}
+.corpus-conclusion-card__text{font-size:.88rem;color:var(--sp-text);line-height:1.6}
+.corpus-pattern-card{background:var(--sp-card);border-radius:var(--sp-radius);padding:14px 16px;margin-bottom:10px;border:1px solid #e2e8f0}
+.corpus-pattern-card__pattern{font-size:.92rem;font-weight:600;color:var(--sp-text);line-height:1.5;margin-bottom:6px}
+.corpus-pattern-card__pattern b{color:var(--sp-primary);font-weight:700}
+.corpus-pattern-card__fn{font-size:.78rem;color:var(--sp-muted);margin-bottom:4px}
+.corpus-pattern-card__fn-cn{font-size:.78rem;color:#92400e}
+.corpus-pattern-card__example{font-size:.84rem;color:#065f46;background:#f0fdf4;padding:6px 10px;border-radius:6px;margin-top:6px;line-height:1.5;font-style:italic}
+.corpus-pattern-card__tip{font-size:.78rem;color:var(--sp-muted);margin-top:4px}
+.corpus-pattern-cats{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.corpus-chinglish-card{background:var(--sp-card);border-radius:var(--sp-radius);padding:14px 16px;margin-bottom:10px;border:1px solid #e2e8f0}
+.corpus-chinglish-card__wrong{font-size:.88rem;color:var(--sp-red);text-decoration:line-through;margin-bottom:4px}
+.corpus-chinglish-card__correct{font-size:.92rem;font-weight:600;color:var(--sp-green);margin-bottom:4px}
+.corpus-chinglish-card__exp{font-size:.82rem;color:var(--sp-muted);line-height:1.5}
+.corpus-chinglish-card__exp-cn{font-size:.82rem;color:#92400e;line-height:1.5}
+.corpus-pagination{display:flex;justify-content:center;gap:8px;margin:16px 0}
+.corpus-pagination button{padding:6px 16px;border:2px solid #e2e8f0;border-radius:8px;background:var(--sp-card);font-weight:700;font-size:.82rem;cursor:pointer}
+.corpus-pagination button:hover{border-color:var(--sp-primary)}
+.corpus-pagination button:disabled{opacity:.4;cursor:default}
+.corpus-stats{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;font-size:.82rem;color:var(--sp-muted);font-weight:600}
+@media(max-width:768px){
+  .corpus-mode-bar{flex-direction:column}
+  .corpus-mode{font-size:.75rem;padding:8px}
+}
 </style>
 </head>
 <body style="background:var(--sp-bg, #f8f9fa);">
@@ -368,7 +421,8 @@
     <button class="sp-tab" data-tab="essay">2. Write Essay</button>
     <button class="sp-tab" data-tab="vocab">3. Academic Vocabulary</button>
     <button class="sp-tab" data-tab="connectors">4. Connectors Reference</button>
-    <button class="sp-tab" data-tab="progress">5. Progress & Stats</button>
+    <button class="sp-tab" data-tab="corpus">6. 万能语料库</button>
+    <button class="sp-tab" data-tab="progress">7. Progress & Stats</button>
   </div>
 
   <!-- ============================================================
@@ -718,7 +772,57 @@
   </div>
 
   <!-- ============================================================
-       TAB 5: PROGRESS & STATS
+       TAB 6: 万能语料库 (UNIVERSAL CORPUS)
+       ============================================================ -->
+  <div class="sp-panel" id="panel-corpus">
+
+    <!-- Search -->
+    <div class="sp-card">
+      <div class="sp-card__title">Search Arguments by Topic or Keyword</div>
+      <input class="wt-search" id="corpusSearch" placeholder="Type a topic keyword, e.g. education, AI, climate...">
+    </div>
+
+    <!-- Category Filter -->
+    <div class="corpus-cat-bar" id="corpusCatBar">
+      <button class="corpus-cat corpus-cat--active" data-cat="all">All Topics</button>
+    </div>
+
+    <!-- Mode Tabs -->
+    <div class="corpus-mode-bar">
+      <button class="corpus-mode corpus-mode--active" data-mode="arguments" onclick="setCorpusMode('arguments')">Arguments (论点论据)</button>
+      <button class="corpus-mode" data-mode="patterns" onclick="setCorpusMode('patterns')">Sentence Patterns (万能句型)</button>
+      <button class="corpus-mode" data-mode="chinglish" onclick="setCorpusMode('chinglish')">CN Error Fix (中式英语纠正)</button>
+    </div>
+
+    <!-- Arguments View -->
+    <div id="corpusArgumentsView">
+      <div class="sp-card" id="corpusTopicCard" style="display:none;">
+        <div class="corpus-topic-q" id="corpusTopicQ"></div>
+        <div class="corpus-topic-cats" id="corpusTopicCats"></div>
+      </div>
+      <div id="corpusArgumentsList"></div>
+      <div class="corpus-pagination" id="corpusPagination"></div>
+    </div>
+
+    <!-- Patterns View -->
+    <div id="corpusPatternsView" style="display:none;">
+      <div class="corpus-pattern-cats" id="corpusPatternCats"></div>
+      <div id="corpusPatternsList"></div>
+    </div>
+
+    <!-- Chinglish View -->
+    <div id="corpusChinglishView" style="display:none;">
+      <div id="corpusChinglishList"></div>
+    </div>
+
+    <!-- Stats -->
+    <div class="sp-card" style="margin-top:16px;">
+      <div class="corpus-stats" id="corpusStats"></div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       TAB 7: PROGRESS & STATS
        ============================================================ -->
   <div class="sp-panel" id="panel-progress">
     <div class="sp-card">
@@ -748,6 +852,9 @@
 </div>
 
 <script src="js/writing-trainer-data.js"></script>
+<script src="js/corpus-arguments.js"></script>
+<script src="js/corpus-arguments-2.js"></script>
+<script src="js/corpus-patterns.js"></script>
 <script>
 // =============================================================================
 // PTE WRITING TRAINER — Application Logic
@@ -1692,6 +1799,282 @@ function initEvents() {
 }
 
 // =============================================================================
+// 万能语料库 (UNIVERSAL CORPUS)
+// =============================================================================
+var corpusMode = 'arguments';
+var corpusCat = 'all';
+var corpusPage = 0;
+var CORPUS_PAGE_SIZE = 5;
+var corpusQuery = '';
+
+function getArgBank() {
+  return (typeof ARGUMENT_BANK !== 'undefined' && ARGUMENT_BANK.topics) ? ARGUMENT_BANK.topics : [];
+}
+function getPatterns() {
+  return (typeof SENTENCE_PATTERNS !== 'undefined' && SENTENCE_PATTERNS.categories) ? SENTENCE_PATTERNS.categories : [];
+}
+
+function corpusFilteredTopics() {
+  var topics = getArgBank();
+  var q = corpusQuery.toLowerCase().trim();
+  return topics.filter(function(t) {
+    var catMatch = corpusCat === 'all' || t.category === corpusCat;
+    if (!catMatch) return false;
+    if (!q) return true;
+    var text = (t.question + ' ' + t.category + ' ' + (t.keywords || []).join(' ')).toLowerCase();
+    return text.indexOf(q) >= 0;
+  });
+}
+
+function renderCorpusCats() {
+  var bar = $('#corpusCatBar');
+  if (!bar) return;
+  var topics = getArgBank();
+  var cats = {};
+  topics.forEach(function(t) { cats[t.category] = (cats[t.category] || 0) + 1; });
+  var html = '<button class="corpus-cat' + (corpusCat === 'all' ? ' corpus-cat--active' : '') + '" data-cat="all">All (' + topics.length + ')</button>';
+  Object.keys(cats).sort().forEach(function(c) {
+    html += '<button class="corpus-cat' + (corpusCat === c ? ' corpus-cat--active' : '') + '" data-cat="' + c + '">' + c + ' (' + cats[c] + ')</button>';
+  });
+  bar.innerHTML = html;
+  bar.querySelectorAll('.corpus-cat').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      corpusCat = this.getAttribute('data-cat');
+      corpusPage = 0;
+      renderCorpusCats();
+      renderCorpusContent();
+    });
+  });
+}
+
+function setCorpusMode(mode) {
+  corpusMode = mode;
+  corpusPage = 0;
+  document.querySelectorAll('.corpus-mode').forEach(function(btn) {
+    btn.classList.toggle('corpus-mode--active', btn.getAttribute('data-mode') === mode);
+  });
+  $('#corpusArgumentsView').style.display = mode === 'arguments' ? 'block' : 'none';
+  $('#corpusPatternsView').style.display = mode === 'patterns' ? 'block' : 'none';
+  $('#corpusChinglishView').style.display = mode === 'chinglish' ? 'block' : 'none';
+  renderCorpusContent();
+}
+
+function renderCorpusContent() {
+  if (corpusMode === 'arguments') renderCorpusArguments();
+  else if (corpusMode === 'patterns') renderCorpusPatterns();
+  else if (corpusMode === 'chinglish') renderCorpusChinglish();
+  renderCorpusStats();
+}
+
+function renderArgCard(arg, side) {
+  var cls = side === 'for' ? '' : side === 'against' ? ' corpus-arg-card--against' : ' corpus-arg-card--balanced';
+  var sideLabel = side === 'for' ? 'FOR' : side === 'against' ? 'AGAINST' : 'BALANCED';
+  var sideCls = 'corpus-arg-card__side--' + side;
+  var h = '<div class="corpus-arg-card' + cls + '">';
+  h += '<span class="corpus-arg-card__side ' + sideCls + '">' + sideLabel + '</span>';
+  h += '<div class="corpus-arg-card__point">' + arg.point + '</div>';
+  if (arg.evidence) h += '<div class="corpus-arg-card__evidence">' + arg.evidence + '</div>';
+  if (arg.example) h += '<div class="corpus-arg-card__example">' + arg.example + '</div>';
+  if (arg.sentences) {
+    h += '<div class="corpus-arg-card__sentences">';
+    if (arg.sentences.intro) h += '<div class="corpus-arg-card__sentence"><b>INTRO:</b> ' + arg.sentences.intro + '</div>';
+    if (arg.sentences.body) h += '<div class="corpus-arg-card__sentence"><b>BODY:</b> ' + arg.sentences.body + '</div>';
+    if (arg.sentences.conclusion) h += '<div class="corpus-arg-card__sentence"><b>CONC:</b> ' + arg.sentences.conclusion + '</div>';
+    h += '</div>';
+  }
+  h += '</div>';
+  return h;
+}
+
+function renderCorpusArguments() {
+  var topics = corpusFilteredTopics();
+  var start = corpusPage * CORPUS_PAGE_SIZE;
+  var page = topics.slice(start, start + CORPUS_PAGE_SIZE);
+  var list = $('#corpusArgumentsList');
+  var topicCard = $('#corpusTopicCard');
+
+  if (topics.length === 0) {
+    list.innerHTML = '<div class="sp-card" style="text-align:center;color:var(--sp-muted);">No topics found. Try a different search term or category.</div>';
+    topicCard.style.display = 'none';
+    $('#corpusPagination').innerHTML = '';
+    return;
+  }
+
+  var html = '';
+  page.forEach(function(t) {
+    html += '<div class="sp-card" style="margin-bottom:20px;">';
+    html += '<div class="corpus-topic-q">' + t.question + '</div>';
+    html += '<div class="corpus-topic-cats">';
+    html += '<span class="corpus-kw">' + t.category + '</span>';
+    (t.keywords || []).forEach(function(kw) { html += ' <span class="corpus-kw">' + kw + '</span>'; });
+    html += '</div>';
+
+    // FOR points
+    if (t.forPoints) {
+      t.forPoints.forEach(function(p) { html += renderArgCard(p, 'for'); });
+    }
+    // AGAINST points
+    if (t.againstPoints) {
+      t.againstPoints.forEach(function(p) { html += renderArgCard(p, 'against'); });
+    }
+    // Balanced conclusion
+    if (t.balancedConclusion) {
+      html += '<div class="corpus-conclusion-card">';
+      html += '<div class="corpus-conclusion-card__title">Balanced Conclusion (万能结论)</div>';
+      html += '<div class="corpus-conclusion-card__text">' + t.balancedConclusion + '</div>';
+      html += '</div>';
+    }
+    // Key vocabulary
+    if (t.keyVocabulary && t.keyVocabulary.length) {
+      html += '<div class="corpus-arg-card__vocab">';
+      t.keyVocabulary.forEach(function(v) { html += '<span class="corpus-arg-card__vocab-chip">' + v + '</span>'; });
+      html += '</div>';
+    }
+    html += '</div>';
+  });
+
+  list.innerHTML = html;
+  topicCard.style.display = 'none';
+
+  // Pagination
+  var totalPages = Math.ceil(topics.length / CORPUS_PAGE_SIZE);
+  var pag = $('#corpusPagination');
+  if (totalPages <= 1) { pag.innerHTML = ''; return; }
+  var ph = '';
+  ph += '<button ' + (corpusPage <= 0 ? 'disabled' : '') + ' onclick="corpusPageNav(-1)">&larr; Prev</button>';
+  ph += '<span style="padding:6px 12px;font-size:.82rem;font-weight:700;">' + (corpusPage + 1) + ' / ' + totalPages + '</span>';
+  ph += '<button ' + (corpusPage >= totalPages - 1 ? 'disabled' : '') + ' onclick="corpusPageNav(1)">Next &rarr;</button>';
+  pag.innerHTML = ph;
+}
+
+function renderCorpusPatterns() {
+  var categories = getPatterns();
+  var q = corpusQuery.toLowerCase().trim();
+  var list = $('#corpusPatternsList');
+  var catBar = $('#corpusPatternCats');
+
+  if (!categories.length) {
+    list.innerHTML = '<div class="sp-card" style="text-align:center;color:var(--sp-muted);">Sentence patterns loading... Check back soon.</div>';
+    catBar.innerHTML = '';
+    return;
+  }
+
+  // Category pills
+  var ch = '';
+  categories.forEach(function(cat) {
+    ch += '<button class="corpus-cat" onclick="scrollToPatternCat(\'' + cat.id + '\')">' + cat.title + (cat.titleCN ? ' ' + cat.titleCN : '') + '</button>';
+  });
+  catBar.innerHTML = ch;
+
+  // Patterns
+  var html = '';
+  categories.forEach(function(cat) {
+    var patterns = cat.patterns || [];
+    if (q) {
+      patterns = patterns.filter(function(p) {
+        var text = (p.pattern + ' ' + p.function + ' ' + (p.functionCN || '') + ' ' + (p.example || '')).toLowerCase();
+        return text.indexOf(q) >= 0;
+      });
+    }
+    if (!patterns.length) return;
+
+    html += '<div id="patCat_' + cat.id + '" style="margin-bottom:20px;">';
+    html += '<div class="sp-card__title" style="margin-bottom:8px;font-size:1rem;">' + cat.title;
+    if (cat.titleCN) html += ' <span style="color:var(--sp-muted);font-weight:400;">' + cat.titleCN + '</span>';
+    html += ' <span style="color:var(--sp-muted);font-size:.78rem;">(' + patterns.length + ')</span></div>';
+    if (cat.description) html += '<p style="font-size:.82rem;color:var(--sp-muted);margin-bottom:12px;">' + cat.description + '</p>';
+
+    patterns.forEach(function(p) {
+      html += '<div class="corpus-pattern-card">';
+      var pat = p.pattern.replace(/\[([A-Z]+)\]/g, '<b>[$1]</b>');
+      html += '<div class="corpus-pattern-card__pattern">' + pat + '</div>';
+      html += '<div class="corpus-pattern-card__fn">' + p.function + '</div>';
+      if (p.functionCN) html += '<div class="corpus-pattern-card__fn-cn">' + p.functionCN + '</div>';
+      if (p.example) html += '<div class="corpus-pattern-card__example">' + p.example + '</div>';
+      if (p.tip) html += '<div class="corpus-pattern-card__tip">' + p.tip + '</div>';
+      if (p.tipCN) html += '<div class="corpus-pattern-card__tip" style="color:#92400e;">' + p.tipCN + '</div>';
+      html += '</div>';
+    });
+    html += '</div>';
+  });
+
+  list.innerHTML = html || '<div class="sp-card" style="text-align:center;color:var(--sp-muted);">No patterns match your search.</div>';
+}
+
+function scrollToPatternCat(catId) {
+  var el = document.getElementById('patCat_' + catId);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function renderCorpusChinglish() {
+  var categories = getPatterns();
+  var chinglishCat = null;
+  categories.forEach(function(c) { if (c.id === 'chinglish' || c.id === 'cn-errors') chinglishCat = c; });
+  var list = $('#corpusChinglishList');
+  var q = corpusQuery.toLowerCase().trim();
+
+  if (!chinglishCat || !chinglishCat.patterns || !chinglishCat.patterns.length) {
+    list.innerHTML = '<div class="sp-card" style="text-align:center;color:var(--sp-muted);">Chinese-speaker error patterns loading... Check back soon.</div>';
+    return;
+  }
+
+  var patterns = chinglishCat.patterns;
+  if (q) {
+    patterns = patterns.filter(function(p) {
+      return (p.pattern + ' ' + (p.example || '') + ' ' + (p.function || '')).toLowerCase().indexOf(q) >= 0;
+    });
+  }
+
+  var html = '<div class="sp-card__title" style="margin-bottom:12px;">Common Chinese-English Errors (中式英语纠正) <span style="color:var(--sp-muted);font-size:.78rem;">(' + patterns.length + ')</span></div>';
+  patterns.forEach(function(p) {
+    html += '<div class="corpus-chinglish-card">';
+    if (p.wrong) html += '<div class="corpus-chinglish-card__wrong">' + p.wrong + '</div>';
+    html += '<div class="corpus-chinglish-card__correct">' + p.pattern + '</div>';
+    if (p.function) html += '<div class="corpus-chinglish-card__exp">' + p.function + '</div>';
+    if (p.functionCN) html += '<div class="corpus-chinglish-card__exp-cn">' + p.functionCN + '</div>';
+    if (p.example) html += '<div class="corpus-pattern-card__example" style="margin-top:6px;">' + p.example + '</div>';
+    html += '</div>';
+  });
+
+  list.innerHTML = html;
+}
+
+function renderCorpusStats() {
+  var el = $('#corpusStats');
+  if (!el) return;
+  var topics = getArgBank();
+  var patterns = getPatterns();
+  var totalPatterns = 0;
+  patterns.forEach(function(c) { totalPatterns += (c.patterns || []).length; });
+  var totalArgs = 0;
+  topics.forEach(function(t) {
+    totalArgs += (t.forPoints || []).length + (t.againstPoints || []).length;
+  });
+  el.innerHTML = 'Topics: <strong>' + topics.length + '</strong> | Arguments: <strong>' + totalArgs + '</strong> | Sentence Patterns: <strong>' + totalPatterns + '</strong>';
+}
+
+function initCorpus() {
+  renderCorpusCats();
+  renderCorpusContent();
+  var search = $('#corpusSearch');
+  if (search) {
+    search.addEventListener('input', function() {
+      corpusQuery = this.value;
+      corpusPage = 0;
+      renderCorpusContent();
+    });
+  }
+}
+
+function corpusPageNav(dir) { corpusPage += dir; renderCorpusContent(); }
+
+// Make corpus functions globally accessible for onclick handlers
+window.setCorpusMode = setCorpusMode;
+window.scrollToPatternCat = scrollToPatternCat;
+window.renderCorpusContent = renderCorpusContent;
+window.corpusPageNav = corpusPageNav;
+
+// =============================================================================
 // INIT
 // =============================================================================
 function init() {
@@ -1705,6 +2088,7 @@ function init() {
   updateHeaderStats();
   initEvents();
   initKeyboardShortcuts();
+  initCorpus();
 }
 
 document.addEventListener('DOMContentLoaded', init);
