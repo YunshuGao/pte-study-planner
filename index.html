@@ -11,8 +11,8 @@
 <header class="site-header">
   <div class="container site-header__inner">
     <div>
-      <h1 class="site-header__title">PTE Superior English <span>Speaking 88 Mission</span></h1>
-      <p style="color:var(--muted);font-size:0.875rem;">Apr 9 – Apr 23, 2026 | 189 Visa | Speaking-Focused 14-Day Sprint</p>
+      <h1 class="site-header__title">PTE Superior English <span>Final Push</span></h1>
+      <p style="color:var(--muted);font-size:0.875rem;">Exam: 3 May 2026, 6pm | Writing &amp; Reading Focus | 6 days left</p>
     </div>
     <div class="countdown" id="countdown">
       <span class="countdown__number" id="countdownNum">--</span>
@@ -21,24 +21,24 @@
   </div>
   <div class="container score-targets" id="scoreTargets">
     <div class="score-target">
-      <span class="score-target__dot score-target__dot--speaking"></span>
-      <span class="score-target__skill">Speaking</span>
-      <span class="score-target__value" style="color:#e74c3c;">69 → 88</span>
-    </div>
-    <div class="score-target">
       <span class="score-target__dot score-target__dot--writing"></span>
       <span class="score-target__skill">Writing</span>
-      <span class="score-target__value" style="color:#27ae60;">90 ✓</span>
+      <span class="score-target__value" style="color:#e74c3c;">74 → 85 &#9888;</span>
     </div>
     <div class="score-target">
       <span class="score-target__dot score-target__dot--reading"></span>
       <span class="score-target__skill">Reading</span>
-      <span class="score-target__value" style="color:#27ae60;">80 ✓</span>
+      <span class="score-target__value" style="color:#e67e22;">68 → 70</span>
+    </div>
+    <div class="score-target">
+      <span class="score-target__dot score-target__dot--speaking"></span>
+      <span class="score-target__skill">Speaking</span>
+      <span class="score-target__value" style="color:#27ae60;">90 ✓ (target 88)</span>
     </div>
     <div class="score-target">
       <span class="score-target__dot score-target__dot--listening"></span>
       <span class="score-target__skill">Listening</span>
-      <span class="score-target__value" style="color:#27ae60;">82 ✓</span>
+      <span class="score-target__value" style="color:#27ae60;">90 ✓ (target 69)</span>
     </div>
   </div>
 </header>
@@ -129,7 +129,7 @@ function saveState() { localStorage.setItem('pte_planner_v2', JSON.stringify(sta
 // ========== COUNTDOWN ==========
 function renderCountdown() {
   var today = new Date(); today.setHours(0,0,0,0);
-  var exam = new Date(2026, 3, 10);
+  var exam = new Date(2026, 4, 3);
   var diff = Math.ceil((exam - today) / (1000*60*60*24));
   document.getElementById('countdownNum').textContent = diff <= 0 ? 'TODAY!' : diff;
   document.querySelector('.countdown__label').textContent = diff <= 0 ? 'exam day' : 'days to exam';
