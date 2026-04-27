@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IELTS Trainer — Band 8/9 Push 2026</title>
+<style>
+:root {
+  --it-bg:#f8f9fa;--it-card:#fff;--it-text:#1a1a2e;--it-muted:#6c757d;
+  --it-primary:#0e7490;--it-green:#15803d;--it-red:#b91c1c;--it-yellow:#ca8a04;
+  --it-orange:#c2410c;--it-purple:#7c3aed;--it-radius:12px;
+  --it-green-light:#dcfce7;--it-red-light:#fee2e2;--it-band8:#0e7490;
+  --it-band9:#7c3aed;
+}
+*{box-sizing:border-box}
+body{background:var(--it-bg);margin:0;font-family:system-ui,-apple-system,sans-serif;color:var(--it-text)}
+.it-page{max-width:1000px;margin:0 auto;padding:20px 16px 60px}
+
+/* Header */
+.it-header{text-align:center;margin-bottom:20px}
+.it-back{display:inline-block;color:var(--it-primary);font-size:.875rem;font-weight:600;margin-bottom:8px;text-decoration:none}
+.it-title{font-size:1.85rem;font-weight:800;margin:0 0 4px;letter-spacing:-.02em}
+.it-title span{background:linear-gradient(135deg,var(--it-band8),var(--it-band9));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.it-sub{font-size:.92rem;color:var(--it-muted);margin:0 0 12px;line-height:1.5}
+
+/* Score targets */
+.it-targets{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:12px 0}
+.it-target{background:var(--it-card);border:2px solid #e2e8f0;padding:8px 14px;border-radius:14px;font-size:.84rem}
+.it-target__skill{font-weight:700;font-size:.78rem;color:var(--it-muted);text-transform:uppercase;letter-spacing:.5px}
+.it-target__val{font-weight:800;font-size:1rem}
+.it-target--locked{border-color:var(--it-green)}
+.it-target--locked .it-target__val{color:var(--it-green)}
+.it-target--gap{border-color:var(--it-orange);background:#fff7ed}
+.it-target--gap .it-target__val{color:var(--it-orange)}
+
+/* Countdown */
+.it-countdown{display:inline-flex;align-items:baseline;gap:6px;background:linear-gradient(135deg,var(--it-band8),var(--it-band9));color:#fff;padding:8px 16px;border-radius:20px;font-weight:700;margin-top:6px}
+.it-countdown__num{font-size:1.4rem}
+.it-countdown__label{font-size:.78rem;opacity:.9}
+
+/* Tabs */
+.it-tabs{display:flex;gap:4px;overflow-x:auto;padding-bottom:4px;margin-bottom:20px;-webkit-overflow-scrolling:touch}
+.it-tab{flex-shrink:0;padding:10px 16px;border:2px solid transparent;background:var(--it-card);color:var(--it-muted);font-size:.82rem;font-weight:700;border-radius:var(--it-radius);cursor:pointer;transition:all .2s;white-space:nowrap}
+.it-tab:hover{color:var(--it-primary);background:#cffafe}
+.it-tab--active{color:var(--it-primary);background:#cffafe;border-color:var(--it-primary)}
+
+/* Panels */
+.it-panel{display:none;animation:itFade .3s ease}
+.it-panel--active{display:block}
+@keyframes itFade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* Cards */
+.it-card{background:var(--it-card);border-radius:var(--it-radius);padding:20px;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,.06);border:1px solid #e2e8f0}
+.it-card__title{font-size:1.05rem;font-weight:700;margin:0 0 12px;display:flex;align-items:center;gap:8px}
+.it-card__sub{font-size:.85rem;color:var(--it-muted);margin:0 0 12px;line-height:1.5}
+
+/* Phase calendar cards */
+.it-phase{border-left:4px solid var(--it-primary);padding-left:14px;margin-bottom:20px}
+.it-phase--p1{border-color:var(--it-yellow);background:#fffbeb}
+.it-phase--p2{border-color:var(--it-orange);background:#fff7ed}
+.it-phase--p3{border-color:var(--it-purple);background:#faf5ff}
+.it-phase__title{font-weight:800;font-size:1.05rem;margin-bottom:4px}
+.it-phase__goal{font-size:.85rem;color:var(--it-muted);margin-bottom:12px}
+
+/* Band gap badges */
+.it-band{display:inline-block;padding:3px 10px;border-radius:10px;font-size:.74rem;font-weight:700;letter-spacing:.5px}
+.it-band--7{background:#fef3c7;color:#854d0e}
+.it-band--8{background:#dcfce7;color:#15803d}
+.it-band--9{background:#ede9fe;color:#7c3aed}
+
+/* Cue card */
+.it-cuecard{background:#fff;border:2px solid var(--it-primary);border-radius:14px;padding:18px;margin-bottom:14px}
+.it-cuecard__title{font-size:1.05rem;font-weight:800;margin-bottom:12px;color:var(--it-primary)}
+.it-cuecard__cues{background:#f8fafc;border-radius:8px;padding:14px 16px;margin-bottom:12px}
+.it-cuecard__cues li{margin-bottom:4px;font-size:.92rem;line-height:1.5}
+.it-cuecard__sample{background:#dcfce7;border-left:3px solid var(--it-green);padding:14px;border-radius:0 8px 8px 0;font-size:.9rem;line-height:1.7;margin-top:12px;display:none}
+.it-cuecard__sample--show{display:block}
+.it-vocab{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}
+.it-vocab__chip{padding:3px 10px;border-radius:12px;font-size:.74rem;font-weight:600;background:#cffafe;color:var(--it-primary)}
+
+/* Essay card */
+.it-essay{background:#fff;border:1px solid #e2e8f0;border-left:4px solid var(--it-orange);border-radius:8px;padding:16px;margin-bottom:14px}
+.it-essay__type{display:inline-block;padding:3px 10px;border-radius:10px;font-size:.72rem;font-weight:700;background:#fff7ed;color:var(--it-orange);margin-bottom:6px}
+.it-essay__q{font-weight:700;font-size:.95rem;line-height:1.5;margin-bottom:10px}
+.it-essay__model{background:#f8fafc;padding:14px;border-radius:8px;font-size:.88rem;line-height:1.7;margin-top:10px;display:none}
+.it-essay__model--show{display:block}
+
+/* Buttons */
+.it-btn{padding:8px 16px;border:none;border-radius:8px;font-size:.82rem;font-weight:700;cursor:pointer;transition:all .15s}
+.it-btn--primary{background:var(--it-primary);color:#fff}
+.it-btn--primary:hover{background:#155e75}
+.it-btn--ghost{background:transparent;color:var(--it-muted);border:2px solid #e2e8f0}
+.it-btn--ghost:hover{border-color:var(--it-primary);color:var(--it-primary)}
+.it-btn--sm{padding:5px 12px;font-size:.76rem}
+
+/* Filter pills */
+.it-pills{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.it-pill{padding:5px 12px;border:2px solid #e2e8f0;background:#fff;border-radius:14px;font-size:.78rem;font-weight:700;cursor:pointer;color:var(--it-muted)}
+.it-pill:hover{border-color:var(--it-primary);color:var(--it-primary)}
+.it-pill--active{border-color:var(--it-primary);background:#cffafe;color:var(--it-primary)}
+
+/* Search */
+.it-search{width:100%;padding:10px 14px;border:2px solid #e2e8f0;border-radius:8px;font-size:.92rem;outline:none}
+.it-search:focus{border-color:var(--it-primary)}
+
+/* Counter */
+.it-nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.it-counter{font-size:.84rem;color:var(--it-muted);font-weight:700}
+
+/* Template box */
+.it-tmpl{background:#cffafe;border:1px solid #67e8f9;border-radius:8px;padding:12px 14px;font-family:'Courier New',monospace;font-size:.86rem;line-height:1.7;margin:8px 0;font-weight:600}
+.it-tmpl b{color:var(--it-primary);font-weight:700}
+
+/* Strategy box */
+.it-strat{background:#fef9c3;border-left:4px solid var(--it-yellow);padding:10px 14px;border-radius:0 8px 8px 0;font-size:.85rem;line-height:1.6;margin:8px 0}
+.it-strat__title{font-weight:800;color:#854d0e;margin-bottom:4px;font-size:.85rem}
+
+/* Mobile */
+@media(max-width:768px){
+  .it-title{font-size:1.4rem}
+  .it-tab{padding:8px 12px;font-size:.74rem}
+  .it-cuecard{padding:14px}
+  .it-targets{gap:6px}
+  .it-target{padding:6px 10px;font-size:.78rem}
+}
+@media(max-width:400px){
+  .it-page{padding:12px 8px 40px}
+  .it-card{padding:14px 12px}
+}
+</style>
+</head>
+<body>
+<div class="it-page">
+
+  <!-- Header -->
+  <header class="it-header">
+    <a href="index.html" class="it-back">&larr; Back to Study Planner</a>
+    <h1 class="it-title">IELTS <span>Band 8/9 Push 2026</span></h1>
+    <p class="it-sub">From your last IELTS: L 8.5, R 8.5, S 7, W 7 &nbsp;&rarr;&nbsp; Target: L 9, R 9, S 8, W 8</p>
+
+    <div class="it-targets">
+      <div class="it-target it-target--locked"><div class="it-target__skill">Listening</div><div class="it-target__val">8.5 &rarr; 9</div></div>
+      <div class="it-target it-target--locked"><div class="it-target__skill">Reading</div><div class="it-target__val">8.5 &rarr; 9</div></div>
+      <div class="it-target it-target--gap"><div class="it-target__skill">Speaking</div><div class="it-target__val">7 &rarr; 8</div></div>
+      <div class="it-target it-target--gap"><div class="it-target__skill">Writing</div><div class="it-target__val">7 &rarr; 8</div></div>
+    </div>
+
+    <div class="it-countdown">
+      <span class="it-countdown__num" id="ieltsDays">--</span>
+      <span class="it-countdown__label">days to Dec 31 target</span>
+    </div>
+  </header>
+
+  <!-- Tabs -->
+  <div class="it-tabs">
+    <button class="it-tab it-tab--active" data-tab="overview">Overview &amp; Calendar</button>
+    <button class="it-tab" data-tab="bandgap">Band 7 &rarr; 8</button>
+    <button class="it-tab" data-tab="speaking-p1">Speaking P1</button>
+    <button class="it-tab" data-tab="speaking-p2">Speaking P2 (Cue Cards)</button>
+    <button class="it-tab" data-tab="speaking-p3">Speaking P3</button>
+    <button class="it-tab" data-tab="task1">Writing Task 1</button>
+    <button class="it-tab" data-tab="task2">Writing Task 2</button>
+    <button class="it-tab" data-tab="reading">Reading 9</button>
+    <button class="it-tab" data-tab="listening">Listening 9</button>
+  </div>
+
+  <!-- ─── OVERVIEW & CALENDAR ─── -->
+  <div class="it-panel it-panel--active" id="panel-overview">
+    <div class="it-card">
+      <div class="it-card__title">Strategic Plan: 8-month Sprint</div>
+      <p class="it-card__sub">Today is 27 Apr 2026. Your PTE is on 3 May. IELTS preparation begins 4 May. Target completion: 31 Dec 2026.</p>
+
+      <div class="it-phase it-phase--p1">
+        <div class="it-phase__title">Phase 1 &mdash; Foundation (May 4 &ndash; Jul 31, 13 weeks)</div>
+        <div class="it-phase__goal">Goal: Push Speaking + Writing from 7 to 7.5. Build daily habit.</div>
+        <ul style="font-size:.86rem;line-height:1.6;margin:0;padding-left:18px;">
+          <li><strong>Mon/Wed/Fri</strong>: Writing (60 min) &mdash; Task 1 OR Task 2 alternating</li>
+          <li><strong>Tue/Thu</strong>: Speaking (30-45 min) &mdash; cue cards + Part 3 discussion</li>
+          <li><strong>Sat</strong>: Reading practice (1 full passage, timed)</li>
+          <li><strong>Sun</strong>: Listening practice + week review</li>
+          <li><strong>Milestone</strong>: 30 cue cards + 24 essays + mock test by Jul 31</li>
+        </ul>
+      </div>
+
+      <div class="it-phase it-phase--p2">
+        <div class="it-phase__title">Phase 2 &mdash; Refinement (Aug 1 &ndash; Oct 31, 13 weeks)</div>
+        <div class="it-phase__goal">Goal: Reach band 8 in Speaking + Writing. Address specific weaknesses.</div>
+        <ul style="font-size:.86rem;line-height:1.6;margin:0;padding-left:18px;">
+          <li>Recorded speaking practice with self-review against band descriptors</li>
+          <li>Essay rewriting: take week-1 essays and upgrade them with band 8 vocabulary</li>
+          <li>Pronunciation drills (TH, V/W, L/R, word stress)</li>
+          <li><strong>Milestone</strong>: book real IELTS test for late October or November</li>
+        </ul>
+      </div>
+
+      <div class="it-phase it-phase--p3">
+        <div class="it-phase__title">Phase 3 &mdash; Polish (Nov 1 &ndash; Dec 31, 9 weeks)</div>
+        <div class="it-phase__goal">Goal: Lock in band 8 S/W; push R/L from 8.5 to 9.</div>
+        <ul style="font-size:.86rem;line-height:1.6;margin:0;padding-left:18px;">
+          <li>Reading/Listening intensive: full mock tests, error logging</li>
+          <li>Speaking fluency drills: 1-minute monologue on random topics</li>
+          <li>Writing self-edits: focus on cohesion + complex grammar accuracy</li>
+          <li><strong>Final</strong>: real IELTS test in December</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="it-card">
+      <div class="it-card__title">Resources Available</div>
+      <ul style="font-size:.88rem;line-height:1.7;margin:0;padding-left:18px;">
+        <li><strong>250 Speaking Cue Cards</strong> (Mahady Hasan PDF) &mdash; in Speaking P2 tab</li>
+        <li><strong>330+ Past Exam Essays</strong> (Makkar PDF) &mdash; in Writing Task 2 tab</li>
+        <li><strong>Your existing PTE 万能语料库</strong> (102 topics, 527 arguments) &mdash; transferable to IELTS Task 2</li>
+        <li><strong>FSI Pattern Drills</strong> &mdash; speaking fluency training, also helps IELTS</li>
+        <li><strong>Workplace English Hub</strong> (1,821 exercises) &mdash; building blocks for both</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ─── BAND 7 → 8 ─── -->
+  <div class="it-panel" id="panel-bandgap">
+    <div class="it-card">
+      <div class="it-card__title">Why Band 7 &rarr; 8 is the Hardest Jump</div>
+      <p class="it-card__sub">In IELTS, band 8 means you use English at near-native expressive level. The difference between 7 and 8 is qualitative, not quantitative &mdash; you don't just need more words, you need to use them flexibly and with precision.</p>
+      <div id="bandGapContent"><p style="color:var(--it-muted);font-style:italic;">Detailed band 7 vs 8 analysis loading...</p></div>
+    </div>
+  </div>
+
+  <!-- ─── SPEAKING P1 ─── -->
+  <div class="it-panel" id="panel-speaking-p1">
+    <div class="it-card">
+      <div class="it-card__title">Speaking Part 1 &mdash; Introduction Questions</div>
+      <p class="it-card__sub">4-5 minutes. Examiner asks personal questions on familiar topics (home, work, hobbies). Aim for 2-3 sentence answers, NOT one-word responses.</p>
+      <div id="part1Content"><p style="color:var(--it-muted);font-style:italic;">Part 1 question banks loading...</p></div>
+    </div>
+  </div>
+
+  <!-- ─── SPEAKING P2 (CUE CARDS) ─── -->
+  <div class="it-panel" id="panel-speaking-p2">
+    <div class="it-card">
+      <div class="it-card__title">Speaking Part 2 &mdash; Cue Cards (Long Turn)</div>
+      <p class="it-card__sub">1 minute prep + 1-2 minute monologue. The 250 cue cards are organised by category. Use the universal 4-paragraph framework.</p>
+
+      <div class="it-tmpl">
+        <b>Universal Cue Card Framework (4 minutes mental rehearsal):</b><br>
+        <b>P1 (~30s):</b> WHO/WHAT &mdash; introduce the subject<br>
+        <b>P2 (~30s):</b> WHEN/WHERE/HOW &mdash; give context<br>
+        <b>P3 (~45s):</b> DETAIL &mdash; key features, events, descriptions<br>
+        <b>P4 (~15s):</b> WHY/IMPACT &mdash; why memorable / how you feel
+      </div>
+
+      <input class="it-search" id="cueCardSearch" placeholder="Search cue cards by keyword (e.g. child, traffic, website)..." style="margin-top:8px;">
+      <div class="it-pills" id="cueCardCats"></div>
+    </div>
+
+    <div class="it-nav">
+      <div>
+        <button class="it-btn it-btn--ghost it-btn--sm" onclick="cueCardNav(-1)">&larr; Prev</button>
+        <button class="it-btn it-btn--ghost it-btn--sm" onclick="cueCardNav(1)">Next &rarr;</button>
+      </div>
+      <span class="it-counter" id="cueCardCounter">-- / --</span>
+    </div>
+
+    <div id="cueCardDisplay"></div>
+  </div>
+
+  <!-- ─── SPEAKING P3 ─── -->
+  <div class="it-panel" id="panel-speaking-p3">
+    <div class="it-card">
+      <div class="it-card__title">Speaking Part 3 &mdash; Discussion (Where Band 8 Is Decided)</div>
+      <p class="it-card__sub">4-5 minutes of abstract discussion linked to your Part 2 topic. This is the hardest part because it requires extending ideas, hedging, comparing, and predicting.</p>
+
+      <div class="it-tmpl">
+        <b>PEEL Answer Structure for Part 3:</b><br>
+        <b>P</b>oint &mdash; direct answer to the question<br>
+        <b>E</b>xplanation &mdash; why this is the case<br>
+        <b>E</b>xample &mdash; specific instance (real or hypothetical)<br>
+        <b>L</b>ink &mdash; broader implication or counter-perspective
+      </div>
+
+      <div class="it-strat">
+        <div class="it-strat__title">Band 8 Phrases for Part 3</div>
+        Use: "I'd argue that...", "It's worth considering...", "From a different perspective...", "There's a tendency for...", "While that may be true, one could also say...", "In hypothetical terms..."
+      </div>
+
+      <div id="part3Content"><p style="color:var(--it-muted);font-style:italic;">Part 3 question banks loading...</p></div>
+    </div>
+  </div>
+
+  <!-- ─── WRITING TASK 1 ─── -->
+  <div class="it-panel" id="panel-task1">
+    <div class="it-card">
+      <div class="it-card__title">Writing Task 1 &mdash; Academic (150+ words, 20 min)</div>
+      <p class="it-card__sub">Describe a chart, graph, table, diagram, map, or process. NEW for IELTS (PTE doesn't have this exact task). The OVERVIEW paragraph is critical for band 7+.</p>
+
+      <div class="it-tmpl">
+        <b>4-Paragraph Structure:</b><br>
+        <b>1. Introduction</b> (paraphrase the question)<br>
+        <b>2. Overview</b> (2 sentences, MOST IMPORTANT &mdash; 2-3 main trends, no numbers)<br>
+        <b>3. Body 1</b> (detail group 1 with figures)<br>
+        <b>4. Body 2</b> (detail group 2 with figures)
+      </div>
+
+      <div id="task1Content"><p style="color:var(--it-muted);font-style:italic;">Task 1 templates loading...</p></div>
+    </div>
+  </div>
+
+  <!-- ─── WRITING TASK 2 ─── -->
+  <div class="it-panel" id="panel-task2">
+    <div class="it-card">
+      <div class="it-card__title">Writing Task 2 &mdash; Essay (250+ words, 40 min)</div>
+      <p class="it-card__sub">6 question types. Identify the type FIRST, then choose the right structure. Your existing PTE 万能语料库 (102 topics, 527 arguments) is directly transferable here.</p>
+      <div id="task2Content"><p style="color:var(--it-muted);font-style:italic;">Task 2 question types and essays loading...</p></div>
+    </div>
+    <div id="essayBank"></div>
+  </div>
+
+  <!-- ─── READING 9 ─── -->
+  <div class="it-panel" id="panel-reading">
+    <div class="it-card">
+      <div class="it-card__title">Reading Push 8.5 &rarr; 9</div>
+      <p class="it-card__sub">Band 9 typically means 39-40/40 correct. With 8.5 you're at 35-37. The gap is in the trickiest question types.</p>
+      <div id="readingContent"><p style="color:var(--it-muted);font-style:italic;">Reading strategies loading...</p></div>
+    </div>
+  </div>
+
+  <!-- ─── LISTENING 9 ─── -->
+  <div class="it-panel" id="panel-listening">
+    <div class="it-card">
+      <div class="it-card__title">Listening Push 8.5 &rarr; 9</div>
+      <p class="it-card__sub">Most band 9 candidates lose points in Section 4 (academic lecture) and on spelling/plurals. Predict, then listen.</p>
+      <div id="listeningContent"><p style="color:var(--it-muted);font-style:italic;">Listening strategies loading...</p></div>
+    </div>
+  </div>
+
+</div>
+
+<script src="js/ielts-cuecards-data.js"></script>
+<script src="js/ielts-essays-data.js"></script>
+<script src="js/ielts-templates-data.js"></script>
+<script>
+(function() {
+'use strict';
+
+var STATE_KEY = 'pte_ielts_v1';
+var state = JSON.parse(localStorage.getItem(STATE_KEY) || '{}');
+if (!state.tab) state.tab = 'overview';
+if (!state.cueCardIdx) state.cueCardIdx = 0;
+if (!state.cueCardCat) state.cueCardCat = 'all';
+if (!state.cueCardQuery) state.cueCardQuery = '';
+function save() { localStorage.setItem(STATE_KEY, JSON.stringify(state)); }
+
+/* Countdown to Dec 31 */
+function renderCountdown() {
+  var today = new Date(); today.setHours(0,0,0,0);
+  var target = new Date(2026, 11, 31);
+  var diff = Math.ceil((target - today) / (1000*60*60*24));
+  var el = document.getElementById('ieltsDays');
+  if (el) el.textContent = diff > 0 ? diff : 'GO';
+}
+
+/* Tab switching */
+function switchTab(tab) {
+  state.tab = tab; save();
+  document.querySelectorAll('.it-tab').forEach(function(t) {
+    t.classList.toggle('it-tab--active', t.getAttribute('data-tab') === tab);
+  });
+  document.querySelectorAll('.it-panel').forEach(function(p) {
+    p.classList.toggle('it-panel--active', p.id === 'panel-' + tab);
+  });
+}
+
+/* ─── Cue Cards ─── */
+function getCueCards() {
+  return (typeof IELTS_CUECARDS !== 'undefined') ? IELTS_CUECARDS : [];
+}
+function filteredCueCards() {
+  var data = getCueCards();
+  var q = (state.cueCardQuery || '').toLowerCase().trim();
+  return data.filter(function(c) {
+    var catOk = state.cueCardCat === 'all' || c.category === state.cueCardCat;
+    if (!catOk) return false;
+    if (!q) return true;
+    return ((c.title || '') + ' ' + (c.category || '')).toLowerCase().indexOf(q) >= 0;
+  });
+}
+function renderCueCardCats() {
+  var bar = document.getElementById('cueCardCats');
+  if (!bar) return;
+  var data = getCueCards();
+  var cats = {};
+  data.forEach(function(c) { cats[c.category] = (cats[c.category] || 0) + 1; });
+  var html = '<button class="it-pill' + (state.cueCardCat === 'all' ? ' it-pill--active' : '') + '" data-cat="all">All (' + data.length + ')</button>';
+  Object.keys(cats).sort().forEach(function(c) {
+    html += '<button class="it-pill' + (state.cueCardCat === c ? ' it-pill--active' : '') + '" data-cat="' + c + '">' + c + ' (' + cats[c] + ')</button>';
+  });
+  bar.innerHTML = html;
+  bar.querySelectorAll('.it-pill').forEach(function(b) {
+    b.addEventListener('click', function() {
+      state.cueCardCat = this.getAttribute('data-cat');
+      state.cueCardIdx = 0;
+      save();
+      renderCueCardCats();
+      renderCueCard();
+    });
+  });
+}
+function renderCueCard() {
+  var el = document.getElementById('cueCardDisplay');
+  var counter = document.getElementById('cueCardCounter');
+  var data = filteredCueCards();
+  if (!data.length) {
+    el.innerHTML = '<div class="it-card"><p style="color:var(--it-muted);">Cue card data is loading. The 250 cards from the PDF will appear here once the extraction agent finishes.</p></div>';
+    counter.textContent = '0 / 0';
+    return;
+  }
+  if (state.cueCardIdx >= data.length) state.cueCardIdx = 0;
+  var c = data[state.cueCardIdx];
+  counter.innerHTML = '<strong>' + (state.cueCardIdx + 1) + '</strong> / ' + data.length;
+  var h = '<div class="it-cuecard">';
+  h += '<div class="it-cuecard__title">' + c.title + '</div>';
+  if (c.category) h += '<span class="it-band it-band--8">' + c.category + '</span>';
+  if (c.cues) {
+    h += '<div class="it-cuecard__cues"><strong>You should say:</strong><ul style="margin:6px 0 0;padding-left:20px;">';
+    c.cues.forEach(function(cue) { h += '<li>' + cue + '</li>'; });
+    h += '</ul></div>';
+  }
+  if (c.sampleAnswer) {
+    h += '<button class="it-btn it-btn--primary it-btn--sm" onclick="this.nextElementSibling.classList.toggle(\'it-cuecard__sample--show\');">Toggle Sample Answer</button>';
+    h += '<div class="it-cuecard__sample"><strong>Band 8 Sample Answer:</strong><br><br>' + c.sampleAnswer + '</div>';
+  }
+  if (c.keyVocabulary && c.keyVocabulary.length) {
+    h += '<div style="margin-top:10px;font-size:.82rem;font-weight:700;">Key Vocabulary:</div>';
+    h += '<div class="it-vocab">';
+    c.keyVocabulary.forEach(function(v) { h += '<span class="it-vocab__chip">' + v + '</span>'; });
+    h += '</div>';
+  }
+  if (c.part3Questions && c.part3Questions.length) {
+    h += '<div style="margin-top:14px;padding:10px 12px;background:#faf5ff;border-radius:8px;border-left:3px solid var(--it-purple);">';
+    h += '<div style="font-size:.84rem;font-weight:700;color:var(--it-purple);margin-bottom:6px;">Likely Part 3 Discussion Questions:</div>';
+    h += '<ul style="margin:0;padding-left:20px;font-size:.84rem;line-height:1.6;">';
+    c.part3Questions.forEach(function(q) { h += '<li>' + q + '</li>'; });
+    h += '</ul></div>';
+  }
+  h += '</div>';
+  el.innerHTML = h;
+}
+window.cueCardNav = function(dir) {
+  var data = filteredCueCards();
+  if (!data.length) return;
+  state.cueCardIdx = Math.max(0, Math.min(data.length - 1, state.cueCardIdx + dir));
+  save();
+  renderCueCard();
+};
+
+/* Search */
+function initSearch() {
+  var s = document.getElementById('cueCardSearch');
+  if (s) s.addEventListener('input', function() {
+    state.cueCardQuery = this.value;
+    state.cueCardIdx = 0;
+    save();
+    renderCueCard();
+  });
+}
+
+/* ─── Templates Renderer ─── */
+function renderTemplates() {
+  if (typeof IELTS_TEMPLATES === 'undefined') return;
+  var t = IELTS_TEMPLATES;
+
+  // Band gap
+  if (t.bandGap) {
+    var bg = document.getElementById('bandGapContent');
+    if (bg) {
+      var h = '';
+      ['speaking', 'writing'].forEach(function(skill) {
+        if (!t.bandGap[skill]) return;
+        var d = t.bandGap[skill];
+        h += '<div style="margin-bottom:20px;">';
+        h += '<h3 style="font-size:1rem;margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px;color:var(--it-primary);">' + skill + '</h3>';
+        if (d.criticalDifferences) {
+          d.criticalDifferences.forEach(function(cd) {
+            h += '<div class="it-card" style="margin-bottom:10px;padding:14px;">';
+            h += '<div style="font-weight:700;margin-bottom:6px;">' + cd.area + '</div>';
+            h += '<div style="display:grid;grid-template-columns:1fr;gap:6px;font-size:.85rem;">';
+            h += '<div><span class="it-band it-band--7">Band 7</span> ' + cd.b7 + '</div>';
+            h += '<div><span class="it-band it-band--8">Band 8</span> ' + cd.b8 + '</div>';
+            if (cd.strategy) h += '<div style="margin-top:6px;padding:8px 10px;background:#fef9c3;border-radius:6px;"><strong>Strategy:</strong> ' + cd.strategy + '</div>';
+            h += '</div></div>';
+          });
+        }
+        h += '</div>';
+      });
+      bg.innerHTML = h || '<p style="color:var(--it-muted);">Band gap data not yet available.</p>';
+    }
+  }
+
+  // Speaking P1
+  if (t.speaking && t.speaking.part1) {
+    var p1 = document.getElementById('part1Content');
+    if (p1) {
+      var h = '';
+      if (t.speaking.part1.commonTopics) {
+        t.speaking.part1.commonTopics.forEach(function(topic) {
+          h += '<div class="it-card" style="margin-bottom:12px;padding:14px;">';
+          h += '<div style="font-weight:800;color:var(--it-primary);margin-bottom:8px;">' + topic.topic + '</div>';
+          if (topic.questions) topic.questions.forEach(function(q, i) {
+            h += '<div style="margin-bottom:8px;font-size:.88rem;"><strong>Q' + (i + 1) + ':</strong> ' + q + '</div>';
+            if (topic.sampleAnswers && topic.sampleAnswers[i]) {
+              h += '<div style="font-size:.85rem;line-height:1.6;padding:8px 12px;background:#f8fafc;border-radius:6px;margin-bottom:8px;">' + topic.sampleAnswers[i] + '</div>';
+            }
+          });
+          if (topic.vocabulary && topic.vocabulary.length) {
+            h += '<div class="it-vocab" style="margin-top:8px;">';
+            topic.vocabulary.forEach(function(v) { h += '<span class="it-vocab__chip">' + v + '</span>'; });
+            h += '</div>';
+          }
+          h += '</div>';
+        });
+      }
+      p1.innerHTML = h;
+    }
+  }
+
+  // Speaking P3
+  if (t.speaking && t.speaking.part3) {
+    var p3 = document.getElementById('part3Content');
+    if (p3 && t.speaking.part3.sampleQuestions) {
+      var h = '';
+      t.speaking.part3.sampleQuestions.forEach(function(q) {
+        h += '<div class="it-card" style="margin-bottom:10px;padding:14px;">';
+        h += '<div style="font-weight:700;margin-bottom:6px;font-size:.92rem;">' + (q.question || q) + '</div>';
+        if (q.modelAnswer) h += '<div style="font-size:.85rem;line-height:1.6;padding:8px 12px;background:#f8fafc;border-radius:6px;">' + q.modelAnswer + '</div>';
+        if (q.tip) h += '<div class="it-strat"><strong>Tip:</strong> ' + q.tip + '</div>';
+        h += '</div>';
+      });
+      p3.innerHTML = h;
+    }
+  }
+
+  // Writing Task 1
+  if (t.writingTask1) {
+    var w1 = document.getElementById('task1Content');
+    if (w1) {
+      var h = '';
+      if (t.writingTask1.chartTypes) {
+        t.writingTask1.chartTypes.forEach(function(ct) {
+          h += '<div class="it-card" style="margin-bottom:12px;padding:14px;">';
+          h += '<div style="font-weight:800;color:var(--it-primary);margin-bottom:8px;text-transform:uppercase;font-size:.92rem;">' + ct.type + '</div>';
+          if (ct.template) h += '<div class="it-tmpl">' + ct.template + '</div>';
+          if (ct.example) h += '<details style="margin-top:8px;"><summary style="cursor:pointer;font-weight:700;font-size:.85rem;color:var(--it-primary);">Show Sample Answer</summary><div style="padding:10px;background:#f8fafc;border-radius:6px;font-size:.86rem;line-height:1.7;margin-top:6px;">' + ct.example + '</div></details>';
+          if (ct.vocabulary) {
+            h += '<div class="it-vocab" style="margin-top:8px;">';
+            ct.vocabulary.forEach(function(v) { h += '<span class="it-vocab__chip">' + v + '</span>'; });
+            h += '</div>';
+          }
+          h += '</div>';
+        });
+      }
+      w1.innerHTML = h;
+    }
+  }
+
+  // Writing Task 2 question types
+  if (t.writingTask2) {
+    var w2 = document.getElementById('task2Content');
+    if (w2 && t.writingTask2.questionTypes) {
+      var h = '<h3 style="font-size:.95rem;font-weight:700;margin-bottom:10px;">6 Question Types &mdash; Identify First, Then Plan</h3>';
+      t.writingTask2.questionTypes.forEach(function(qt) {
+        h += '<div class="it-card" style="margin-bottom:10px;padding:14px;">';
+        h += '<div style="font-weight:800;color:var(--it-primary);margin-bottom:6px;">' + qt.type + '</div>';
+        if (qt.identifier) h += '<div style="font-size:.84rem;color:var(--it-muted);margin-bottom:6px;"><strong>Identify by:</strong> "' + qt.identifier + '"</div>';
+        if (qt.structure) h += '<div class="it-tmpl" style="font-size:.82rem;">' + qt.structure + '</div>';
+        if (qt.example) h += '<details style="margin-top:8px;"><summary style="cursor:pointer;font-weight:700;font-size:.84rem;color:var(--it-primary);">Show Worked Example</summary><div style="padding:10px;background:#f8fafc;border-radius:6px;font-size:.84rem;line-height:1.7;margin-top:6px;">' + qt.example + '</div></details>';
+        h += '</div>';
+      });
+      w2.innerHTML = h;
+    }
+  }
+
+  // Reading
+  if (t.reading) {
+    var r = document.getElementById('readingContent');
+    if (r) {
+      var h = '';
+      if (t.reading.questionTypes) {
+        h += '<h3 style="font-size:.95rem;font-weight:700;margin-bottom:10px;">8 Question Types</h3>';
+        t.reading.questionTypes.forEach(function(qt) {
+          h += '<div class="it-card" style="margin-bottom:10px;padding:14px;">';
+          h += '<div style="font-weight:800;color:var(--it-primary);margin-bottom:6px;">' + qt.type + '</div>';
+          if (qt.strategy) h += '<div style="font-size:.86rem;line-height:1.6;margin-bottom:6px;">' + qt.strategy + '</div>';
+          if (qt.band9Tip) h += '<div class="it-strat"><strong>Band 9 Tip:</strong> ' + qt.band9Tip + '</div>';
+          h += '</div>';
+        });
+      }
+      if (t.reading.band9Strategies) {
+        h += '<div class="it-card" style="background:#faf5ff;border-color:#e9d5ff;"><div class="it-card__title" style="color:var(--it-purple);">Band 9 Top Strategies</div><ul style="margin:0;padding-left:20px;font-size:.88rem;line-height:1.7;">';
+        t.reading.band9Strategies.forEach(function(s) { h += '<li>' + s + '</li>'; });
+        h += '</ul></div>';
+      }
+      r.innerHTML = h;
+    }
+  }
+
+  // Listening
+  if (t.listening) {
+    var l = document.getElementById('listeningContent');
+    if (l) {
+      var h = '';
+      if (t.listening.sections) {
+        t.listening.sections.forEach(function(s) {
+          h += '<div class="it-card" style="margin-bottom:10px;padding:14px;">';
+          h += '<div style="font-weight:800;color:var(--it-primary);margin-bottom:6px;">' + s.section + ' &mdash; ' + s.topic + '</div>';
+          if (s.strategy) h += '<div style="font-size:.86rem;line-height:1.6;">' + s.strategy + '</div>';
+          h += '</div>';
+        });
+      }
+      if (t.listening.band9Strategies) {
+        h += '<div class="it-card" style="background:#faf5ff;border-color:#e9d5ff;"><div class="it-card__title" style="color:var(--it-purple);">Band 9 Top Strategies</div><ul style="margin:0;padding-left:20px;font-size:.88rem;line-height:1.7;">';
+        t.listening.band9Strategies.forEach(function(s) { h += '<li>' + s + '</li>'; });
+        h += '</ul></div>';
+      }
+      l.innerHTML = h;
+    }
+  }
+}
+
+/* ─── Essay Bank ─── */
+function renderEssays() {
+  var data = (typeof IELTS_ESSAYS !== 'undefined') ? IELTS_ESSAYS : [];
+  var el = document.getElementById('essayBank');
+  if (!el) return;
+  if (!data.length) {
+    el.innerHTML = '<div class="it-card" style="margin-top:14px;"><p style="color:var(--it-muted);">Essay bank loading. The 80+ Makkar essays will appear here once the extraction agent finishes.</p></div>';
+    return;
+  }
+  var h = '<h3 style="font-size:1rem;font-weight:700;margin:18px 0 10px;">Essay Bank (' + data.length + ' topics)</h3>';
+  data.slice(0, 30).forEach(function(e, i) {
+    h += '<div class="it-essay">';
+    if (e.type) h += '<span class="it-essay__type">' + e.type + '</span>';
+    h += '<div class="it-essay__q">' + e.question + '</div>';
+    if (e.modelAnswer) {
+      h += '<button class="it-btn it-btn--ghost it-btn--sm" onclick="this.nextElementSibling.classList.toggle(\'it-essay__model--show\');">Show Band 8 Model</button>';
+      h += '<div class="it-essay__model">' + e.modelAnswer + '</div>';
+    }
+    h += '</div>';
+  });
+  if (data.length > 30) h += '<p style="color:var(--it-muted);font-size:.84rem;text-align:center;margin-top:10px;">Showing 30 of ' + data.length + '. Use search to find specific topics.</p>';
+  el.innerHTML = h;
+}
+
+/* Init */
+function init() {
+  renderCountdown();
+  document.querySelectorAll('.it-tab').forEach(function(t) {
+    t.addEventListener('click', function() { switchTab(this.getAttribute('data-tab')); });
+  });
+  switchTab(state.tab || 'overview');
+  renderCueCardCats();
+  renderCueCard();
+  renderTemplates();
+  renderEssays();
+  initSearch();
+}
+
+document.addEventListener('DOMContentLoaded', init);
+})();
+</script>
+</body>
+</html>
