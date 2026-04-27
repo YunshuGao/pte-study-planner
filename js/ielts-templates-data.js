@@ -615,66 +615,81 @@ var IELTS_TEMPLATES = {
     ]
   },
 
-  /* ═══════════ 8-MONTH STUDY CALENDAR ═══════════ */
+  /* ═══════════ 8-MONTH STUDY CALENDAR (USER-LOCKED) ═══════════
+     User choices locked in:
+     - Daily: 30 min minimum (weekend extra OK)
+     - Focus: alternating Speaking / Writing daily
+     - Test: December only (no mid-year test)
+     - Real start scores: L 8.5, R 8.5, S 6.5, W 7
+     - Target: L 9, R 9, S 8, W 8
+     Speaking 6.5 → 8 is a 1.5-band jump (the hardest gap),
+     so Speaking gets slightly more daily time than Writing.   */
   studyCalendar: {
     today: '27 April 2026',
     pteExam: '3 May 2026',
     targetCompletion: '31 December 2026',
+    realScores: { listening: 8.5, reading: 8.5, speaking: 6.5, writing: 7 },
+    targets: { listening: 9, reading: 9, speaking: 8, writing: 8 },
+    dailyMinimum: 30,
+    testStrategy: 'One real IELTS test in December 2026. No mid-year test.',
     phase1: {
       name: 'Phase 1: Foundation (May 4 – Jul 31, 13 weeks)',
-      goal: 'Push Speaking and Writing from 7 to 7.5. Build daily habit. Master Task 1 (new for IELTS).',
+      goal: 'Speaking 6.5 → 7. Writing 7 → 7.5. Build alternating habit. Master IELTS Task 1 (new) and cue card framework.',
+      pattern: 'Alternating Speaking / Writing daily. 30 min weekdays, 60-90 min weekends.',
       weeklySchedule: [
-        { day: 'Monday', focus: 'Writing Task 2', minutes: 60, activities: ['Pick essay from bank (5 min)', 'Plan: thesis + 2 main points + examples (5 min)', 'Write essay (40 min)', 'Self-edit using band 8 checklist (10 min)'] },
-        { day: 'Tuesday', focus: 'Speaking Part 2', minutes: 30, activities: ['Pick 2 cue cards from bank', '1 min prep + 2 min monologue per card (record)', 'Self-review: identify 3 vocab gaps + 2 grammar issues'] },
-        { day: 'Wednesday', focus: 'Writing Task 1', minutes: 45, activities: ['Pick chart type (rotate weekly)', 'Use template: intro + overview + body 1 + body 2', 'Write 150+ words in 20 min', 'Compare to model answer'] },
-        { day: 'Thursday', focus: 'Speaking Part 3', minutes: 30, activities: ['Pick Part 3 question set (5)', 'PEEL structure for each (30-45 sec answers)', 'Record + identify hesitation words to replace'] },
-        { day: 'Friday', focus: 'Writing Task 2 rewrite', minutes: 45, activities: ['Take Monday\'s essay', 'Upgrade with band 8 vocabulary (10 less common words)', 'Add 1 conditional + 1 inversion structure', 'Compare original vs revised'] },
-        { day: 'Saturday', focus: 'Reading + Listening', minutes: 90, activities: ['One full Reading passage timed (20 min)', 'Review answers + identify question type weaknesses', 'One full Listening section (10 min)', 'Build vocabulary from passages'] },
-        { day: 'Sunday', focus: 'Review + planning', minutes: 30, activities: ['Review week\'s Speaking recordings', 'Update vocabulary log', 'Plan next week\'s 2 cue cards + 2 essays'] }
+        { day: 'Monday', focus: 'SPEAKING Part 2 (Cue Cards)', minutes: 30, activities: ['Pick 1 cue card from bank', '1 min prep with keyword notes', '2 min recorded monologue', 'Self-review: list 3 vocab + 2 grammar issues to fix'] },
+        { day: 'Tuesday', focus: 'WRITING Task 1 (Charts)', minutes: 30, activities: ['Pick chart type (rotate weekly: bar→line→pie→table→process→map)', 'Use 4-paragraph template', 'Write 150+ words in 20 min', 'Compare to model answer (10 min)'] },
+        { day: 'Wednesday', focus: 'SPEAKING Part 1 + Part 3', minutes: 30, activities: ['10 Part 1 questions (record, replay)', '5 Part 3 questions using PEEL (record, replay)', 'Note pronunciation issues (TH, V/W, word stress)'] },
+        { day: 'Thursday', focus: 'WRITING Task 2 (Essay)', minutes: 30, activities: ['Pick essay from bank (5 min)', 'Plan: thesis + 2 points + examples (5 min)', 'Write 250+ words (20 min) — finish next session if needed'] },
+        { day: 'Friday', focus: 'SPEAKING fluency (varied)', minutes: 30, activities: ['Shadow ABC News / podcast 10 min (repeat each sentence)', 'Random topic 2 min monologue (no prep)', 'FSI drills tab — 10 min pattern repetition'] },
+        { day: 'Saturday', focus: 'READING + LISTENING (extended)', minutes: 90, activities: ['1 full Reading passage timed (20 min)', 'Error log: which question types missed?', '1 full Listening section + transfer (15 min)', 'Vocabulary harvest: 10 new collocations from materials'] },
+        { day: 'Sunday', focus: 'WRITING rewrite + review', minutes: 60, activities: ['Take Thursday\'s essay', 'Upgrade with band 8 vocabulary (10 less common words)', 'Add 1 conditional + 1 inversion structure', 'Plan next week\'s 3 cue cards + 1 essay topic'] }
       ],
-      weeklyTotal: '5 hours',
+      weeklyTotal: '5 hours (30 min × 5 weekdays + 90 min Sat + 60 min Sun)',
       milestones: [
-        'Week 4 (May 25): 8 cue cards completed, 4 Task 2 essays, 4 Task 1 reports',
-        'Week 8 (Jun 22): 16 cue cards, 8 essays, 8 Task 1, first mock test',
-        'Week 13 (Jul 26): 26 cue cards, 13 essays, 13 Task 1, second mock test'
+        'Week 4 (May 25): 4 cue cards × 2 = 8 recordings, 4 Task 1, 4 Task 2 essays',
+        'Week 8 (Jun 22): 16 recordings, 8 Task 1, 8 essays — Self-mock Speaking interview',
+        'Week 13 (Jul 26): 26 recordings, 13 Task 1, 13 essays — Phase 1 review weekend'
       ]
     },
     phase2: {
       name: 'Phase 2: Refinement (Aug 1 – Oct 31, 13 weeks)',
-      goal: 'Reach band 8 in Speaking and Writing. Address specific weaknesses identified in Phase 1.',
+      goal: 'Speaking 7 → 7.5. Writing 7.5 → 8. Address specific weaknesses. Speaking gets MORE focus due to the bigger gap.',
+      pattern: 'Alternating with Speaking emphasis (3 Speaking days vs 2 Writing days). Pronunciation drill added.',
       weeklySchedule: [
-        { day: 'Monday', focus: 'Writing Task 2 (advanced)', minutes: 60, activities: ['Pick complex question type (Two-part, Problem-Solution)', 'Write essay focusing on idea DEPTH not breadth', 'Use 5 advanced grammar structures'] },
-        { day: 'Tuesday', focus: 'Speaking fluency drill', minutes: 45, activities: ['10 random cue cards — 1 min prep, 2 min talk each', 'Goal: zero hesitation for language reasons', 'Record best 3, analyse against band 8 descriptors'] },
-        { day: 'Wednesday', focus: 'Writing self-edit', minutes: 45, activities: ['Take Phase 1 essay', 'Rewrite as if you were band 9', 'Compare differences — what changed?'] },
-        { day: 'Thursday', focus: 'Pronunciation drill', minutes: 30, activities: ['TH sounds (think/this/breathe)', 'V/W (very/we/wave)', 'Word stress (PHOto vs phoTOgrapher)', 'Sentence intonation on questions'] },
-        { day: 'Friday', focus: 'Mock Speaking', minutes: 60, activities: ['Full 14-min mock interview (Parts 1+2+3)', 'Self-record', 'Score yourself against band descriptors', 'List specific improvements for next week'] },
-        { day: 'Saturday', focus: 'Mock test', minutes: 180, activities: ['Full Reading test (60 min)', 'Full Listening test (40 min)', 'Full Writing tests (60 min)', 'Score, error log'] },
-        { day: 'Sunday', focus: 'Error log review + planning', minutes: 45, activities: ['Categorise errors by type', 'Pick top 3 weaknesses for week ahead', 'Vocabulary expansion in weak topic areas'] }
+        { day: 'Monday', focus: 'SPEAKING Part 2 (advanced)', minutes: 30, activities: ['Pick 2 cue cards', 'Add 3 idioms + 1 less common collocation per answer', 'Record, listen, identify hesitation moments', 'Replace 5 hesitation fillers with thinking phrases'] },
+        { day: 'Tuesday', focus: 'WRITING Task 2 (depth)', minutes: 30, activities: ['Pick complex type (Two-part, Problem-Solution)', 'Plan with idea DEPTH, not breadth', 'Use 5 advanced structures: cleft, inversion, conditional, participle, nominalisation'] },
+        { day: 'Wednesday', focus: 'SPEAKING Part 3 (abstract discussion)', minutes: 30, activities: ['Pick 5 Part 3 questions', '30-45 sec answers using PEEL', 'Force yourself to use 1 hypothetical + 1 prediction per answer'] },
+        { day: 'Thursday', focus: 'WRITING Task 1 (variety)', minutes: 30, activities: ['Pick mixed/unfamiliar chart type', 'Practice tricky comparisons (twice/half/proportion language)', 'Aim for 180-200 words at band 8 quality'] },
+        { day: 'Friday', focus: 'PRONUNCIATION drill', minutes: 30, activities: ['TH sounds: think/this/breathe (10 min)', 'V/W: very/we/wave/save (5 min)', 'L/R: light/right/already (5 min)', 'Word stress + sentence intonation (10 min)'] },
+        { day: 'Saturday', focus: 'MOCK SPEAKING + READING', minutes: 120, activities: ['Full 14-min mock interview (Parts 1+2+3)', 'Score yourself against band descriptors', '1 full Reading passage timed', 'Error log review'] },
+        { day: 'Sunday', focus: 'WRITING mock + listening', minutes: 90, activities: ['1 Task 1 (20 min) + 1 Task 2 (40 min)', 'Self-edit using band 8 checklist', '1 Listening section + vocabulary review'] }
       ],
-      weeklyTotal: '7 hours',
+      weeklyTotal: '6 hours (30 min × 5 weekdays + 120 min Sat + 90 min Sun)',
       milestones: [
-        'Week 4 (Aug 30): Book real IELTS test for late October',
-        'Week 8 (Sep 27): Mock test scores reach 7.5+ in Speaking and Writing',
-        'Week 13 (Oct 25): Real IELTS test taken — establishes baseline for Phase 3'
+        'Week 4 (Aug 30): Self-mock Speaking reaches 7.5 consistently',
+        'Week 8 (Sep 27): Self-mock Writing reaches 7.5+ in both Task 1 and Task 2',
+        'Week 13 (Oct 25): BOOK REAL IELTS for mid-December 2026'
       ]
     },
     phase3: {
       name: 'Phase 3: Polish (Nov 1 – Dec 31, 9 weeks)',
-      goal: 'Lock in band 8 Speaking and Writing. Push Reading and Listening from 8.5 to 9.',
+      goal: 'Lock in band 8 Speaking and Writing. Push Reading and Listening from 8.5 to 9. Real test mid-December.',
+      pattern: 'Reading/Listening intensified (these are 0.5 band jumps, achievable). Speaking maintenance daily.',
       weeklySchedule: [
-        { day: 'Monday', focus: 'Reading band 9 drills', minutes: 60, activities: ['Tricky question types (T/F/NG, matching headings)', 'Identify paraphrasing patterns', 'Build academic vocabulary in weak topics'] },
-        { day: 'Tuesday', focus: 'Listening band 9 drills', minutes: 60, activities: ['Section 4 lectures (academic monologues)', 'Spelling practice — common traps', 'Map/plan questions with directions'] },
-        { day: 'Wednesday', focus: 'Speaking maintenance', minutes: 30, activities: ['1-minute monologue on random topics', 'Vocabulary refresh: top 100 collocations'] },
-        { day: 'Thursday', focus: 'Writing maintenance', minutes: 45, activities: ['One Task 2 essay (timed)', 'Self-edit + compare to past attempts', 'Note improvement over months'] },
-        { day: 'Friday', focus: 'Mock Reading + Listening', minutes: 100, activities: ['Full Reading test (60 min)', 'Full Listening test (40 min)', 'Score: aiming for 39-40/40'] },
-        { day: 'Saturday', focus: 'Full mock test', minutes: 180, activities: ['Complete 4-skill mock', 'Simulate real exam conditions', 'Score against latest IELTS rubric'] },
-        { day: 'Sunday', focus: 'Review + rest', minutes: 30, activities: ['Light review only', 'Visualise exam day', 'Rest is part of preparation'] }
+        { day: 'Monday', focus: 'READING band 9 drills', minutes: 30, activities: ['T/F/NG and Yes/No/NG distinction drills', 'Identify paraphrasing patterns in 1 passage', 'Build academic vocab: 10 new words'] },
+        { day: 'Tuesday', focus: 'SPEAKING maintenance', minutes: 30, activities: ['1 cue card monologue (record)', 'Compare to one from May — note improvement', '1-min random topic challenge'] },
+        { day: 'Wednesday', focus: 'LISTENING band 9 drills', minutes: 30, activities: ['Section 4 lecture practice (note-taking)', 'Spelling: top 50 IELTS traps', 'Map/plan questions with directions'] },
+        { day: 'Thursday', focus: 'WRITING maintenance', minutes: 30, activities: ['1 Task 2 essay (timed)', 'Self-edit checklist', 'Compare to a Phase 1 essay — note progress'] },
+        { day: 'Friday', focus: 'MOCK READING (full)', minutes: 60, activities: ['Full Reading test (60 min)', 'Score, target 39-40/40', 'Identify any remaining weak question types'] },
+        { day: 'Saturday', focus: 'FULL MOCK TEST', minutes: 180, activities: ['Complete 4-skill mock (R+L+W+S)', 'Real exam conditions (no breaks)', 'Score honestly against rubric'] },
+        { day: 'Sunday', focus: 'REVIEW + REST', minutes: 30, activities: ['Light vocabulary review', 'Visualise exam day', 'Rest is part of preparation'] }
       ],
-      weeklyTotal: '8 hours',
+      weeklyTotal: '6.5 hours',
       milestones: [
         'Week 4 (Nov 28): Mock Reading + Listening at 9.0',
-        'Week 8 (Dec 20): Final mock test before real exam',
-        'Week 9 (Dec 31): Real IELTS test — TARGET: L9 R9 S8 W8'
+        'Week 7 (Dec 18): Real IELTS test in mid-December',
+        'Post-test: Result expected by Dec 28-31. Target: L9 R9 S8 W8'
       ]
     }
   }
