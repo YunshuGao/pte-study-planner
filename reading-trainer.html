@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PTE Reading Trainer — Score 79+</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+:root {
+  --rt-bg:#f8f9fa;--rt-card:#fff;--rt-text:#1a1a2e;--rt-muted:#6c757d;
+  --rt-primary:#2563eb;--rt-green:#27ae60;--rt-red:#e74c3c;--rt-yellow:#f39c12;
+  --rt-orange:#e67e22;--rt-purple:#8b5cf6;--rt-radius:12px;
+  --rt-green-light:#d1fae5;--rt-red-light:#fee2e2;
+}
+*{box-sizing:border-box}
+body{background:var(--rt-bg);margin:0;font-family:system-ui,-apple-system,sans-serif}
+.rt-page{max-width:900px;margin:0 auto;padding:20px 16px 60px}
+
+/* Header */
+.rt-header{text-align:center;margin-bottom:20px}
+.rt-header__back{display:inline-block;color:var(--rt-primary);font-size:.875rem;font-weight:600;margin-bottom:8px;text-decoration:none}
+.rt-header__title{font-size:1.75rem;font-weight:800;color:var(--rt-text);margin:0 0 4px;letter-spacing:-.02em}
+.rt-header__title span{color:var(--rt-orange)}
+.rt-header__sub{font-size:.9rem;color:var(--rt-muted);margin:0 0 10px}
+.rt-stats{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:8px}
+.rt-stat{display:inline-flex;align-items:center;gap:6px;background:var(--rt-card);border:1px solid #e2e8f0;padding:6px 14px;border-radius:20px;font-size:.8rem;font-weight:600;color:var(--rt-text)}
+.rt-stat--warn{border-color:var(--rt-red);color:var(--rt-red);background:var(--rt-red-light)}
+.rt-stat--ok{border-color:var(--rt-green);color:var(--rt-green);background:var(--rt-green-light)}
+
+/* Tabs */
+.rt-tabs{display:flex;gap:4px;overflow-x:auto;padding-bottom:4px;margin-bottom:20px;-webkit-overflow-scrolling:touch}
+.rt-tab{flex-shrink:0;padding:10px 16px;border:2px solid transparent;background:var(--rt-card);color:var(--rt-muted);font-size:.8rem;font-weight:700;border-radius:var(--rt-radius);cursor:pointer;transition:all .2s;white-space:nowrap}
+.rt-tab:hover{color:var(--rt-primary);background:#eff6ff}
+.rt-tab--active{color:var(--rt-primary);background:#eff6ff;border-color:var(--rt-primary)}
+.rt-tab__count{font-size:.7rem;margin-left:4px;opacity:.7}
+
+/* Panels */
+.rt-panel{display:none;animation:rtFade .3s ease}
+.rt-panel--active{display:block}
+@keyframes rtFade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* Cards */
+.rt-card{background:var(--rt-card);border-radius:var(--rt-radius);padding:20px;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,.08);border:1px solid #e2e8f0}
+.rt-card__title{font-size:1rem;font-weight:700;color:var(--rt-text);margin:0 0 12px}
+
+/* Passage text */
+.rt-passage{font-size:.92rem;line-height:1.8;color:var(--rt-text);border-left:4px solid var(--rt-primary);padding:12px 16px;background:#f8fafc;border-radius:0 8px 8px 0;margin-bottom:12px}
+
+/* Dropdown blanks */
+.rt-blank-select{display:inline-block;min-width:120px;padding:4px 8px;border:2px solid var(--rt-primary);border-radius:6px;font-size:.88rem;font-weight:600;color:var(--rt-primary);background:#eff6ff;cursor:pointer;margin:0 2px}
+.rt-blank-select--correct{border-color:var(--rt-green);color:var(--rt-green);background:var(--rt-green-light)}
+.rt-blank-select--wrong{border-color:var(--rt-red);color:var(--rt-red);background:var(--rt-red-light)}
+
+/* Word bank */
+.rt-wordbank{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0;padding:10px;background:#f0f9ff;border-radius:8px;border:1px dashed var(--rt-primary)}
+.rt-word{padding:6px 14px;border-radius:20px;font-size:.82rem;font-weight:600;cursor:pointer;border:2px solid #e2e8f0;background:var(--rt-card);transition:all .2s;user-select:none}
+.rt-word:hover{border-color:var(--rt-primary);color:var(--rt-primary)}
+.rt-word--used{opacity:.4;text-decoration:line-through;cursor:default}
+.rt-word--correct{border-color:var(--rt-green);color:var(--rt-green);background:var(--rt-green-light)}
+.rt-word--wrong{border-color:var(--rt-red);color:var(--rt-red);background:var(--rt-red-light)}
+
+/* Blank slots for reading FIB */
+.rt-blank-slot{display:inline-block;min-width:100px;padding:4px 10px;border:2px dashed var(--rt-primary);border-radius:6px;font-size:.86rem;font-weight:600;color:var(--rt-primary);background:#f0f9ff;cursor:pointer;margin:0 2px;min-height:28px;text-align:center}
+.rt-blank-slot--filled{border-style:solid;background:#eff6ff}
+.rt-blank-slot--correct{border-color:var(--rt-green);color:var(--rt-green);background:var(--rt-green-light)}
+.rt-blank-slot--wrong{border-color:var(--rt-red);color:var(--rt-red);background:var(--rt-red-light)}
+
+/* Re-order */
+.rt-ro-pool{min-height:60px;margin-bottom:16px}
+.rt-ro-sentence{padding:12px 16px;margin-bottom:6px;border:2px solid #e2e8f0;border-radius:8px;background:var(--rt-card);cursor:pointer;font-size:.88rem;line-height:1.5;transition:all .2s;user-select:none}
+.rt-ro-sentence:hover{border-color:var(--rt-primary);background:#eff6ff}
+.rt-ro-sentence--placed{opacity:.35;cursor:default}
+.rt-ro-label{display:inline-block;width:24px;height:24px;line-height:24px;text-align:center;border-radius:50%;background:var(--rt-primary);color:#fff;font-size:.75rem;font-weight:700;margin-right:8px}
+.rt-ro-answer{min-height:60px;border:2px dashed #cbd5e1;border-radius:8px;padding:8px;margin-bottom:12px;background:#fafafa}
+.rt-ro-answer-item{padding:10px 14px;margin-bottom:4px;border:2px solid var(--rt-primary);border-radius:8px;background:#eff6ff;font-size:.88rem;line-height:1.5;cursor:pointer;display:flex;align-items:center;gap:8px}
+.rt-ro-answer-item:hover{background:#dbeafe}
+.rt-ro-num{display:inline-block;width:24px;height:24px;line-height:24px;text-align:center;border-radius:50%;background:var(--rt-orange);color:#fff;font-size:.75rem;font-weight:700;flex-shrink:0}
+.rt-ro-answer-item--correct{border-color:var(--rt-green);background:var(--rt-green-light)}
+.rt-ro-answer-item--wrong{border-color:var(--rt-red);background:var(--rt-red-light)}
+
+/* MC options */
+.rt-mc-opt{padding:12px 16px;margin-bottom:6px;border:2px solid #e2e8f0;border-radius:8px;background:var(--rt-card);cursor:pointer;font-size:.88rem;line-height:1.5;transition:all .2s;display:flex;align-items:flex-start;gap:10px}
+.rt-mc-opt:hover{border-color:var(--rt-primary);background:#eff6ff}
+.rt-mc-check{width:20px;height:20px;border:2px solid #cbd5e1;border-radius:4px;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;transition:all .2s}
+.rt-mc-opt--selected .rt-mc-check{border-color:var(--rt-primary);background:var(--rt-primary);color:#fff}
+.rt-mc-opt--correct{border-color:var(--rt-green);background:var(--rt-green-light)}
+.rt-mc-opt--correct .rt-mc-check{border-color:var(--rt-green);background:var(--rt-green);color:#fff}
+.rt-mc-opt--wrong{border-color:var(--rt-red);background:var(--rt-red-light)}
+.rt-mc-radio{width:20px;height:20px;border:2px solid #cbd5e1;border-radius:50%;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.rt-mc-opt--selected .rt-mc-radio{border-color:var(--rt-primary);background:var(--rt-primary)}
+.rt-mc-opt--selected .rt-mc-radio::after{content:'';width:8px;height:8px;border-radius:50%;background:#fff}
+
+/* Strategy box */
+.rt-strategy{background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:12px 16px;margin-top:12px;font-size:.84rem;line-height:1.6;color:#78350f;display:none}
+.rt-strategy--show{display:block}
+.rt-strategy__title{font-weight:700;color:#92400e;margin-bottom:4px}
+.rt-clues{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.rt-clue{padding:3px 10px;border-radius:10px;font-size:.72rem;font-weight:600;background:#fef3c7;color:#92400e}
+
+/* Buttons */
+.rt-btn{padding:10px 20px;border:none;border-radius:8px;font-size:.88rem;font-weight:700;cursor:pointer;transition:all .2s}
+.rt-btn--primary{background:var(--rt-primary);color:#fff}
+.rt-btn--primary:hover{background:#1d4ed8}
+.rt-btn--green{background:var(--rt-green);color:#fff}
+.rt-btn--ghost{background:transparent;color:var(--rt-muted);border:2px solid #e2e8f0}
+.rt-btn--ghost:hover{border-color:var(--rt-primary);color:var(--rt-primary)}
+.rt-btn--sm{padding:6px 14px;font-size:.8rem}
+.rt-btn-group{display:flex;gap:8px;flex-wrap:wrap}
+.rt-counter{font-size:.85rem;font-weight:700;color:var(--rt-muted)}
+
+/* Navigation */
+.rt-nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+
+/* Topic badge */
+.rt-topic{display:inline-block;padding:3px 10px;border-radius:10px;font-size:.72rem;font-weight:600;background:#ede9fe;color:#7c3aed;margin-bottom:8px}
+.rt-diff{display:inline-block;padding:3px 10px;border-radius:10px;font-size:.72rem;font-weight:600;margin-left:6px}
+.rt-diff--easy{background:#d1fae5;color:#065f46}
+.rt-diff--medium{background:#fef3c7;color:#92400e}
+.rt-diff--hard{background:#fee2e2;color:#991b1b}
+
+/* Score display */
+.rt-score-bar{display:flex;gap:12px;flex-wrap:wrap;margin:12px 0}
+.rt-score-item{text-align:center;flex:1;min-width:80px}
+.rt-score-item__val{font-size:1.5rem;font-weight:800}
+.rt-score-item__label{font-size:.72rem;color:var(--rt-muted);font-weight:600}
+
+/* Sync bar */
+.rt-sync{background:var(--rt-card);border:1px solid #e2e8f0;border-radius:var(--rt-radius);padding:12px 16px;margin-bottom:16px;display:none}
+
+/* Mobile */
+@media(max-width:768px){
+  .rt-header__title{font-size:1.35rem}
+  .rt-tab{padding:8px 12px;font-size:.75rem}
+  .rt-passage{font-size:.85rem;padding:10px 12px}
+  .rt-ro-sentence{font-size:.82rem;padding:10px 12px}
+  .rt-mc-opt{font-size:.82rem;padding:10px 12px}
+}
+@media(max-width:400px){
+  .rt-page{padding:12px 8px 40px}
+  .rt-card{padding:14px 12px}
+}
+</style>
+</head>
+<body>
+<div class="rt-page">
+
+  <!-- Header -->
+  <header class="rt-header">
+    <a href="index.html" class="rt-header__back">&larr; Back to Study Planner</a>
+    <h1 class="rt-header__title">PTE <span>Reading Trainer</span></h1>
+    <p class="rt-header__sub">Target: Reading 68 &rarr; 79+ | Focus on cross-scoring items</p>
+    <div class="rt-stats" id="headerStats"></div>
+  </header>
+
+  <!-- Tabs -->
+  <div class="rt-tabs" id="tabs">
+    <button class="rt-tab rt-tab--active" data-tab="rwfib">R&amp;W FIB<span class="rt-tab__count" id="tcRwfib"></span></button>
+    <button class="rt-tab" data-tab="reorder">Re-order<span class="rt-tab__count" id="tcReorder"></span></button>
+    <button class="rt-tab" data-tab="readfib">Reading FIB<span class="rt-tab__count" id="tcReadfib"></span></button>
+    <button class="rt-tab" data-tab="mcma">MC Multiple<span class="rt-tab__count" id="tcMcma"></span></button>
+    <button class="rt-tab" data-tab="mcsa">MC Single<span class="rt-tab__count" id="tcMcsa"></span></button>
+    <button class="rt-tab" data-tab="progress">Progress</button>
+  </div>
+
+  <!-- Sync bar -->
+  <div class="rt-sync" id="syncBar">
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <button class="rt-btn rt-btn--sm rt-btn--ghost" onclick="exportProgress()">Export Progress</button>
+      <button class="rt-btn rt-btn--sm rt-btn--ghost" onclick="importProgress()">Import Progress</button>
+      <span id="syncMsg" style="font-size:.8rem;color:var(--rt-muted);align-self:center;"></span>
+    </div>
+  </div>
+
+  <!-- ═══════════ R&W FIB Panel ═══════════ -->
+  <div class="rt-panel rt-panel--active" id="panel-rwfib">
+    <div class="rt-card">
+      <div class="rt-card__title">Reading &amp; Writing: Fill in the Blanks</div>
+      <p style="font-size:.84rem;color:var(--rt-muted);margin:0;">Highest priority — cross-scores into BOTH Reading and Writing. Select the correct word for each blank.</p>
+    </div>
+    <div class="rt-nav">
+      <div class="rt-btn-group">
+        <button class="rt-btn rt-btn--ghost rt-btn--sm" id="rwfibPrev">&larr; Prev</button>
+        <button class="rt-btn rt-btn--ghost rt-btn--sm" id="rwfibNext">Next &rarr;</button>
+      </div>
+      <span class="rt-counter" id="rwfibCounter">1 / --</span>
+    </div>
+    <div id="rwfibExercise"></div>
+  </div>
+
+  <!-- ═══════════ Re-order Panel ═══════════ -->
+  <div class="rt-panel" id="panel-reorder">
+    <div class="rt-card">
+      <div class="rt-card__title">Re-order Paragraphs</div>
+      <p style="font-size:.84rem;color:var(--rt-muted);margin:0;">Click sentences in the correct order. Look for topic sentences, pronoun references, and logical connectors.</p>
+    </div>
+    <div class="rt-nav">
+      <div class="rt-btn-group">
+        <button class="rt-btn rt-btn--ghost rt-btn--sm" id="reorderPrev">&larr; Prev</button>
+        <button class="rt-btn rt-btn--ghost rt-btn--sm" id="reorderNext">Next &rarr;</button>
+      </div>
+      <span class="rt-counter" id="reorderCounter">1 / --</span>
+    </div>
+    <div id="reorderExercise"></div>
+  </div>
+
+  <!-- ═══════════ Reading FIB Panel ═══════════ -->
+  <div class="rt-panel" id="panel-readfib">
+    <div class="rt-card">
+      <div class="rt-card__title">Reading: Fill in the Blanks</div>
+      <p style="font-size:.84rem;color:var(--rt-muted);margin:0;">Drag words from the word bank to fill the blanks. Click a blank to place the selected word.</p>
+    </div>
+    <div class="rt-nav">
+      <div class="rt-btn-group">
+        <button class="rt-btn rt-btn--ghost rt-btn--sm" id="readfibPrev">&larr; Prev</button>
+        <button class="rt-btn rt-btn--ghost rt-btn--sm" id="readfibNext">Next &rarr;</button>
+      </div>
+      <span class="rt-counter" id="readfibCounter">1 / --</span>
+    </div>
+    <div id="readfibExercise"></div>
+  </div>
+
+  <!-- ═══════════ MCMA Panel ═══════════ -->
+  <div class="rt-panel" id="panel-mcma">
+    <div class="rt-card">
+      <div class="rt-card__title">Multiple Choice — Multiple Answers</div>
+      <p style="font-size:.84rem;color:var(--rt-muted);margin:0;">Select ALL correct answers. Negative marking applies — wrong selections lose points.</p>
+    </div>
+    <div class="rt-nav">
+      <div class="rt-btn-group">
+        <button class="rt-btn rt-btn--ghost rt-btn--sm" id="mcmaPrev">&larr; Prev</button>
+        <button class="rt-btn rt-btn--ghost rt-btn--sm" id="mcmaNext">Next &rarr;</button>
+      </div>
+      <span class="rt-counter" id="mcmaCounter">1 / --</span>
+    </div>
+    <div id="mcmaExercise"></div>
+  </div>
+
+  <!-- ═══════════ MCSA Panel ═══════════ -->
+  <div class="rt-panel" id="panel-mcsa">
+    <div class="rt-card">
+      <div class="rt-card__title">Multiple Choice — Single Answer</div>
+      <p style="font-size:.84rem;color:var(--rt-muted);margin:0;">Select the ONE best answer.</p>
+    </div>
+    <div class="rt-nav">
+      <div class="rt-btn-group">
+        <button class="rt-btn rt-btn--ghost rt-btn--sm" id="mcsaPrev">&larr; Prev</button>
+        <button class="rt-btn rt-btn--ghost rt-btn--sm" id="mcsaNext">Next &rarr;</button>
+      </div>
+      <span class="rt-counter" id="mcsaCounter">1 / --</span>
+    </div>
+    <div id="mcsaExercise"></div>
+  </div>
+
+  <!-- ═══════════ Progress Panel ═══════════ -->
+  <div class="rt-panel" id="panel-progress">
+    <div class="rt-card">
+      <div class="rt-card__title">Reading Training Progress</div>
+      <div id="progressContent"></div>
+    </div>
+    <div class="rt-card">
+      <div class="rt-card__title">Score Targets</div>
+      <div class="rt-score-bar">
+        <div class="rt-score-item"><div class="rt-score-item__val" style="color:var(--rt-red)">68</div><div class="rt-score-item__label">Current Reading</div></div>
+        <div class="rt-score-item"><div class="rt-score-item__val" style="color:var(--rt-orange)">&rarr;</div><div class="rt-score-item__label"></div></div>
+        <div class="rt-score-item"><div class="rt-score-item__val" style="color:var(--rt-green)">79+</div><div class="rt-score-item__label">Target</div></div>
+      </div>
+      <p style="font-size:.84rem;color:var(--rt-muted);line-height:1.6;">Focus order: R&amp;W FIB (cross-scores) &gt; Re-order Paragraphs &gt; Reading FIB &gt; MC items. Master R&amp;W FIB first — it boosts both Reading AND Writing scores.</p>
+    </div>
+    <button class="rt-btn rt-btn--ghost rt-btn--sm" onclick="if(confirm('Reset ALL reading progress?')){localStorage.removeItem(STATE_KEY);location.reload();}">Reset Progress</button>
+  </div>
+
+</div>
+
+<!-- Data -->
+<script src="js/reading-data.js"></script>
+<script src="js/reading-reorder-data.js"></script>
+<script src="js/sync.js"></script>
+
+<script>
+(function() {
+'use strict';
+
+var STATE_KEY = 'pte_reading_v1';
+var state = JSON.parse(localStorage.getItem(STATE_KEY) || '{}');
+if (!state.answered) state.answered = {};
+if (!state.indices) state.indices = { rwfib: 0, reorder: 0, readfib: 0, mcma: 0, mcsa: 0 };
+if (!state.tab) state.tab = 'rwfib';
+
+function save() { localStorage.setItem(STATE_KEY, JSON.stringify(state)); }
+function $(sel) { return document.querySelector(sel); }
+
+/* ── Data access ── */
+function getRwfib() { return (typeof PTE_READING !== 'undefined' && PTE_READING.rwFib) ? PTE_READING.rwFib : []; }
+function getReadfib() { return (typeof PTE_READING !== 'undefined' && PTE_READING.readFib) ? PTE_READING.readFib : []; }
+function getMcma() { return (typeof PTE_READING !== 'undefined' && PTE_READING.mcma) ? PTE_READING.mcma : []; }
+function getMcsa() { return (typeof PTE_READING !== 'undefined' && PTE_READING.mcsa) ? PTE_READING.mcsa : []; }
+function getReorder() { return (typeof PTE_REORDER !== 'undefined') ? PTE_REORDER : []; }
+function getAttempt(uid) { return state.answered[uid] || null; }
+
+/* ── Tab switching ── */
+function switchTab(tab) {
+  state.tab = tab; save();
+  var tabs = document.querySelectorAll('.rt-tab');
+  for (var i = 0; i < tabs.length; i++) {
+    tabs[i].classList.toggle('rt-tab--active', tabs[i].getAttribute('data-tab') === tab);
+  }
+  var panels = document.querySelectorAll('.rt-panel');
+  for (var j = 0; j < panels.length; j++) {
+    panels[j].classList.toggle('rt-panel--active', panels[j].id === 'panel-' + tab);
+  }
+  renderCurrent();
+}
+
+function renderCurrent() {
+  var tab = state.tab;
+  if (tab === 'rwfib') renderRwfib();
+  else if (tab === 'reorder') renderReorder();
+  else if (tab === 'readfib') renderReadfib();
+  else if (tab === 'mcma') renderMcma();
+  else if (tab === 'mcsa') renderMcsa();
+  else if (tab === 'progress') renderProgress();
+}
+
+/* ── Navigation helpers ── */
+function navigate(type, dir) {
+  var data;
+  if (type === 'rwfib') data = getRwfib();
+  else if (type === 'reorder') data = getReorder();
+  else if (type === 'readfib') data = getReadfib();
+  else if (type === 'mcma') data = getMcma();
+  else if (type === 'mcsa') data = getMcsa();
+  else return;
+  if (!data.length) return;
+  state.indices[type] = Math.max(0, Math.min(data.length - 1, state.indices[type] + dir));
+  save(); renderCurrent();
+}
+
+/* ══════════════════════════════════════════
+   R&W FILL IN BLANKS
+   ══════════════════════════════════════════ */
+function renderRwfib() {
+  var data = getRwfib();
+  var idx = state.indices.rwfib || 0;
+  var el = document.getElementById('rwfibExercise');
+  var counter = document.getElementById('rwfibCounter');
+  if (!data.length) { el.innerHTML = '<div class="rt-card"><p>Loading exercises...</p></div>'; counter.textContent = '0 / 0'; return; }
+  if (idx >= data.length) idx = data.length - 1;
+  var ex = data[idx];
+  counter.innerHTML = '<strong>' + (idx + 1) + '</strong> / ' + data.length;
+
+  var attempt = getAttempt('rwfib_' + ex.id);
+  var checked = !!attempt;
+
+  // Build passage with dropdowns
+  var passage = ex.passage;
+  for (var b = 0; b < ex.blanks.length; b++) {
+    var blank = ex.blanks[b];
+    var tag = '___(' + blank.pos + ')';
+    var sel = '<select class="rt-blank-select" data-blank="' + b + '"' + (checked ? ' disabled' : '') + '>';
+    sel += '<option value="-1">Select...</option>';
+    for (var o = 0; o < blank.options.length; o++) {
+      var selected = '';
+      if (checked && attempt.selections && attempt.selections[b] !== undefined) {
+        if (attempt.selections[b] === o) selected = ' selected';
+      }
+      sel += '<option value="' + o + '"' + selected + '>' + blank.options[o] + '</option>';
+    }
+    sel += '</select>';
+    passage = passage.replace(tag, sel);
+  }
+
+  var h = '<div class="rt-card">';
+  if (ex.topic) h += '<span class="rt-topic">' + ex.topic + '</span>';
+  if (ex.difficulty) h += '<span class="rt-diff rt-diff--' + ex.difficulty + '">' + ex.difficulty + '</span>';
+  h += '<div class="rt-passage">' + passage + '</div>';
+  if (!checked) {
+    h += '<button class="rt-btn rt-btn--primary" onclick="checkRwfib()">Check Answers</button>';
+  } else {
+    // Show results
+    var correct = attempt.correct;
+    var total = ex.blanks.length;
+    h += '<div style="margin-top:12px;font-weight:700;color:' + (correct === total ? 'var(--rt-green)' : 'var(--rt-red)') + ';">';
+    h += correct + ' / ' + total + ' correct</div>';
+    h += '<button class="rt-btn rt-btn--ghost rt-btn--sm" style="margin-top:8px;" onclick="retryRwfib()">Retry</button>';
+  }
+  h += '</div>';
+  el.innerHTML = h;
+
+  // Apply colors after render
+  if (checked) {
+    var selects = el.querySelectorAll('.rt-blank-select');
+    for (var s = 0; s < selects.length; s++) {
+      var bi = parseInt(selects[s].getAttribute('data-blank'));
+      var correctAns = ex.blanks[bi].answer;
+      var userAns = attempt.selections ? attempt.selections[bi] : -1;
+      if (userAns === correctAns) selects[s].classList.add('rt-blank-select--correct');
+      else selects[s].classList.add('rt-blank-select--wrong');
+    }
+  }
+}
+
+window.checkRwfib = function() {
+  var data = getRwfib();
+  var idx = state.indices.rwfib || 0;
+  var ex = data[idx];
+  var selects = document.querySelectorAll('#rwfibExercise .rt-blank-select');
+  var selections = [];
+  var correct = 0;
+  for (var i = 0; i < selects.length; i++) {
+    var val = parseInt(selects[i].value);
+    selections.push(val);
+    if (val === ex.blanks[i].answer) correct++;
+  }
+  state.answered['rwfib_' + ex.id] = { selections: selections, correct: correct, total: ex.blanks.length };
+  save(); renderRwfib(); updateStats();
+};
+
+window.retryRwfib = function() {
+  var data = getRwfib();
+  var idx = state.indices.rwfib || 0;
+  delete state.answered['rwfib_' + data[idx].id];
+  save(); renderRwfib(); updateStats();
+};
+
+/* ══════════════════════════════════════════
+   RE-ORDER PARAGRAPHS
+   ══════════════════════════════════════════ */
+var roPlaced = [];
+
+function renderReorder() {
+  var data = getReorder();
+  var idx = state.indices.reorder || 0;
+  var el = document.getElementById('reorderExercise');
+  var counter = document.getElementById('reorderCounter');
+  if (!data.length) { el.innerHTML = '<div class="rt-card"><p>Loading exercises...</p></div>'; counter.textContent = '0 / 0'; return; }
+  if (idx >= data.length) idx = data.length - 1;
+  var ex = data[idx];
+  counter.innerHTML = '<strong>' + (idx + 1) + '</strong> / ' + data.length;
+
+  var attempt = getAttempt('ro_' + ex.id);
+  var checked = !!attempt;
+
+  if (!checked) roPlaced = [];
+
+  var h = '<div class="rt-card">';
+  if (ex.topic) h += '<span class="rt-topic">' + ex.topic + '</span>';
+  if (ex.difficulty) h += '<span class="rt-diff rt-diff--' + ex.difficulty + '">' + ex.difficulty + '</span>';
+
+  // Answer area
+  h += '<div class="rt-card__title" style="margin-top:8px;">Your Order:</div>';
+  h += '<div class="rt-ro-answer" id="roAnswer">';
+  if (checked) {
+    var userOrder = attempt.order;
+    for (var a = 0; a < userOrder.length; a++) {
+      var sent = null;
+      for (var f = 0; f < ex.sentences.length; f++) {
+        if (ex.sentences[f].label === userOrder[a]) { sent = ex.sentences[f]; break; }
+      }
+      var isCorrect = userOrder[a] === ex.correctOrder[a];
+      h += '<div class="rt-ro-answer-item' + (isCorrect ? ' rt-ro-answer-item--correct' : ' rt-ro-answer-item--wrong') + '">';
+      h += '<span class="rt-ro-num">' + (a + 1) + '</span>';
+      h += '<span class="rt-ro-label">' + userOrder[a] + '</span> ' + (sent ? sent.text : '');
+      h += '</div>';
+    }
+  } else {
+    for (var p = 0; p < roPlaced.length; p++) {
+      var ps = null;
+      for (var pf = 0; pf < ex.sentences.length; pf++) {
+        if (ex.sentences[pf].label === roPlaced[p]) { ps = ex.sentences[pf]; break; }
+      }
+      h += '<div class="rt-ro-answer-item" onclick="roRemove(' + p + ')">';
+      h += '<span class="rt-ro-num">' + (p + 1) + '</span>';
+      h += '<span class="rt-ro-label">' + roPlaced[p] + '</span> ' + (ps ? ps.text : '');
+      h += '</div>';
+    }
+    if (!roPlaced.length) h += '<p style="color:var(--rt-muted);font-size:.84rem;text-align:center;margin:12px 0;">Click sentences below in the correct order</p>';
+  }
+  h += '</div>';
+
+  // Sentence pool
+  if (!checked) {
+    h += '<div class="rt-card__title">Sentences:</div>';
+    h += '<div class="rt-ro-pool">';
+    // Shuffle sentences deterministically for this exercise
+    var shuffled = ex.sentences.slice();
+    for (var si = 0; si < shuffled.length; si++) {
+      var isPlaced = roPlaced.indexOf(shuffled[si].label) >= 0;
+      h += '<div class="rt-ro-sentence' + (isPlaced ? ' rt-ro-sentence--placed' : '') + '" onclick="' + (isPlaced ? '' : 'roPlace(\'' + shuffled[si].label + '\')') + '">';
+      h += '<span class="rt-ro-label">' + shuffled[si].label + '</span>';
+      h += shuffled[si].text;
+      h += '</div>';
+    }
+    h += '</div>';
+    h += '<div class="rt-btn-group">';
+    h += '<button class="rt-btn rt-btn--primary"' + (roPlaced.length < ex.sentences.length ? ' disabled' : '') + ' onclick="checkReorder()">Check Order</button>';
+    h += '<button class="rt-btn rt-btn--ghost rt-btn--sm" onclick="roPlaced=[];renderReorder();">Clear</button>';
+    h += '</div>';
+  } else {
+    // Score
+    var roCorrect = 0;
+    for (var rc = 0; rc < attempt.order.length; rc++) {
+      if (attempt.order[rc] === ex.correctOrder[rc]) roCorrect++;
+    }
+    h += '<div style="margin-top:12px;font-weight:700;color:' + (roCorrect === ex.correctOrder.length ? 'var(--rt-green)' : 'var(--rt-red)') + ';">';
+    h += roCorrect + ' / ' + ex.correctOrder.length + ' in correct position</div>';
+    h += '<div style="margin-top:8px;font-size:.84rem;color:var(--rt-muted);">Correct order: <strong>' + ex.correctOrder.join(' → ') + '</strong></div>';
+
+    // Strategy
+    if (ex.strategy) {
+      h += '<div class="rt-strategy rt-strategy--show">';
+      h += '<div class="rt-strategy__title">Strategy Explanation:</div>';
+      h += ex.strategy;
+      if (ex.keyClues) {
+        h += '<div class="rt-clues">';
+        for (var kc = 0; kc < ex.keyClues.length; kc++) {
+          h += '<span class="rt-clue">' + ex.keyClues[kc] + '</span>';
+        }
+        h += '</div>';
+      }
+      h += '</div>';
+    }
+    h += '<button class="rt-btn rt-btn--ghost rt-btn--sm" style="margin-top:8px;" onclick="retryReorder()">Retry</button>';
+  }
+  h += '</div>';
+  el.innerHTML = h;
+}
+
+window.roPlace = function(label) { roPlaced.push(label); renderReorder(); };
+window.roRemove = function(idx) { roPlaced.splice(idx, 1); renderReorder(); };
+
+window.checkReorder = function() {
+  var data = getReorder();
+  var idx = state.indices.reorder || 0;
+  var ex = data[idx];
+  state.answered['ro_' + ex.id] = { order: roPlaced.slice() };
+  save(); renderReorder(); updateStats();
+};
+
+window.retryReorder = function() {
+  var data = getReorder();
+  var idx = state.indices.reorder || 0;
+  delete state.answered['ro_' + data[idx].id];
+  roPlaced = [];
+  save(); renderReorder(); updateStats();
+};
+
+/* ══════════════════════════════════════════
+   READING FILL IN BLANKS (word bank)
+   ══════════════════════════════════════════ */
+var rfSelectedWord = null;
+
+function renderReadfib() {
+  var data = getReadfib();
+  var idx = state.indices.readfib || 0;
+  var el = document.getElementById('readfibExercise');
+  var counter = document.getElementById('readfibCounter');
+  if (!data.length) { el.innerHTML = '<div class="rt-card"><p>Loading exercises...</p></div>'; counter.textContent = '0 / 0'; return; }
+  if (idx >= data.length) idx = data.length - 1;
+  var ex = data[idx];
+  counter.innerHTML = '<strong>' + (idx + 1) + '</strong> / ' + data.length;
+
+  var attempt = getAttempt('rf_' + ex.id);
+  var checked = !!attempt;
+
+  // Build passage with blank slots
+  var passage = ex.passage;
+  for (var b = 0; b < ex.blanks.length; b++) {
+    var blank = ex.blanks[b];
+    var tag = '___(' + blank.pos + ')';
+    var filled = checked && attempt.fills ? (attempt.fills[b] || '') : '';
+    var cls = 'rt-blank-slot';
+    if (filled) cls += ' rt-blank-slot--filled';
+    if (checked) {
+      if (filled.toLowerCase() === blank.answer.toLowerCase()) cls += ' rt-blank-slot--correct';
+      else cls += ' rt-blank-slot--wrong';
+    }
+    var slot = '<span class="' + cls + '" data-blank="' + b + '"' + (!checked ? ' onclick="rfClickBlank(' + b + ')"' : '') + '>' + (filled || '(' + blank.pos + ')') + '</span>';
+    passage = passage.replace(tag, slot);
+  }
+
+  var h = '<div class="rt-card">';
+  if (ex.topic) h += '<span class="rt-topic">' + ex.topic + '</span>';
+  h += '<div class="rt-passage">' + passage + '</div>';
+
+  // Word bank
+  if (!checked) {
+    h += '<div class="rt-card__title">Word Bank:</div>';
+    h += '<div class="rt-wordbank">';
+    var usedWords = [];
+    if (attempt && attempt.fills) {
+      for (var uw = 0; uw < attempt.fills.length; uw++) {
+        if (attempt.fills[uw]) usedWords.push(attempt.fills[uw].toLowerCase());
+      }
+    }
+    for (var w = 0; w < ex.wordBank.length; w++) {
+      var word = ex.wordBank[w];
+      var isUsed = usedWords.indexOf(word.toLowerCase()) >= 0;
+      h += '<span class="rt-word' + (isUsed ? ' rt-word--used' : '') + '" onclick="rfSelectWord(\'' + word.replace(/'/g, "\\'") + '\')">' + word + '</span>';
+    }
+    h += '</div>';
+    h += '<button class="rt-btn rt-btn--primary" onclick="checkReadfib()">Check Answers</button>';
+  } else {
+    var rfCorrect = 0;
+    for (var rc = 0; rc < ex.blanks.length; rc++) {
+      if (attempt.fills && attempt.fills[rc] && attempt.fills[rc].toLowerCase() === ex.blanks[rc].answer.toLowerCase()) rfCorrect++;
+    }
+    h += '<div style="margin-top:12px;font-weight:700;color:' + (rfCorrect === ex.blanks.length ? 'var(--rt-green)' : 'var(--rt-red)') + ';">';
+    h += rfCorrect + ' / ' + ex.blanks.length + ' correct</div>';
+    h += '<div style="margin-top:6px;font-size:.84rem;color:var(--rt-muted);">Answers: ';
+    for (var ans = 0; ans < ex.blanks.length; ans++) {
+      h += '(' + ex.blanks[ans].pos + ') <strong>' + ex.blanks[ans].answer + '</strong>';
+      if (ans < ex.blanks.length - 1) h += ', ';
+    }
+    h += '</div>';
+    h += '<button class="rt-btn rt-btn--ghost rt-btn--sm" style="margin-top:8px;" onclick="retryReadfib()">Retry</button>';
+  }
+  h += '</div>';
+  el.innerHTML = h;
+}
+
+// Temp storage for blank fills before checking
+var rfFills = {};
+
+window.rfSelectWord = function(word) { rfSelectedWord = word; };
+window.rfClickBlank = function(blankIdx) {
+  if (!rfSelectedWord) return;
+  rfFills[blankIdx] = rfSelectedWord;
+  var slots = document.querySelectorAll('#readfibExercise .rt-blank-slot');
+  for (var i = 0; i < slots.length; i++) {
+    if (parseInt(slots[i].getAttribute('data-blank')) === blankIdx) {
+      slots[i].textContent = rfSelectedWord;
+      slots[i].classList.add('rt-blank-slot--filled');
+    }
+  }
+  // Mark word as used
+  var words = document.querySelectorAll('#readfibExercise .rt-word');
+  for (var w = 0; w < words.length; w++) {
+    if (words[w].textContent === rfSelectedWord) words[w].classList.add('rt-word--used');
+  }
+  rfSelectedWord = null;
+};
+
+window.checkReadfib = function() {
+  var data = getReadfib();
+  var idx = state.indices.readfib || 0;
+  var ex = data[idx];
+  var fills = [];
+  for (var b = 0; b < ex.blanks.length; b++) {
+    fills.push(rfFills[b] || '');
+  }
+  state.answered['rf_' + ex.id] = { fills: fills };
+  rfFills = {};
+  save(); renderReadfib(); updateStats();
+};
+
+window.retryReadfib = function() {
+  var data = getReadfib();
+  var idx = state.indices.readfib || 0;
+  delete state.answered['rf_' + data[idx].id];
+  rfFills = {};
+  save(); renderReadfib(); updateStats();
+};
+
+/* ══════════════════════════════════════════
+   MCMA (Multiple Choice Multiple Answer)
+   ══════════════════════════════════════════ */
+var mcmaSelected = {};
+
+function renderMcma() {
+  var data = getMcma();
+  var idx = state.indices.mcma || 0;
+  var el = document.getElementById('mcmaExercise');
+  var counter = document.getElementById('mcmaCounter');
+  if (!data.length) { el.innerHTML = '<div class="rt-card"><p>Loading exercises...</p></div>'; counter.textContent = '0 / 0'; return; }
+  if (idx >= data.length) idx = data.length - 1;
+  var ex = data[idx];
+  counter.innerHTML = '<strong>' + (idx + 1) + '</strong> / ' + data.length;
+
+  var attempt = getAttempt('mcma_' + ex.id);
+  var checked = !!attempt;
+  if (!checked) mcmaSelected = {};
+
+  var h = '<div class="rt-card">';
+  if (ex.topic) h += '<span class="rt-topic">' + ex.topic + '</span>';
+  h += '<div class="rt-passage">' + ex.passage + '</div>';
+  h += '<div class="rt-card__title">' + ex.question + '</div>';
+
+  for (var o = 0; o < ex.options.length; o++) {
+    var cls = 'rt-mc-opt';
+    if (checked) {
+      var isCorrect = ex.answers.indexOf(o) >= 0;
+      var wasSelected = attempt.selected.indexOf(o) >= 0;
+      if (isCorrect) cls += ' rt-mc-opt--correct';
+      else if (wasSelected) cls += ' rt-mc-opt--wrong';
+      if (wasSelected) cls += ' rt-mc-opt--selected';
+    } else {
+      if (mcmaSelected[o]) cls += ' rt-mc-opt--selected';
+    }
+    h += '<div class="' + cls + '"' + (!checked ? ' onclick="mcmaToggle(' + o + ')"' : '') + '>';
+    h += '<span class="rt-mc-check">' + ((checked && (attempt.selected.indexOf(o) >= 0)) || mcmaSelected[o] ? '✓' : '') + '</span>';
+    h += '<span>' + ex.options[o] + '</span>';
+    h += '</div>';
+  }
+
+  if (!checked) {
+    h += '<button class="rt-btn rt-btn--primary" style="margin-top:12px;" onclick="checkMcma()">Check Answer</button>';
+  } else {
+    var mcCorrect = 0;
+    for (var ac = 0; ac < attempt.selected.length; ac++) {
+      if (ex.answers.indexOf(attempt.selected[ac]) >= 0) mcCorrect++;
+      else mcCorrect--;
+    }
+    mcCorrect = Math.max(0, mcCorrect);
+    h += '<div style="margin-top:12px;font-weight:700;color:' + (mcCorrect === ex.answers.length ? 'var(--rt-green)' : 'var(--rt-red)') + ';">';
+    h += 'Score: ' + mcCorrect + ' / ' + ex.answers.length + '</div>';
+    h += '<button class="rt-btn rt-btn--ghost rt-btn--sm" style="margin-top:8px;" onclick="retryMcma()">Retry</button>';
+  }
+  h += '</div>';
+  el.innerHTML = h;
+}
+
+window.mcmaToggle = function(idx) { mcmaSelected[idx] = !mcmaSelected[idx]; renderMcma(); };
+
+window.checkMcma = function() {
+  var data = getMcma();
+  var idx = state.indices.mcma || 0;
+  var ex = data[idx];
+  var selected = [];
+  for (var k in mcmaSelected) { if (mcmaSelected[k]) selected.push(parseInt(k)); }
+  state.answered['mcma_' + ex.id] = { selected: selected };
+  save(); renderMcma(); updateStats();
+};
+
+window.retryMcma = function() {
+  var data = getMcma();
+  var idx = state.indices.mcma || 0;
+  delete state.answered['mcma_' + data[idx].id];
+  mcmaSelected = {};
+  save(); renderMcma(); updateStats();
+};
+
+/* ══════════════════════════════════════════
+   MCSA (Multiple Choice Single Answer)
+   ══════════════════════════════════════════ */
+var mcsaSelected = -1;
+
+function renderMcsa() {
+  var data = getMcsa();
+  var idx = state.indices.mcsa || 0;
+  var el = document.getElementById('mcsaExercise');
+  var counter = document.getElementById('mcsaCounter');
+  if (!data.length) { el.innerHTML = '<div class="rt-card"><p>Loading exercises...</p></div>'; counter.textContent = '0 / 0'; return; }
+  if (idx >= data.length) idx = data.length - 1;
+  var ex = data[idx];
+  counter.innerHTML = '<strong>' + (idx + 1) + '</strong> / ' + data.length;
+
+  var attempt = getAttempt('mcsa_' + ex.id);
+  var checked = !!attempt;
+  if (!checked) mcsaSelected = -1;
+
+  var h = '<div class="rt-card">';
+  if (ex.topic) h += '<span class="rt-topic">' + ex.topic + '</span>';
+  h += '<div class="rt-passage">' + ex.passage + '</div>';
+  h += '<div class="rt-card__title">' + ex.question + '</div>';
+
+  for (var o = 0; o < ex.options.length; o++) {
+    var cls = 'rt-mc-opt';
+    if (checked) {
+      if (o === ex.answer) cls += ' rt-mc-opt--correct';
+      else if (o === attempt.selected) cls += ' rt-mc-opt--wrong';
+      if (o === attempt.selected) cls += ' rt-mc-opt--selected';
+    } else {
+      if (o === mcsaSelected) cls += ' rt-mc-opt--selected';
+    }
+    h += '<div class="' + cls + '"' + (!checked ? ' onclick="mcsaSelect(' + o + ')"' : '') + '>';
+    h += '<span class="rt-mc-radio"></span>';
+    h += '<span>' + ex.options[o] + '</span>';
+    h += '</div>';
+  }
+
+  if (!checked) {
+    h += '<button class="rt-btn rt-btn--primary" style="margin-top:12px;" onclick="checkMcsa()">Check Answer</button>';
+  } else {
+    var isRight = attempt.selected === ex.answer;
+    h += '<div style="margin-top:12px;font-weight:700;color:' + (isRight ? 'var(--rt-green)' : 'var(--rt-red)') + ';">';
+    h += isRight ? 'Correct!' : 'Incorrect — correct answer highlighted in green';
+    h += '</div>';
+    h += '<button class="rt-btn rt-btn--ghost rt-btn--sm" style="margin-top:8px;" onclick="retryMcsa()">Retry</button>';
+  }
+  h += '</div>';
+  el.innerHTML = h;
+}
+
+window.mcsaSelect = function(idx) { mcsaSelected = idx; renderMcsa(); };
+
+window.checkMcsa = function() {
+  var data = getMcsa();
+  var idx = state.indices.mcsa || 0;
+  var ex = data[idx];
+  state.answered['mcsa_' + ex.id] = { selected: mcsaSelected };
+  save(); renderMcsa(); updateStats();
+};
+
+window.retryMcsa = function() {
+  var data = getMcsa();
+  var idx = state.indices.mcsa || 0;
+  delete state.answered['mcsa_' + data[idx].id];
+  mcsaSelected = -1;
+  save(); renderMcsa(); updateStats();
+};
+
+/* ══════════════════════════════════════════
+   PROGRESS
+   ══════════════════════════════════════════ */
+function countResults(prefix, data) {
+  var attempted = 0, correct = 0;
+  for (var i = 0; i < data.length; i++) {
+    var a = state.answered[prefix + data[i].id];
+    if (a) {
+      attempted++;
+      if (prefix === 'rwfib_' && a.correct === a.total) correct++;
+      else if (prefix === 'ro_') {
+        var roOk = true;
+        for (var r = 0; r < (a.order || []).length; r++) {
+          if (a.order[r] !== data[i].correctOrder[r]) { roOk = false; break; }
+        }
+        if (roOk) correct++;
+      } else if (prefix === 'rf_') {
+        var rfOk = true;
+        for (var f = 0; f < data[i].blanks.length; f++) {
+          if (!a.fills || !a.fills[f] || a.fills[f].toLowerCase() !== data[i].blanks[f].answer.toLowerCase()) { rfOk = false; break; }
+        }
+        if (rfOk) correct++;
+      } else if (prefix === 'mcma_') {
+        var mcOk = a.selected.length === data[i].answers.length;
+        if (mcOk) {
+          for (var m = 0; m < a.selected.length; m++) {
+            if (data[i].answers.indexOf(a.selected[m]) < 0) { mcOk = false; break; }
+          }
+        }
+        if (mcOk) correct++;
+      } else if (prefix === 'mcsa_') {
+        if (a.selected === data[i].answer) correct++;
+      }
+    }
+  }
+  return { attempted: attempted, correct: correct, total: data.length };
+}
+
+function renderProgress() {
+  var el = document.getElementById('progressContent');
+  var types = [
+    { label: 'R&W FIB (Reading+Writing)', prefix: 'rwfib_', data: getRwfib(), color: 'var(--rt-red)' },
+    { label: 'Re-order Paragraphs', prefix: 'ro_', data: getReorder(), color: 'var(--rt-orange)' },
+    { label: 'Reading FIB', prefix: 'rf_', data: getReadfib(), color: 'var(--rt-primary)' },
+    { label: 'MC Multiple Answer', prefix: 'mcma_', data: getMcma(), color: 'var(--rt-purple)' },
+    { label: 'MC Single Answer', prefix: 'mcsa_', data: getMcsa(), color: 'var(--rt-green)' }
+  ];
+  var h = '';
+  types.forEach(function(t) {
+    var r = countResults(t.prefix, t.data);
+    var pct = r.attempted ? Math.round(r.correct / r.attempted * 100) : 0;
+    h += '<div style="margin-bottom:16px;">';
+    h += '<div style="display:flex;justify-content:space-between;margin-bottom:4px;">';
+    h += '<span style="font-weight:700;font-size:.88rem;">' + t.label + '</span>';
+    h += '<span style="font-size:.82rem;color:var(--rt-muted);">' + r.correct + '/' + r.attempted + ' correct (' + r.total + ' total)</span>';
+    h += '</div>';
+    h += '<div style="height:8px;background:#e2e8f0;border-radius:4px;overflow:hidden;">';
+    h += '<div style="height:100%;width:' + (r.attempted ? Math.round(r.attempted / r.total * 100) : 0) + '%;background:' + t.color + ';border-radius:4px;"></div>';
+    h += '</div>';
+    h += '<div style="font-size:.75rem;color:var(--rt-muted);margin-top:2px;">Accuracy: ' + pct + '%</div>';
+    h += '</div>';
+  });
+  el.innerHTML = h;
+}
+
+function updateStats() {
+  var rwR = countResults('rwfib_', getRwfib());
+  var roR = countResults('ro_', getReorder());
+  var rfR = countResults('rf_', getReadfib());
+  var mcmaR = countResults('mcma_', getMcma());
+  var mcsaR = countResults('mcsa_', getMcsa());
+  var totalAttempted = rwR.attempted + roR.attempted + rfR.attempted + mcmaR.attempted + mcsaR.attempted;
+  var totalCorrect = rwR.correct + roR.correct + rfR.correct + mcmaR.correct + mcsaR.correct;
+  var totalEx = rwR.total + roR.total + rfR.total + mcmaR.total + mcsaR.total;
+  var pct = totalAttempted ? Math.round(totalCorrect / totalAttempted * 100) : 0;
+
+  var el = document.getElementById('headerStats');
+  el.innerHTML = '<span class="rt-stat">Exercises: ' + totalEx + '</span>' +
+    '<span class="rt-stat">Done: ' + totalAttempted + '/' + totalEx + '</span>' +
+    '<span class="rt-stat' + (pct >= 80 ? ' rt-stat--ok' : ' rt-stat--warn') + '">Accuracy: ' + pct + '%</span>';
+
+  // Tab counts
+  var tc = document.getElementById('tcRwfib');
+  if (tc) tc.textContent = ' (' + rwR.attempted + '/' + rwR.total + ')';
+  tc = document.getElementById('tcReorder');
+  if (tc) tc.textContent = ' (' + roR.attempted + '/' + roR.total + ')';
+  tc = document.getElementById('tcReadfib');
+  if (tc) tc.textContent = ' (' + rfR.attempted + '/' + rfR.total + ')';
+  tc = document.getElementById('tcMcma');
+  if (tc) tc.textContent = ' (' + mcmaR.attempted + '/' + mcmaR.total + ')';
+  tc = document.getElementById('tcMcsa');
+  if (tc) tc.textContent = ' (' + mcsaR.attempted + '/' + mcsaR.total + ')';
+}
+
+/* ══════════════════════════════════════════
+   INIT
+   ══════════════════════════════════════════ */
+function init() {
+  // Tab events
+  var tabs = document.querySelectorAll('.rt-tab');
+  for (var i = 0; i < tabs.length; i++) {
+    tabs[i].addEventListener('click', function() { switchTab(this.getAttribute('data-tab')); });
+  }
+  // Nav events
+  document.getElementById('rwfibPrev').addEventListener('click', function() { navigate('rwfib', -1); });
+  document.getElementById('rwfibNext').addEventListener('click', function() { navigate('rwfib', 1); });
+  document.getElementById('reorderPrev').addEventListener('click', function() { navigate('reorder', -1); roPlaced = []; });
+  document.getElementById('reorderNext').addEventListener('click', function() { navigate('reorder', 1); roPlaced = []; });
+  document.getElementById('readfibPrev').addEventListener('click', function() { navigate('readfib', -1); rfFills = {}; });
+  document.getElementById('readfibNext').addEventListener('click', function() { navigate('readfib', 1); rfFills = {}; });
+  document.getElementById('mcmaPrev').addEventListener('click', function() { navigate('mcma', -1); mcmaSelected = {}; });
+  document.getElementById('mcmaNext').addEventListener('click', function() { navigate('mcma', 1); mcmaSelected = {}; });
+  document.getElementById('mcsaPrev').addEventListener('click', function() { navigate('mcsa', -1); mcsaSelected = -1; });
+  document.getElementById('mcsaNext').addEventListener('click', function() { navigate('mcsa', 1); mcsaSelected = -1; });
+
+  // Restore tab
+  switchTab(state.tab || 'rwfib');
+  updateStats();
+}
+
+document.addEventListener('DOMContentLoaded', init);
+
+})();
+</script>
+</body>
+</html>
