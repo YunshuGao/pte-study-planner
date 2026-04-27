@@ -1024,6 +1024,8 @@
     <button class="sp-tab" data-tab="di">Describe Image</button>
     <button class="sp-tab" data-tab="rl">Re-tell Lecture</button>
     <button class="sp-tab" data-tab="asq">Answer Short Q</button>
+    <button class="sp-tab" data-tab="templates">Templates 模板</button>
+    <button class="sp-tab" data-tab="rsbank">RS Practice Bank</button>
     <button class="sp-tab" data-tab="plan">14-Day Plan</button>
   </div>
 
@@ -1444,7 +1446,64 @@
   </div>
 
   <!-- ============================================================
-       TAB 6: 14-DAY PLAN
+       TAB 7: TEMPLATES 模板
+       ============================================================ -->
+  <div class="sp-panel" id="panel-templates">
+    <div class="sp-card">
+      <div class="sp-card__title" style="font-size:1.1rem;">Speaking Templates &amp; Strategy 万能模板</div>
+      <p style="font-size:.88rem;color:var(--sp-muted);line-height:1.6;">Your Speaking target is <strong style="color:var(--sp-green);">88</strong> (currently 90). These templates ensure consistent, high-scoring responses for every item type. Memorise the structure, adapt the content.</p>
+    </div>
+
+    <!-- Template selector -->
+    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;" id="templateNav">
+      <button class="sp-diff-pill active" data-tpl="ra" onclick="showTemplate('ra')">Read Aloud</button>
+      <button class="sp-diff-pill" data-tpl="rs" onclick="showTemplate('rs')">Repeat Sentence</button>
+      <button class="sp-diff-pill" data-tpl="di" onclick="showTemplate('di')">Describe Image</button>
+      <button class="sp-diff-pill" data-tpl="rl" onclick="showTemplate('rl')">Retell Lecture</button>
+      <button class="sp-diff-pill" data-tpl="asq" onclick="showTemplate('asq')">ASQ</button>
+    </div>
+
+    <div id="templateContent"></div>
+  </div>
+
+  <!-- ============================================================
+       TAB 8: RS PRACTICE BANK
+       ============================================================ -->
+  <div class="sp-panel" id="panel-rsbank">
+    <div class="sp-card">
+      <div class="sp-card__title" style="font-size:1.1rem;">Repeat Sentence Practice Bank</div>
+      <p style="font-size:.88rem;color:var(--sp-muted);line-height:1.6;">RS is the <strong style="color:var(--sp-red);">highest-value</strong> speaking item — it cross-scores into both Speaking AND Listening. Each sentence shows chunking (分块) to help you remember.</p>
+    </div>
+
+    <!-- Difficulty filter -->
+    <div style="display:flex;gap:6px;margin-bottom:12px;">
+      <button class="sp-diff-pill active" data-rsd="all" onclick="filterRS('all')">All</button>
+      <button class="sp-diff-pill" data-rsd="easy" onclick="filterRS('easy')">Easy (5-7)</button>
+      <button class="sp-diff-pill" data-rsd="medium" onclick="filterRS('medium')">Medium (8-10)</button>
+      <button class="sp-diff-pill" data-rsd="hard" onclick="filterRS('hard')">Hard (11-14)</button>
+    </div>
+
+    <!-- Chunking strategy card -->
+    <div class="sp-card" style="background:#fffbeb;border-color:#fde68a;">
+      <div class="sp-card__title" style="color:#92400e;">Chunking Strategy 分块记忆法</div>
+      <div id="chunkingGuide" style="font-size:.84rem;color:#78350f;line-height:1.6;"></div>
+    </div>
+
+    <!-- RS navigation -->
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+      <div>
+        <button class="sp-btn sp-btn--ghost sp-btn--sm" onclick="rsNav(-1)">&larr; Prev</button>
+        <button class="sp-btn sp-btn--ghost sp-btn--sm" onclick="rsNav(1)">Next &rarr;</button>
+      </div>
+      <span class="sp-counter" id="rsBankCounter">1 / --</span>
+    </div>
+
+    <!-- RS exercise card -->
+    <div id="rsBankExercise"></div>
+  </div>
+
+  <!-- ============================================================
+       TAB 9: 14-DAY PLAN
        ============================================================ -->
   <div class="sp-panel" id="panel-plan">
     <div class="sp-plan-motivation" id="planMotivation">Your 14-day mission to Speaking 88 starts now. Every session counts!</div>
@@ -1458,6 +1517,7 @@
 <canvas class="sp-confetti" id="confettiCanvas"></canvas>
 
 <script src="js/speaking-data.js"></script>
+<script src="js/speaking-templates.js"></script>
 <script>
 /* ============================================================
    PTE Speaking Trainer — Main Application Logic
@@ -2898,11 +2958,278 @@ document.addEventListener('keydown', e => {
 
   // Number keys to switch tabs
   if (e.code >= 'Digit1' && e.code <= 'Digit6' && !e.ctrlKey && !e.metaKey && !e.altKey) {
-    const tabKeys = ['ra', 'rs', 'di', 'rl', 'asq', 'plan'];
+    const tabKeys = ['ra', 'rs', 'di', 'rl', 'asq', 'templates', 'rsbank', 'plan'];
     const idx = parseInt(e.code.replace('Digit', '')) - 1;
     if (idx < tabKeys.length) switchTab(tabKeys[idx]);
   }
 });
+
+// ============================================================
+// TEMPLATES & RS BANK
+// ============================================================
+const TPL = typeof SPEAKING_TEMPLATES !== 'undefined' ? SPEAKING_TEMPLATES : {};
+
+function showTemplate(type) {
+  const el = document.getElementById('templateContent');
+  const navBtns = document.querySelectorAll('#templateNav .sp-diff-pill');
+  navBtns.forEach(b => b.classList.toggle('active', b.getAttribute('data-tpl') === type));
+
+  if (!TPL[type === 'ra' ? 'readAloud' : type === 'rs' ? 'repeatSentence' : type === 'di' ? 'describeImage' : type === 'rl' ? 'retellLecture' : 'asq']) {
+    el.innerHTML = '<div class="sp-card"><p style="color:var(--sp-muted);">Templates loading... Data file will be available shortly.</p></div>';
+    return;
+  }
+
+  let h = '';
+  if (type === 'ra') {
+    const d = TPL.readAloud;
+    h += '<div class="sp-card"><div class="sp-card__title">Read Aloud Strategy</div>';
+    h += '<p style="font-size:.88rem;line-height:1.6;">' + d.strategy + '</p>';
+    if (d.strategyCN) h += '<p style="font-size:.84rem;color:#92400e;line-height:1.5;">' + d.strategyCN + '</p>';
+    h += '</div>';
+    if (d.stressPatterns) {
+      h += '<div class="sp-card"><div class="sp-card__title">Stress Patterns 重读规则</div>';
+      d.stressPatterns.forEach(sp => {
+        h += '<p style="font-size:.88rem;line-height:1.6;margin-bottom:8px;">' + sp.pattern + '</p>';
+        if (sp.patternCN) h += '<p style="font-size:.84rem;color:#92400e;margin-bottom:8px;">' + sp.patternCN + '</p>';
+        if (sp.examples) sp.examples.forEach(ex => { h += '<div style="background:#f0f9ff;padding:8px 12px;border-radius:8px;font-size:.88rem;font-weight:600;margin-bottom:6px;">' + ex + '</div>'; });
+      });
+      h += '</div>';
+    }
+    if (d.pauseRules) {
+      h += '<div class="sp-card"><div class="sp-card__title">Pause Rules 停顿规则</div>';
+      d.pauseRules.forEach(pr => {
+        h += '<p style="font-size:.88rem;line-height:1.6;">' + pr.rule + '</p>';
+        if (pr.ruleCN) h += '<p style="font-size:.84rem;color:#92400e;">' + pr.ruleCN + '</p>';
+        if (pr.example) h += '<div style="background:#f0fdf4;padding:8px 12px;border-radius:8px;font-size:.92rem;font-weight:600;margin:6px 0;letter-spacing:.5px;">' + pr.example + '</div>';
+      });
+      h += '</div>';
+    }
+  } else if (type === 'rs') {
+    const d = TPL.repeatSentence;
+    h += '<div class="sp-card"><div class="sp-card__title">Repeat Sentence Strategy</div>';
+    h += '<p style="font-size:.88rem;line-height:1.6;">' + d.strategy + '</p>';
+    if (d.strategyCN) h += '<p style="font-size:.84rem;color:#92400e;">' + d.strategyCN + '</p>';
+    h += '</div>';
+    if (d.chunkingGuide) {
+      const cg = d.chunkingGuide;
+      h += '<div class="sp-card" style="background:#fffbeb;border-color:#fde68a;"><div class="sp-card__title" style="color:#92400e;">' + cg.title + '</div>';
+      if (cg.steps) cg.steps.forEach((s, i) => {
+        h += '<div style="margin-bottom:8px;"><strong style="color:#92400e;">' + (i + 1) + '.</strong> <span style="font-size:.88rem;">' + s.step + '</span>';
+        if (s.stepCN) h += '<br><span style="font-size:.82rem;color:#78350f;">' + s.stepCN + '</span>';
+        h += '</div>';
+      });
+      if (cg.memoryTechniques) {
+        h += '<div style="margin-top:12px;font-weight:700;color:#92400e;font-size:.88rem;">Memory Techniques:</div>';
+        cg.memoryTechniques.forEach(mt => {
+          h += '<div style="margin:4px 0;font-size:.86rem;">• ' + mt.technique;
+          if (mt.techniqueCN) h += ' <span style="color:#78350f;">(' + mt.techniqueCN + ')</span>';
+          h += '</div>';
+        });
+      }
+      h += '</div>';
+    }
+    if (d.difficultyProgression) {
+      d.difficultyProgression.forEach(level => {
+        h += '<div class="sp-card"><div class="sp-card__title">' + level.level;
+        if (level.levelCN) h += ' <span style="color:var(--sp-muted);font-weight:400;font-size:.82rem;">' + level.levelCN + '</span>';
+        h += '</div>';
+        if (level.examples) level.examples.forEach(ex => {
+          h += '<div style="padding:8px 12px;margin-bottom:4px;background:#f8fafc;border-radius:6px;font-size:.88rem;">' + ex + '</div>';
+        });
+        h += '</div>';
+      });
+    }
+  } else if (type === 'di') {
+    const d = TPL.describeImage;
+    h += '<div class="sp-card"><div class="sp-card__title">Describe Image Strategy</div>';
+    h += '<p style="font-size:.88rem;line-height:1.6;">' + d.strategy + '</p>';
+    if (d.strategyCN) h += '<p style="font-size:.84rem;color:#92400e;">' + d.strategyCN + '</p>';
+    h += '</div>';
+    if (d.templates) {
+      d.templates.forEach(tpl => {
+        h += '<div class="sp-card">';
+        h += '<div class="sp-card__title">' + (tpl.typeCN || tpl.type) + ' — ' + tpl.type.charAt(0).toUpperCase() + tpl.type.slice(1) + ' Chart Template</div>';
+        h += '<div style="background:#eff6ff;padding:12px;border-radius:8px;font-size:.88rem;line-height:1.7;margin-bottom:8px;font-weight:600;">' + tpl.template + '</div>';
+        if (tpl.templateCN) h += '<div style="font-size:.82rem;color:#92400e;line-height:1.5;margin-bottom:8px;">' + tpl.templateCN + '</div>';
+        if (tpl.example) {
+          h += '<details style="margin-top:8px;"><summary style="cursor:pointer;font-weight:700;font-size:.85rem;color:var(--sp-primary);">Show Example Response</summary>';
+          h += '<div style="padding:10px;background:#f0fdf4;border-radius:8px;font-size:.86rem;line-height:1.6;margin-top:6px;">' + tpl.example + '</div></details>';
+        }
+        if (tpl.keywords) {
+          h += '<div style="margin-top:8px;display:flex;gap:4px;flex-wrap:wrap;">';
+          tpl.keywords.forEach(kw => { h += '<span style="padding:3px 10px;border-radius:12px;font-size:.72rem;font-weight:600;background:#ede9fe;color:#7c3aed;">' + kw + '</span>'; });
+          h += '</div>';
+        }
+        h += '</div>';
+      });
+    }
+    if (d.universalPhrases) {
+      h += '<div class="sp-card"><div class="sp-card__title">Universal DI Phrases 万能描述短语</div>';
+      const up = d.universalPhrases;
+      ['opening', 'trends', 'comparison', 'conclusion'].forEach(cat => {
+        if (up[cat]) {
+          h += '<div style="font-weight:700;font-size:.85rem;margin:10px 0 4px;text-transform:capitalize;">' + cat + ':</div>';
+          up[cat].forEach(p => {
+            h += '<div style="font-size:.86rem;margin:2px 0;">• ' + p.en;
+            if (p.cn) h += ' <span style="color:#92400e;font-size:.8rem;">(' + p.cn + ')</span>';
+            h += '</div>';
+          });
+        }
+      });
+      h += '</div>';
+    }
+  } else if (type === 'rl') {
+    const d = TPL.retellLecture;
+    h += '<div class="sp-card"><div class="sp-card__title">Retell Lecture Strategy</div>';
+    h += '<p style="font-size:.88rem;line-height:1.6;">' + d.strategy + '</p>';
+    if (d.strategyCN) h += '<p style="font-size:.84rem;color:#92400e;">' + d.strategyCN + '</p>';
+    h += '</div>';
+    if (d.template) {
+      h += '<div class="sp-card" style="border-left:4px solid var(--sp-green);"><div class="sp-card__title">' + d.template.title + '</div>';
+      d.template.structure.forEach(part => {
+        h += '<div style="margin-bottom:12px;padding:10px;background:#f8fafc;border-radius:8px;">';
+        h += '<div style="font-weight:700;font-size:.88rem;color:var(--sp-primary);">' + part.part;
+        if (part.partCN) h += ' <span style="color:#92400e;font-weight:400;">' + part.partCN + '</span>';
+        h += '</div>';
+        h += '<div style="background:#eff6ff;padding:8px 12px;border-radius:6px;font-size:.88rem;font-weight:600;margin:6px 0;line-height:1.5;">' + part.template + '</div>';
+        if (part.templateCN) h += '<div style="font-size:.82rem;color:#92400e;">' + part.templateCN + '</div>';
+        if (part.alternatives) {
+          h += '<div style="font-size:.82rem;color:var(--sp-muted);margin-top:4px;">Alternatives: ';
+          h += part.alternatives.map(a => '"' + a + '"').join(' / ');
+          h += '</div>';
+        }
+        if (part.connectors) {
+          h += '<div style="display:flex;gap:4px;flex-wrap:wrap;margin-top:4px;">';
+          part.connectors.forEach(c => { h += '<span style="padding:2px 8px;border-radius:10px;font-size:.72rem;font-weight:600;background:#d1fae5;color:#065f46;">' + c + '</span>'; });
+          h += '</div>';
+        }
+        h += '</div>';
+      });
+      h += '</div>';
+    }
+    if (d.noteTaking) {
+      h += '<div class="sp-card" style="background:#fffbeb;border-color:#fde68a;"><div class="sp-card__title" style="color:#92400e;">' + d.noteTaking.title + '</div>';
+      d.noteTaking.tips.forEach(t => {
+        h += '<div style="margin:4px 0;font-size:.86rem;">• ' + t.tip;
+        if (t.tipCN) h += ' <span style="color:#78350f;">(' + t.tipCN + ')</span>';
+        h += '</div>';
+      });
+      h += '</div>';
+    }
+  } else if (type === 'asq') {
+    const d = TPL.asq;
+    h += '<div class="sp-card"><div class="sp-card__title">ASQ Strategy</div>';
+    h += '<p style="font-size:.88rem;line-height:1.6;">' + d.strategy + '</p>';
+    if (d.strategyCN) h += '<p style="font-size:.84rem;color:#92400e;">' + d.strategyCN + '</p>';
+    h += '</div>';
+    if (d.commonCategories) {
+      d.commonCategories.forEach(cat => {
+        h += '<div class="sp-card"><div class="sp-card__title">' + cat.cat;
+        if (cat.catCN) h += ' ' + cat.catCN;
+        h += '</div>';
+        cat.examples.forEach(ex => {
+          h += '<div style="padding:6px 0;font-size:.86rem;border-bottom:1px solid #f1f5f9;">' + ex + '</div>';
+        });
+        h += '</div>';
+      });
+    }
+  }
+
+  el.innerHTML = h || '<div class="sp-card"><p style="color:var(--sp-muted);">No template data available yet.</p></div>';
+}
+window.showTemplate = showTemplate;
+
+// RS Practice Bank
+let rsBankIdx = 0;
+let rsBankDiff = 'all';
+
+function getRSBank() {
+  return (TPL.repeatSentence && TPL.repeatSentence.practiceBank) ? TPL.repeatSentence.practiceBank : [];
+}
+
+function getFilteredRS() {
+  const bank = getRSBank();
+  if (rsBankDiff === 'all') return bank;
+  return bank.filter(s => s.difficulty === rsBankDiff);
+}
+
+function filterRS(diff) {
+  rsBankDiff = diff;
+  rsBankIdx = 0;
+  document.querySelectorAll('[data-rsd]').forEach(b => b.classList.toggle('active', b.getAttribute('data-rsd') === diff));
+  renderRSBank();
+}
+window.filterRS = filterRS;
+
+function rsNav(dir) {
+  const filtered = getFilteredRS();
+  if (!filtered.length) return;
+  rsBankIdx = Math.max(0, Math.min(filtered.length - 1, rsBankIdx + dir));
+  renderRSBank();
+}
+window.rsNav = rsNav;
+
+function renderRSBank() {
+  const filtered = getFilteredRS();
+  const counter = document.getElementById('rsBankCounter');
+  const el = document.getElementById('rsBankExercise');
+
+  if (!filtered.length) {
+    el.innerHTML = '<div class="sp-card"><p style="color:var(--sp-muted);">RS practice bank loading...</p></div>';
+    counter.textContent = '0 / 0';
+    return;
+  }
+
+  if (rsBankIdx >= filtered.length) rsBankIdx = filtered.length - 1;
+  const s = filtered[rsBankIdx];
+  counter.innerHTML = '<strong>' + (rsBankIdx + 1) + '</strong> / ' + filtered.length;
+
+  let diffCls = s.difficulty === 'easy' ? 'color:var(--sp-green)' : s.difficulty === 'medium' ? 'color:var(--sp-yellow)' : 'color:var(--sp-red)';
+
+  let h = '<div class="sp-card">';
+  h += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">';
+  h += '<span style="font-size:.78rem;font-weight:700;' + diffCls + ';">' + s.difficulty.toUpperCase() + '</span>';
+  h += '<span style="font-size:.78rem;color:var(--sp-muted);">' + s.wordCount + ' words</span>';
+  h += '</div>';
+
+  // Sentence (hidden initially, revealed on click)
+  h += '<div id="rsBankSentence" style="font-size:1.1rem;font-weight:700;line-height:1.6;padding:16px;background:#f8fafc;border-radius:8px;text-align:center;cursor:pointer;min-height:60px;" onclick="document.getElementById(\'rsBankSentence\').style.filter=\'none\'" style="filter:blur(5px);">';
+  h += s.text;
+  h += '</div>';
+
+  // Chunking guide
+  if (s.chunks) {
+    h += '<div style="margin-top:10px;padding:10px 12px;background:#fffbeb;border-radius:8px;border:1px solid #fde68a;">';
+    h += '<div style="font-size:.78rem;font-weight:700;color:#92400e;margin-bottom:4px;">Chunking 分块:</div>';
+    const chunks = s.chunks.split('|').map(c => c.trim());
+    h += '<div style="display:flex;gap:6px;flex-wrap:wrap;">';
+    chunks.forEach((chunk, i) => {
+      h += '<span style="padding:6px 12px;background:#fef3c7;border-radius:8px;font-size:.88rem;font-weight:600;color:#78350f;">' + chunk + '</span>';
+      if (i < chunks.length - 1) h += '<span style="color:#d97706;font-weight:700;">|</span>';
+    });
+    h += '</div></div>';
+  }
+
+  // Topic
+  if (s.topic) h += '<div style="margin-top:8px;font-size:.78rem;color:var(--sp-muted);">Topic: ' + s.topic + '</div>';
+
+  h += '</div>';
+  el.innerHTML = h;
+}
+
+function renderChunkingGuide() {
+  const el = document.getElementById('chunkingGuide');
+  if (!el) return;
+  const cg = TPL.repeatSentence && TPL.repeatSentence.chunkingGuide;
+  if (!cg) { el.innerHTML = 'Loading...'; return; }
+  let h = '';
+  if (cg.steps) cg.steps.forEach((s, i) => {
+    h += '<div style="margin-bottom:6px;"><strong>' + (i + 1) + '.</strong> ' + s.step;
+    if (s.stepCN) h += '<br><span style="color:#78350f;font-size:.82rem;">' + s.stepCN + '</span>';
+    h += '</div>';
+  });
+  el.innerHTML = h;
+}
 
 // ============================================================
 // INITIALISATION
@@ -2928,6 +3255,11 @@ function init() {
   renderTips('asqTips', SPEAKING_TIPS.answerShortQuestion);
 
   updateHeaderStats();
+
+  // Templates & RS Bank
+  showTemplate('ra');
+  renderRSBank();
+  renderChunkingGuide();
 
   // Load voices for TTS
   if ('speechSynthesis' in window) {
